@@ -1,7 +1,7 @@
 <template>
     <div class="card-container">
         <div class="card-header">
-            <button class="title">{{title}}</button>
+            <button class="title" v-on:click="goAlarmFn">{{title}}</button>
         </div>
         <div class="card-content">
             <div>
@@ -13,7 +13,12 @@
 
 <script>
     export default {
-        props: ['title']
+        props: ['title'],
+        methods: {
+            goAlarmFn() {
+                this.$router.push('alarmList');
+            }
+        }
     };
 </script>
 
@@ -41,6 +46,7 @@
                 background: url('~assets/card/bg_title.png') no-repeat;
                 background-size: 100% 100%;
                 margin-left: 0.05rem;
+                cursor: pointer;
             }
         }
         .card-content {

@@ -3,14 +3,28 @@
         <img class="logo" src="~assets/header/logo.png" />
         <span class="title flex-auto">机电设备运维服务智能监控系统</span>
         <div class="btn-group flex">
-            <button><img src="~assets/header/icon_home.png" /></button>
+            <button v-on:click="homeFn"><img src="~assets/header/icon_home.png" /></button>
             <button><img src="~assets/header/icon_mine.png" /></button>
-            <button><img src="~assets/header/icon_search.png" /></button>
+            <button v-on:click="searchFn"><img src="~assets/header/icon_search.png" /></button>
             <button><img src="~assets/header/icon_setting.png" /></button>
         </div>
     </div>
 </template>
-
+<script>
+    export default {
+        data() {
+            return {};
+        },
+        methods: {
+            homeFn() { //首页
+                this.$router.push('index');
+            },
+            searchFn() { //搜索
+                this.$router.push('search');
+            }
+        }
+    };
+</script>
 <style lang="less" scoped>
     .header {
         height: 100%;
@@ -42,6 +56,7 @@
                 width: 0.36rem;
                 height: 0.36rem;
                 margin: 0 0.04rem;
+                cursor: pointer;
                 img {
                     width: 100%;
                     height: 100%;
