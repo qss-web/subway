@@ -1,6 +1,6 @@
 # subway
 
-> A Vue.js project
+> 北京地铁六号线
 
 ## Build Setup
 
