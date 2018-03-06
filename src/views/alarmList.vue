@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- <v-sub-search></v-sub-search> -->
+        <v-sub-search></v-sub-search>
         <div class="tab">
             <ul class="title">
                 <li v-on:click="tabShow=true" v-bind:class="tabShow?'active':''">实时报警信息</li>

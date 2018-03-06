@@ -1,3 +1,4 @@
+/* 覆盖分页 */
 .el-pagination.is-background .el-pager li.active {
   background: #52596c;
   color: #fff;
@@ -7,4 +8,31 @@
 }
 .el-pagination.is-background .el-pager li:hover {
   color: #52596c;
+}
+
+/* 覆盖下拉框 */
+.el-input__inner {
+  background: none !important;
+  font-size: 0.2rem;
+  color: #fff;
+  border: none;
+  height: 0.46rem !important;
+  line-height: 0.46rem !important;
+  padding: 0;
+}
+.el-input__suffix,
+.el-input__prefix {
+  display: none;
+}
+.el-select-dropdown__item.selected {
+  color: #000;
+}
+.el-select-dropdown__item {
+  font-size: 0.18rem;
+}
+.el-input--prefix .el-input__inner {
+  padding-left: 0;
+}
+.el-input--suffix .el-input__inner {
+  padding-right: 0;
 }
