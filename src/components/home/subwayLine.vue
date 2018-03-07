@@ -41,16 +41,35 @@
         <div class="map">
             <div class="button-group flex">
                 <div class="button-wrapper">
-                    <button class="btn">设备实时状态</button>
+                    <button class="btn" v-on:click="goStateFn">设备实时状态</button>
                 </div>
                 <div class="button-wrapper">
-                    <button class="btn">测点实时状态</button>
+                    <button class="btn" v-on:click="goSiteFn">测点实时状态</button>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
+<script>
+    export default {
+        data() {
+            return {
+            };
+        },
+        created() {
+        },
+        methods: {
+            //设备实时状态
+            goStateFn() {
+                this.$router.push('equStateList');
+            },
+            //测点实时状态
+            goSiteFn() {
+                this.$router.push('siteList');
+            }
+        }
+    };
+</script>
 <style lang="less" scoped>
     .subway-line {
         padding: 0 0.2rem;
@@ -145,6 +164,7 @@
                         color: #fff;
                         font-size: 0.22rem;
                         width: 100%;
+                        cursor: pointer;
                     }
                 }
             }
