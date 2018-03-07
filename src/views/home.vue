@@ -4,7 +4,7 @@
             <v-timely-alarm :data="timelyAlarm"></v-timely-alarm>
         </v-card-container>
         <v-card-container class="today-alarm" title="今日报警统计">
-            <v-today-alarm :data="timelyAlarm"></v-today-alarm>
+            <v-today-alarm></v-today-alarm>
         </v-card-container>
         <v-card-container class="failure-analysis" title="故障原因分析">
             <v-failure-analysis></v-failure-analysis>

@@ -40,6 +40,9 @@
         </div>
         <div class="map">
             <div class="button-group flex">
+                <div class="sites">
+                    <img v-show="1" src="~assets/home/icon_flashing_red.gif" />
+                </div>
                 <div class="button-wrapper">
                     <button class="btn">设备实时状态</button>
                 </div>
