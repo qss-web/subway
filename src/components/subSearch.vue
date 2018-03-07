@@ -1,5 +1,5 @@
 <template>
-    <div class="search clearfix" style="border: 1px solid red">
+    <div class="search clearfix">
         <ul class="searchWidth left">
             <li>
                 <span>线路：</span>
@@ -37,6 +37,8 @@
             </li>
             <a class="btn" href="javascript:;"><img src="~assets/other/search.png" /></a>
         </ul>
+        <a class="exportBtn" href="javascript:;">查看</a>
+        <a class="exportBtn" href="javascript:;">导出</a>
     </div>
 </template>
 <script>
@@ -108,7 +110,8 @@
     }
     .searchWidth {
         overflow: hidden;
-        padding: 0.015rem 1.1rem 0.015rem 0.33rem;
+        padding-left: 0.33rem;
+        padding-right: 1.1rem;
         border-radius: 10px;
         background: url('~assets/other/title_bg.png') repeat;
         position: relative;
@@ -116,6 +119,7 @@
             overflow: hidden;
             color: #fff;
             float: left;
+            padding: 0.015rem 0;
             span {
                 float: left;
                 font-size: 0.2rem;
@@ -140,7 +144,23 @@
             z-index: 1;
             background: #54596e;
             border-radius: 6px;
-            box-shadow:0px 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
         }
+    }
+    .exportBtn {
+        float: left;
+        margin-left: 0.22rem;
+        width: 1.1rem;
+        height: 0.42rem;
+        line-height: 0.42rem;
+        text-align: center;
+        background: #54596e;
+        font-size: 0.2rem;
+        color: #ffffff;
+        border-radius: 5px;
+        margin-top: 0.05rem;
+        box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
     }
 </style>
