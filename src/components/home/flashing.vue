@@ -15,5 +15,7 @@
         position: absolute;
         width: 0.71rem;
         height: 0.71rem;
+        cursor: pointer;
+        user-select: none;
     }
 </style>
