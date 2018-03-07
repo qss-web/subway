@@ -24,7 +24,7 @@
             <div class="train-list flex">
                 <div class="train-body flex">
                     <span class="train-name">6号线<br />Line6</span>
-                    <el-dropdown class="station-select" placement="top-start" trigger="click">
+                    <el-dropdown class="station-select" placement="top-start">
                         <span class="el-dropdown-link">田村站</span>
                         <el-dropdown-menu class="station-list" slot="dropdown">
                             <el-dropdown-item><img src="~assets/siteInfo/icon_subway_mini.png" /> 站名一</el-dropdown-item>
