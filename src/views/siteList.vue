@@ -6,11 +6,11 @@
         <div class="tab">
             <ul class="title">
                 <dl class="notice flex">
-                    <dd>报警：3次</dd>
-                    <dd>报警：2次</dd>
-                    <dd>开机：4次</dd>
-                    <dd>停机：2次</dd>
-                    <dd>断网：1次</dd>
+                    <dd class="g-red">一级报警：3次</dd>
+                    <dd class="g-orange">二级报警：2次</dd>
+                    <dd class="g-green">开机：4次</dd>
+                    <dd class="g-brown">停机：2次</dd>
+                    <dd class="g-gray">断网：1次</dd>
                 </dl>
             </ul>
             <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
@@ -19,8 +19,10 @@
                 </el-pagination>
             </div>
         </div>
+        <div class="g-bottom" style="height: 0.7rem;">
+            <img src="../assets/other/footer-border.png" />
+        </div>
     </div>
-
 </template>
 
 <script>
@@ -58,7 +60,7 @@
                     'width': 6,
                     'value': 'equName'
                 }, {
-                    'label': '检测类别',
+                    'label': '监测类别',
                     'width': 6,
                     'value': 'detectCategory'
                 }, {
@@ -99,7 +101,7 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '检测类别',
+                        detectCategory: '监测类别',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -114,7 +116,7 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '检测类别',
+                        detectCategory: '监测类别',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -129,7 +131,7 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '检测类别',
+                        detectCategory: '监测类别',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -175,6 +177,7 @@
     .tab {
         width: 98.5%;
         margin: 0px auto;
+        min-height: 7.8rem;
         .title {
             background: #e5e8f7;
             position: relative;
@@ -191,18 +194,6 @@
                     margin-left: 0.26rem;
                     height: 0.52rem;
                     line-height: 0.52rem;
-                }
-                dd:nth-child(1) {
-                    color: #cc0000;
-                }
-                dd:nth-child(2) {
-                    color: #f9af00;
-                }
-                dd:nth-child(3) {
-                    color: #adadad;
-                }
-                dd:nth-child(4) {
-                    color: #ff6600;
                 }
             }
         }
