@@ -1,5 +1,5 @@
 <template>
-    <div class="search clearfix" style="border: 1px solid red">
+    <div class="search clearfix">
         <ul class="searchWidth left">
             <li>
                 <span>线路：</span>
@@ -17,8 +17,8 @@
             </li>
             <li>
                 <span>设备系统：</span>
-                <el-select v-model="req.equSty" placeholder="请选择" size="mini">
-                    <el-option v-for="item in equStyOpts" :key="item.value" :label="item.label" :value="item.value">
+                <el-select v-model="req.equSys" placeholder="请选择" size="mini">
+                    <el-option v-for="item in equSysOpts" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                 </el-select>
             </li>
@@ -37,6 +37,8 @@
             </li>
             <a class="btn" href="javascript:;"><img src="~assets/other/search.png" /></a>
         </ul>
+        <a class="exportBtn" href="javascript:;">查看</a>
+        <a class="exportBtn" href="javascript:;">导出</a>
     </div>
 </template>
 <script>
@@ -46,7 +48,7 @@
                 req: {
                     lines: '',
                     stations: '',
-                    equSty: '',
+                    equSys: '',
                     equSort: '',
                     startTime: '',
                     endTime: ''
@@ -74,11 +76,11 @@
                     value: '6',
                     label: '田村站'
                 }],
-                equStyOpts: [{
+                equSysOpts: [{
                     value: '1',
                     label: '设备系统一'
                 }, {
-                    value: '1',
+                    value: '2',
                     label: '设备系统二'
                 }],
                 equSortOpts: [{
@@ -92,7 +94,7 @@
         },
         methods: {
             onSubmit() {
-                console.log('submit!');
+
             }
         }
     };
@@ -105,10 +107,12 @@
     .el-date-editor.el-input,
     .el-date-editor.el-input__inner {
         width: 1.4rem;
+        vertical-align: top;
     }
     .searchWidth {
         overflow: hidden;
-        padding: 0.015rem 1.1rem 0.015rem 0.33rem;
+        padding-left: 0.33rem;
+        padding-right: 1.1rem;
         border-radius: 10px;
         background: url('~assets/other/title_bg.png') repeat;
         position: relative;
@@ -116,6 +120,7 @@
             overflow: hidden;
             color: #fff;
             float: left;
+            padding: 0.015rem 0;
             span {
                 float: left;
                 font-size: 0.2rem;
@@ -135,12 +140,28 @@
             height: 0.4rem;
             line-height: 0.4rem;
             text-align: center;
-            top: 0.06rem;
+            top: 0.04rem;
             right: 0.06rem;
             z-index: 1;
             background: #54596e;
             border-radius: 6px;
-            box-shadow:0px 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
         }
+    }
+    .exportBtn {
+        float: left;
+        margin-left: 0.22rem;
+        width: 1.1rem;
+        height: 0.42rem;
+        line-height: 0.42rem;
+        text-align: center;
+        background: #54596e;
+        font-size: 0.2rem;
+        color: #ffffff;
+        border-radius: 5px;
+        margin-top: 0.05rem;
+        box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
     }
 </style>

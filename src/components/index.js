@@ -7,6 +7,7 @@ import failureAnalysis from './home/failureAnalysis'; //故障原因分析
 import todayAlarm from './home/todayAlarm'; //今日报警统计
 import todayPatrol from './home/todayPatrol'; //今日巡检比例
 import subwayLine from './home/subwayLine'; //整体线路图
+import flashing from './home/flashing'; //站台警告灯
 import machineSummary from './home/machineSummary'; //本月设备运行时间/今日故障待办事项
 import fixtimeSummary from './home/fixtimeSummary'; //月可靠度/平均每日修复时间/保修超时率
 import counterSummary from './home/counterSummary'; //当月各站故障次数/当月人员工作量
@@ -30,6 +31,7 @@ export default {
     todayAlarm,
     todayPatrol,
     subwayLine,
+    flashing,
     machineSummary,
     fixtimeSummary,
     counterSummary,

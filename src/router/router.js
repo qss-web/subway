@@ -23,9 +23,19 @@ const router = [
         component: resolve => require(['@/views/alarmEvent'], resolve)
       },
       {
+        name: 'alarmStatistics',
+        path: 'alarmStatistics',
+        component: resolve => require(['@/views/alarmStatistics'], resolve)
+      },
+      {
         name: 'alarmList',
         path: 'alarmList',
         component: resolve => require(['@/views/alarmList'], resolve)
+      },
+      {
+        name: 'faultAnalysisList',
+        path: 'faultAnalysisList',
+        component: resolve => require(['@/views/faultAnalysisList'], resolve)
       },
       {
         name: 'backlog',

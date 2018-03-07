@@ -39,21 +39,43 @@
             </div>
         </div>
         <div class="map">
+            <v-flashing x="0.94" y="3.17" status="1"></v-flashing>
+            <v-flashing x="1.83" y="2.86" status="2"></v-flashing>
+            <v-flashing x="3.16" y="2.39" status="3"></v-flashing>
+            <v-flashing x="4.73" y="2.47" status="1"></v-flashing>
+            <v-flashing x="6.71" y="2.78" status="2"></v-flashing>
+            <v-flashing x="8.58" y="2.51" status="3"></v-flashing>
             <div class="button-group flex">
-                <div class="sites">
-                    <img v-show="1" src="~assets/home/icon_flashing_red.gif" />
+                <div class="button-wrapper">
+                    <button class="btn" v-on:click="goStateFn">设备实时状态</button>
                 </div>
                 <div class="button-wrapper">
-                    <button class="btn">设备实时状态</button>
-                </div>
-                <div class="button-wrapper">
-                    <button class="btn">测点实时状态</button>
+                    <button class="btn" v-on:click="goSiteFn">测点实时状态</button>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
+<script>
+    export default {
+        data() {
+            return {
+            };
+        },
+        created() {
+        },
+        methods: {
+            //设备实时状态
+            goStateFn() {
+                this.$router.push('equStateList');
+            },
+            //测点实时状态
+            goSiteFn() {
+                this.$router.push('siteList');
+            }
+        }
+    };
+</script>
 <style lang="less" scoped>
     .subway-line {
         padding: 0 0.2rem;
@@ -148,6 +170,7 @@
                         color: #fff;
                         font-size: 0.22rem;
                         width: 100%;
+                        cursor: pointer;
                     }
                 }
             }

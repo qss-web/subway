@@ -1,7 +1,9 @@
 <template>
     <div v-bind:class="'g-table-' + other.style">
         <ul class="title">
-            <li style="width: 4%" v-if="other.isCheck"><img src="../assets/search/check.png" /></li>
+            <li style="width: 4%" v-if="other.isCheck" v-on:click="checkAllFn">
+                <img src="../assets/search/check.png" />
+            </li>
             <li v-for="(item, index) in label" v-bind:style="{width:item.width+'%'}">{{item.label}}</li>
         </ul>
         <dl class="content">
@@ -26,6 +28,9 @@
         methods: {
             currentList(index) {
                 this.indexed = index;
+            },
+            checkAllFn() {
+
             }
         }
     };
@@ -69,8 +74,8 @@
                 }
                 span {
                     width: 8%;
-                    height: 0.62rem;
-                    line-height: 0.62rem;
+                    height: 0.56rem;
+                    line-height: 0.56rem;
                     font-size: 0.18rem;
                     color: #fff;
                 }
@@ -119,13 +124,13 @@
                     width: 0.29rem;
                     height: 0.29rem;
                     vertical-align: top;
-                    margin-top: 0.205rem;
+                    margin-top: 0.135rem;
                 }
                 span {
                     width: 8%;
-                    height: 0.7rem;
-                    line-height: 0.7rem;
-                    font-size: 0.22rem;
+                    height: 0.56rem;
+                    line-height: 0.56rem;
+                    font-size: 0.2rem;
                     color: #ffa600;
                 }
                 span:first-child {
@@ -137,6 +142,62 @@
             }
             dd:nth-child(2n) {
                 background: #45484f;
+            }
+        }
+    }
+    .g-table-3 {
+        width: 100%;
+        border-top: 1px solid #caccce;
+        box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.35);
+        border-left: 1px solid #587386;
+        border-right: 1px solid #587386;
+        ul {
+            display: flex;
+            -webkit-flex-flow: row wrap;
+            justify-content: space-around;
+            text-align: center;
+            color: #1c1e2a;
+            background: #c5cbe3;
+            font-size: 0.2rem;
+            height: 0.52rem;
+            line-height: 0.52rem;
+            li {
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+            }
+        }
+        .content {
+            dd {
+                display: flex;
+                -webkit-flex-flow: row wrap;
+                justify-content: space-around;
+                text-align: center;
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+                span {
+                    width: 8%;
+                    height: 0.52rem;
+                    line-height: 0.52rem;
+                    font-size: 0.2rem;
+                    color: #ffa600;
+                }
+                span:first-child {
+                    width: 4%;
+                }
+            }
+            dd:nth-child(2n-1) {
+                background: #e5e8f7;
+            }
+            dd:nth-child(2n) {
+                background: #c5cbe3;
             }
         }
     }

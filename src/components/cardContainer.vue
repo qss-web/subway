@@ -1,7 +1,7 @@
 <template>
     <div class="card-container">
         <div class="card-header">
-            <button class="title" v-on:click="goAlarmFn">{{title}}</button>
+            <button class="title" v-on:click="goAlarmFn(goKey)">{{title}}</button>
         </div>
         <div class="card-content">
             <div>
@@ -10,13 +10,15 @@
         </div>
     </div>
 </template>
-
 <script>
+    // goKey    timely实时报警信息  alarm今日报警统计  failure故障原因分析   patrol今日巡检比例
     export default {
-        props: ['title'],
+        props: ['title', 'goKey'],
         methods: {
-            goAlarmFn() {
-                this.$router.push('alarmList');
+            goAlarmFn(key) {
+                if(key == 'timely') {
+                    this.$router.push('alarmList');
+                }
             }
         }
     };

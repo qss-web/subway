@@ -1,15 +1,15 @@
 <template>
     <div class="home">
-        <v-card-container class="timely-alarm" title="实时报警信息">
+        <v-card-container class="timely-alarm" goKey="timely" title="实时报警信息">
             <v-timely-alarm :data="timelyAlarm"></v-timely-alarm>
         </v-card-container>
         <v-card-container class="today-alarm" title="今日报警统计">
             <v-today-alarm></v-today-alarm>
         </v-card-container>
-        <v-card-container class="failure-analysis" title="故障原因分析">
+        <v-card-container class="failure-analysis" goKey="failure" title="故障原因分析">
             <v-failure-analysis></v-failure-analysis>
         </v-card-container>
-        <v-card-container class="today-patrol" title="今日巡检比例">
+        <v-card-container class="today-patrol" goKey="patrol" title="今日巡检比例">
             <v-today-patrol></v-today-patrol>
         </v-card-container>
         <v-subway-line class="subway-line"></v-subway-line>
