@@ -8,17 +8,21 @@
                 <li v-on:click="tabShow=true" v-bind:class="tabShow?'active':''">实时报警信息</li>
                 <li v-on:click="tabShow=false" v-bind:class="tabShow?'':'active'">以往历史事件</li>
                 <dl class="notice flex">
-                    <dd>报警3次</dd>
-                    <dd>报警2次</dd>
-                    <dd>报警：2次</dd>
-                    <dd>全部：7次</dd>
+                    <dd class="g-red">二级报警：3次</dd>
+                    <dd class="g-light-orange">一级报警：2次</dd>
+                    <dd class="g-gray">断网：2次</dd>
+                    <dd class="g-orange">全部：7次</dd>
                 </dl>
             </ul>
-            <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
+            <v-search-list v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
+            <v-search-list v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
             <div class="pagination">
                 <el-pagination background @current-change="changePages" :current-page="currentPage" :page-size="pageSize" layout="prev, pager, next " :total="equList.total "></el-pagination>
                 </el-pagination>
             </div>
+        </div>
+        <div class="g-bottom">
+            <img src="../assets/other/footer-border.png" />
         </div>
     </div>
 
@@ -36,33 +40,45 @@
                     style: 2 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
                 },
                 info1: [{
-                    'label': '设备',
-                    'width': 15,
+                    'label': '序号',
+                    'width': 10,
                     'value': 'num'
                 }, {
                     'label': '设备名称',
-                    'width': 26,
+                    'width': 15,
                     'value': 'equName'
                 }, {
                     'label': '时间',
-                    'width': 15,
+                    'width': 13,
                     'value': 'time'
                 }, {
+                    'label': '车站',
+                    'width': 13,
+                    'value': 'station'
+                }, {
                     'label': '报警事件',
-                    'width': 25,
+                    'width': 15,
                     'value': 'alarmEvent'
                 }, {
                     'label': '状态',
                     'width': 15,
                     'value': 'status'
+                }, {
+                    'label': '操作',
+                    'width': 15,
+                    'value': 'operationInfo'
                 }],
                 equList: {
                     total: 9,
-                    amount1: 39,
-                    amount2: 87,
-                    amount3: 16,
-                    amount4: 57,
                     data: [{
+                        num: '序号',
+                        equName: '设备名称',
+                        time: '时间',
+                        station: '车站',
+                        alarmEvent: '报警事件',
+                        status: '状态',
+                        operationInfo: '操作'
+                    }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
@@ -194,24 +210,12 @@
                     height: 0.48rem;
                     line-height: 0.5rem;
                 }
-                dd:nth-child(1) {
-                    color: #f9af00;
-                }
-                dd:nth-child(2) {
-                    color: #cc0000;
-                }
-                dd:nth-child(3) {
-                    color: #adadad;
-                }
-                dd:nth-child(4) {
-                    color: #ff6600;
-                }
             }
         }
         .pagination {
             text-align: center;
             padding: 0.14rem 0;
-            background: #45484f;
+            background: #3c3f46;
         }
     }
 </style>
