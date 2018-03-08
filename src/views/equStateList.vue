@@ -19,9 +19,7 @@
                 </el-pagination>
             </div>
         </div>
-        <div class="g-bottom" style="height: 0.7rem;">
-            <img src="../assets/other/footer-border.png" />
-        </div>
+        <v-go-back setH="0.7"></v-go-back>
     </div>
 </template>
 
@@ -33,7 +31,7 @@
                 pageSize: 9, //每页显示数量
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 3 //列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它,4站点列表,5屏蔽门的列表
                 },
                 info1: [{
                     'label': '序号',
@@ -198,7 +196,6 @@
                 }
             };
         },
-        props: ['list', 'label', 'checked'],
         methods: {
             currentList(index) {
                 this.indexed = index;
