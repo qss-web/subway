@@ -203,7 +203,6 @@
     }
     .g-table-4 {
         width: 100%;
-        box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.35);
         ul {
             display: flex;
             -webkit-flex-flow: row wrap;
@@ -250,9 +249,8 @@
         }
     }
     .g-table-5 {
-        margin-top: 40px;
+        padding: 0.2rem 0;
         width: 100%;
-        box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.35);
         ul {
             display: flex;
             -webkit-flex-flow: row wrap;
@@ -262,9 +260,10 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.35);
             color: #fff;
             background: url('../assets/other/sub_title_bg.png') repeat-x;
-            font-size: 0.2rem;
+            font-size: 0.12rem;
             height: 0.39rem;
             line-height: 0.38rem;
+            margin: 0 0.04rem;
             li {
                 img {
                     width: 0.29rem;
@@ -291,7 +290,7 @@
                     width: 8%;
                     height: 0.52rem;
                     line-height: 0.52rem;
-                    font-size: 0.2rem;
+                    font-size: 0.18rem;
                     color: #fff;
                 }
                 span:first-child {

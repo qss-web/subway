@@ -1,12 +1,18 @@
 <template>
-    <button class="tag" :class="type" :style="{left: x + 'rem', top: y + 'rem'}">
+    <button v-if="name == 'triangle'" class="tag triangle" :class="status" :style="{left: x + 'rem', top: y + 'rem'}">
         <slot></slot>
+    </button>
+    <button v-else-if="name == 'line'" class="tag line" :class="status" :style="{left: x + 'rem', top: y + 'rem'}">
+        <slot></slot>
+        <img v-if="type == 1" class="line1" src="~assets/siteInfo/icon_join_line1.png" />
+        <img v-if="type == 2" class="line2" src="~assets/siteInfo/icon_join_line2.png" />
+        <img v-if="type == 3" class="line3" src="~assets/siteInfo/icon_join_line3.png" />
     </button>
 </template>
 
 <script>
     export default {
-        props: ['type', 'x', 'y']
+        props: ['name', 'type', 'status', 'x', 'y']
     };
 </script>
 
@@ -15,40 +21,75 @@
         height: 0.26rem;
         color: #fff;
         padding: 0 0.2rem;
-        font-size: 0.12rem;
+        font-size: 0.13rem;
         position: absolute;
-        border: 1px solid #000;
-        &:before {
-            content: '';
-            display: block;
-            position: absolute;
-            border-left: 0.2rem solid transparent;
-            border-right: 0.4rem solid transparent;
-            border-top: 0.08rem solid #000;
-            top: 100%;
-            z-index: 2;
-            transform: rotate(153deg);
-            transform-origin: 0 0;
-            left: 0.4rem;
-            z-index: 1;
+        &.triangle {
+            border: 1px solid #000;
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                border-left: 0.2rem solid transparent;
+                border-right: 0.4rem solid transparent;
+                border-top: 0.08rem solid #000;
+                top: 100%;
+                z-index: 2;
+                transform: rotate(153deg);
+                transform-origin: 0 0;
+                left: 0.4rem;
+                z-index: 1;
+            }
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                border-left: 0.12rem solid transparent;
+                border-right: 0.39rem solid transparent;
+                border-top: 0.1rem solid transparent;
+                top: 100%;
+                transform: rotate(154deg);
+                transform-origin: 0 0;
+                left: 0.4rem;
+                z-index: 2;
+            }
         }
-        &:after {
-            content: '';
-            display: block;
-            position: absolute;
-            border-left: 0.12rem solid transparent;
-            border-right: 0.39rem solid transparent;
-            border-top: 0.1rem solid transparent;
-            top: 100%;
-            transform: rotate(153deg);
-            transform-origin: 0 0;
-            left: 0.4rem;
-            z-index: 2;
+        &.line {
+            border-radius: 0.08rem;
+            box-shadow: 0 0.02rem 0.08rem 0.01rem #000;
+            img {
+                position: absolute;
+                &.line1 {
+                    width: 1.28rem;
+                    height: 0.56rem;
+                    left: 50%;
+                    margin-left: -0.1rem;
+                }
+                &.line2 {
+                    width: 0.12rem;
+                    height: 0.94rem;
+                    bottom: 100%;
+                    left: 50%;
+                    margin-left: -0.06rem;
+                }
+                &.line3 {
+                    width: 0.94rem;
+                    height: 0.12rem;
+                    right: 100%;
+                    top: 50%;
+                    margin-top: -0.06rem;
+                }
+            }
         }
         &.error {
             background-color: #ff0000;
             &:after {
                 border-top: 0.1rem solid #ff0000;
+            }
+        }
+        &.warn {
+            background-color: #e1d904;
+            &:after {
+                border-top: 0.1rem solid #e1d904;
             }
         }
         &.normal {

@@ -2,21 +2,21 @@
     <div>
         <div>
             <div class="device-3d">
-                <v-tag type="error" x="2.1" y="2.6">1#屏蔽门</v-tag>
-                <v-tag type="error" x="3" y="4">1#屏蔽门</v-tag>
-                <v-tag type="error" x="2.9" y="4.82">2#屏蔽门</v-tag>
-                <v-tag type="error" x="1" y="2">3#屏蔽门</v-tag>
-                <v-tag type="error" x="1" y="2">A2屏蔽门</v-tag>
-                <v-tag type="error" x="1" y="2">A3屏蔽门</v-tag>
-                <v-tag type="error" x="1" y="2">4#屏蔽门</v-tag>
-                <v-tag type="normal" x="1" y="2">A2扶梯</v-tag>
-                <v-tag type="normal" x="1" y="2">B1扶梯</v-tag>
-                <v-tag type="normal" x="1" y="2">B2扶梯</v-tag>
-                <v-tag type="normal" x="1" y="2">B3扶梯</v-tag>
-                <v-tag type="normal" x="1" y="2">B4扶梯</v-tag>
-                <v-tag type="normal" x="1" y="2">B5扶梯</v-tag>
-                <v-tag type="normal" x="1" y="2">C1扶梯</v-tag>
-                <v-tag type="normal" x="1" y="2">C2扶梯</v-tag>
+                <v-tag name="triangle" status="error" x="2.1" y="2.6">1#屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="2.8" y="4">1#屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="2.9" y="4.82">2#屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="8.42" y="2.3">3#屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="3.63" y="2.11">A2屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="3.6" y="3.0">A3屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="5.5" y="3.2">4#屏蔽门</v-tag>
+                <v-tag name="triangle" status="normal" x="3.43" y="2.68">A2扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="6.1" y="2.53">B1扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="5.33" y="2.36">B2扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="4.8" y="2.1">B3扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="2.2" y="3">B4扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="2.72" y="3.2">B5扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="7.3" y="1.5">C1扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="8.2" y="1.7">C2扶梯</v-tag>
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日车站健康监测指标</button>
@@ -26,7 +26,9 @@
                         <v-health-indicators class="healthy-chart" id="health2" title="风机" :percent="68"></v-health-indicators>
                         <v-health-indicators class="healthy-chart" id="health3" title="站台门" :percent="68"></v-health-indicators>
                     </div>
-                    <div class="healthy-table">1122</div>
+                    <div class="healthy-table">
+                        <v-search-list :other="other" :label="label" :list="list"></v-search-list>
+                    </div>
                 </div>
             </div>
             <div class="fans flex">
@@ -55,6 +57,46 @@
 
 <script>
     export default {
+        data() {
+            return {
+                label: [{
+                    'label': '序号',
+                    'width': 10,
+                    'value': 'num'
+                }, {
+                    'label': '设备名称',
+                    'width': 15,
+                    'value': 'equName'
+                }, {
+                    'label': '时间',
+                    'width': 13,
+                    'value': 'time'
+                }, {
+                    'label': '事件描述',
+                    'width': 18,
+                    'value': 'eventDesc'
+                }, {
+                    'label': '当前状态',
+                    'width': 10,
+                    'value': 'status'
+                }, {
+                    'label': '操作',
+                    'width': 15,
+                    'value': 'operate'
+                }],
+                list: [{
+                    num: '序号',
+                    equName: '设备名称',
+                    time: '时间',
+                    eventDesc: '报警事件',
+                    status: '状态',
+                    operate: '操作'
+                }],
+                other: {
+                    style: 4
+                }
+            };
+        },
         methods: {
             gotoFan() {
                 this.$router.push('faninfo');
@@ -84,6 +126,7 @@
         background-size: 100% 100%;
         &-title {
             background: url('~assets/siteInfo/bg_title.png') no-repeat;
+            background-size: 100%;
             width: 2.7rem;
             height: 0.44rem;
             color: #cfd6f0;

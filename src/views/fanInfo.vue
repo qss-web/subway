@@ -1,16 +1,29 @@
 <template>
     <div>
         <div>
-            <div class="device-3d"></div>
+            <div class="device-3d">
+                <v-tag name="line" type="1" status="warn">右扶手带</v-tag>
+                <v-tag name="line" type="2" status="warn">右扶手带</v-tag>
+                <v-tag name="line" type="3" status="warn">右扶手带</v-tag>
+            </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日车站健康监测指标</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
-                        <v-health-indicators class="healthy-chart" id="health1" title="自动扶梯" :percent="68"></v-health-indicators>
-                        <v-health-indicators class="healthy-chart" id="health2" title="风机" :percent="68"></v-health-indicators>
-                        <v-health-indicators class="healthy-chart" id="health3" title="站台门" :percent="68"></v-health-indicators>
+                        <v-health-indicators class="healthy-chart" id="health1" title="运行时间" :percent="68"></v-health-indicators>
+                        <v-health-indicators class="healthy-chart" id="health2" title="健康指数" :percent="68"></v-health-indicators>
+                        <v-health-indicators class="healthy-chart" id="health3" title="报警事件" :percent="68"></v-health-indicators>
                     </div>
-                    <div class="healthy-table">1122</div>
+                    <div class="healthy-table">
+                        <div class="tabs flex">
+                            <p class="tab" :class="{active: !activeIndex}" @click="activeIndex = 0">报警数据</p>
+                            <p class="tab" :class="{active: activeIndex}" @click="activeIndex = 1">测点状态</p>
+                        </div>
+                        <div class="tables">
+                            <v-search-list v-show="!activeIndex" :other="alarmTable.other" :label="alarmTable.label" :list="alarmTable.list"></v-search-list>
+                            <v-search-list v-show="activeIndex" :other="testTable.other" :label="testTable.label" :list="testTable.list"></v-search-list>
+                        </div>
+                    </div>
                 </div>
             </div>
             <v-train></v-train>
@@ -21,6 +34,107 @@
 
 <script>
     export default {
+        data() {
+            return {
+                activeIndex: '',
+                alarmTable: {
+                    label: [{
+                        'label': '序号',
+                        'width': 20,
+                        'value': 'num'
+                    }, {
+                        'label': '设备名称',
+                        'width': 25,
+                        'value': 'equName'
+                    }, {
+                        'label': '时间',
+                        'width': 20,
+                        'value': 'time'
+                    }, {
+                        'label': '事件描述',
+                        'width': 20,
+                        'value': 'eventDesc'
+                    }, {
+                        'label': '当前状态',
+                        'width': 20,
+                        'value': 'status'
+                    }],
+                    list: [{
+                        num: '序号',
+                        equName: '设备名称',
+                        time: '时间',
+                        eventDesc: '报警事件',
+                        status: '状态'
+                    }],
+                    other: {
+                        style: 5
+                    }
+                },
+                testTable: {
+                    label: [{
+                        'label': '序号',
+                        'width': 9,
+                        'value': 'num'
+                    }, {
+                        'label': '设备名称',
+                        'width': 9,
+                        'value': 'equName'
+                    }, {
+                        'label': '测点名称',
+                        'width': 9,
+                        'value': 'testName'
+                    }, {
+                        'label': '当前值',
+                        'width': 9,
+                        'value': 'currentValue'
+                    }, {
+                        'label': '高限',
+                        'width': 9,
+                        'value': 'highLimit'
+                    }, {
+                        'label': '高高限',
+                        'width': 9,
+                        'value': 'highestLimit'
+                    }, {
+                        'label': '下限',
+                        'width': 9,
+                        'value': 'lowLimit'
+                    }, {
+                        'label': '下下限',
+                        'width': 9,
+                        'value': 'lowestLimit'
+                    }, {
+                        'label': '报警方式',
+                        'width': 9,
+                        'value': 'alarmWay'
+                    }, {
+                        'label': '报警类型',
+                        'width': 9,
+                        'value': 'alarmType'
+                    }, {
+                        'label': '更新时间',
+                        'width': 10,
+                        'value': 'updateTime'
+                    }],
+                    list: [{
+                        num: '序号',
+                        equName: '设备名称',
+                        testName: '',
+                        currentValue: '',
+                        highLimit: '',
+                        highestLimit: '',
+                        lowLimit: '',
+                        lowestLimit: '',
+                        alarmWay: '',
+                        alarmType: '',
+                        updateTime: ''
+                    }],
+                    other: {
+                        style: 5
+                    }
+                }
+            };
+        },
         methods: {
             gotoFan() {
                 this.$router.push('faninfo');
@@ -63,8 +177,6 @@
         &-body {
             width: 8.24rem;
             height: 7.9rem;
-            border-radius: 0.2rem;
-            background-color: #404455;
             position: absolute;
             left: 0.31rem;
             top: 0.6rem;
@@ -74,7 +186,37 @@
                 padding: 0 0.3rem;
             }
             .healthy-table {
-                background-color: #000;
+                width: 100%;
+                height: 5.26rem;
+                flex-direction: column;
+                .tabs {
+                    height: 0.4rem;
+                    width: 100%;
+                    align-items: flex-end;
+                    padding-left: 0.2rem;
+                    .tab {
+                        background-color: #7b8398;
+                        color: #fff;
+                        height: 0.4rem;
+                        border-radius: 0.1rem 0.1rem 0 0;
+                        padding: 0 0.1rem;
+                        margin: 0 0.04rem;
+                        line-height: 0.4rem;
+                        width: 2rem;
+                        text-align: center;
+                        font-size: 0.16rem;
+                        &.active {
+                            background-color: #414455;
+                        }
+                    }
+                }
+                .tables {
+                    width: 100%;
+                    height: 4.86rem;
+                    background-color: #414455;
+                    border-radius: 0.2rem;
+                    box-shadow: 0px 2px 4px 2px #333;
+                }
             }
         }
     }
