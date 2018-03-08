@@ -39,6 +39,12 @@
             </div>
         </div>
         <div class="map">
+            <v-flashing x="0.94" y="3.17" status="1"></v-flashing>
+            <v-flashing x="1.83" y="2.86" status="2"></v-flashing>
+            <v-flashing x="3.16" y="2.39" status="3"></v-flashing>
+            <v-flashing x="4.73" y="2.47" status="1"></v-flashing>
+            <v-flashing x="6.71" y="2.78" status="2"></v-flashing>
+            <v-flashing x="8.58" y="2.51" status="3"></v-flashing>
             <div class="button-group flex">
                 <div class="button-wrapper">
                     <button class="btn" v-on:click="goStateFn">设备实时状态</button>

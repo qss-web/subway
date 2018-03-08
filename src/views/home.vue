@@ -3,8 +3,8 @@
         <v-card-container class="timely-alarm" goKey="timely" title="实时报警信息">
             <v-timely-alarm :data="timelyAlarm"></v-timely-alarm>
         </v-card-container>
-        <v-card-container class="today-alarm" goKey="alarm" title="今日报警统计">
-            <v-today-alarm :data="timelyAlarm"></v-today-alarm>
+        <v-card-container class="today-alarm" title="今日报警统计">
+            <v-today-alarm></v-today-alarm>
         </v-card-container>
         <v-card-container class="failure-analysis" goKey="failure" title="故障原因分析">
             <v-failure-analysis></v-failure-analysis>
