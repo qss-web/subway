@@ -16,6 +16,9 @@ import failureCount from './home/failureCount'; //今日故障待办事项
 import monthlyReliability from './home/monthlyReliability'; //月可靠度
 import fixingTime from './home/fixingTime'; //平均每日修复时间&&报修超时率
 import goback from './goback'; //返回上一页
+import tag from './tag'; //提示信息框
+import healthIndicators from './siteInfo/healthIndicators'; //健康指标
+import train from './train'; //地铁
 import loginHeader from './loginHeader';
 import loginFooter from './loginFooter';
 import search from './search';
@@ -66,6 +69,9 @@ export default {
     monthlyReliability,
     fixingTime,
     goback,
+    tag,
+    healthIndicators,
+    train,
     loginHeader,
     loginFooter,
     search,
