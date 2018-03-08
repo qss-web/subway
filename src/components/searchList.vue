@@ -201,4 +201,103 @@
             }
         }
     }
+    .g-table-4 {
+        width: 100%;
+        box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.35);
+        ul {
+            display: flex;
+            -webkit-flex-flow: row wrap;
+            justify-content: space-around;
+            text-align: center;
+            color: #1c1e2a;
+            background: #c5cbe3;
+            font-size: 0.2rem;
+            height: 0.4rem;
+            line-height: 0.4rem;
+            li {
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.055rem;
+                }
+            }
+        }
+        .content {
+            dd {
+                display: flex;
+                -webkit-flex-flow: row wrap;
+                justify-content: space-around;
+                text-align: center;
+                background: #404455;
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+                span {
+                    width: 8%;
+                    height: 0.52rem;
+                    line-height: 0.52rem;
+                    font-size: 0.2rem;
+                    color: #fff;
+                }
+                span:first-child {
+                    width: 4%;
+                }
+            }
+        }
+    }
+    .g-table-5 {
+        margin-top: 40px;
+        width: 100%;
+        box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.35);
+        ul {
+            display: flex;
+            -webkit-flex-flow: row wrap;
+            justify-content: space-around;
+            text-align: center;
+            border: 1px solid #1d1c24;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+            color: #fff;
+            background: url('../assets/other/sub_title_bg.png') repeat-x;
+            font-size: 0.2rem;
+            height: 0.39rem;
+            line-height: 0.38rem;
+            li {
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.055rem;
+                }
+            }
+        }
+        .content {
+            dd {
+                display: flex;
+                -webkit-flex-flow: row wrap;
+                justify-content: space-around;
+                text-align: center;
+                background: #404455;
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+                span {
+                    width: 8%;
+                    height: 0.52rem;
+                    line-height: 0.52rem;
+                    font-size: 0.2rem;
+                    color: #fff;
+                }
+                span:first-child {
+                    width: 4%;
+                }
+            }
+        }
+    }
 </style>
