@@ -27,7 +27,6 @@ import subSearch from './subSearch'; //列表上面的筛选搜索
 import goBack from './goBack'; //列表上面的筛选搜索
 
 export default {
-<<<<<<< HEAD
   header,
   cardContainer,
   chart,
@@ -37,6 +36,7 @@ export default {
   todayAlarm,
   todayPatrol,
   subwayLine,
+  flashing,
   machineSummary,
   fixtimeSummary,
   counterSummary,
@@ -44,38 +44,13 @@ export default {
   failureCount,
   monthlyReliability,
   fixingTime,
+  goback,
+  tag,
+  healthIndicators,
+  train,
   loginHeader,
   loginFooter,
   search,
   searchList,
-  subSearch,
-  goBack
-=======
-    header,
-    cardContainer,
-    chart,
-    tableSmall,
-    timelyAlarm,
-    failureAnalysis,
-    todayAlarm,
-    todayPatrol,
-    subwayLine,
-    flashing,
-    machineSummary,
-    fixtimeSummary,
-    counterSummary,
-    runningTime,
-    failureCount,
-    monthlyReliability,
-    fixingTime,
-    goback,
-    tag,
-    healthIndicators,
-    train,
-    loginHeader,
-    loginFooter,
-    search,
-    searchList,
-    subSearch
->>>>>>> cff735d0c46367ec83026402b8cd92f5ff0fa257
+  subSearch
 };
