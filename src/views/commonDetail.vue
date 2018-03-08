@@ -64,7 +64,7 @@
                 </div>
             </dd>
         </div>
-        <v-go-back setH="0.86"></v-go-back>
+        <v-goback></v-goback>
     </div>
 </template>
 

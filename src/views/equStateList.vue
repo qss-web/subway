@@ -19,7 +19,7 @@
                 </el-pagination>
             </div>
         </div>
-        <v-go-back setH="0.7"></v-go-back>
+        <v-goback></v-goback>
     </div>
 </template>
 

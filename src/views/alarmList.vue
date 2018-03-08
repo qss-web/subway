@@ -21,7 +21,7 @@
                 </el-pagination>
             </div>
         </div>
-        <v-go-back></v-go-back>
+        <v-goback></v-goback>
     </div>
 </template>
 
