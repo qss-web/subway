@@ -84,6 +84,8 @@
                 height: 0.7rem;
                 img {
                     margin: 0 0.4rem;
+                    width: 1.37rem;
+                    height: 0.47rem;
                 }
                 .light {
                     width: 0.12rem;
@@ -130,6 +132,8 @@
                     margin: 0 0.1rem;
                     img {
                         margin-right: 0.05rem;
+                        width: 0.22rem;
+                        height: 0.22rem;
                     }
                 }
                 .error {

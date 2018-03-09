@@ -3,6 +3,7 @@
 
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>subway</title>
     <script src="static/config.js?v=1.0.0" type="text/javascript" charset="utf-8"></script>
@@ -15,8 +16,9 @@
         };
 
       if (document.addEventListener) {
-        window.addEventListener(resizeEvent, resizeCallback, false);
         document.addEventListener('DOMContentLoaded', resizeCallback, false);
+        resizeCallback();
+        window.addEventListener(resizeEvent, resizeCallback, false);
       }
 
     </script>

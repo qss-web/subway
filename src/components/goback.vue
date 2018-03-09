@@ -15,7 +15,6 @@
     };
 </script>
 
-
 <style lang="less" scoped>
     .footer {
         height: 0.95rem;
