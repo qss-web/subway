@@ -90,7 +90,7 @@
                             fontWeight: 'normal'
                         },
                         items: [{                       // items 数组，可以设置多个标签
-                            html: 'html 标签内容',
+                            html: '',
                             style: {                    // 标签样式，会继承和重写上层全局样式
                                 left: '0px',
                                 top: '0px',
