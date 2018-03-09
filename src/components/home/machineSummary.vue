@@ -5,7 +5,7 @@
                 <span class="text">本月设备运行时间</span>
                 <span class="line"></span>
             </div>
-            <div class="chart flex">
+            <div class="chart flex" v-on:click="goRunList">
                 <v-running-time id="running1" title="自动扶梯" :max="912" :current="188"></v-running-time>
                 <v-running-time id="running2" title="风机" :max="912" :current="48"></v-running-time>
                 <v-running-time id="running3" title="站台门" :max="912" :current="48"></v-running-time>
@@ -16,7 +16,7 @@
                 <span class="text">今日故障待办事项</span>
                 <span class="line"></span>
             </div>
-            <div class="chart flex">
+            <div class="chart flex" v-on:click="goBacklog">
                 <v-failure-count title="自动扶梯" :count="4"></v-failure-count>
                 <v-failure-count title="风机" :count="5"></v-failure-count>
                 <v-failure-count title="站台门" :count="4"></v-failure-count>
@@ -24,7 +24,19 @@
         </div>
     </div>
 </template>
+<script>
+    export default {
+        methods: {
+            goRunList() {
+                this.$router.push('equRunTimeList');
+            },
+            goBacklog() {
+                this.$router.push('backlog');
+            }
+        }
+    };
 
+</script>
 <style lang="less" scoped>
     .title {
         color: #fff;
@@ -74,6 +86,7 @@
     .chart {
         padding: 0 0.2rem;
         justify-content: space-around;
+        cursor: pointer;
     }
 
     .line2 {

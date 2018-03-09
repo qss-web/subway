@@ -1,42 +1,31 @@
 <template>
     <div class="search clearfix">
-        <ul class="searchWidth left">
-            <li>
-                <span>线路：</span>
-                <el-select v-model="req.lines" placeholder="请选择" size="mini">
-                    <el-option v-for="item in linesOpts" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                </el-select>
-            </li>
-            <li>
-                <span>车站：</span>
-                <el-select v-model="req.stations" placeholder="请选择" size="mini">
-                    <el-option v-for="item in stationsOpts" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                </el-select>
-            </li>
-            <li>
-                <span>设备系统：</span>
-                <el-select v-model="req.equSys" placeholder="请选择" size="mini">
-                    <el-option v-for="item in equSysOpts" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                </el-select>
-            </li>
-            <li>
-                <span>设备类型：</span>
-                <el-select v-model="req.equSort" placeholder="请选择" size="mini">
-                    <el-option v-for="item in equSortOpts" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                </el-select>
-            </li>
-            <li>
-                <span>时间：</span>
-                <el-date-picker size="mini" v-model="req.startTime" type="date" placeholder="选择开始日期"></el-date-picker>
-                <i>至</i>
-                <el-date-picker v-model="req.endTime" type="date" placeholder="选择结束日期"></el-date-picker>
-            </li>
-            <a class="btn" href="javascript:;"><img src="~assets/other/search.png" /></a>
-        </ul>
+        <div class="searchWidth left">
+            <ul v-for="(item,index) in searchData.options" :key="index">
+                <li v-if="item.status == 1">
+                    <span>{{item.title}}：</span>
+                    <el-input v-model="req[item.val]" size="mini" v-bind:placeholder="item.placeholder"></el-input>
+                </li>
+                <li v-if="item.status == 2">
+                    <span>{{item.title}}：</span>
+                    <el-select v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                        <el-option v-for="itemSel in item.list" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                        </el-option>
+                    </el-select>
+                </li>
+                <li v-if="item.status == 3">
+                    <span>{{item.title}}：</span>
+                    <el-date-picker v-model="req[item.val1]" type="date" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
+                    <i>至</i>
+                    <el-date-picker v-model="req[item.val2]" type="date" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
+                </li>
+                <li v-if="item.status == 4">
+                    <span>{{item.title}}：</span>
+                    <el-date-picker v-model="req[item.val]" type="date" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
+                </li>
+                <a class="btn" href="javascript:;"><img src="~assets/other/search.png" /></a>
+            </ul>
+        </div>
         <a class="exportBtn" href="javascript:;">查看</a>
         <a class="exportBtn" href="javascript:;">导出</a>
     </div>
@@ -46,52 +35,16 @@
         data() {
             return {
                 req: {
-                    lines: '',
-                    stations: '',
-                    equSys: '',
-                    equSort: '',
-                    startTime: '',
-                    endTime: ''
-                },
-                linesOpts: [{
-                    value: '1',
-                    label: '6号线'
-                }],
-                stationsOpts: [{
-                    value: '1',
-                    label: '金安桥站'
-                }, {
-                    value: '2',
-                    label: '苹果园站'
-                }, {
-                    value: '3',
-                    label: '苹果园南路站'
-                }, {
-                    value: '4',
-                    label: '西黄村站'
-                }, {
-                    value: '5',
-                    label: '唐宫庄站'
-                }, {
-                    value: '6',
-                    label: '田村站'
-                }],
-                equSysOpts: [{
-                    value: '1',
-                    label: '设备系统一'
-                }, {
-                    value: '2',
-                    label: '设备系统二'
-                }],
-                equSortOpts: [{
-                    value: '1',
-                    label: '设备类型一'
-                }, {
-                    value: '2',
-                    label: '测试类型二'
-                }]
+                    // lines: '',
+                    // stations: '',
+                    // equSys: '',
+                    // equSort: '',
+                    // startTime: '',
+                    // endTime: ''
+                }
             };
         },
+        props: ['searchData'],
         methods: {
             onSubmit() {
 
@@ -100,6 +53,10 @@
     };
 </script>
 <style lang="less" scoped>
+    .el-input--mini {
+        width: 1.6rem;
+        background: none;
+    }
     .el-select--mini {
         width: 1.6rem;
         background: none;
@@ -116,37 +73,39 @@
         border-radius: 10px;
         background: url('~assets/other/title_bg.png') repeat;
         position: relative;
-        li {
-            overflow: hidden;
-            color: #fff;
+        ul {
             float: left;
-            padding: 0.015rem 0;
-            span {
-                float: left;
-                font-size: 0.2rem;
-                height: 0.46rem;
-                line-height: 0.46rem;
+            li {
+                overflow: hidden;
+                color: #fff;
+                padding: 0.015rem 0;
+                span {
+                    float: left;
+                    font-size: 0.2rem;
+                    height: 0.46rem;
+                    line-height: 0.46rem;
+                }
+                i {
+                    font-size: 0.2rem;
+                    height: 0.46rem;
+                    line-height: 0.46rem;
+                    font-style: normal;
+                }
             }
-            i {
-                font-size: 0.2rem;
-                height: 0.46rem;
-                line-height: 0.46rem;
-                font-style: normal;
+            a.btn {
+                position: absolute;
+                width: 0.53rem;
+                height: 0.4rem;
+                line-height: 0.4rem;
+                text-align: center;
+                top: 0.04rem;
+                right: 0.06rem;
+                z-index: 1;
+                background: #54596e;
+                border-radius: 6px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+                text-decoration: none;
             }
-        }
-        a.btn {
-            position: absolute;
-            width: 0.53rem;
-            height: 0.4rem;
-            line-height: 0.4rem;
-            text-align: center;
-            top: 0.04rem;
-            right: 0.06rem;
-            z-index: 1;
-            background: #54596e;
-            border-radius: 6px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-            text-decoration: none;
         }
     }
     .exportBtn {
