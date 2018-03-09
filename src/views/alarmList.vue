@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="searchWrap">
-            <v-sub-search></v-sub-search>
+            <v-sub-search v-bind:searchData="searchData"></v-sub-search>
         </div>
         <div class="tab">
             <ul class="title">
@@ -32,6 +32,74 @@
                 tabShow: true,
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
+                searchData: {
+                    'options': [{
+                        'status': 2,
+                        'title': '线路',
+                        'placeholder': '请选择内容',
+                        'val': 'lines',
+                        'list': [{
+                            value: '1',
+                            label: '6号线'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '车站',
+                        'placeholder': '请选择内容',
+                        'val': 'stations',
+                        'list': [{
+                            value: '1',
+                            label: '金安桥站'
+                        }, {
+                            value: '2',
+                            label: '苹果园站'
+                        }, {
+                            value: '3',
+                            label: '苹果园南路站'
+                        }, {
+                            value: '4',
+                            label: '西黄村站'
+                        }, {
+                            value: '5',
+                            label: '唐宫庄站'
+                        }, {
+                            value: '6',
+                            label: '田村站'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '设备系统',
+                        'placeholder': '请选择内容',
+                        'val': 'equSys',
+                        'list': [{
+                            value: '1',
+                            label: '设备系统一'
+                        }, {
+                            value: '2',
+                            label: '设备系统二'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '设备类型',
+                        'placeholder': '请选择内容',
+                        'val': 'equSort',
+                        'list': [{
+                            value: '1',
+                            label: '设备类型一'
+                        }, {
+                            value: '2',
+                            label: '测试类型二'
+                        }]
+                    }, {
+                        'status': 3,
+                        'title': '时间',
+                        'placeholderS': '选择开始日期',
+                        'placeholderE': '选择结束日期',
+                        'val1': 'startTime',
+                        'val2': 'endTime'
+                    }],
+                    popSave() { }
+                },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
                     style: 2 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它,4站点列表,5屏蔽门的列表

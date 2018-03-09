@@ -18,6 +18,12 @@
             goAlarmFn(key) {
                 if(key == 'timely') {
                     this.$router.push('alarmList');
+                } else if(key == 'failure') {
+                    this.$router.push('faultAnalysisList');
+                } else if(key == 'alarm') {
+                    this.$router.push('alarmStatistics');
+                } else if(key == 'patrol') {
+                    this.$router.push('inspect');
                 }
             }
         }
