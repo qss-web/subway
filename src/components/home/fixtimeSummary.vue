@@ -1,5 +1,5 @@
 <template>
-    <div class="fixtime-summary flex">
+    <div class="fixtime-summary flex" v-on:click="goInfoFn">
         <img class="light1" src="~assets/home/img_light_color.png" />
         <img class="light2" src="~assets/home/img_light_color2.png" />
         <div class="charts flex">
@@ -9,11 +9,20 @@
         </div>
     </div>
 </template>
-
+<script>
+    export default {
+        methods: {
+            goInfoFn() {
+                this.$router.push('commonDetail');
+            }
+        }
+    };
+</script>
 <style lang="less" scoped>
     .fixtime-summary {
         justify-content: space-around;
         z-index: 1;
+        cursor: pointer;
         .light1 {
             position: absolute;
             top: -0.3rem;
