@@ -1,5 +1,5 @@
 <template>
-    <button v-if="name == 'triangle'" class="tag triangle" :class="status" :style="{left: x + 'rem', top: y + 'rem'}">
+    <button v-if="name == 'triangle'" class="tag triangle" :class="status" :style="{left: x + 'rem', top: y + 'rem'}" @click="goToDevice">
         <slot></slot>
     </button>
     <button v-else-if="name == 'line'" class="tag line" :class="status" :style="{left: x + 'rem', top: y + 'rem'}">
@@ -12,7 +12,12 @@
 
 <script>
     export default {
-        props: ['name', 'type', 'status', 'x', 'y']
+        props: ['name', 'type', 'status', 'x', 'y'],
+        methods: {
+            goToDevice() {
+                this.$emit('onclick');
+            }
+        }
     };
 </script>
 
@@ -58,6 +63,7 @@
             box-shadow: 0 0.02rem 0.08rem 0.01rem #000;
             img {
                 position: absolute;
+                z-index: 1;
                 &.line1 {
                     width: 1.28rem;
                     height: 0.56rem;

@@ -2,21 +2,21 @@
     <div>
         <div>
             <div class="device-3d">
-                <v-tag name="triangle" status="error" x="2.1" y="2.6">1#屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="2.8" y="4">1#屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="2.9" y="4.82">2#屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="8.42" y="2.3">3#屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="3.63" y="2.11">A2屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="3.6" y="3.0">A3屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="5.5" y="3.2">4#屏蔽门</v-tag>
-                <v-tag name="triangle" status="normal" x="3.43" y="2.68">A2扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="6.1" y="2.53">B1扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="5.33" y="2.36">B2扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="4.8" y="2.1">B3扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="2.2" y="3">B4扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="2.72" y="3.2">B5扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="7.3" y="1.5">C1扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="8.2" y="1.7">C2扶梯</v-tag>
+                <v-tag name="triangle" status="error" x="2.1" y="2.6" @onclick="goToDevice(2)">1#屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="2.8" y="4" @onclick="goToDevice(2)">1#屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="2.9" y="4.82" @onclick="goToDevice(2)">2#屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="8.42" y="2.3" @onclick="goToDevice(2)">3#屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="3.63" y="2.11" @onclick="goToDevice(2)">A2屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="3.6" y="3.0" @onclick="goToDevice(2)">A3屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="5.5" y="3.2" @onclick="goToDevice(2)">4#屏蔽门</v-tag>
+                <v-tag name="triangle" status="normal" x="3.43" y="2.68" @onclick="goToDevice(3)">A2扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="6.1" y="2.53" @onclick="goToDevice(3)">B1扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="5.33" y="2.36" @onclick="goToDevice(3)">B2扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="4.8" y="2.1" @onclick="goToDevice(3)">B3扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="2.2" y="3" @onclick="goToDevice(3)">B4扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="2.72" y="3.2" @onclick="goToDevice(3)">B5扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="7.3" y="1.5" @onclick="goToDevice(3)">C1扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="8.2" y="1.7" @onclick="goToDevice(3)">C2扶梯</v-tag>
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日车站健康监测指标</button>
@@ -34,22 +34,22 @@
             <div class="fans flex">
                 <div class="fan flex">
                     <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name error" @click="gotoFan">F01风机</button>
+                    <button class="fan-name error" @click="goToDevice(1)">F01风机</button>
                 </div>
                 <div class="fan flex">
                     <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name warn" @click="gotoFan">F02风机</button>
+                    <button class="fan-name warn" @click="goToDevice(1)">F02风机</button>
                 </div>
                 <div class="fan flex">
                     <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name normal" @click="gotoFan">F03风机</button>
+                    <button class="fan-name normal" @click="goToDevice(1)">F03风机</button>
                 </div>
                 <div class="fan flex">
                     <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name error" @click="gotoFan">F04风机</button>
+                    <button class="fan-name error" @click="goToDevice(1)">F04风机</button>
                 </div>
             </div>
-            <v-train :select="true"></v-train>
+            <v-train :select="true" @click="alert(2)"></v-train>
         </div>
         <v-goback></v-goback>
     </div>
@@ -98,8 +98,15 @@
             };
         },
         methods: {
-            gotoFan() {
-                this.$router.push('faninfo');
+            goToDevice(deviceType) {
+                console.log(deviceType);
+                if(deviceType == 1) {
+                    this.$router.push('faninfo');
+                } else if(deviceType == 2) {
+                    this.$router.push('shielddoorinfo');
+                } else {
+                    this.$router.push('escalatorinfo');
+                }
             }
         }
     };
