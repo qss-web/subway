@@ -173,16 +173,6 @@
         }
     }
 
-    .device-3d {
-        position: absolute;
-        left: 0.04rem;
-        top: 2.66rem;
-        width: 10.98rem;
-        height: 6.96rem;
-        background: url('~assets/siteInfo/bg_fan.png') no-repeat;
-        background-size: 100% 100%;
-    }
-
     .alarm-reason {
         width: 4.68rem;
         background-color: #6d7389;
@@ -205,6 +195,16 @@
                 padding: 0.02rem 0;
             }
         }
+    }
+
+    .device-3d {
+        position: absolute;
+        left: 0.04rem;
+        top: 2.66rem;
+        width: 10.98rem;
+        height: 6.96rem;
+        background: url('~assets/siteInfo/bg_fan.png') no-repeat;
+        background-size: 100% 100%;
     }
 
     .device-healthy {

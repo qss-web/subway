@@ -1,6 +1,18 @@
 <template>
     <div>
         <div>
+            <div class="button-group flex">
+                <button class="btn-name">A-1</button>
+                <button class="btn-name">上行</button>
+                <button class="btn-alarm">报警</button>
+            </div>
+            <div class="alarm-reason">
+                <div class="alarm-reason-title">报警原因</div>
+                <ul class="alarm-reason-body">
+                    <li>1、苹果园南路站 A出入口下段PGN-FT-A-1 扶手带断裂</li>
+                    <li>2、廖公庄站B端风道LGZ-FT-D-4数据中断</li>
+                </ul>
+            </div>
             <div class="device-3d">
                 <v-tag name="line" type="1" status="warn">右扶手带</v-tag>
                 <v-tag name="line" type="2" status="warn">右扶手带</v-tag>
@@ -144,13 +156,60 @@
 </script>
 
 <style lang="less" scoped>
+    .button-group {
+        position: absolute;
+        left: 0.6rem;
+        top: 0.6rem;
+        .btn-name {
+            color: #fff;
+            border-radius: 0.12rem;
+            font-size: 0.3rem;
+            background-color: #373f5b;
+            padding: 0.08rem 0.4rem;
+            margin-left: 0.2rem;
+        }
+        .btn-alarm {
+            margin-left: 0.2rem;
+            color: #fff;
+            border-radius: 0.12rem;
+            font-size: 0.24rem;
+            background-color: #fa0000;
+            padding: 0.08rem 0.2rem;
+            box-shadow: 0 1px 0.1rem 0.01rem #fff;
+        }
+    }
+
+    .alarm-reason {
+        width: 4.68rem;
+        background-color: #6d7389;
+        color: #fff;
+        font-size: 0.16rem;
+        position: absolute;
+        left: 5.2rem;
+        top: 0.26rem;
+        &-title {
+            background-color: #64697f;
+            height: 0.35rem;
+            line-height: 0.35rem;
+            padding: 0 0.14rem;
+        }
+        &-body {
+            height: 1.32rem;
+            overflow: auto;
+            padding: 0.14rem;
+            li {
+                padding: 0.02rem 0;
+            }
+        }
+    }
+
     .device-3d {
         position: absolute;
         left: 0.4rem;
         bottom: 0.05rem;
         width: 10.88rem;
         height: 7.08rem;
-        background: url('~assets/siteInfo/bg_fan.png') no-repeat;
+        background: url('~assets/siteInfo/bg_escalator.png') no-repeat;
         background-size: 100% 100%;
     }
 
