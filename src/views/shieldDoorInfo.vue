@@ -13,8 +13,41 @@
                 </ul>
             </div>
             <div class="device-3d">
-                <v-tag name="number" status="error" x="1.5" y="1.4" :number="1"></v-tag>
-                <v-tag name="number" x="2.5" y="1.4" :number="2"></v-tag>
+                <v-tag name="number" status="error" x="0.85" y="0.05" :number="1"></v-tag>
+                <v-tag name="number" x="1.85" y="0.05" :number="2"></v-tag>
+                <v-tag name="number" status="error" x="2.85" y="0.05" :number="3"></v-tag>
+                <v-tag name="number" x="3.85" y="0.05" :number="4"></v-tag>
+                <v-tag name="number" status="error" x="4.85" y="0.05" :number="5"></v-tag>
+                <v-tag name="number" x="5.85" y="0.05" :number="6"></v-tag>
+                <v-tag name="number" status="error" x="6.85" y="0.05" :number="7"></v-tag>
+                <v-tag name="number" x="7.85" y="0.05" :number="8"></v-tag>
+
+                <v-tag name="number" x="0.85" y="1.28" :number="9"></v-tag>
+                <v-tag name="number" x="1.85" y="1.28" :number="10"></v-tag>
+                <v-tag name="number" x="2.85" y="1.28" :number="11"></v-tag>
+                <v-tag name="number" x="3.85" y="1.28" :number="12"></v-tag>
+                <v-tag name="number" x="4.85" y="1.28" :number="13"></v-tag>
+                <v-tag name="number" x="5.85" y="1.28" :number="14"></v-tag>
+                <v-tag name="number" x="6.85" y="1.28" :number="15"></v-tag>
+                <v-tag name="number" x="7.85" y="1.28" :number="16"></v-tag>
+
+                <v-tag name="number" status="error" x="0.85" y="2.55" :number="1"></v-tag>
+                <v-tag name="number" status="error" x="1.85" y="2.55" :number="2"></v-tag>
+                <v-tag name="number" status="error" x="2.85" y="2.55" :number="3"></v-tag>
+                <v-tag name="number" status="error" x="3.85" y="2.55" :number="4"></v-tag>
+                <v-tag name="number" status="error" x="4.85" y="2.55" :number="5"></v-tag>
+                <v-tag name="number" status="error" x="5.85" y="2.55" :number="6"></v-tag>
+                <v-tag name="number" status="error" x="6.85" y="2.55" :number="7"></v-tag>
+                <v-tag name="number" status="error" x="7.85" y="2.55" :number="8"></v-tag>
+
+                <v-tag name="number" x="0.85" y="3.76" :number="9"></v-tag>
+                <v-tag name="number" x="1.85" y="3.76" :number="10"></v-tag>
+                <v-tag name="number" x="2.85" y="3.76" :number="11"></v-tag>
+                <v-tag name="number" x="3.85" y="3.76" :number="12"></v-tag>
+                <v-tag name="number" x="4.85" y="3.76" :number="13"></v-tag>
+                <v-tag name="number" x="5.85" y="3.76" :number="14"></v-tag>
+                <v-tag name="number" x="6.85" y="3.76" :number="15"></v-tag>
+                <v-tag name="number" x="7.85" y="3.76" :number="16"></v-tag>
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日车站健康监测指标</button>
