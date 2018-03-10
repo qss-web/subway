@@ -14,9 +14,12 @@
                 </ul>
             </div>
             <div class="device-3d">
-                <v-tag name="line" type="1" status="warn">右扶手带</v-tag>
-                <v-tag name="line" type="2" status="warn">右扶手带</v-tag>
-                <v-tag name="line" type="3" status="warn">右扶手带</v-tag>
+                <v-tag name="line" type="1" status="warn" x="1.8" y="1.4">右扶手带</v-tag>
+                <v-tag name="line" type="1" status="normal" x="2" y="2.5">左扶手带</v-tag>
+                <v-tag name="line" type="1" status="error" x="1" y="3.5">从驱动轮</v-tag>
+                <v-tag name="line" type="3" status="warn" x="8.6" y="1.4">主驱动轮</v-tag>
+                <v-tag name="line" type="2" status="normal" x="5.4" y="4.7">扶梯衍架</v-tag>
+                <v-tag name="line" type="2" status="error" x="4.3" y="4.9">牵引键条</v-tag>
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日车站健康监测指标</button>
