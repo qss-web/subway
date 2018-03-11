@@ -1,39 +1,39 @@
 /* 覆盖分页 */
 .el-pagination button,
 .el-pagination span:not([class*='suffix']) {
-  font-size: 0.18rem;
-  padding: 0 0.2rem;
+  font-size: 0.18rem !important;
+  padding: 0 0.2rem !important;
 }
 
 .el-pagination .btn-next,
 .el-pagination .btn-prev {
-  background-color: #54596d;
-  color: #fff;
+  background-color: #54596d !important;
+  color: #fff !important;
 }
 
 /* 覆盖下拉框 */
 .el-input__inner {
   background: none !important;
-  font-size: 0.2rem;
-  color: #fff;
-  border: none;
+  font-size: 0.2rem !important;
+  color: #fff !important;
+  border: none !important;
   height: 0.46rem !important;
   line-height: 0.46rem !important;
-  padding: 0;
+  padding: 0 !important;
 }
 .el-input__suffix,
 .el-input__prefix {
-  display: none;
+  display: none !important;
 }
 .el-select-dropdown__item.selected {
-  color: #000;
+  color: #000 !important;
 }
 .el-select-dropdown__item {
-  font-size: 0.18rem;
+  font-size: 0.18rem !important;
 }
 .el-input--prefix .el-input__inner {
-  padding-left: 0;
+  padding-left: 0 !important;
 }
 .el-input--suffix .el-input__inner {
-  padding-right: 0;
+  padding-right: 0 !important;
 }
