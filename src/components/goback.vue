@@ -1,5 +1,5 @@
 <template>
-    <div class="footer flex" @click="goBack">
+    <div class="footer flex" @click.prevent="goBack">
         <img class="bg" src="../assets/other/footer-border.png" />
         <img class="back" src="~assets/common/icon_goback.png" />
     </div>

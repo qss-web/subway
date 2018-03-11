@@ -50,6 +50,7 @@
             background: url('~assets/siteInfo/icon_subway_header.png') no-repeat right top;
             width: 1.16rem;
             height: 100%;
+            background-size: 100%;
         }
     }
 

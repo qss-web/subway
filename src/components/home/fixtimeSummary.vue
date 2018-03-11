@@ -41,6 +41,7 @@
             background-color: #1f2129;
             z-index: 2;
             position: absolute;
+            left: 0;
             width: 100%;
             justify-content: space-around;
         }

@@ -4,7 +4,7 @@
         <span class="title flex-auto">机电设备运维服务智能监控系统</span>
         <div class="btn-group flex">
             <button v-on:click="homeFn"><img src="~assets/header/icon_home.png" /></button>
-            <button><img src="~assets/header/icon_mine.png" /></button>
+            <router-link tag="button" to="mine"><img src="~assets/header/icon_mine.png" /></router-link>
             <button v-on:click="searchFn"><img src="~assets/header/icon_search.png" /></button>
             <button><img src="~assets/header/icon_setting.png" /></button>
         </div>
