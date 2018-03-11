@@ -1,19 +1,19 @@
 <template>
     <div class="mine">
         <div class="cards">
-            <v-card-container class="userinfo" goKey="timely" title="用户信息" light="true">
+            <v-card-container class="card-userinfo" goKey="timely" title="用户信息" light="true">
                 <v-userinfo></v-userinfo>
             </v-card-container>
-            <v-card-container class="todolist" goKey="timely" title="待办事项" light="true">
+            <v-card-container class="card-todolist" goKey="timely" title="待办事项" light="true">
+                <v-mine-todolist></v-mine-todolist>
+            </v-card-container>
+            <v-card-container class="card-qualification" goKey="timely" title="技术指标" light="true">
 
             </v-card-container>
-            <v-card-container class="qualification" goKey="timely" title="技术指标" light="true">
+            <v-card-container class="card-alarm-event" goKey="timely" title="报警事件" light="true">
 
             </v-card-container>
-            <v-card-container class="alarm-event" goKey="timely" title="报警事件" light="true">
-
-            </v-card-container>
-            <v-card-container class="alarm-reason" goKey="timely" title="报警原因" light="true">
+            <v-card-container class="card-alarm-reason" goKey="timely" title="报警原因" light="true">
 
             </v-card-container>
 
@@ -352,31 +352,31 @@
 
 <style lang="less" scoped>
     .cards {
-        .userinfo {
+        .card-userinfo {
             left: 0.28rem;
             top: 0.14rem;
             width: 5.14rem;
             height: 4.87rem;
         }
-        .todolist {
+        .card-todolist {
             top: 0.12rem;
             left: 5.54rem;
             width: 8.74rem;
             height: 4.87rem;
         }
-        .qualification {
+        .card-qualification {
             top: 0.12rem;
             right: 0.14rem;
             width: 4.58rem;
             height: 3rem;
         }
-        .alarm-event {
+        .card-alarm-event {
             top: 3.24rem;
             right: 0.14rem;
             width: 4.58rem;
             height: 3rem;
         }
-        .alarm-reason {
+        .card-alarm-reason {
             top: 6.34rem;
             right: 0.14rem;
             width: 4.58rem;

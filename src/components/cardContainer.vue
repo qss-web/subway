@@ -4,7 +4,7 @@
             <button class="title" v-on:click="goAlarmFn(goKey)">{{title}}</button>
         </div>
         <div class="card-content">
-            <div>
+            <div class="relative">
                 <slot></slot>
             </div>
         </div>
@@ -64,6 +64,8 @@
                 border-radius: 0.05rem;
                 overflow: hidden;
                 border-top: 1px solid #383737;
+                height: 100%;
+                width: 100%;
             }
         }
         &.light {
