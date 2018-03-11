@@ -2,17 +2,16 @@
     <div v-bind:class="'g-table-' + other.style">
         <ul class="title">
             <li style="width: 4%" v-if="other.isCheck" v-on:click="checkAllFn">
-                <img src="../assets/search/check.png" />
+                <img v-if="!isAllCkeck" src="../assets/search/check.png" />
+                <img v-if="isAllCkeck" src="../assets/search/checked.png" />
             </li>
             <li v-for="(item, index) in label" v-bind:style="{width:item.width+'%'}">{{item.label}}</li>
         </ul>
         <dl class="content">
-            <dd v-for="(item, index) in list">
-                {{item}}
-                <span style="width: 4%" v-if="other.isCheck">
-                {{item.isCheck}}
-                    <img v-if="item.isCheck" v-on:click="test(item)" src="../assets/search/checked.png"/>
-                    <img v-if="!item.isCheck" v-on:click="test1(item)" src="../assets/search/check.png"/>
+            <dd v-for="(item, index) in listShow">
+                <span style="width: 4%" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
+                    <img v-if="!item.isCheck" src="../assets/search/check.png"/>
+                    <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
                 <span v-for="(item1, index) in label" v-bind:style="{width:item1.width+'%'}">{{item[item1.value]}}</span>
             </dd>
@@ -23,12 +22,15 @@
     export default {
         data() {
             return {
-
+                isAllCkeck: false,
+                listShow: [],
+                numLength: 0
             };
         },
         props: ['list', 'label', 'other'],
         created() {
-            this.list.forEach(item => {
+            this.listShow = this.list;
+            this.listShow.forEach(item => {
                 item.isCheck = false;
             });
         },
@@ -37,7 +39,28 @@
                 this.indexed = index;
             },
             checkAllFn() {
-
+                this.listShow.forEach(item => {
+                    if(this.isAllCkeck != item.isCheck) {
+                        item.isCheck = item.isCheck;
+                    } else {
+                        item.isCheck = !item.isCheck;
+                    }
+                });
+                this.isAllCkeck = !this.isAllCkeck;
+            },
+            singleCheckFn(index) {
+                this.listShow[index].isCheck = !this.listShow[index].isCheck;
+                if(this.listShow[index].isCheck) {
+                    this.numLength++;
+                } else {
+                    this.numLength--;
+                }
+                this.$set(this.listShow, index, this.listShow[index]);
+                if(this.numLength == this.listShow.length) {
+                    this.isAllCkeck = true;
+                } else {
+                    this.isAllCkeck = false;
+                }
             }
         }
     };
