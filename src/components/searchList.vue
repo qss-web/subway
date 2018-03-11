@@ -8,7 +8,12 @@
         </ul>
         <dl class="content">
             <dd v-for="(item, index) in list">
-                <span style="width: 4%" v-if="other.isCheck"><img src="../assets/search/check.png"/></span>
+                {{item}}
+                <span style="width: 4%" v-if="other.isCheck">
+                {{item.isCheck}}
+                    <img v-if="item.isCheck" v-on:click="test(item)" src="../assets/search/checked.png"/>
+                    <img v-if="!item.isCheck" v-on:click="test1(item)" src="../assets/search/check.png"/>
+                </span>
                 <span v-for="(item1, index) in label" v-bind:style="{width:item1.width+'%'}">{{item[item1.value]}}</span>
             </dd>
         </dl>
@@ -23,7 +28,9 @@
         },
         props: ['list', 'label', 'other'],
         created() {
-
+            this.list.forEach(item => {
+                item.isCheck = false;
+            });
         },
         methods: {
             currentList(index) {
@@ -296,6 +303,110 @@
                 span:first-child {
                     width: 4%;
                 }
+            }
+        }
+    }
+    .g-table-6 {
+        width: 100%;
+        ul {
+            display: flex;
+            -webkit-flex-flow: row wrap;
+            justify-content: space-around;
+            text-align: center;
+            color: #1c1e2a;
+            background: #c5cbe3;
+            font-size: 0.2rem;
+            height: 0.52rem;
+            line-height: 0.52rem;
+            li {
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+            }
+        }
+        .content {
+            dd {
+                display: flex;
+                -webkit-flex-flow: row wrap;
+                justify-content: space-around;
+                text-align: center;
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+                span {
+                    width: 8%;
+                    height: 0.52rem;
+                    line-height: 0.52rem;
+                    font-size: 0.2rem;
+                    color: #ffa600;
+                }
+                span:first-child {
+                    width: 4%;
+                }
+            }
+            dd:nth-child(2n-1) {
+                background: #e5e8f7;
+            }
+            dd:nth-child(2n) {
+                background: #d4d9ed;
+            }
+        }
+    }
+    .g-table-7 {
+        width: 100%;
+        ul {
+            display: flex;
+            -webkit-flex-flow: row wrap;
+            justify-content: space-around;
+            text-align: center;
+            color: #1c1e2a;
+            background: #e5e8f7;
+            font-size: 0.2rem;
+            height: 0.52rem;
+            line-height: 0.52rem;
+            li {
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+            }
+        }
+        .content {
+            dd {
+                display: flex;
+                -webkit-flex-flow: row wrap;
+                justify-content: space-around;
+                text-align: center;
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+                span {
+                    width: 8%;
+                    height: 0.52rem;
+                    line-height: 0.52rem;
+                    font-size: 0.2rem;
+                    color: #ffa600;
+                }
+                span:first-child {
+                    width: 4%;
+                }
+            }
+            dd:nth-child(2n-1) {
+                background: #dadff2;
+            }
+            dd:nth-child(2n) {
+                background: #cfd5eb;
             }
         }
     }
