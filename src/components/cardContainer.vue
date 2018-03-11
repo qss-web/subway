@@ -1,5 +1,5 @@
 <template>
-    <div class="card-container">
+    <div class="card-container" :class="{light: light}">
         <div class="card-header">
             <button class="title" v-on:click="goAlarmFn(goKey)">{{title}}</button>
         </div>
@@ -13,7 +13,7 @@
 <script>
     // goKey    timely实时报警信息  alarm今日报警统计  failure故障原因分析   patrol今日巡检比例
     export default {
-        props: ['title', 'goKey'],
+        props: ['title', 'goKey', 'light'],
         methods: {
             goAlarmFn(key) {
                 if(key == 'timely') {
@@ -54,7 +54,6 @@
                 background: url('~assets/card/bg_title.png') no-repeat;
                 background-size: 100% 100%;
                 margin-left: 0.05rem;
-                cursor: pointer;
             }
         }
         .card-content {
@@ -65,6 +64,25 @@
                 border-radius: 0.05rem;
                 overflow: hidden;
                 border-top: 1px solid #383737;
+            }
+        }
+        &.light {
+            background: url('~assets/card/bg_card_light.png') no-repeat;
+            background-size: 100% 100%;
+            box-shadow: 0 0.1rem 0.5rem 0.01rem rgba(0, 0, 0, 0.4);
+            .card-header {
+                height: 0.4rem;
+                .title {
+                    background: url('~assets/card/bg_title_light.png') no-repeat;
+                    background-size: 100% 100%;
+                    margin-top: 0.05rem;
+                }
+            }
+            .card-content {
+                padding-top: 0.4rem;
+                & > div {
+                    border-top: none;
+                }
             }
         }
     }

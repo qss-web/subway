@@ -19,6 +19,7 @@ import goback from './goback'; //返回上一页
 import tag from './tag'; //提示信息框
 import healthIndicators from './siteInfo/healthIndicators'; //健康指标
 import train from './train'; //地铁
+import userinfo from './mine/userinfo'; //用户信息
 import loginHeader from './loginHeader';
 import loginFooter from './loginFooter';
 import search from './search';
@@ -26,30 +27,31 @@ import searchList from './searchList';
 import subSearch from './subSearch'; //列表上面的筛选搜索
 
 export default {
-  header,
-  cardContainer,
-  chart,
-  tableSmall,
-  timelyAlarm,
-  failureAnalysis,
-  todayAlarm,
-  todayPatrol,
-  subwayLine,
-  flashing,
-  machineSummary,
-  fixtimeSummary,
-  counterSummary,
-  runningTime,
-  failureCount,
-  monthlyReliability,
-  fixingTime,
-  goback,
-  tag,
-  healthIndicators,
-  train,
-  loginHeader,
-  loginFooter,
-  search,
-  searchList,
-  subSearch
+    header,
+    cardContainer,
+    chart,
+    tableSmall,
+    timelyAlarm,
+    failureAnalysis,
+    todayAlarm,
+    todayPatrol,
+    subwayLine,
+    flashing,
+    machineSummary,
+    fixtimeSummary,
+    counterSummary,
+    runningTime,
+    failureCount,
+    monthlyReliability,
+    fixingTime,
+    goback,
+    tag,
+    healthIndicators,
+    train,
+    userinfo,
+    loginHeader,
+    loginFooter,
+    search,
+    searchList,
+    subSearch
 };
