@@ -85,6 +85,7 @@
                     background: url('~assets/card/bg_title_light.png') no-repeat;
                     background-size: 100% 100%;
                     margin-top: 0.05rem;
+                    margin-left: 0.2rem;
                 }
             }
             .card-content {

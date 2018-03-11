@@ -8,13 +8,13 @@
                 <v-mine-todolist></v-mine-todolist>
             </v-card-container>
             <v-card-container class="card-qualification" goKey="timely" title="技术指标" light="true">
-
+                <v-mine-qualification></v-mine-qualification>
             </v-card-container>
             <v-card-container class="card-alarm-event" goKey="timely" title="报警事件" light="true">
-
+                <v-mine-alarm-event></v-mine-alarm-event>
             </v-card-container>
             <v-card-container class="card-alarm-reason" goKey="timely" title="报警原因" light="true">
-
+                <v-mine-alarm-reason></v-mine-alarm-reason>
             </v-card-container>
             <div class="tabs-wrapper">
                 <div class="tabs flex">
