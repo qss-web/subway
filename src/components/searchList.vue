@@ -2,13 +2,17 @@
     <div v-bind:class="'g-table-' + other.style">
         <ul class="title">
             <li style="width: 4%" v-if="other.isCheck" v-on:click="checkAllFn">
-                <img src="../assets/search/check.png" />
+                <img v-if="!isAllCkeck" src="../assets/search/check.png" />
+                <img v-if="isAllCkeck" src="../assets/search/checked.png" />
             </li>
             <li v-for="(item, index) in label" v-bind:style="{width:item.width+'%'}">{{item.label}}</li>
         </ul>
         <dl class="content">
-            <dd v-for="(item, index) in list">
-                <span style="width: 4%" v-if="other.isCheck"><img src="../assets/search/check.png"/></span>
+            <dd v-for="(item, index) in listShow">
+                <span style="width: 4%" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
+                    <img v-if="!item.isCheck" src="../assets/search/check.png"/>
+                    <img v-if="item.isCheck" src="../assets/search/checked.png"/>
+                </span>
                 <span v-for="(item1, index) in label" v-bind:style="{width:item1.width+'%'}">{{item[item1.value]}}</span>
             </dd>
         </dl>
@@ -18,19 +22,45 @@
     export default {
         data() {
             return {
-
+                isAllCkeck: false,
+                listShow: [],
+                numLength: 0
             };
         },
         props: ['list', 'label', 'other'],
         created() {
-
+            this.listShow = this.list;
+            this.listShow.forEach(item => {
+                item.isCheck = false;
+            });
         },
         methods: {
             currentList(index) {
                 this.indexed = index;
             },
             checkAllFn() {
-
+                this.listShow.forEach(item => {
+                    if(this.isAllCkeck != item.isCheck) {
+                        item.isCheck = item.isCheck;
+                    } else {
+                        item.isCheck = !item.isCheck;
+                    }
+                });
+                this.isAllCkeck = !this.isAllCkeck;
+            },
+            singleCheckFn(index) {
+                this.listShow[index].isCheck = !this.listShow[index].isCheck;
+                if(this.listShow[index].isCheck) {
+                    this.numLength++;
+                } else {
+                    this.numLength--;
+                }
+                this.$set(this.listShow, index, this.listShow[index]);
+                if(this.numLength == this.listShow.length) {
+                    this.isAllCkeck = true;
+                } else {
+                    this.isAllCkeck = false;
+                }
             }
         }
     };
@@ -296,6 +326,110 @@
                 span:first-child {
                     width: 4%;
                 }
+            }
+        }
+    }
+    .g-table-6 {
+        width: 100%;
+        ul {
+            display: flex;
+            -webkit-flex-flow: row wrap;
+            justify-content: space-around;
+            text-align: center;
+            color: #1c1e2a;
+            background: #c5cbe3;
+            font-size: 0.2rem;
+            height: 0.52rem;
+            line-height: 0.52rem;
+            li {
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+            }
+        }
+        .content {
+            dd {
+                display: flex;
+                -webkit-flex-flow: row wrap;
+                justify-content: space-around;
+                text-align: center;
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+                span {
+                    width: 8%;
+                    height: 0.52rem;
+                    line-height: 0.52rem;
+                    font-size: 0.2rem;
+                    color: #ffa600;
+                }
+                span:first-child {
+                    width: 4%;
+                }
+            }
+            dd:nth-child(2n-1) {
+                background: #e5e8f7;
+            }
+            dd:nth-child(2n) {
+                background: #d4d9ed;
+            }
+        }
+    }
+    .g-table-7 {
+        width: 100%;
+        ul {
+            display: flex;
+            -webkit-flex-flow: row wrap;
+            justify-content: space-around;
+            text-align: center;
+            color: #1c1e2a;
+            background: #e5e8f7;
+            font-size: 0.2rem;
+            height: 0.52rem;
+            line-height: 0.52rem;
+            li {
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+            }
+        }
+        .content {
+            dd {
+                display: flex;
+                -webkit-flex-flow: row wrap;
+                justify-content: space-around;
+                text-align: center;
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+                span {
+                    width: 8%;
+                    height: 0.52rem;
+                    line-height: 0.52rem;
+                    font-size: 0.2rem;
+                    color: #ffa600;
+                }
+                span:first-child {
+                    width: 4%;
+                }
+            }
+            dd:nth-child(2n-1) {
+                background: #dadff2;
+            }
+            dd:nth-child(2n) {
+                background: #cfd5eb;
             }
         }
     }

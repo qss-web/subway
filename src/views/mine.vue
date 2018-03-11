@@ -1,19 +1,19 @@
 <template>
     <div class="mine">
         <div class="cards">
-            <v-card-container class="userinfo" goKey="timely" title="用户信息" light="true">
+            <v-card-container class="userinfo" title="用户信息" light="true">
                 <v-userinfo></v-userinfo>
             </v-card-container>
-            <v-card-container class="todolist" goKey="timely" title="待办事项" light="true">
+            <v-card-container class="todolist" title="待办事项" light="true">
 
             </v-card-container>
-            <v-card-container class="qualification" goKey="timely" title="技术指标" light="true">
+            <v-card-container class="qualification" goKey="qualification" title="技术指标" light="true">
 
             </v-card-container>
-            <v-card-container class="alarm-event" goKey="timely" title="报警事件" light="true">
+            <v-card-container class="alarm-event" goKey="event" title="报警事件" light="true">
 
             </v-card-container>
-            <v-card-container class="alarm-reason" goKey="timely" title="报警原因" light="true">
+            <v-card-container class="alarm-reason" goKey="reason" title="报警原因" light="true">
 
             </v-card-container>
 
@@ -444,18 +444,6 @@
 
     .mine .tables tr.even {
         background-color: #e4e8f7;
-    }
-
-    .el-pagination button,
-    .el-pagination span:not([class*='suffix']) {
-        font-size: 0.18rem;
-        padding: 0 0.2rem;
-    }
-
-    .el-pagination .btn-next,
-    .el-pagination .btn-prev {
-        background-color: #54596d;
-        color: #fff;
     }
 </style>
 

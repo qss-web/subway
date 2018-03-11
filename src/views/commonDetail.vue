@@ -25,8 +25,10 @@
                             <span>0次</span>
                         </li>
                     </ul>
-                    <div class="chartList clearfix" style="padding-bottom: 0.3rem;">
-                        <div class="chart">sdsd</div>
+                    <div class="chartList clearfix">
+                        <div class="chart">
+                            <v-chart :id="id" :option="option" :styleObject="styleObject"></v-chart>
+                        </div>
                         <dl class="list">
                             <dt>设备可靠度</dt>
                             <dd>
@@ -84,6 +86,112 @@
                         'val2': 'endTime'
                     }],
                     popSave() { }
+                },
+                id: 'todayAlarm',
+                styleObject: {
+                    width: 100 + '%',
+                    height: 3.6 + 'rem'
+                },
+                option: {
+                    chart: {
+                        type: 'column', //指定图表的类型
+                        backgroundColor: '#e5e8f7', //背景色
+                        margin: [60, 40, 60, 60]
+                    },
+                    credits: {
+                        enabled: false //去掉地址
+                    },
+                    title: {
+                        text: null //指定图表标题
+                    },
+                    xAxis: {
+                        title: {
+                            text: null
+                        },
+                        type: 'category',
+                        // categories: ['自动扶梯', '风机', '站台门'],
+                        labels: {
+                            style: {
+                                color: '#474740',
+                                fontSize: '0.16rem'
+                            },
+                            align: 'center', //标签居中对齐
+                            y: 30
+                        },
+                        lineWidth: 0, //轴线宽度
+                        tickWidth: 0, //刻度线宽度
+                        showFirstLabel: true,
+                        showLastLabel: true
+                    },
+                    yAxis: {
+                        title: {
+                            text: null //指定y轴的标题
+                        },
+                        gridLineColor: '#7281a3',
+                        labels: {
+                            style: {
+                                color: '#474740',
+                                fontSize: '0.16rem'
+                            },
+                            align: 'center', //标签居中对齐
+                            y: 5
+                        },
+                        lineColor: '#7281a3',
+                        lineWidth: 1,
+                        tickWidth: 1,
+                        tickColor: '#7281a3'
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            maxPointWidth: 20
+                        }
+                    },
+                    series: [{
+                        name: ' ',
+                        color: '#006599',
+                        data: [{
+                            y: 4,
+                            name: '2018.3.11'
+                        }, {
+                            y: 5,
+                            name: '2018.3.12'
+                        }, {
+                            y: 4,
+                            name: '2018.3.13'
+                        }, {
+                            y: 2,
+                            name: '2018.3.14'
+                        }, {
+                            y: 5,
+                            name: '2018.3.15'
+                        }, {
+                            y: 7,
+                            name: '2018.3.16'
+                        }, {
+                            y: 3,
+                            name: '2018.3.17'
+                        }, {
+                            y: 6,
+                            name: '2018.3.18'
+                        }, {
+                            y: 5,
+                            name: '2018.3.19'
+                        }, {
+                            y: 4,
+                            name: '2018.3.20'
+                        }]
+                    }],
+                    legend: {
+                        enabled: false
+                    },
+                    labels: {
+                        style: {                         // 标签全局样式
+                            color: "#474740",
+                            fontSize: '0.2rem',
+                            fontWeight: 'normal'
+                        }
+                    }
                 }
             };
         },
@@ -143,9 +251,12 @@
                 }
                 .chartList {
                     margin-top: 0.12rem;
+                    padding-bottom: 0.3rem;
                     .chart {
                         width: 10.2rem;
+                        height: 3.64rem;
                         float: left;
+                        border: 1px solid #8195a7;
                     }
                     .list {
                         width: 7.55rem;
