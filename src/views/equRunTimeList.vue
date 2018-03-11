@@ -275,6 +275,7 @@
         width: 98.5%;
         margin: 0px auto;
         min-height: 7.8rem;
+        border-top: 1px solid #587386;
         .title {
             background: #e5e8f7;
             position: relative;
