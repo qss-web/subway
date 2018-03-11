@@ -105,6 +105,10 @@
                 border-radius: 6px;
                 box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
                 text-decoration: none;
+                img {
+                    width: 0.28rem;
+                    height: 0.28rem;
+                }
             }
         }
     }
