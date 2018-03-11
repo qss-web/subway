@@ -14,10 +14,11 @@
                     <dd class="g-orange">全部：7次</dd>
                 </dl>
             </ul>
-            <v-search-list v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
+            <v-search-list v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data" v-bind:test="true"></v-search-list>
             <v-search-list v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
-            <div class="pagination">
-                <el-pagination background @current-change="changePages" :current-page="currentPage" :page-size="pageSize" layout="prev, pager, next " :total="equList.total "></el-pagination>
+            <div class=" pagination ">
+                <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
+                    <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
                 </el-pagination>
             </div>
         </div>

@@ -41,7 +41,8 @@
             <v-search-list v-if="!subOther" v-bind:label="equLabe4" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
         </div>
         <div class=" pagination ">
-            <el-pagination background @current-change="changePages" :current-page="currentPage" :page-size="pageSize" layout="prev, pager, next " :total="equList.total "></el-pagination>
+            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
             </el-pagination>
         </div>
     </div>
@@ -53,7 +54,7 @@
             return {
                 indexed: 1,
                 currentPage: 1, //当前页数
-                pageSize: 7, //每页显示数量
+                pageSize: 8, //每页显示数量
                 otherInfo: {
                     isCheck: true, //是否显示多选框
                     style: 1 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
@@ -305,6 +306,19 @@
                         brand: '测试',
                         factory: '测试',
                         standard: '测试'
+                    }, {
+                        num: '1',
+                        company: '测试',
+                        project: '测试',
+                        line: '测试',
+                        station: '测试',
+                        equSystem: '测试',
+                        equName: '测试',
+                        contract: '测试',
+                        address: '测试',
+                        brand: '测试',
+                        factory: '测试',
+                        standard: '测试'
                     }]
                 }
             };
@@ -385,8 +399,13 @@
         }
     }
     .pagination {
-        height: 0.66rem;
+        background: #414455;
+        height: 1.08rem;
         text-align: center;
-        padding-top: 0.3rem;
+        margin-top: 0.05rem;
+        .el-pagination {
+            padding-top: 0.3rem;
+            color: #fff;
+        }
     }
 </style>

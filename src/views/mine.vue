@@ -16,7 +16,6 @@
             <v-card-container class="card-alarm-reason" goKey="timely" title="报警原因" light="true">
 
             </v-card-container>
-
             <div class="tabs-wrapper">
                 <div class="tabs flex">
                     <button class="tab" :class="{active: activeIndex == 0}" @click="activeIndex = 0">今日报警信息</button>
@@ -444,18 +443,6 @@
 
     .mine .tables tr.even {
         background-color: #e4e8f7;
-    }
-
-    .el-pagination button,
-    .el-pagination span:not([class*='suffix']) {
-        font-size: 0.18rem;
-        padding: 0 0.2rem;
-    }
-
-    .el-pagination .btn-next,
-    .el-pagination .btn-prev {
-        background-color: #54596d;
-        color: #fff;
     }
 </style>
 

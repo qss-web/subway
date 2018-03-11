@@ -9,13 +9,18 @@
             </li>
         </ul>
 
-        <button class="more">更多</button>
+        <button class="more" v-on:click="goListFn">更多</button>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['title', 'list', 'widths']
+        props: ['title', 'list', 'widths'],
+        methods: {
+            goListFn() {
+                this.$router.push('/stationStaffList');
+            }
+        }
     };
 </script>
 
