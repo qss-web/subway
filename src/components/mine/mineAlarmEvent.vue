@@ -28,7 +28,7 @@
                             text: null
                         },
                         type: 'category',
-                        // categories: ['自动扶梯', '风机', '站台门'],
+                        categories: ['自动扶梯', '风机', '站台门'],
                         labels: {
                             style: {
                                 color: '#474740',

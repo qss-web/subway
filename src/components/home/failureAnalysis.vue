@@ -56,6 +56,14 @@
                             align: 'center' //标签居中对齐
                         }
                     },
+                    // 数据列配置
+                    plotOptions: {
+                        scatter: {
+                            marker: {
+                                radius: 6
+                            }
+                        }
+                    },
                     series: [
                         {
                             //指定数据列
