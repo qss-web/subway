@@ -139,13 +139,13 @@
                                     <span class="unit">台</span>
                                 </div>` // 指定图表标题
                         },
-                        // 数据列
                         series: [
                             {
                                 //指定数据列
                                 name: '电梯系统',
                                 color: '#2f4554',
                                 data: [{
+                                    name: '电梯系统',
                                     y: 10,
                                     color: '#2f4554',
                                     dataLabels: {
@@ -158,6 +158,7 @@
                                     }
                                 }, {
                                     y: 2,
+                                    name: '风机系统',
                                     color: '#737f9d',
                                     dataLabels: {
                                         enabled: true,
@@ -169,6 +170,7 @@
                                     }
                                 }, {
                                     y: 3,
+                                    name: '屏蔽门系统',
                                     color: '#cfa972',
                                     dataLabels: {
                                         enabled: true,
@@ -180,7 +182,13 @@
                                     }
                                 }]
                             }
-                        ]
+                        ],
+                        // 数据提示框
+                        tooltip: {
+                            ...this.option.tooltip,
+                            headerFormat: '今日报警信息<br />',
+                            pointFormat: '{point.name}{point.y}条'
+                        }
                     }
                 };
             },
@@ -205,6 +213,7 @@
                                 color: '#2f4554',
                                 data: [{
                                     y: 10,
+                                    name: '电梯系统',
                                     color: '#2f4554',
                                     dataLabels: {
                                         enabled: true,
@@ -216,6 +225,7 @@
                                     }
                                 }, {
                                     y: 2,
+                                    name: '风机系统',
                                     color: '#737f9d',
                                     dataLabels: {
                                         enabled: true,
@@ -227,6 +237,7 @@
                                     }
                                 }, {
                                     y: 3,
+                                    name: '屏蔽门系统',
                                     color: '#cfa972',
                                     dataLabels: {
                                         enabled: true,
@@ -238,12 +249,17 @@
                                     }
                                 }]
                             }
-                        ]
+                        ],
+                        // 数据提示框
+                        tooltip: {
+                            ...this.option.tooltip,
+                            headerFormat: '当前设备故障<br />',
+                            pointFormat: '{point.name}{point.y}条'
+                        }
                     }
                 };
             },
             chart3() {
-                console.log(this.option.title);
                 return {
                     id: 'mineTodolist3',
                     option: {
@@ -263,6 +279,7 @@
                                 color: '#2f4554',
                                 data: [{
                                     y: 10,
+                                    name: '电梯系统',
                                     color: '#2f4554',
                                     dataLabels: {
                                         enabled: true,
@@ -274,6 +291,7 @@
                                     }
                                 }, {
                                     y: 2,
+                                    name: '风机系统',
                                     color: '#737f9d',
                                     dataLabels: {
                                         enabled: true,
@@ -285,6 +303,7 @@
                                     }
                                 }, {
                                     y: 3,
+                                    name: '屏蔽门系统',
                                     color: '#cfa972',
                                     dataLabels: {
                                         enabled: true,
@@ -296,7 +315,13 @@
                                     }
                                 }]
                             }
-                        ]
+                        ],
+                        // 数据提示框
+                        tooltip: {
+                            ...this.option.tooltip,
+                            headerFormat: '今日巡检比例<br />',
+                            pointFormat: '{point.name}{point.y}条'
+                        }
                     }
                 };
             }

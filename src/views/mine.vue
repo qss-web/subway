@@ -2,7 +2,8 @@
     <div class="mine">
         <div class="cards">
             <v-card-container class="card-userinfo" title="用户信息" light="true">
-                <v-userinfo></v-userinfo>
+                <v-userinfo @edit="userinfoType = 1" v-if="!userinfoType"></v-userinfo>
+                <v-edit-userinfo @save="userinfoType = 0" v-if="userinfoType"></v-edit-userinfo>
             </v-card-container>
             <v-card-container class="card-todolist" title="待办事项" light="true">
                 <v-mine-todolist></v-mine-todolist>
@@ -81,6 +82,7 @@
         data() {
             return {
                 activeIndex: 0,
+                userinfoType: 1, // 0展示 1编辑
                 alarmTotal: {
                     page: {
                         current: 1,

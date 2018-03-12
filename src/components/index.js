@@ -20,6 +20,7 @@ import tag from './tag'; //提示信息框
 import healthIndicators from './siteInfo/healthIndicators'; //健康指标
 import train from './train'; //地铁
 import userinfo from './mine/userinfo'; //用户信息
+import editUserinfo from './mine/editUserinfo'; //修改用户信息
 import mineTodolist from './mine/mineTodolist'; //我的-待办事项
 import mineQualification from './mine/mineQualification'; //我的-技术指标
 import mineAlarmEvent from './mine/mineAlarmEvent'; //我的-报警事件
@@ -53,6 +54,7 @@ export default {
     healthIndicators,
     train,
     userinfo,
+    editUserinfo,
     mineTodolist,
     mineQualification,
     mineAlarmEvent,

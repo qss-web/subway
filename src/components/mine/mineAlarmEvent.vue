@@ -27,17 +27,16 @@
                         title: {
                             text: null
                         },
-                        type: 'category',
-                        categories: ['自动扶梯', '风机', '站台门'],
+                        categories: [1, 2, 3, 4, 5, 6, 7],
                         labels: {
                             style: {
-                                color: '#474740',
-                                fontSize: '0.2rem'
+                                fontSize: 10,
+                                color: '#fff'
                             },
-                            align: 'center', //标签居中对齐
-                            y: 30
+                            align: 'center' //标签居中对齐
                         },
-                        lineWidth: 0, //轴线宽度
+                        lineWidth: 1, //轴线宽度
+                        lineColor: '#5f666b',
                         tickWidth: 0, //刻度线宽度
                         showFirstLabel: true,
                         showLastLabel: true
@@ -46,50 +45,49 @@
                         title: {
                             text: null //指定y轴的标题
                         },
-                        gridLineColor: '#7281a3',
                         labels: {
                             style: {
-                                color: '#474740',
-                                fontSize: '0.2rem'
+                                fontSize: 10,
+                                color: '#fff'
                             },
-                            align: 'center', //标签居中对齐
-                            y: 5
+                            align: 'center' //标签居中对齐
                         },
-                        lineColor: '#7281a3',
                         lineWidth: 1,
-                        tickWidth: 1,
-                        tickColor: '#7281a3'
+                        lineColor: '#5f666b',
+                        tickWidth: 0,
+                        gridLineColor: 'rgba(255,255,255,0.5)'
                     },
                     plotOptions: {
-                        series: {
-                            borderWidth: 0,
-                            maxPointWidth: 46
+                        area: {
+                            marker: {
+                                symbol: 'circle',
+                                radius: 1,
+                                fillColor: '#fff'
+                            }
                         }
                     },
                     series: [{
-                        color: '#d06c6a',
-                        name: '本月',
-                        data: [2, 2, 1, 2, 1, 5, 4]
-                    }, {
                         color: '#8dbac0',
                         name: '上月',
-                        data: [30, 100, 26, 87, 44, 67, 11, 32, 110, 235, 369, 640]
+                        data: [4, 6, 8, 4, 4, 4, 6]
+                    }, {
+                        color: '#d06c6a',
+                        name: '本月',
+                        data: [2, 2, 0, 2, 1, 5, 3]
                     }],
+                    // 数据提示框
+                    tooltip: {
+                        // pointFormatter: function() {
+                        //     return this.y;
+                        // }
+                        headerFormat: ''
+                    },
                     legend: {
                         enabled: false
-                    },
-                    labels: {
-                        style: {
-                            color: "#474740",
-                            fontSize: '0.2rem',
-                            fontWeight: 'normal'
-                        }
                     }
                 }
 
             };
-        },
-        methods: {
         }
     };
 </script>
