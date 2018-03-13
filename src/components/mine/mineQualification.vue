@@ -1,6 +1,25 @@
 <template>
     <div class="qualification">
-        22
+        <img class="axis" src="~assets/mine/icon_axis.png" />
+        <div class="chart">
+            <div class="circle low">
+                <span class="item" style="left:1rem;top:0.1rem;">F01</span>
+                <span class="item" style="left:1.5rem;top:0.4rem;">F01</span>
+                <span class="item" style="left:1.8rem;top:0.8rem;">F01</span>
+                <div class="circle middle">
+                    <span class="item" style="left:1rem;top:0.1rem;">F01</span>
+                    <span class="item" style="left:1.2rem;top:1rem;">F01</span>
+                    <div class="circle high">
+                        <span class="item" style="left:0.5rem;top:0.2rem;">F01</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="legend">
+            <li><span class="">高区</span><span class="icon high"></span></li>
+            <li><span class="">中区</span><span class="icon middle"></span></li>
+            <li><span class="">低区</span><span class="icon low"></span></li>
+        </ul>
     </div>
 </template>
 <script>
@@ -18,5 +37,85 @@
         left: 0.1rem;
         right: 0.1rem;
         bottom: 0.1rem;
+        background-color: #85919a;
+        .axis {
+            position: absolute;
+            width: 0.43rem;
+            height: 2.03rem;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0.2rem;
+        }
+        .chart {
+            position: absolute;
+            top: 50%;
+            left: 1rem;
+            .circle {
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 0;
+            }
+            .low {
+                width: 2.33rem;
+                height: 2.33rem;
+                background-color: #0e6881;
+                z-index: 1;
+                box-shadow: -0.01rem 0;
+            }
+            .middle {
+                width: 1.64rem;
+                height: 1.64rem;
+                background-color: #9fa818;
+                z-index: 2;
+            }
+            .high {
+                width: 1.02rem;
+                height: 1.02rem;
+                background-color: #9f0f18;
+                z-index: 3;
+            }
+            .item {
+                font-size: 0.12rem;
+                position: absolute;
+                &:before {
+                    content: '';
+                    width: 0.05rem;
+                    height: 0.05rem;
+                    background: #000;
+                    display: inline-block;
+                    vertical-align: middle;
+                    border-radius: 50%;
+                    margin-right: 0.02rem;
+                }
+            }
+        }
+        .legend {
+            position: absolute;
+            right: 0.1rem;
+            bottom: 0.1rem;
+            li {
+                padding: 0.08rem;
+                font-size: 0.14rem;
+                color: #fff;
+                .icon {
+                    width: 0.16rem;
+                    height: 0.16rem;
+                    border-radius: 50%;
+                    float: right;
+                    margin-left: 0.1rem;
+                }
+                .low {
+                    background-color: #0e6881;
+                }
+                .middle {
+                    background-color: #9fa818;
+                }
+                .high {
+                    background-color: #9f0f18;
+                }
+            }
+        }
     }
 </style>

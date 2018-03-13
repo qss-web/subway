@@ -1,10 +1,15 @@
 <template>
     <div class="txt-center">
         <div class="flex">
-            <v-ring-diagram id="runIndex" title="累计运行时间" :time="98"></v-ring-diagram>
-            <v-pie-chart></v-pie-chart>
-            <!-- <div class="max-time">最长无故障运行时间</div> -->
-            <div class="min-time">最短无故障运行时间</div>
+            <div class="showChart">
+                <v-ring-diagram id="runIndex1" title="累计运行时间" :time="showValue[0]" :showData="test1"></v-ring-diagram>
+            </div>
+            <div class="showChart">
+                <v-ring-diagram id="runIndex2" title="平均无故障运行时间" :time="showValue[1]" :showData="test2"></v-ring-diagram>
+            </div>
+            <div class="showChart">
+                <v-ring-diagram id="runIndex3" title="累积运行次数" :time="showValue[2]" :showData="test3"></v-ring-diagram>
+            </div>
         </div>
         <ul class="dataShow">
             <li class="flex">
@@ -26,6 +31,19 @@
     export default {
         data() {
             return {
+                showValue: ['98小时', '300小时', '98次'],
+                test1: [{
+                    y: 360,
+                    color: '#32b16c'
+                }],
+                test2: [{
+                    y: 360,
+                    color: '#63869e'
+                }],
+                test3: [{
+                    y: 360,
+                    color: '#13b5b1'
+                }],
                 otherInfo: {
                     isCheck: false, //是否显示多选框
                     style: 8 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它,4站点列表,5屏蔽门的列表
@@ -141,6 +159,14 @@
                         installPosition: '安装位置',
                         equStatus: '设备状态',
                         time: '状态变更时间'
+                    }, {
+                        num: '11',
+                        station: '所属车站',
+                        equSys: '设备系统',
+                        equNum: '设备编号',
+                        installPosition: '安装位置',
+                        equStatus: '设备状态',
+                        time: '状态变更时间'
                     }]
                 }
             };
@@ -149,10 +175,9 @@
 </script>
 
 <style lang="less" scoped>
-    .healthy-chart,
-    .max-time,
-    .min-time {
+    .showChart {
         flex: 1;
+        padding-bottom: 0.24rem;
     }
     .dataShow {
         li {
