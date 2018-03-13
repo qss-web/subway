@@ -13,7 +13,7 @@
                     <img v-if="!item.isCheck" src="../assets/search/check.png"/>
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
-                <span v-for="(item1, index) in label" v-bind:style="{width:item1.width+'%'}">{{item[item1.value]}}</span>
+                <span v-bind:class="item.status?'font-color-' + item.status:''" v-for="(item1, index) in label" v-bind:style="{width:item1.width+'%'}">{{item[item1.value]}}</span>
             </dd>
         </dl>
     </div>
@@ -66,6 +66,24 @@
     };
 </script>
 <style lang="less" scoped>
+    // .font-color-default {
+    //     color: #1c1e2a !important;
+    // }
+    .font-color-1 {
+        color: #cc0000 !important;
+    }
+    .font-color-2 {
+        color: #f9af00 !important;
+    }
+    .font-color-3 {
+        color: #027b03 !important;
+    }
+    .font-color-4 {
+        color: #ff6600 !important;
+    }
+    .font-color-5 {
+        color: #6e381f !important;
+    }
     .g-table-1 {
         width: 100%;
         border-top: 1px solid #343740;
@@ -81,6 +99,7 @@
             font-size: 0.2rem;
             height: 0.39rem;
             line-height: 0.38rem;
+            font-weight: bold;
             li {
                 img {
                     width: 0.29rem;
@@ -134,6 +153,7 @@
             font-size: 0.2rem;
             height: 0.52rem;
             line-height: 0.52rem;
+            font-weight: bold;
             li {
                 img {
                     width: 0.29rem;
@@ -189,6 +209,7 @@
             font-size: 0.2rem;
             height: 0.52rem;
             line-height: 0.52rem;
+            font-weight: bold;
             li {
                 img {
                     width: 0.29rem;
@@ -214,7 +235,7 @@
                     height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.2rem;
-                    color: #ffa600;
+                    color: #2f4554;
                 }
                 span:first-child {
                     width: 4%;
@@ -240,6 +261,7 @@
             font-size: 0.16rem;
             height: 0.4rem;
             line-height: 0.4rem;
+            font-weight: bold;
             li {
                 img {
                     width: 0.29rem;
@@ -290,6 +312,7 @@
             height: 0.39rem;
             line-height: 0.38rem;
             margin: 0 0.04rem;
+            font-weight: bold;
             li {
                 img {
                     width: 0.29rem;
@@ -336,6 +359,7 @@
             font-size: 0.2rem;
             height: 0.52rem;
             line-height: 0.52rem;
+            font-weight: bold;
             li {
                 img {
                     width: 0.29rem;
@@ -361,7 +385,7 @@
                     height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.2rem;
-                    color: #ffa600;
+                    color: #2f4554;
                 }
                 span:first-child {
                     width: 4%;
@@ -387,6 +411,7 @@
             font-size: 0.2rem;
             height: 0.52rem;
             line-height: 0.52rem;
+            font-weight: bold;
             li {
                 img {
                     width: 0.29rem;
@@ -412,7 +437,7 @@
                     height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.2rem;
-                    color: #ffa600;
+                    color: #2f4554;
                 }
                 span:first-child {
                     width: 4%;
@@ -438,6 +463,7 @@
             font-size: 0.18rem;
             height: 0.36rem;
             line-height: 0.36rem;
+            font-weight: bold;
             li {
                 img {
                     width: 0.29rem;
@@ -489,6 +515,7 @@
             font-size: 0.16rem;
             height: 0.36rem;
             line-height: 0.36rem;
+            font-weight: bold;
             li {
                 img {
                     width: 0.29rem;

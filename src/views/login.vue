@@ -13,7 +13,7 @@
                     </dd>
                 </dl>
             </div>
-            <dl class="notice" v-if="isNotice">
+            <dl class="notice" v-if="isNotice" style="display: none">
                 <dt>提示
                     <span v-on:click="close"><img src="../assets/login/close_icon.png"/></span>
                     <span v-on:click="close"><img src="../assets/login/minimize_icon.png"/></span>

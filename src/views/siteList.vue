@@ -168,7 +168,7 @@
                         currentValue: '当前值',
                         hLimit: '高限',
                         hhighLimit: '高高限',
-                        detectStatus: '测点状态',
+                        status: '2',
                         alarmCause: '报警原因',
                         repairAdvice: '维修建议'
                     }, {
@@ -183,7 +183,7 @@
                         currentValue: '当前值',
                         hLimit: '高限',
                         hhighLimit: '高高限',
-                        detectStatus: '测点状态',
+                        status: '3',
                         alarmCause: '报警原因',
                         repairAdvice: '维修建议'
                     }, {
@@ -198,7 +198,7 @@
                         currentValue: '当前值',
                         hLimit: '高限',
                         hhighLimit: '高高限',
-                        detectStatus: '测点状态',
+                        status: '3',
                         alarmCause: '报警原因',
                         repairAdvice: '维修建议'
                     }]

@@ -12,7 +12,7 @@
                     <li>2、廖公庄站B端风道LGZ-FT-D-4数据中断</li>
                 </ul>
             </div>
-            <div class="device-3d"></div>
+            <div class="device-3d" v-on:click="goInfoFn"></div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日车站健康监测指标</button>
                 <div class="device-healthy-body">
@@ -188,6 +188,9 @@
         methods: {
             gotoFan() {
                 this.$router.push('faninfo');
+            },
+            goInfoFn() {
+                this.$router.push('equInfo');
             }
         }
     };

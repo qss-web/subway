@@ -1,8 +1,11 @@
 <template>
     <div class="footer">
-        <span><i>C</i>opyright ©2018 [北京地铁] Powered By [机电设备运维服务智能监控系统] Version 1.0.0 </span>
+        <!-- <span><i>C</i>opyright ©2018 [北京地铁] Powered By [机电设备运维服务智能监控系统] Version 1.0.0 </span>
         <span>联系人：张** </span>
-        <span>联系电话：18800000000 </span>
+        <span>联系电话：18800000000 </span> -->
+        <span>北京市地铁运营有限公司</span>
+        <span>北京市轨道交通设计研究院有限公司</span>
+        <span>北京博华信智科技股份有限公司提供技术支持 服务热线：400-6858-525</span>
     </div>
 </template>
 

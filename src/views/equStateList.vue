@@ -145,7 +145,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '1'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -155,7 +155,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '1'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -165,7 +165,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '1'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -175,7 +175,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '2'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -185,7 +185,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '2'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -195,7 +195,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '3'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -205,7 +205,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '3'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -215,7 +215,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '4'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -225,7 +225,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '4'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -235,7 +235,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '5'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -245,7 +245,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '5'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -255,7 +255,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '5'
                     }]
                 }
             };

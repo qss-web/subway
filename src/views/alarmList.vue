@@ -142,7 +142,7 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '状态',
+                        status: '1',
                         operationInfo: '操作'
                     }, {
                         num: '序号',
@@ -150,7 +150,7 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '状态',
+                        status: '1',
                         operationInfo: '操作'
                     }, {
                         num: '序号',
@@ -158,7 +158,7 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '状态',
+                        status: '1',
                         operationInfo: '操作'
                     }, {
                         num: '序号',
@@ -166,7 +166,7 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '状态',
+                        status: '2',
                         operationInfo: '操作'
                     }, {
                         num: '序号',
@@ -174,7 +174,7 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '状态',
+                        status: '2',
                         operationInfo: '操作'
                     }, {
                         num: '序号',
@@ -182,7 +182,7 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '状态',
+                        status: '3',
                         operationInfo: '操作'
                     }, {
                         num: '序号',
@@ -190,7 +190,7 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '状态',
+                        status: '3',
                         operationInfo: '操作'
                     }, {
                         num: '序号',
@@ -198,7 +198,7 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '状态',
+                        status: '4',
                         operationInfo: '操作'
                     }, {
                         num: '序号',
@@ -206,7 +206,7 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '状态',
+                        status: '4',
                         operationInfo: '操作'
                     }, {
                         num: '序号',
@@ -214,7 +214,7 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '状态',
+                        status: '4',
                         operationInfo: '操作'
                     }]
                 }
