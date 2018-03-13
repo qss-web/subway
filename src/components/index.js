@@ -25,6 +25,7 @@ import mineTodolist from './mine/mineTodolist'; //我的-待办事项
 import mineQualification from './mine/mineQualification'; //我的-技术指标
 import mineAlarmEvent from './mine/mineAlarmEvent'; //我的-报警事件
 import mineAlarmReason from './mine/mineAlarmReason'; //我的-报警原因
+import alarmPopup from './alarmPopup'; //报警弹窗
 import loginHeader from './loginHeader';
 import loginFooter from './loginFooter';
 import search from './search';
@@ -64,6 +65,7 @@ export default {
   mineQualification,
   mineAlarmEvent,
   mineAlarmReason,
+  alarmPopup,
   loginHeader,
   loginFooter,
   search,
