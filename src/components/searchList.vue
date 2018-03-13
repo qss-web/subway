@@ -240,7 +240,7 @@
             text-align: center;
             color: #1c1e2a;
             background: #c5cbe3;
-            font-size: 0.2rem;
+            font-size: 0.16rem;
             height: 0.4rem;
             line-height: 0.4rem;
             li {
@@ -269,7 +269,7 @@
                     width: 8%;
                     height: 0.52rem;
                     line-height: 0.52rem;
-                    font-size: 0.2rem;
+                    font-size: 0.16rem;
                     color: #fff;
                 }
                 span:first-child {
@@ -290,7 +290,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.35);
             color: #fff;
             background: url('../assets/other/sub_title_bg.png') repeat-x;
-            font-size: 0.12rem;
+            font-size: 0.16rem;
             height: 0.39rem;
             line-height: 0.38rem;
             margin: 0 0.04rem;
@@ -320,7 +320,7 @@
                     width: 8%;
                     height: 0.52rem;
                     line-height: 0.52rem;
-                    font-size: 0.18rem;
+                    font-size: 0.16rem;
                     color: #fff;
                 }
                 span:first-child {

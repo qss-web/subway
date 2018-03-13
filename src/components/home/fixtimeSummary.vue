@@ -44,6 +44,8 @@
             left: 0;
             width: 100%;
             justify-content: space-around;
+            padding-bottom: 0.3rem;
+            padding-right: 0.2rem;
         }
     }
 </style>

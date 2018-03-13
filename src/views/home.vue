@@ -96,7 +96,7 @@
                 width: 3.83rem;
                 height: 3.73rem;
                 position: absolute;
-                left: 0;
+                left: 0.2rem;
                 bottom: 0;
             }
             .fixtime-summary {

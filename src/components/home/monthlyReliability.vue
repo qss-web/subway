@@ -26,8 +26,8 @@
                         y: 10
                     },
                     pane: {
-                        center: ['50%', '50%'],
-                        size: '80%',
+                        center: ['50%', '45%'],
+                        size: '100%',
                         startAngle: -10,
                         endAngle: 350,
                         background: {
