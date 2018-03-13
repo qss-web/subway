@@ -4,7 +4,7 @@
             <div class="button-group flex">
                 <button class="btn-name">A-1</button>
                 <button class="btn-name">上行</button>
-                <button class="btn-alarm">报警</button>
+                <button class="btn-alarm" @click="alarm">报警</button>
             </div>
             <div class="alarm-reason">
                 <div class="alarm-reason-title">报警原因</div>
@@ -44,6 +44,7 @@
             <v-train></v-train>
         </div>
         <v-goback></v-goback>
+        <v-alarm-popup v-if="isShowPopup"></v-alarm-popup>
     </div>
 </template>
 
@@ -51,6 +52,7 @@
     export default {
         data() {
             return {
+                isShowPopup: false,
                 activeIndex: '',
                 alarmTable: {
                     label: [{
@@ -196,6 +198,9 @@
         methods: {
             gotoFan() {
                 this.$router.push('faninfo');
+            },
+            alarm() {
+                this.isShowPopup = true;
             }
         }
     };
