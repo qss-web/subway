@@ -103,7 +103,6 @@
                     margin-top: 0.165rem;
                 }
                 span {
-                    width: 8%;
                     height: 0.56rem;
                     line-height: 0.56rem;
                     font-size: 0.18rem;
@@ -157,7 +156,6 @@
                     margin-top: 0.135rem;
                 }
                 span {
-                    width: 8%;
                     height: 0.56rem;
                     line-height: 0.56rem;
                     font-size: 0.2rem;
@@ -213,7 +211,6 @@
                     margin-top: 0.115rem;
                 }
                 span {
-                    width: 8%;
                     height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.2rem;
@@ -266,7 +263,6 @@
                     margin-top: 0.115rem;
                 }
                 span {
-                    width: 8%;
                     height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.2rem;
@@ -317,7 +313,6 @@
                     margin-top: 0.115rem;
                 }
                 span {
-                    width: 8%;
                     height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.18rem;
@@ -363,7 +358,6 @@
                     margin-top: 0.115rem;
                 }
                 span {
-                    width: 8%;
                     height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.2rem;
@@ -415,7 +409,6 @@
                     margin-top: 0.115rem;
                 }
                 span {
-                    width: 8%;
                     height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.2rem;
@@ -430,6 +423,108 @@
             }
             dd:nth-child(2n) {
                 background: #cfd5eb;
+            }
+        }
+    }
+    .g-table-8 {
+        width: 100%;
+        ul {
+            display: flex;
+            -webkit-flex-flow: row wrap;
+            justify-content: space-around;
+            text-align: center;
+            color: #2f4554;
+            background: #e4e8f7;
+            font-size: 0.18rem;
+            height: 0.36rem;
+            line-height: 0.36rem;
+            li {
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+            }
+        }
+        .content {
+            dd {
+                display: flex;
+                -webkit-flex-flow: row wrap;
+                justify-content: space-around;
+                text-align: center;
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+                span {
+                    font-size: 0.18rem;
+                    height: 0.36rem;
+                    line-height: 0.36rem;
+                    color: #2f4554;
+                }
+                span:first-child {
+                    width: 4%;
+                }
+            }
+            dd:nth-child(2n-1) {
+                background: #d7dae9;
+            }
+            dd:nth-child(2n) {
+                background: #e4e8f7;
+            }
+        }
+    }
+    .g-table-9 {
+        width: 100%;
+        ul {
+            display: flex;
+            -webkit-flex-flow: row wrap;
+            justify-content: space-around;
+            text-align: center;
+            color: #2f4554;
+            background: #bcc2da;
+            font-size: 0.16rem;
+            height: 0.36rem;
+            line-height: 0.36rem;
+            li {
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+            }
+        }
+        .content {
+            dd {
+                display: flex;
+                -webkit-flex-flow: row wrap;
+                justify-content: space-around;
+                text-align: center;
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.115rem;
+                }
+                span {
+                    font-size: 0.16rem;
+                    height: 0.36rem;
+                    line-height: 0.36rem;
+                    color: #2f4554;
+                }
+                span:first-child {
+                    width: 4%;
+                }
+            }
+            dd:nth-child(2n-1) {
+                background: #d7dae9;
+            }
+            dd:nth-child(2n) {
+                background: #e4e8f7;
             }
         }
     }

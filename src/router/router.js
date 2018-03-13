@@ -111,6 +111,11 @@ const router = [
         name: 'mine',
         path: 'mine',
         component: resolve => require(['@/views/mine'], resolve)
+      },
+      {
+        name: 'equInfo',
+        path: 'equInfo',
+        component: resolve => require(['@/views/equInfo'], resolve)
       }
     ]
   },

@@ -16,7 +16,6 @@
         <v-goback></v-goback>
     </div>
 </template>
-
 <script>
     export default {
         data() {
@@ -25,39 +24,6 @@
                 pageSize: 9, //每页显示数量
                 searchData: {
                     'options': [{
-                        'status': 2,
-                        'title': '线路',
-                        'placeholder': '请选择内容',
-                        'val': 'lines',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
-                    }, {
-                        'status': 2,
-                        'title': '车站',
-                        'placeholder': '请选择内容',
-                        'val': 'stations',
-                        'list': [{
-                            value: '1',
-                            label: '金安桥站'
-                        }, {
-                            value: '2',
-                            label: '苹果园站'
-                        }, {
-                            value: '3',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '4',
-                            label: '西黄村站'
-                        }, {
-                            value: '5',
-                            label: '唐宫庄站'
-                        }, {
-                            value: '6',
-                            label: '田村站'
-                        }]
-                    }, {
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
@@ -70,15 +36,17 @@
                             label: '设备系统二'
                         }]
                     }, {
-                        'status': 1,
-                        'title': '设备名称',
-                        'placeholder': '请输入内容',
-                        'val': 'equName'
-                    }, {
-                        'status': 4,
-                        'title': '时间',
-                        'placeholder': '请选择日期',
-                        'val': 'time'
+                        'status': 2,
+                        'title': '故障名称',
+                        'placeholder': '请选择内容',
+                        'val': 'equSort',
+                        'list': [{
+                            value: '1',
+                            label: '故障名称一'
+                        }, {
+                            value: '2',
+                            label: '故障名称二'
+                        }]
                     }],
                     popSave() { }
                 },
@@ -91,112 +59,160 @@
                     'width': 5,
                     'value': 'num'
                 }, {
-                    'label': '设备类型',
+                    'label': '线路',
                     'width': 10,
-                    'value': 'equType'
+                    'value': 'line'
                 }, {
-                    'label': '报警原因代码',
+                    'label': '安装车站',
                     'width': 20,
-                    'value': 'alarmCode'
+                    'value': 'station'
                 }, {
-                    'label': '报警原因名称',
+                    'label': '设备编号',
                     'width': 10,
-                    'value': 'alarmName'
+                    'value': 'equNum'
                 }, {
-                    'label': '故障平均发生时间',
+                    'label': '日期（月/日）',
                     'width': 10,
-                    'value': 'faultTime'
+                    'value': 'date'
                 }, {
-                    'label': '每千小时故障发生次数',
+                    'label': '到达时间',
                     'width': 20,
-                    'value': 'faultNum'
+                    'value': 'arriveTime'
+                }, {
+                    'label': '巡检状态',
+                    'width': 10,
+                    'value': 'status'
+                }, {
+                    'label': '设备状态',
+                    'width': 11,
+                    'value': 'equStatus'
+                }, {
+                    'label': '执行人',
+                    'width': 10,
+                    'value': 'name'
                 }],
                 equList: {
                     total: 9,
                     data: [{
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '报警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
                     }]
                 }
             };
