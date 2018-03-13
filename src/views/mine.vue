@@ -42,13 +42,13 @@
                     <div v-show="activeIndex == 1">
                         <el-table :data="deviceInfo.row" style="width: 100%; background-color: #eff0f2;" stripe height="2.5rem" :row-class-name="rowClassName" header-row-class-name="header-row">
                             <el-table-column prop="index" label="序号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="time" label="时间" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="faultNo" label="故障单号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="line" label="线路" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="station" label="车站" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="device" label="设备名称" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="system" label="系统" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="desc" label="事件描述" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="status" label="状态" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="deviceLocation" label="设备安装位置" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="deviceNo" label="设备编号" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="faultSys" label="故障系统" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="faultDesc" label="故障现象" align="center" show-overflow-tooltip></el-table-column>
                         </el-table>
                         <el-pagination :page-size="deviceInfo.page.offset" @current-change="deviceChangePage" class="pagination" layout="prev, slot, next" :total="deviceInfo.page.total" prev-text="上一页" next-text="下一页">
                             <span>{{deviceInfo.page.current}}/{{Math.ceil(deviceInfo.page.total / deviceInfo.page.offset)}}</span>
@@ -57,13 +57,14 @@
                     <div v-show="activeIndex == 2">
                         <el-table :data="checkInfo.row" style="width: 100%; background-color: #eff0f2;" stripe height="2.5rem" :row-class-name="rowClassName" header-row-class-name="header-row">
                             <el-table-column prop="index" label="序号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="time" label="时间" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="line" label="线路" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="station" label="车站" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="device" label="设备名称" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="system" label="系统" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="desc" label="事件描述" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="status" label="状态" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="type" label="类别" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="stationName" label="安装车站" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="deviceNo" label="设备编号" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="date" label="日期" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="arriveTime" label="到达时间" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="checkStatus" label="巡检状态" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="deviceStatus" label="设备状态" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="operator" label="执行人" align="center" show-overflow-tooltip></el-table-column>
                         </el-table>
                         <el-pagination :page-size="checkInfo.page.offset" @current-change="checkChangePage" class="pagination" layout="prev, slot, next" :total="checkInfo.page.total" prev-text="上一页" next-text="下一页">
                             <span>{{checkInfo.page.current}}/{{Math.ceil(checkInfo.page.total / checkInfo.page.offset)}}</span>
@@ -162,67 +163,67 @@
                     },
                     row: [{
                         index: '1',
-                        time: '2018-01-01',
+                        faultNo: '2018-01-01',
                         line: '6',
                         station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '当前设备故障',
-                        status: '正常'
+                        deviceLocation: '位置',
+                        deviceNo: 'A111',
+                        faultSys: '风机',
+                        faultDesc: '无法运行'
                     }, {
                         index: '2',
-                        time: '2018-01-01',
+                        faultNo: '2018-01-01',
                         line: '6',
                         station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '当前设备故障',
-                        status: '正常'
+                        deviceLocation: '位置',
+                        deviceNo: 'A111',
+                        faultSys: '风机',
+                        faultDesc: '无法运行'
                     }, {
                         index: '3',
-                        time: '2018-01-01',
+                        faultNo: '2018-01-01',
                         line: '6',
                         station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '当前设备故障',
-                        status: '正常'
+                        deviceLocation: '位置',
+                        deviceNo: 'A111',
+                        faultSys: '风机',
+                        faultDesc: '无法运行'
                     }, {
                         index: '4',
-                        time: '2018-01-01',
+                        faultNo: '2018-01-01',
                         line: '6',
                         station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '当前设备故障',
-                        status: '正常'
+                        deviceLocation: '位置',
+                        deviceNo: 'A111',
+                        faultSys: '风机',
+                        faultDesc: '无法运行'
                     }, {
                         index: '1',
-                        time: '2018-01-01',
+                        faultNo: '2018-01-01',
                         line: '6',
                         station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '当前设备故障',
-                        status: '正常'
+                        deviceLocation: '位置',
+                        deviceNo: 'A111',
+                        faultSys: '风机',
+                        faultDesc: '无法运行'
                     }, {
                         index: '2',
-                        time: '2018-01-01',
+                        faultNo: '2018-01-01',
                         line: '6',
                         station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '当前设备故障',
-                        status: '正常'
+                        deviceLocation: '位置',
+                        deviceNo: 'A111',
+                        faultSys: '风机',
+                        faultDesc: '无法运行'
                     }, {
                         index: '3',
-                        time: '2018-01-01',
+                        faultNo: '2018-01-01',
                         line: '6',
                         station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '当前设备故障',
-                        status: '正常'
+                        deviceLocation: '位置',
+                        deviceNo: 'A111',
+                        faultSys: '风机',
+                        faultDesc: '无法运行'
                     }]
                 },
                 checkTotal: {
@@ -233,67 +234,74 @@
                     },
                     row: [{
                         index: '1',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日巡检',
-                        status: '正常'
+                        type: '风机',
+                        stationName: '田村站',
+                        deviceNo: 'A111',
+                        date: '2018-01-01',
+                        arriveTime: '03:02',
+                        checkStatus: '正常',
+                        deviceStatus: '正常',
+                        operator: 'LINTAO'
                     }, {
                         index: '2',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日巡检',
-                        status: '正常'
+                        type: '风机',
+                        stationName: '田村站',
+                        deviceNo: 'A111',
+                        date: '2018-01-01',
+                        arriveTime: '03:02',
+                        checkStatus: '正常',
+                        deviceStatus: '正常',
+                        operator: 'LINTAO'
                     }, {
                         index: '3',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日巡检',
-                        status: '正常'
+                        type: '风机',
+                        stationName: '田村站',
+                        deviceNo: 'A111',
+                        date: '2018-01-01',
+                        arriveTime: '03:02',
+                        checkStatus: '正常',
+                        deviceStatus: '正常',
+                        operator: 'LINTAO'
                     }, {
                         index: '4',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日巡检',
-                        status: '正常'
+                        type: '风机',
+                        stationName: '田村站',
+                        deviceNo: 'A111',
+                        date: '2018-01-01',
+                        arriveTime: '03:02',
+                        checkStatus: '正常',
+                        deviceStatus: '正常',
+                        operator: 'LINTAO'
                     }, {
                         index: '1',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日巡检',
-                        status: '正常'
+                        type: '风机',
+                        stationName: '田村站',
+                        deviceNo: 'A111',
+                        date: '2018-01-01',
+                        arriveTime: '03:02',
+                        checkStatus: '正常',
+                        deviceStatus: '正常',
+                        operator: 'LINTAO'
                     }, {
                         index: '2',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日巡检',
-                        status: '正常'
+                        type: '风机',
+                        stationName: '田村站',
+                        deviceNo: 'A111',
+                        date: '2018-01-01',
+                        arriveTime: '03:02',
+                        checkStatus: '正常',
+                        deviceStatus: '正常',
+                        operator: 'LINTAO'
                     }, {
                         index: '3',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日巡检',
-                        status: '正常'
+                        type: '风机',
+                        stationName: '田村站',
+                        deviceNo: 'A111',
+                        date: '2018-01-01',
+                        arriveTime: '03:02',
+                        checkStatus: '正常',
+                        deviceStatus: '正常',
+                        operator: 'LINTAO'
                     }]
                 }
             };

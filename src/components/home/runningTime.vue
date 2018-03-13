@@ -13,8 +13,8 @@
 
             return {
                 styleObject: {
-                    width: 1.1 + 'rem',
-                    height: 1.1 + 'rem'
+                    width: 1.0 + 'rem',
+                    height: 1.0 + 'rem'
                 },
                 option: {
                     chart: {

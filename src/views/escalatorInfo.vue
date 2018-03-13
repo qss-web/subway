@@ -80,6 +80,25 @@
                         time: '时间',
                         eventDesc: '报警事件',
                         status: '状态'
+                    },
+                    {
+                        num: '序号',
+                        equName: '设备名称',
+                        time: '时间',
+                        eventDesc: '报警事件',
+                        status: '状态'
+                    }, {
+                        num: '序号',
+                        equName: '设备名称',
+                        time: '时间',
+                        eventDesc: '报警事件',
+                        status: '状态'
+                    }, {
+                        num: '序号',
+                        equName: '设备名称',
+                        time: '时间',
+                        eventDesc: '报警事件',
+                        status: '状态'
                     }],
                     other: {
                         style: 5
@@ -134,15 +153,39 @@
                     list: [{
                         num: '序号',
                         equName: '设备名称',
-                        testName: '',
-                        currentValue: '',
-                        highLimit: '',
-                        highestLimit: '',
-                        lowLimit: '',
-                        lowestLimit: '',
-                        alarmWay: '',
-                        alarmType: '',
-                        updateTime: ''
+                        testName: '测点名称',
+                        currentValue: '当前值',
+                        highLimit: '高限',
+                        highestLimit: '高高限',
+                        lowLimit: '下限',
+                        lowestLimit: '下下限',
+                        alarmWay: '报警方式',
+                        alarmType: '报警类型',
+                        updateTime: '更新时间'
+                    }, {
+                        num: '序号',
+                        equName: '设备名称',
+                        testName: '测点名称',
+                        currentValue: '当前值',
+                        highLimit: '高限',
+                        highestLimit: '高高限',
+                        lowLimit: '下限',
+                        lowestLimit: '下下限',
+                        alarmWay: '报警方式',
+                        alarmType: '报警类型',
+                        updateTime: '更新时间'
+                    }, {
+                        num: '序号',
+                        equName: '设备名称',
+                        testName: '测点名称',
+                        currentValue: '当前值',
+                        highLimit: '高限',
+                        highestLimit: '高高限',
+                        lowLimit: '下限',
+                        lowestLimit: '下下限',
+                        alarmWay: '报警方式',
+                        alarmType: '报警类型',
+                        updateTime: '更新时间'
                     }],
                     other: {
                         style: 5

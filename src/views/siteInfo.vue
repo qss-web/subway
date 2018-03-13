@@ -91,6 +91,28 @@
                     eventDesc: '报警事件',
                     status: '状态',
                     operate: '操作'
+                },
+                {
+                    num: '序号',
+                    equName: '设备名称',
+                    time: '时间',
+                    eventDesc: '报警事件',
+                    status: '状态',
+                    operate: '操作'
+                }, {
+                    num: '序号',
+                    equName: '设备名称',
+                    time: '时间',
+                    eventDesc: '报警事件',
+                    status: '状态',
+                    operate: '操作'
+                }, {
+                    num: '序号',
+                    equName: '设备名称',
+                    time: '时间',
+                    eventDesc: '报警事件',
+                    status: '状态',
+                    operate: '操作'
                 }],
                 other: {
                     style: 4
