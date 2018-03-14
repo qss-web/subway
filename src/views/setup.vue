@@ -519,6 +519,12 @@
         .el-dialog__header {
             padding: 0;
         }
+        .el-dialog__body {
+            padding: 0;
+        }
+        .el-dialog__footer {
+            padding-top: 0.5rem;
+        }
         &-dialog-header {
             background-color: #2f4554;
             height: 0.93rem;
@@ -529,16 +535,20 @@
             padding-left: 0.3rem;
         }
         &-dialog-body {
-            padding-top: 0.5rem;
-            .el-form-item__label {
-                font-size: 0.32rem;
-                margin-left: 0.8rem;
-            }
-            .el-input__inner {
-                padding: 0 0.15rem !important;
-                font-size: 0.38rem !important;
-                text-align: center;
-                color: #000 !important;
+            padding-top: 1rem;
+            .el-form-item {
+                margin-bottom: 0.32rem;
+                .el-form-item__label {
+                    font-size: 0.32rem;
+                    margin-left: 0.8rem;
+                    padding-right: 0.12rem;
+                }
+                .el-input__inner {
+                    padding: 0 0.15rem !important;
+                    font-size: 0.38rem !important;
+                    text-align: center;
+                    color: #000 !important;
+                }
             }
         }
         &-dialog-footer {
@@ -549,6 +559,10 @@
                 font-size: 0.4rem;
                 background-color: #2f4554;
                 color: #fff;
+                padding: 0;
+                &:last-child {
+                    margin-left: 1.6rem;
+                }
                 &:hover,
                 &:focus,
                 &:active {
