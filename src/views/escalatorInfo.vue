@@ -44,9 +44,10 @@
             <v-train></v-train>
         </div>
         <v-goback></v-goback>
-        <!-- <el-dialog title="收货地址" :visible.sync="isShowPopup">
-            <v-alarm-popup></v-alarm-popup>
-        </el-dialog> -->
+        <el-dialog :visible.sync="isShowPopup">
+            <img style="width: 100%; height: 110px;" src="~assets/other/test.jpg" />
+            <!-- <v-alarm-popup></v-alarm-popup> -->
+        </el-dialog>
     </div>
 </template>
 

@@ -28,7 +28,7 @@
         </div>
         <a class="exportBtn" href="javascript:;">查看</a>
         <a v-if="searchData.btnShow && searchData.btnShow.export" class="exportBtn" href="javascript:;">导出</a>
-        <a v-if="searchData.btnShow && searchData.btnShow.add" class="exportBtn" href="javascript:;">增加</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.add" v-on:click="testPop" class="exportBtn" href="javascript:;">增加</a>
         <a v-if="searchData.btnShow && searchData.btnShow.delete" class="exportBtn" href="javascript:;">删除</a>
         <a v-if="searchData.btnShow && searchData.btnShow.edit" class="exportBtn" href="javascript:;">编辑</a>
         <a v-if="searchData.btnShow && searchData.btnShow.download" class="exportBtn" href="javascript:;">下载</a>
@@ -53,6 +53,9 @@
         methods: {
             onSubmit() {
 
+            },
+            testPop() {
+                this.$emit('receive', true);
             }
         }
     };

@@ -7,7 +7,7 @@
         </ul>
         <div class="equWrap" v-if="tabShow==1">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData"></v-sub-search>
+                <v-sub-search v-on:receive="testPop" v-bind:searchData="searchData"></v-sub-search>
             </div>
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
@@ -20,7 +20,7 @@
         </div>
         <div class="equWrap" v-if="tabShow==2">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData01"></v-sub-search>
+                <v-sub-search v-on:receive="testPop" v-bind:searchData="searchData01"></v-sub-search>
             </div>
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info2" v-bind:list="equList.data"></v-search-list>
@@ -411,6 +411,10 @@
             changePages(val) {
                 this.currentPage = val;
                 // this.list();
+            },
+            testPop(value) {
+                console.log(value);
+                this.isShowUnitAccount = value;
             }
         }
     };
