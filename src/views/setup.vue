@@ -46,6 +46,14 @@
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
                 searchData: {
+                    'btnShow': {
+                        'add': true,
+                        'export': false,
+                        'delete': true,
+                        'edit': true,
+                        'download': true,
+                        'import': true
+                    },
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -110,6 +118,14 @@
                     popSave() { }
                 },
                 searchData01: {
+                    'btnShow': {
+                        'add': true,
+                        'export': false,
+                        'delete': true,
+                        'edit': true,
+                        'download': true,
+                        'import': false
+                    },
                     'options': [{
                         'status': 2,
                         'title': '设备类型',
@@ -327,6 +343,13 @@
                         alarmName: '报警原因名称',
                         faultTime: '20',
                         faultNum: '300'
+                    }, {
+                        num: '序1',
+                        equType: '设备类型',
+                        alarmCode: '02',
+                        alarmName: '报警原因名称',
+                        faultTime: '20',
+                        faultNum: '300'
                     }]
                 }
             };
@@ -408,7 +431,7 @@
         .pagination {
             text-align: center;
             padding: 0.1rem 0;
-            background: #c5cbe3;
+            background: #e5e8f7;
             border: 1px solid #587386;
             border-top: none;
         }

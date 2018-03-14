@@ -21,7 +21,7 @@
                         plotBorderWidth: 0,
                         plotShadow: false,
                         backgroundColor: 'transparent',
-                        marginRight: 60
+                        marginRight: 100
                     },
                     credits: {
                         enabled: false //去掉地址
@@ -38,7 +38,7 @@
                         symbolWidth: 24,
                         symbolHeight: 12,
                         symbolRadius: 4,
-                        x: 200,
+                        x: 122,
                         y: 15,
                         symbolPadding: 3,
                         itemStyle: {

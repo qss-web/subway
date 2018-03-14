@@ -27,7 +27,12 @@
             </ul>
         </div>
         <a class="exportBtn" href="javascript:;">查看</a>
-        <a class="exportBtn" href="javascript:;">导出</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.export" class="exportBtn" href="javascript:;">导出</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.add" class="exportBtn" href="javascript:;">增加</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.delete" class="exportBtn" href="javascript:;">删除</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.edit" class="exportBtn" href="javascript:;">编辑</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.download" class="exportBtn" href="javascript:;">下载</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.import" class="exportBtn" href="javascript:;">导入</a>
     </div>
 </template>
 <script>
@@ -114,7 +119,7 @@
     }
     .exportBtn {
         float: left;
-        margin-left: 0.22rem;
+        margin-left: 0.1rem;
         width: 1.1rem;
         height: 0.42rem;
         line-height: 0.42rem;
@@ -123,7 +128,7 @@
         font-size: 0.2rem;
         color: #ffffff;
         border-radius: 5px;
-        margin-top: 0.05rem;
+        margin-top: 0.04rem;
         box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.3);
         text-decoration: none;
     }

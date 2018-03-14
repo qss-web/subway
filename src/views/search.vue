@@ -40,7 +40,7 @@
             <v-search-list v-if="subOther" v-bind:label="equLabe5" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
             <v-search-list v-if="!subOther" v-bind:label="equLabe4" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
         </div>
-        <div class=" pagination ">
+        <div v-bind:class="indexed==5?'pagination5':'pagination'">
             <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
             </el-pagination>
@@ -405,6 +405,16 @@
         margin-top: 0.05rem;
         .el-pagination {
             padding-top: 0.3rem;
+            color: #fff;
+        }
+    }
+    .pagination5 {
+        background: #414455;
+        height: 0.66rem;
+        text-align: center;
+        margin-top: 0.05rem;
+        .el-pagination {
+            padding-top: 0.15rem;
             color: #fff;
         }
     }

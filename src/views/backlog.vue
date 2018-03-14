@@ -24,6 +24,14 @@
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
                 searchData: {
+                    'btnShow': {
+                        'add': false,
+                        'export': true,
+                        'delete': false,
+                        'edit': false,
+                        'download': false,
+                        'import': false
+                    },
                     'options': [{
                         'status': 2,
                         'title': '线路',
