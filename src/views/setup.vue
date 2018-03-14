@@ -560,6 +560,7 @@
             font-size: 0.38rem !important;
             height: auto !important;
             padding: 0.1rem 0.4rem;
+            font-weight: normal;
         }
     }
 </style>
