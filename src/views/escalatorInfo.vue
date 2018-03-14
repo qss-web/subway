@@ -13,7 +13,7 @@
                     <li>2、廖公庄站B端风道LGZ-FT-D-4数据中断</li>
                 </ul>
             </div>
-            <div class="device-3d">
+            <div class="device-3d" v-on:click="goInfoFn">
                 <v-tag name="line" type="1" status="warn" x="1.8" y="1.4">右扶手带</v-tag>
                 <v-tag name="line" type="1" status="normal" x="2" y="2.5">左扶手带</v-tag>
                 <v-tag name="line" type="1" status="error" x="1" y="3.5">从驱动轮</v-tag>
@@ -200,6 +200,9 @@
         methods: {
             gotoFan() {
                 this.$router.push('faninfo');
+            },
+            goInfoFn() {
+                this.$router.push('equInfo');
             }
         }
     };

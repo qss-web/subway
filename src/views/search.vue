@@ -40,7 +40,7 @@
             <v-search-list v-if="subOther" v-bind:label="equLabe5" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
             <v-search-list v-if="!subOther" v-bind:label="equLabe4" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
         </div>
-        <div class=" pagination ">
+        <div v-bind:class="indexed==5?'pagination5':'pagination'">
             <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
             </el-pagination>
@@ -65,65 +65,71 @@
                     'width': 8,
                     'value': 'num'
                 }, {
-                    'label': '运营公司',
-                    'width': 8,
-                    'value': 'company'
-                }, {
-                    'label': '项目部',
-                    'width': 8,
-                    'value': 'project'
-                }, {
                     'label': '线路',
-                    'width': 8,
+                    'width': 11,
                     'value': 'line'
                 }, {
                     'label': '车站',
-                    'width': 8,
+                    'width': 11,
                     'value': 'station'
                 }, {
-                    'label': '设备系统',
-                    'width': 8,
-                    'value': 'equSystem'
+                    'label': '设备编号',
+                    'width': 11,
+                    'value': 'company'
                 }, {
                     'label': '设备名称',
-                    'width': 8,
+                    'width': 11,
                     'value': 'equName'
                 }, {
-                    'label': '安装合同编号',
-                    'width': 8,
-                    'value': 'contract'
+                    'label': '设备系统',
+                    'width': 11,
+                    'value': 'equSystem'
                 }, {
-                    'label': '位置',
-                    'width': 8,
-                    'value': 'address'
-                }, {
-                    'label': '品牌',
-                    'width': 8,
-                    'value': 'brand'
-                }, {
-                    'label': '生产厂',
-                    'width': 8,
+                    'label': '生产厂家',
+                    'width': 11,
                     'value': 'factory'
                 }, {
-                    'label': '规格',
-                    'width': 8,
+                    'label': '安装地点',
+                    'width': 11,
+                    'value': 'address'
+                }, {
+                    'label': '规格型号',
+                    'width': 11,
                     'value': 'standard'
-                }],
+                }
+                    // {
+                    //     'label': '项目部',
+                    //     'width': 8,
+                    //     'value': 'project'
+                    // }, {
+                    //     'label': '安装合同编号',
+                    //     'width': 8,
+                    //     'value': 'contract'
+                    // }, {
+                    //     'label': '品牌',
+                    //     'width': 8,
+                    //     'value': 'brand'
+                    // }
+                ],
                 equLabe2: [{
                     'label': '设备',
                     'width': 15,
                     'value': 'num'
                 }, {
                     'label': '设备名称',
-                    'width': 26,
+                    'width': 21,
                     'value': 'company'
+                }, {
+                    'label': '车站',
+                    'width': 15,
+                    'value': 'station'
                 }, {
                     'label': '时间',
                     'width': 15,
                     'value': 'project'
                 }, {
                     'label': '报警事件',
-                    'width': 25,
+                    'width': 15,
                     'value': 'line'
                 }, {
                     'label': '状态',
@@ -136,16 +142,8 @@
                     'value': 'num'
                 }, {
                     'label': '故障单号',
-                    'width': 8,
+                    'width': 9,
                     'value': 'company'
-                }, {
-                    'label': '运行公司',
-                    'width': 8,
-                    'value': 'project'
-                }, {
-                    'label': '项目部',
-                    'width': 8,
-                    'value': 'line'
                 }, {
                     'label': '线路',
                     'width': 8,
@@ -155,29 +153,41 @@
                     'width': 8,
                     'value': 'equSystem'
                 }, {
-                    'label': '主要设备名称',
-                    'width': 8,
-                    'value': 'equName'
-                }, {
                     'label': '设备安装位置',
-                    'width': 8,
+                    'width': 9,
                     'value': 'contract'
                 }, {
                     'label': '设备编号',
-                    'width': 8,
+                    'width': 9,
                     'value': 'address'
                 }, {
                     'label': '故障系统',
-                    'width': 8,
+                    'width': 9,
                     'value': 'brand'
                 }, {
+                    'label': '故障现象',
+                    'width': 9,
+                    'value': 'line'
+                }, {
                     'label': '修复时间',
-                    'width': 8,
+                    'width': 9,
                     'value': 'factory'
                 }, {
                     'label': '维修人员',
-                    'width': 8,
+                    'width': 9,
                     'value': 'standard'
+                },
+
+
+                // {
+                //     'label': '运行公司',
+                //     'width': 8,
+                //     'value': 'project'
+                // },
+                {
+                    'label': '修复确认',
+                    'width': 9,
+                    'value': 'equName'
                 }],
                 equLabe4: [{
                     'label': '序号',
@@ -193,20 +203,36 @@
                     'value': 'line'
                 }],
                 equLabe5: [{
-                    'label': '设备名称',
-                    'width': 35,
-                    'value': 'num'
-                }, {
-                    'label': '设备位号',
-                    'width': 20,
+                    'label': '序号',
+                    'width': 9,
                     'value': 'company'
                 }, {
-                    'label': '设备型号',
-                    'width': 24,
+                    'label': '线路',
+                    'width': 13,
+                    'value': 'line'
+                }, {
+                    'label': '安装车站',
+                    'width': 13,
+                    'value': 'line'
+                }, {
+                    'label': '设备编号',
+                    'width': 13,
+                    'value': 'num'
+                }, {
+                    'label': '日期',
+                    'width': 13,
+                    'value': 'company'
+                }, {
+                    'label': '到达时间',
+                    'width': 13,
                     'value': 'project'
                 }, {
-                    'label': '厂商',
-                    'width': 25,
+                    'label': '巡视巡检情况记录',
+                    'width': 13,
+                    'value': 'line'
+                }, {
+                    'label': '执行人',
+                    'width': 13,
                     'value': 'line'
                 }],
                 equList: {
@@ -405,6 +431,16 @@
         margin-top: 0.05rem;
         .el-pagination {
             padding-top: 0.3rem;
+            color: #fff;
+        }
+    }
+    .pagination5 {
+        background: #414455;
+        height: 0.66rem;
+        text-align: center;
+        margin-top: 0.05rem;
+        .el-pagination {
+            padding-top: 0.15rem;
             color: #fff;
         }
     }

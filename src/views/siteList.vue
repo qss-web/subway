@@ -33,6 +33,14 @@
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
                 searchData: {
+                    'btnShow': {
+                        'add': false,
+                        'export': true,
+                        'delete': false,
+                        'edit': false,
+                        'download': false,
+                        'import': false
+                    },
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -61,23 +69,16 @@
                             label: '西黄村站'
                         }, {
                             value: '5',
-                            label: '唐宫庄站'
+                            label: '廖公庄站'
                         }, {
                             value: '6',
                             label: '田村站'
                         }]
                     }, {
-                        'status': 2,
-                        'title': '设备系统',
-                        'placeholder': '请选择内容',
-                        'val': 'equSys',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
+                        'status': 1,
+                        'title': '设备名称',
+                        'placeholder': '请输入内容',
+                        'val': 'equName'
                     }, {
                         'status': 2,
                         'title': '设备类型',
@@ -115,7 +116,7 @@
                     'value': 'equSys'
                 }, {
                     'label': '位置',
-                    'width': 10,
+                    'width': 6,
                     'value': 'address'
                 }, {
                     'label': '设备名称',
@@ -123,7 +124,7 @@
                     'value': 'equName'
                 }, {
                     'label': '监测类别',
-                    'width': 6,
+                    'width': 5,
                     'value': 'detectCategory'
                 }, {
                     'label': '测点名称',
@@ -144,7 +145,11 @@
                 }, {
                     'label': '测点状态',
                     'width': 5,
-                    'value': 'detectStatus'
+                    'value': 'status'
+                }, {
+                    'label': '更新时间',
+                    'width': 5,
+                    'value': 'time'
                 }, {
                     'label': '报警原因',
                     'width': 9,
@@ -168,7 +173,8 @@
                         currentValue: '当前值',
                         hLimit: '高限',
                         hhighLimit: '高高限',
-                        detectStatus: '测点状态',
+                        status: '1',
+                        time: '2018/03/04',
                         alarmCause: '报警原因',
                         repairAdvice: '维修建议'
                     }, {
@@ -183,7 +189,8 @@
                         currentValue: '当前值',
                         hLimit: '高限',
                         hhighLimit: '高高限',
-                        detectStatus: '测点状态',
+                        status: '1',
+                        time: '2018/03/04',
                         alarmCause: '报警原因',
                         repairAdvice: '维修建议'
                     }, {
@@ -198,7 +205,104 @@
                         currentValue: '当前值',
                         hLimit: '高限',
                         hhighLimit: '高高限',
-                        detectStatus: '测点状态',
+                        status: '2',
+                        time: '2018/03/04',
+                        alarmCause: '报警原因',
+                        repairAdvice: '维修建议'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '车站',
+                        equSys: '设备系统',
+                        address: '位置',
+                        equName: '设备名称',
+                        detectCategory: '监测类别',
+                        detectName: '测点名称',
+                        currentValue: '当前值',
+                        hLimit: '高限',
+                        hhighLimit: '高高限',
+                        status: '3',
+                        time: '2018/03/04',
+                        alarmCause: '报警原因',
+                        repairAdvice: '维修建议'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '车站',
+                        equSys: '设备系统',
+                        address: '位置',
+                        equName: '设备名称',
+                        detectCategory: '监测类别',
+                        detectName: '测点名称',
+                        currentValue: '当前值',
+                        hLimit: '高限',
+                        hhighLimit: '高高限',
+                        status: '3',
+                        time: '2018/03/04',
+                        alarmCause: '报警原因',
+                        repairAdvice: '维修建议'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '车站',
+                        equSys: '设备系统',
+                        address: '位置',
+                        equName: '设备名称',
+                        detectCategory: '监测类别',
+                        detectName: '测点名称',
+                        currentValue: '当前值',
+                        hLimit: '高限',
+                        hhighLimit: '高高限',
+                        status: '4',
+                        time: '2018/03/04',
+                        alarmCause: '报警原因',
+                        repairAdvice: '维修建议'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '车站',
+                        equSys: '设备系统',
+                        address: '位置',
+                        equName: '设备名称',
+                        detectCategory: '监测类别',
+                        detectName: '测点名称',
+                        currentValue: '当前值',
+                        hLimit: '高限',
+                        hhighLimit: '高高限',
+                        status: '4',
+                        time: '2018/03/04',
+                        alarmCause: '报警原因',
+                        repairAdvice: '维修建议'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '车站',
+                        equSys: '设备系统',
+                        address: '位置',
+                        equName: '设备名称',
+                        detectCategory: '监测类别',
+                        detectName: '测点名称',
+                        currentValue: '当前值',
+                        hLimit: '高限',
+                        hhighLimit: '高高限',
+                        status: '5',
+                        time: '2018/03/04',
+                        alarmCause: '报警原因',
+                        repairAdvice: '维修建议'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '车站',
+                        equSys: '设备系统',
+                        address: '位置',
+                        equName: '设备名称',
+                        detectCategory: '监测类别',
+                        detectName: '测点名称',
+                        currentValue: '当前值',
+                        hLimit: '高限',
+                        hhighLimit: '高高限',
+                        status: '5',
+                        time: '2018/03/04',
                         alarmCause: '报警原因',
                         repairAdvice: '维修建议'
                     }]

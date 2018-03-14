@@ -33,6 +33,14 @@
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
                 searchData: {
+                    'btnShow': {
+                        'add': false,
+                        'export': true,
+                        'delete': false,
+                        'edit': false,
+                        'download': false,
+                        'import': false
+                    },
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -61,23 +69,16 @@
                             label: '西黄村站'
                         }, {
                             value: '5',
-                            label: '唐宫庄站'
+                            label: '廖公庄站'
                         }, {
                             value: '6',
                             label: '田村站'
                         }]
                     }, {
-                        'status': 2,
-                        'title': '设备系统',
-                        'placeholder': '请选择内容',
-                        'val': 'equSys',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
+                        'status': 1,
+                        'title': '设备名称',
+                        'placeholder': '请输入内容',
+                        'val': 'equName'
                     }, {
                         'status': 2,
                         'title': '设备类型',
@@ -145,7 +146,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '1'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -155,7 +156,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '1'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -165,7 +166,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '1'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -175,7 +176,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '2'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -185,7 +186,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '2'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -195,7 +196,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '3'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -205,7 +206,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '3'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -215,7 +216,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '4'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -225,7 +226,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '4'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -235,7 +236,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '5'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -245,7 +246,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '5'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -255,7 +256,7 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '状态'
+                        status: '5'
                     }]
                 }
             };

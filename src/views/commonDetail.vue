@@ -77,6 +77,14 @@
         data() {
             return {
                 searchData: {
+                    'btnShow': {
+                        'add': false,
+                        'export': true,
+                        'delete': false,
+                        'edit': false,
+                        'download': false,
+                        'import': false
+                    },
                     'options': [{
                         'status': 3,
                         'title': '时间',

@@ -12,7 +12,7 @@
 </template>
 <script>
     // goKey    timely实时报警信息  alarm今日报警统计  failure故障原因分析   patrol今日巡检比例
-    //qualification 技术指标    alarmEvent 报警事件      alarmReason 报警原因
+    //qualification 技术指标    alarmEvent 报警事件      alarmReason 报警原因   unfinished 待办事项
     export default {
         props: ['title', 'goKey', 'light'],
         methods: {
@@ -31,6 +31,8 @@
                     this.$router.push('alarmEvent');
                 } else if(key == 'alarmReason') {
                     this.$router.push('alarmCauseList');
+                } else if(key == 'unfinished') {
+                    this.$router.push('backlog');
                 }
             }
         }
