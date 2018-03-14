@@ -60,23 +60,16 @@
                             label: '西黄村站'
                         }, {
                             value: '5',
-                            label: '唐宫庄站'
+                            label: '廖公庄站'
                         }, {
                             value: '6',
                             label: '田村站'
                         }]
                     }, {
-                        'status': 2,
-                        'title': '设备系统',
-                        'placeholder': '请选择内容',
-                        'val': 'equSys',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
+                        'status': 1,
+                        'title': '设备名称',
+                        'placeholder': '请输入内容',
+                        'val': 'equName'
                     }, {
                         'status': 2,
                         'title': '设备类型',

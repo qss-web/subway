@@ -61,7 +61,7 @@
                             label: '西黄村站'
                         }, {
                             value: '5',
-                            label: '唐宫庄站'
+                            label: '廖公庄站'
                         }, {
                             value: '6',
                             label: '田村站'

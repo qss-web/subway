@@ -55,6 +55,18 @@
                             value: '2',
                             label: '故障名称二'
                         }]
+                    }, {
+                        'status': 2,
+                        'title': '设备状态',
+                        'placeholder': '请选择内容',
+                        'val': 'equStatus',
+                        'list': [{
+                            value: '1',
+                            label: '设备状态一'
+                        }, {
+                            value: '2',
+                            label: '设备状态二'
+                        }]
                     }],
                     popSave() { }
                 },

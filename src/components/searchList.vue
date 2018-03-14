@@ -1,7 +1,7 @@
 <template>
     <div v-bind:class="'g-table-' + other.style">
         <ul class="title">
-            <li style="width: 4%" v-if="other.isCheck" v-on:click="checkAllFn">
+            <li style="width: 4%; cursor: pointer" v-if="other.isCheck" v-on:click="checkAllFn">
                 <img v-if="!isAllCkeck" src="../assets/search/check.png" />
                 <img v-if="isAllCkeck" src="../assets/search/checked.png" />
             </li>
@@ -9,7 +9,7 @@
         </ul>
         <dl class="content">
             <dd v-for="(item, index) in listShow">
-                <span style="width: 4%" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
+                <span style="width: 4%; cursor: pointer" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
                     <img v-if="!item.isCheck" src="../assets/search/check.png"/>
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>

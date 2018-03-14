@@ -70,7 +70,7 @@
                             label: '西黄村站'
                         }, {
                             value: '5',
-                            label: '唐宫庄站'
+                            label: '廖公庄站'
                         }, {
                             value: '6',
                             label: '田村站'
@@ -88,17 +88,10 @@
                             label: '设备系统二'
                         }]
                     }, {
-                        'status': 2,
-                        'title': '设备类型',
-                        'placeholder': '请选择内容',
-                        'val': 'equSort',
-                        'list': [{
-                            value: '1',
-                            label: '设备类型一'
-                        }, {
-                            value: '2',
-                            label: '测试类型二'
-                        }]
+                        'status': 1,
+                        'title': '设备名称',
+                        'placeholder': '请输入内容',
+                        'val': 'equName'
                     }, {
                         'status': 3,
                         'title': '时间',
@@ -118,29 +111,25 @@
                     'width': 10,
                     'value': 'num'
                 }, {
+                    'label': '车站',
+                    'width': 18,
+                    'value': 'station'
+                }, {
                     'label': '设备名称',
-                    'width': 15,
+                    'width': 20,
                     'value': 'equName'
                 }, {
                     'label': '时间',
                     'width': 13,
                     'value': 'time'
                 }, {
-                    'label': '车站',
-                    'width': 13,
-                    'value': 'station'
-                }, {
                     'label': '报警事件',
-                    'width': 15,
+                    'width': 20,
                     'value': 'alarmEvent'
                 }, {
                     'label': '状态',
                     'width': 15,
                     'value': 'status'
-                }, {
-                    'label': '操作',
-                    'width': 15,
-                    'value': 'operationInfo'
                 }],
                 equList: {
                     total: 9,
@@ -150,80 +139,70 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '1',
-                        operationInfo: '操作'
+                        status: '1'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '1',
-                        operationInfo: '操作'
+                        status: '1'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '1',
-                        operationInfo: '操作'
+                        status: '1'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '2',
-                        operationInfo: '操作'
+                        status: '2'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '2',
-                        operationInfo: '操作'
+                        status: '2'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '3',
-                        operationInfo: '操作'
+                        status: '3'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '3',
-                        operationInfo: '操作'
+                        status: '3'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '4',
-                        operationInfo: '操作'
+                        status: '4'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '4',
-                        operationInfo: '操作'
+                        status: '4'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '4',
-                        operationInfo: '操作'
+                        status: '4'
                     }]
                 }
             };

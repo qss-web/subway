@@ -60,7 +60,7 @@
                             label: '西黄村站'
                         }, {
                             value: '5',
-                            label: '唐宫庄站'
+                            label: '廖公庄站'
                         }, {
                             value: '6',
                             label: '田村站'
@@ -100,27 +100,31 @@
                     'value': 'num'
                 }, {
                     'label': '故障单号',
-                    'width': 10,
+                    'width': 12,
                     'value': 'faultNum'
                 }, {
                     'label': '线路',
-                    'width': 10,
+                    'width': 8,
                     'value': 'line'
                 }, {
                     'label': '车站',
-                    'width': 15,
+                    'width': 10,
                     'value': 'station'
+                }, {
+                    'label': '设备名称',
+                    'width': 10,
+                    'value': 'equName'
                 }, {
                     'label': '设备安装位置',
                     'width': 10,
                     'value': 'equPos'
                 }, {
                     'label': '设备编号',
-                    'width': 15,
+                    'width': 10,
                     'value': 'equNum'
                 }, {
                     'label': '故障系统',
-                    'width': 15,
+                    'width': 10,
                     'value': 'faultSys'
                 }, {
                     'label': '故障现象',
@@ -137,7 +141,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }, {
                         num: '序号',
                         faultNum: '故障单号',
@@ -146,7 +151,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }, {
                         num: '序号',
                         faultNum: '故障单号',
@@ -155,7 +161,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }, {
                         num: '序号',
                         faultNum: '故障单号',
@@ -164,7 +171,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }, {
                         num: '序号',
                         faultNum: '故障单号',
@@ -173,7 +181,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }, {
                         num: '序号',
                         faultNum: '故障单号',
@@ -182,7 +191,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }, {
                         num: '序号',
                         faultNum: '故障单号',
@@ -191,7 +201,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }, {
                         num: '序号',
                         faultNum: '故障单号',
@@ -200,7 +211,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }, {
                         num: '序号',
                         faultNum: '故障单号',
@@ -209,7 +221,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }, {
                         num: '序号',
                         faultNum: '故障单号',
@@ -218,7 +231,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }, {
                         num: '序号',
                         faultNum: '故障单号',
@@ -227,7 +241,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }, {
                         num: '序号',
                         faultNum: '故障单号',
@@ -236,7 +251,8 @@
                         equPos: '设备安装位置',
                         equNum: '设备编号',
                         faultSys: '故障系统',
-                        faultDis: '故障现象'
+                        faultDis: '故障现象',
+                        equName: '设备名称'
                     }]
                 }
             };
