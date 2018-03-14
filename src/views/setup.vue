@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="setup">
         <ul class="tabTitle">
             <li v-on:click="tabShow=1" v-bind:class="tabShow==1?'active':''">设备信息</li>
             <li v-on:click="tabShow=2" v-bind:class="tabShow==2?'active':''">故障库</li>
@@ -32,9 +32,55 @@
             </div>
         </div>
         <div class="equWrap" v-if="tabShow==3">
+            <button @click="isShowUnitAccount = true" class="add-btn">增加</button>
             <img class="tempPic" src="../assets/other/temp.jpg" />
         </div>
         <v-goback></v-goback>
+
+        <el-dialog :visible.sync="isShowUnitAccount" :modal="false" :show-close="false" custom-class="unit-account" top="1.6rem">
+            <div slot="title" class="unit-account-dialog-header">增加机组台账</div>
+            <el-form :inline="true" label-position="left" label-width="1.6rem" :model="unitAccount" class="unit-account-dialog-body">
+                <el-form-item label="线路" class="unit-account-form-label">
+                    <el-select v-model="unitAccount.line" placeholder="请选择" popper-class="unit-account-select">
+                        <el-option label="线路1" value="" class="unit-account-select-option"></el-option>
+                        <el-option label="线路2" value="" class="unit-account-select-option"></el-option>
+                        <el-option label="线路3" value="" class="unit-account-select-option"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="车站">
+                    <el-select v-model="unitAccount.station" placeholder="请选择" popper-class="unit-account-select">
+                        <el-option label="车站1" value="" class="unit-account-select-option"></el-option>
+                        <el-option label="车站2" value="" class="unit-account-select-option"></el-option>
+                        <el-option label="车站3" value="" class="unit-account-select-option"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="出口位置">
+                    <el-select v-model="unitAccount.exit" placeholder="请选择" popper-class="unit-account-select">
+                        <el-option label="出口位置1" value="" class="unit-account-select-option"></el-option>
+                        <el-option label="出口位置2" value="" class="unit-account-select-option"></el-option>
+                        <el-option label="出口位置3" value="" class="unit-account-select-option"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="设备名称">
+                    <el-select v-model="unitAccount.name" placeholder="请选择" popper-class="unit-account-select">
+                        <el-option label="设备名称1" value="" class="unit-account-select-option"></el-option>
+                        <el-option label="设备名称2" value="" class="unit-account-select-option"></el-option>
+                        <el-option label="设备名称3" value="" class="unit-account-select-option"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="设备系统">
+                    <el-select v-model="unitAccount.system" placeholder="请选择" popper-class="unit-account-select">
+                        <el-option label="设备系统1" value="" class="unit-account-select-option"></el-option>
+                        <el-option label="设备系统2" value="" class="unit-account-select-option"></el-option>
+                        <el-option label="设备系统3" value="" class="unit-account-select-option"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="unit-account-dialog-footer" :center="true">
+                <el-button type="primary" @click="isShowUnitAccount = false">确定</el-button>
+                <el-button @click="isShowUnitAccount = false">取消</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -45,6 +91,8 @@
                 tabShow: 1,
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
+                isShowUnitAccount: false,
+                unitAccount: {},
                 searchData: {
                     'btnShow': {
                         'add': true,
@@ -434,6 +482,84 @@
             background: #e5e8f7;
             border: 1px solid #587386;
             border-top: none;
+        }
+    }
+
+    .add-btn {
+        position: absolute;
+        top: 1.5rem;
+        left: 10.04rem;
+        color: transparent;
+        background-color: transparent;
+        width: 1.1rem;
+        height: 0.5rem;
+    }
+
+    .el-select {
+        width: 6rem;
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #999;
+        font-size: 0.4rem;
+        .el-option {
+            font-size: 0.4rem;
+        }
+    }
+</style>
+
+<style lang="less">
+    .unit-account {
+        background-color: #ced6f3;
+        width: 18.56rem;
+        height: 7.68rem;
+        .el-dialog__header {
+            padding: 0;
+        }
+        &-dialog-header {
+            background-color: #2f4554;
+            height: 0.93rem;
+            font-size: 0.32rem;
+            color: #fff;
+            padding: 0;
+            line-height: 0.93rem;
+            padding-left: 0.3rem;
+        }
+        &-dialog-body {
+            padding-top: 0.5rem;
+            .el-form-item__label {
+                font-size: 0.32rem;
+                margin-left: 0.8rem;
+            }
+            .el-input__inner {
+                padding: 0 0.15rem !important;
+                font-size: 0.38rem !important;
+                text-align: center;
+                color: #000 !important;
+            }
+        }
+        &-dialog-footer {
+            text-align: center;
+            button {
+                width: 2.6rem;
+                height: 0.88rem;
+                font-size: 0.4rem;
+                background-color: #2f4554;
+                color: #fff;
+                &:hover,
+                &:focus,
+                &:active {
+                    background-color: #2f4554;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .unit-account-select {
+        &-option {
+            font-size: 0.38rem !important;
+            height: auto !important;
+            padding: 0.1rem 0.4rem;
         }
     }
 </style>
