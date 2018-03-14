@@ -4,7 +4,7 @@
             <div class="button-group flex">
                 <button class="btn-name">A-1</button>
                 <button class="btn-name">上行</button>
-                <button class="btn-alarm" @click="alarm">报警</button>
+                <button class="btn-alarm" @click="isShowPopup = true">报警</button>
             </div>
             <div class="alarm-reason">
                 <div class="alarm-reason-title">报警原因</div>
@@ -44,7 +44,9 @@
             <v-train></v-train>
         </div>
         <v-goback></v-goback>
-        <v-alarm-popup v-if="isShowPopup"></v-alarm-popup>
+        <!-- <el-dialog title="收货地址" :visible.sync="isShowPopup">
+            <v-alarm-popup></v-alarm-popup>
+        </el-dialog> -->
     </div>
 </template>
 
@@ -198,9 +200,6 @@
         methods: {
             gotoFan() {
                 this.$router.push('faninfo');
-            },
-            alarm() {
-                this.isShowPopup = true;
             }
         }
     };
