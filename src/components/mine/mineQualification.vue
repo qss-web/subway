@@ -95,6 +95,7 @@
             position: absolute;
             right: 0.1rem;
             bottom: 0.1rem;
+            width: 0.7rem;
             li {
                 padding: 0.08rem;
                 font-size: 0.14rem;

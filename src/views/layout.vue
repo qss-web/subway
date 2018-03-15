@@ -39,17 +39,16 @@
 <style lang="less" scoped>
     .g-container {
         width: 100%;
-        min-height: 10.8rem;
-        overflow: auto;
-        display: flex;
-        flex-direction: column;
+        height: 10.8rem;
+        overflow-x: hidden;
+        overflow-y: auto;
         background-color: #7c8298;
         .g-header {
             height: 0.75rem;
         }
         .g-content {
+            height: 10.05rem;
             position: relative;
-            flex-grow: 1;
         }
     }
 </style>
