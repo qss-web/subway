@@ -77,36 +77,42 @@
                     }, {
                         'label': '当前状态',
                         'width': 20,
-                        'value': 'status'
+                        'value': 'statusValue',
+                        'status': 'status'
                     }],
                     list: [{
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: 1,
+                        statusValue: '状态'
                     },
                     {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: 2,
+                        statusValue: '状态'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: 3,
+                        statusValue: '状态'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: 4,
+                        statusValue: '状态'
                     }],
                     other: {
-                        style: 5
+                        style: 5,
+                        isSubShowColor: true
                     }
                 },
                 testTable: {

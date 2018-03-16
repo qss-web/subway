@@ -30,6 +30,7 @@
         <a v-if="searchData.btnShow && searchData.btnShow.export" class="exportBtn" href="javascript:;">导出</a>
         <a v-if="searchData.btnShow && searchData.btnShow.add" v-on:click="testPop" class="exportBtn" href="javascript:;">增加</a>
         <a v-if="searchData.btnShow && searchData.btnShow.delete" class="exportBtn" href="javascript:;">删除</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.synchronization" class="exportBtn" href="javascript:;">同步</a>
         <a v-if="searchData.btnShow && searchData.btnShow.edit" class="exportBtn" href="javascript:;">编辑</a>
         <a v-if="searchData.btnShow && searchData.btnShow.download" class="exportBtn" href="javascript:;">下载</a>
         <a v-if="searchData.btnShow && searchData.btnShow.import" class="exportBtn" href="javascript:;">导入</a>

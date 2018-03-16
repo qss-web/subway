@@ -32,8 +32,9 @@
             </div>
         </div>
         <div class="equWrap" v-if="tabShow==3">
-            <button @click="isShowUnitAccount = true" class="add-btn">增加</button>
-            <img class="tempPic" src="../assets/other/temp.jpg" />
+            <v-system-set></v-system-set>
+            <!-- <button @click="isShowUnitAccount = true" class="add-btn">增加</button>
+            <img class="tempPic" src="../assets/other/temp.jpg" /> -->
         </div>
         <v-goback></v-goback>
 
@@ -88,7 +89,7 @@
     export default {
         data() {
             return {
-                tabShow: 1,
+                tabShow: 3,
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
                 isShowUnitAccount: false,
@@ -97,10 +98,11 @@
                     'btnShow': {
                         'add': true,
                         'export': false,
-                        'delete': true,
+                        'delete': false,
                         'edit': true,
                         'download': true,
-                        'import': true
+                        'import': true,
+                        'synchronization': true
                     },
                     'options': [{
                         'status': 2,

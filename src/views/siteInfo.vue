@@ -78,7 +78,8 @@
                 }, {
                     'label': '当前状态',
                     'width': 10,
-                    'value': 'status'
+                    'value': 'statusValue',
+                    'status': 'status'
                 }, {
                     'label': '操作',
                     'width': 15,
@@ -89,39 +90,43 @@
                     equName: '设备名称',
                     time: '时间',
                     eventDesc: '报警事件',
-                    status: '状态',
-                    operate: '操作'
+                    status: '1',
+                    operate: '操作',
+                    statusValue: '状态'
                 },
                 {
                     num: '序号',
                     equName: '设备名称',
                     time: '时间',
                     eventDesc: '报警事件',
-                    status: '状态',
-                    operate: '操作'
+                    status: '2',
+                    operate: '操作',
+                    statusValue: '状态'
                 }, {
                     num: '序号',
                     equName: '设备名称',
                     time: '时间',
                     eventDesc: '报警事件',
-                    status: '状态',
-                    operate: '操作'
+                    status: '1',
+                    operate: '操作',
+                    statusValue: '状态'
                 }, {
                     num: '序号',
                     equName: '设备名称',
                     time: '时间',
                     eventDesc: '报警事件',
-                    status: '状态',
-                    operate: '操作'
+                    status: '2',
+                    operate: '操作',
+                    statusValue: '状态'
                 }],
                 other: {
-                    style: 4
+                    style: 4,
+                    isSubShowColor: true
                 }
             };
         },
         methods: {
             goToDevice(deviceType) {
-                console.log(deviceType);
                 if(deviceType == 1) {
                     this.$router.push('faninfo');
                 } else if(deviceType == 2) {

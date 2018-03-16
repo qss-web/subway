@@ -7,13 +7,26 @@
             </li>
             <li v-for="(item, index) in label" v-bind:style="{width:item.width+'%'}">{{item.label}}</li>
         </ul>
-        <dl class="content">
+        <dl class="content" v-if="other.isSubShowColor">
             <dd v-for="(item, index) in listShow">
                 <span style="width: 4%; cursor: pointer" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
                     <img v-if="!item.isCheck" src="../assets/search/check.png"/>
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
-                <span v-bind:class="item.status?'font-color-' + item.status:''" v-for="(item1, index) in label" v-bind:style="{width:item1.width+'%'}">{{item[item1.value]}}</span>
+                <span v-for="(item1, index) in label" v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''" v-bind:style="{width:item1.width+'%'}">
+                    {{item[item1.value]}}
+                </span>
+            </dd>
+        </dl>
+        <dl class="content" v-else>
+            <dd v-for="(item, index) in listShow">
+                <span style="width: 4%; cursor: pointer" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
+                    <img v-if="!item.isCheck" src="../assets/search/check.png"/>
+                    <img v-if="item.isCheck" src="../assets/search/checked.png"/>
+                </span>
+                <span v-bind:class="item.status?'font-color-' + item.status:''" v-for="(item1, index) in label" v-bind:style="{width:item1.width+'%'}">
+                    {{item[item1.value]}}
+                </span>
             </dd>
         </dl>
     </div>
@@ -44,6 +57,11 @@
                         item.isCheck = item.isCheck;
                     } else {
                         item.isCheck = !item.isCheck;
+                    }
+                    if(item.isCheck) {
+                        this.numLength = this.listShow.length;
+                    } else {
+                        this.numLength = 0;
                     }
                 });
                 this.isAllCkeck = !this.isAllCkeck;

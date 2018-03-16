@@ -36,6 +36,8 @@ import patrolInspection from './equInfo/patrolInspection'; //巡视巡检
 import troubleShoot from './equInfo/troubleShoot'; //故障维修
 import ringDiagram from './equInfo/ringDiagram'; //环形图
 import pieChart from './equInfo/pieChart'; //饼形图
+import systemSet from './systemSet'; //系统设置
+import systemList from './systemList'; //系统设置的列表
 
 export default {
   header,
@@ -75,5 +77,7 @@ export default {
   patrolInspection,
   troubleShoot,
   ringDiagram,
-  pieChart
+  pieChart,
+  systemSet,
+  systemList
 };

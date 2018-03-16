@@ -53,7 +53,7 @@
                             label: '田村站'
                         }]
                     }, {
-                        'status': 2,
+                        'status': 1,
                         'title': '设备编号',
                         'placeholder': '请输入内容',
                         'val': 'equSys'
