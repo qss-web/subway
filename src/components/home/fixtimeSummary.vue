@@ -26,12 +26,14 @@
         .light1 {
             position: absolute;
             top: -0.3rem;
+            left: 0;
             z-index: 1;
             width: 100%;
         }
         .light2 {
             position: absolute;
             top: -0.5rem;
+            left: 0;
             z-index: 1;
             width: 100%;
         }
@@ -42,6 +44,7 @@
             z-index: 2;
             position: absolute;
             left: 0;
+            top: 0;
             width: 100%;
             justify-content: space-around;
             padding-bottom: 0.3rem;
