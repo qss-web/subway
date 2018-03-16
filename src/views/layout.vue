@@ -35,11 +35,10 @@
     };
 </script>
 
-
 <style lang="less" scoped>
     .g-container {
         width: 100%;
-        height: 10.8rem;
+        height: 100%;
         overflow-x: hidden;
         overflow-y: auto;
         background-color: #7c8298;
@@ -47,7 +46,7 @@
             height: 0.75rem;
         }
         .g-content {
-            height: 10.05rem;
+            height: 10.04rem;
             position: relative;
         }
     }
