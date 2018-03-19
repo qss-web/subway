@@ -34,6 +34,7 @@
         <a v-if="searchData.btnShow && searchData.btnShow.edit" class="exportBtn" href="javascript:;">编辑</a>
         <a v-if="searchData.btnShow && searchData.btnShow.download" class="exportBtn" href="javascript:;">下载</a>
         <a v-if="searchData.btnShow && searchData.btnShow.import" class="exportBtn" href="javascript:;">导入</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.save" class="exportBtn" href="javascript:;">保存</a>
     </div>
 </template>
 <script>

@@ -2,17 +2,16 @@
     <div class="g-table">
         <ul class="title">
             <li v-for="(item, index) in label" v-bind:style="{width:item.width+'%'}">{{item.label}}</li>
-            <li style="width: 15%; border-right: none">操作</li>
         </ul>
         <dl class="content">
             <dd v-for="(item, index) in listShow">
-                <span v-for="(item1, index) in label" v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''" v-bind:style="{width:item1.width+'%'}">
-                    {{item[item1.value]}}
-                </span>
-                <span style="width: 15%; border-right: none">
-                    <a href="javascript:;">删除</a>
-                    <a href="javascript:;">查看</a>
-                </span>
+                <div v-for="(item1, index) in label" v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''" v-bind:style="{width:item1.width+'%'}">
+                    <span v-if="item1.value">{{item[item1.value]}}</span>
+                    <span v-else>
+                        <a class="btn" href="javascript:;" v-if="item1.btn.delete">删除</a>
+                        <a class="btn" href="javascript:;" v-if="item1.btn.edit">编辑</a>
+                    </span>
+                </div>
             </dd>
         </dl>
     </div>
@@ -40,7 +39,6 @@
 <style lang="less" scoped>
     .g-table {
         width: 100%;
-        border-top: 1px solid #343740;
         box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.35);
         ul {
             display: flex;
@@ -50,11 +48,15 @@
             background: #d8dbe9;
             li {
                 color: #fff;
-                font-size: 0.2rem;
+                font-size: 0.18rem;
                 height: 0.58rem;
                 line-height: 0.58rem;
                 color: #2f4554;
                 border-right: 1px solid #bbbfcc;
+                font-weight: bold;
+            }
+            li:last-child {
+                border-right: none;
             }
         }
         .content {
@@ -69,12 +71,32 @@
                     vertical-align: top;
                     margin-top: 0.165rem;
                 }
-                span {
+                div {
                     height: 0.56rem;
                     line-height: 0.56rem;
                     font-size: 0.18rem;
                     color: #2f4554;
                     border-right: 1px solid #bbbfcc;
+                }
+                div:last-child {
+                    border-right: none;
+                    text-align: center;
+                    .btn {
+                        width: 0.68rem;
+                        height: 0.28rem;
+                        line-height: 0.28rem;
+                        display: inline-block;
+                        background: #7c8298;
+                        color: #fff;
+                        font-size: 0.16rem;
+                        margin-right: 0.1rem;
+                    }
+                    .btn:hover {
+                        text-decoration: none;
+                    }
+                    .btn:last-child {
+                        margin-right: 0;
+                    }
                 }
             }
             dd:nth-child(2n-1) {

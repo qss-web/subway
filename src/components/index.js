@@ -38,6 +38,15 @@ import ringDiagram from './equInfo/ringDiagram'; //环形图
 import pieChart from './equInfo/pieChart'; //饼形图
 import systemSet from './systemSet'; //系统设置
 import systemList from './systemList'; //系统设置的列表
+import system from './sysSet/system'; //系统
+import user from './sysSet/user'; //用户
+import equ from './sysSet/equ'; //设备
+import client from './sysSet/client'; //客户端
+import authorize from './sysSet/authorize'; //设备授权
+import role from './sysSet/role'; //角色
+import checkEqu from './sysSet/checkEqu'; //检测配备设置
+import runniState from './sysSet/runniState'; //当前设备运行状态
+import timeManagement from './sysSet/timeManagement'; //运行时间管理
 
 export default {
   header,
@@ -79,5 +88,14 @@ export default {
   ringDiagram,
   pieChart,
   systemSet,
-  systemList
+  systemList,
+  system,
+  user,
+  client,
+  authorize,
+  role,
+  checkEqu,
+  runniState,
+  timeManagement,
+  equ
 };

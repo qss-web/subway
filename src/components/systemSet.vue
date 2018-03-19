@@ -12,31 +12,15 @@
             <li v-on:click="indexed=9" v-bind:class="indexed==9?'active':''">运行时间管理</li>
         </ul>
         <div class="content">
-            <div v-if="indexed==1" class="system clearfix">
-                <div class="left">
-                    <h3>中间件设置</h3>
-                    <dl class="middleKey">
-                        <dt class="clearfix">
-                            <a href="javascript:;">添加</a>
-                            <a href="javascript:;">重新启动Tomcat</a>
-                        </dt>
-                        <dd>
-                            <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
-                        </dd>
-                    </dl>
-                </div>
-                <div class="right">
-                    <h3>功能组设置</h3>
-                </div>
-            </div>
-            <div v-if="indexed==2" class="user">user</div>
-            <div v-if="indexed==3" class="equ">equ</div>
-            <div v-if="indexed==4" class="client">client</div>
-            <div v-if="indexed==5" class="authorize">authorize</div>
-            <div v-if="indexed==6" class="role">role</div>
-            <div v-if="indexed==7" class="checkEqu">checkEqu</div>
-            <div v-if="indexed==8" class="runniState">runniState</div>
-            <div v-if="indexed==9" class="timeManagement">timeManagement</div>
+            <v-system v-if="indexed==1"></v-system>
+            <v-user v-if="indexed==2"></v-user>
+            <v-equ v-if="indexed==3"></v-equ>
+            <v-client v-if="indexed==4"></v-client>
+            <v-authorize v-if="indexed==5"></v-authorize>
+            <v-role v-if="indexed==6"></v-role>
+            <v-checkEqu v-if="indexed==7"></v-checkEqu>
+            <v-runniState v-if="indexed==8"></v-runniState>
+            <v-timeManagement v-if="indexed==9"></v-timeManagement>
         </div>
     </div>
 </template>
@@ -44,43 +28,7 @@
     export default {
         data() {
             return {
-                indexed: 1,
-                info1: [{
-                    'label': '序号',
-                    'width': 10,
-                    'value': 'num'
-                }, {
-                    'label': '车站',
-                    'width': 18,
-                    'value': 'station'
-                }, {
-                    'label': '设备名称',
-                    'width': 20,
-                    'value': 'equName'
-                }, {
-                    'label': '时间',
-                    'width': 13,
-                    'value': 'time'
-                }, {
-                    'label': '报警事件',
-                    'width': 20,
-                    'value': 'alarmEvent'
-                }, {
-                    'label': '状态',
-                    'width': 15,
-                    'value': 'status'
-                }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '报警事件',
-                        status: '4'
-                    }]
-                }
+                indexed: 1
             };
         },
         props: [''],
@@ -120,40 +68,6 @@
         .content {
             padding: 0.16rem 0.12rem;
             background: #ced6f3;
-            .system {
-                h3 {
-                    font-weight: normal;
-                    font-size: 0.18rem;
-                    color: #324758;
-                    height: 0.46rem;
-                    line-height: 0.46rem;
-                    text-indent: 2em;
-                    background: #bcc2da;
-                }
-                .left {
-                    width: 12.58rem;
-                }
-                .right {
-                    width: 5.24rem;
-                }
-                .middleKey {
-                    border: 1px solid #71869b;
-                    dt {
-                        padding: 0.08rem 0;
-                        a {
-                            float: left;
-                            margin-left: 0.34rem;
-                            height: 0.44rem;
-                            line-height: 0.44rem;
-                            color: #fff;
-                            background: #7c8298;
-                            min-width: 0.58rem;
-                            text-align: center;
-                            padding: 0 0.38rem;
-                        }
-                    }
-                }
-            }
         }
     }
 </style>
