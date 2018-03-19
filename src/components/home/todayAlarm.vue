@@ -58,30 +58,31 @@
                     plotOptions: {
                         series: {
                             borderWidth: 0,
-                            maxPointWidth: 20
+                            maxPointWidth: 26
                         }
                     },
                     series: [
+                        // {
+                        //     //指定数据列
+                        //     name: '本月',
+                        //     color: '#88abda',
+                        //     data: [25, 12.5, 12] //数据
+                        // },
                         {
                             //指定数据列
-                            name: '本月',
-                            color: '#88abda',
-                            data: [25, 12.5, 12] //数据
-                        },
-                        {
-                            //指定数据列
-                            name: '上月',
+                            name: '今日',
                             color: '#006699',
-                            data: [16, 20.5, 8] //数据
+                            data: [36, 20.5, 40] //数据
                         }
                     ],
                     legend: {
-                        verticalAlign: 'top',
-                        symbolRadius: 0,
-                        itemStyle: {
-                            color: '#fff'
-                        },
-                        align: 'right'
+                        // verticalAlign: 'top',
+                        // symbolRadius: 0,
+                        // itemStyle: {
+                        //     color: '#fff'
+                        // },
+                        // align: 'right'
+                        enabled: false
                     },
                     labels: {
                         style: {                         // 标签全局样式

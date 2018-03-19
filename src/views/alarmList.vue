@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wholeWrap">
         <div class="searchWrap">
             <v-sub-search v-bind:searchData="searchData"></v-sub-search>
         </div>
@@ -224,7 +224,8 @@
 <style scoped lang="less">
     .searchWrap {
         width: 98.5%;
-        margin: 0.42rem auto 0.24rem auto;
+        padding: 0.42rem 0 0.24rem 0;
+        margin: 0 auto;
     }
     .tab {
         width: 98.5%;

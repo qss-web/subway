@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wholeWrap">
         <div class="equWrap">
             <div class="title">综合排名</div>
             <div class="tab">
@@ -161,9 +161,12 @@
 </script>
 
 <style scoped lang="less">
+    .wholeWrap {
+        padding: 0.16rem 0 0.24rem 0;
+    }
     .equWrap {
         width: 99.4%;
-        margin: 0.16rem auto 0.24rem auto;
+        margin: 0 auto;
         padding-bottom: 0.15rem;
         background: #b8bcc7;
         border-radius: 10px;

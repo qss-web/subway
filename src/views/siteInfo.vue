@@ -213,10 +213,10 @@
                     background-color: #ff0000;
                 }
                 &.warn {
-                    background-color: #deff00;
+                    background-color: #a7bb1e;
                 }
                 &.normal {
-                    background-color: #36ff00;
+                    background-color: #13c613;
                 }
             }
         }

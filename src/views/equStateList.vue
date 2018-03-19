@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
                 <v-sub-search v-bind:searchData="searchData"></v-sub-search>
@@ -81,22 +81,22 @@
                         'val': 'equName'
                     }, {
                         'status': 2,
-                        'title': '设备类型',
+                        'title': '设备系统',
                         'placeholder': '请选择内容',
                         'val': 'equSort',
                         'list': [{
                             value: '1',
-                            label: '设备类型一'
+                            label: '设备系统一'
                         }, {
                             value: '2',
-                            label: '测试类型二'
+                            label: '设备系统二'
                         }]
                     }],
-                    popSave(val) { }
+                    popSave() { }
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 3 //列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它,4站点列表,5屏蔽门的列表
+                    style: 2 //列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它,4站点列表,5屏蔽门的列表
                 },
                 info1: [{
                     'label': '序号',
@@ -206,16 +206,6 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '3'
-                    }, {
-                        num: '序号',
-                        byCompany: '所属公司',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        address: '位置',
-                        equNum: '设备编号',
-                        equName: '设备名称',
                         status: '4'
                     }, {
                         num: '序号',
@@ -275,9 +265,12 @@
 </script>
 
 <style scoped lang="less">
+    .wholeWrap {
+        padding: 0.16rem 0 0.24rem 0;
+    }
     .equWrap {
         width: 99.4%;
-        margin: 0.16rem auto 0.24rem auto;
+        margin: 0 auto;
         padding: 0.18rem 0 0.15rem;
         background: #b8bcc7;
         border-radius: 10px;
@@ -294,7 +287,7 @@
         margin: 0px auto;
         min-height: 7.8rem;
         .title {
-            background: #e5e8f7;
+            background: #666b79;
             position: relative;
             height: 0.52rem;
             border: 1px solid #587386;
@@ -314,8 +307,8 @@
         }
         .pagination {
             text-align: center;
-            padding: 0.1rem 0;
-            background: #e5e8f7;
+            padding: 0.07rem 0;
+            background: #45484f;
             border: 1px solid #587386;
             border-top: none;
         }

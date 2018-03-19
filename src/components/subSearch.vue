@@ -26,7 +26,7 @@
                 <a class="btn" href="javascript:;"><img src="~assets/other/search.png" /></a>
             </ul>
         </div>
-        <a class="exportBtn" href="javascript:;">查看</a>
+        <a class="exportBtn" href="javascript:;">查询</a>
         <a v-if="searchData.btnShow && searchData.btnShow.export" class="exportBtn" href="javascript:;">导出</a>
         <a v-if="searchData.btnShow && searchData.btnShow.add" v-on:click="testPop" class="exportBtn" href="javascript:;">增加</a>
         <a v-if="searchData.btnShow && searchData.btnShow.delete" class="exportBtn" href="javascript:;">删除</a>

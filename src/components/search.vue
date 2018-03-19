@@ -5,8 +5,10 @@
                 <!-- <input type="text" /> -->
                 <a href="javascript:;"><img src="../assets/search/delete_icon.png" /></a>
             </div>
-            <span><img src="../assets/search/search_icon.png"/></span>
-            <span><img src="../assets/search/download_icon.png"/></span>
+            <span>查询</span>
+            <span>下载</span>
+            <!-- <span><img src="../assets/search/search_icon.png"/></span> -->
+            <!-- <span><img src="../assets/search/download_icon.png"/></span> -->
         </div>
     </div>
 </template>
@@ -15,10 +17,10 @@
 </script>
 <style lang="less" scoped>
     .search {
+        padding-top: 0.28rem;
         .searchWidth {
             width: 15.74rem;
             margin: 0px auto;
-            margin-top: 0.28rem;
             overflow: hidden;
             div,
             span {
@@ -51,10 +53,12 @@
                 text-align: center;
                 cursor: pointer;
                 border-radius: 4px;
-                img {
-                    width: 0.35rem;
-                    vertical-align: middle;
-                }
+                font-size: 0.24rem;
+                color: #fff;
+                // img {
+                //     width: 0.35rem;
+                //     vertical-align: middle;
+                // }
             }
         }
     }

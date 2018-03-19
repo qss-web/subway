@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
                 <v-sub-search v-bind:searchData="searchData"></v-sub-search>
@@ -96,7 +96,7 @@
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 2 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
                 },
                 info1: [{
                     'label': '序号',
@@ -123,32 +123,28 @@
                     'width': 6,
                     'value': 'equName'
                 }, {
-                    'label': '监测类别',
-                    'width': 5,
-                    'value': 'detectCategory'
-                }, {
                     'label': '测点名称',
                     'width': 6,
                     'value': 'detectName'
                 }, {
                     'label': '当前值',
-                    'width': 5,
+                    'width': 6,
                     'value': 'currentValue'
                 }, {
                     'label': '高限',
-                    'width': 5,
+                    'width': 6,
                     'value': 'hLimit'
                 }, {
                     'label': '高高限',
-                    'width': 5,
+                    'width': 6,
                     'value': 'hhighLimit'
                 }, {
                     'label': '测点状态',
-                    'width': 5,
+                    'width': 6,
                     'value': 'status'
                 }, {
                     'label': '更新时间',
-                    'width': 5,
+                    'width': 6,
                     'value': 'time'
                 }, {
                     'label': '报警原因',
@@ -168,7 +164,6 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '监测类别',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -184,7 +179,6 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '监测类别',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -200,7 +194,36 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '监测类别',
+                        detectName: '测点名称',
+                        currentValue: '当前值',
+                        hLimit: '高限',
+                        hhighLimit: '高高限',
+                        status: '1',
+                        time: '2018/03/04',
+                        alarmCause: '报警原因',
+                        repairAdvice: '维修建议'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '车站',
+                        equSys: '设备系统',
+                        address: '位置',
+                        equName: '设备名称',
+                        detectName: '测点名称',
+                        currentValue: '当前值',
+                        hLimit: '高限',
+                        hhighLimit: '高高限',
+                        status: '1',
+                        time: '2018/03/04',
+                        alarmCause: '报警原因',
+                        repairAdvice: '维修建议'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '车站',
+                        equSys: '设备系统',
+                        address: '位置',
+                        equName: '设备名称',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -216,7 +239,6 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '监测类别',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -232,7 +254,6 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '监测类别',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -248,7 +269,6 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '监测类别',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -264,7 +284,6 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '监测类别',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -280,7 +299,6 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '监测类别',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -296,7 +314,6 @@
                         equSys: '设备系统',
                         address: '位置',
                         equName: '设备名称',
-                        detectCategory: '监测类别',
                         detectName: '测点名称',
                         currentValue: '当前值',
                         hLimit: '高限',
@@ -326,9 +343,12 @@
 </script>
 
 <style scoped lang="less">
+    .wholeWrap {
+        padding: 0.16rem 0 0.24rem 0;
+    }
     .equWrap {
         width: 99.4%;
-        margin: 0.16rem auto 0.24rem auto;
+        margin: 0 auto;
         padding: 0.18rem 0 0.15rem;
         background: #b8bcc7;
         border-radius: 10px;
@@ -345,7 +365,7 @@
         margin: 0px auto;
         min-height: 7.8rem;
         .title {
-            background: #e5e8f7;
+            background: #666b79;
             position: relative;
             height: 0.52rem;
             border: 1px solid #587386;
@@ -366,7 +386,7 @@
         .pagination {
             text-align: center;
             padding: 0.1rem 0;
-            background: #c5cbe3;
+            background: #45484f;
             border: 1px solid #587386;
             border-top: none;
         }

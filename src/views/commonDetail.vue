@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
                 <v-sub-search v-bind:searchData="searchData"></v-sub-search>
@@ -27,7 +27,7 @@
                     </ul>
                     <div class="chartList clearfix">
                         <div class="chart">
-                            <v-chart :id="id" :option="option" :styleObject="styleObject"></v-chart>
+                            <v-chart id="test1" :option="option" :styleObject="styleObject"></v-chart>
                         </div>
                         <dl class="list">
                             <dt>设备可靠度</dt>
@@ -65,10 +65,93 @@
                             </dd>
                         </dl>
                     </div>
+                    <div class="chartList clearfix">
+                        <div class="chart">
+                            <v-chart id="test2" :option="option" :styleObject="styleObject"></v-chart>
+                        </div>
+                        <dl class="list">
+                            <dt>设备故障平均每日恢复时间</dt>
+                            <dd>
+                                <ul class="flex">
+                                    <li>故障平均每日恢复时间</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                                <ul class="flex">
+                                    <li>月故障总时间</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                                <ul class="flex">
+                                    <li>故障次数</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                                <ul class="flex">
+                                    <li>最高故障平均每日修复时间</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                                <ul class="flex">
+                                    <li>最高故障月停用时间</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                                <ul class="flex">
+                                    <li>最高月设备故障次数</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="chartList clearfix">
+                        <div class="chart">
+                            <v-chart id="test3" :option="option" :styleObject="styleObject"></v-chart>
+                        </div>
+                        <dl class="list">
+                            <dt>接报修超时率</dt>
+                            <dd>
+                                <ul class="flex">
+                                    <li>接报修超时30分钟到场</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                                <ul class="flex">
+                                    <li>未按时到达的次数</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                                <ul class="flex">
+                                    <li>总报修次数</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                                <ul class="flex">
+                                    <li>最高接报修超时30分钟到场</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                                <ul class="flex">
+                                    <li>最高未按时到达的次数</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                                <ul class="flex">
+                                    <li>最高月总报修次数</li>
+                                    <li>2012-12</li>
+                                    <li>0%</li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
                 </dd>
             </div>
         </div>
-        <v-goback></v-goback>
+        <div class="footer flex" @click.prevent="goBack">
+            <img class="bg" src="../assets/other/footer-border.png" />
+            <img class="back" src="~assets/common/icon_goback.png" />
+        </div>
     </div>
 </template>
 
@@ -204,14 +287,20 @@
             };
         },
         methods: {
+            goBack() {
+                this.$router.go(-1);
+            }
         }
     };
 </script>
 
 <style scoped lang="less">
+    .wholeWrap {
+        padding-top: 0.16rem;
+    }
     .equWrap {
         width: 99.4%;
-        margin: 0.16rem auto 0.24rem auto;
+        margin: 0 auto;
         padding: 0.18rem 0 0.15rem;
         background: #b8bcc7;
         border-radius: 10px;
@@ -259,7 +348,7 @@
                 }
                 .chartList {
                     margin-top: 0.12rem;
-                    padding-bottom: 0.3rem;
+                    padding-bottom: 0.1rem;
                     .chart {
                         width: 10.2rem;
                         height: 3.64rem;
@@ -302,6 +391,26 @@
         margin: 0 auto;
         background: #ebecf0;
         border-top: 1px solid #768089;
+    }
+    .footer {
+        height: 0.95rem;
+        // position: absolute;
+        // bottom: 0;
+        margin-top: 0.2rem;
+        width: 100%;
+        background-color: #474b5c;
+        justify-content: center;
+        .bg {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .back {
+            width: 1rem;
+            height: 0.62rem;
+            cursor: pointer;
+        }
     }
 </style>
 

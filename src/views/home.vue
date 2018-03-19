@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <v-card-container class="timely-alarm" goKey="timely" title="实时报警信息">
+        <v-card-container class="timely-alarm" goKey="timely" title="实时报警信息（10条）">
             <v-timely-alarm :data="timelyAlarm"></v-timely-alarm>
         </v-card-container>
         <v-card-container class="today-alarm" goKey="alarm" title="今日报警统计">
@@ -28,22 +28,22 @@
                 timelyAlarm: [
                     {
                         datetime: '2018.1.26 18:06:20',
-                        event: '苹果园南路站A出入口下段PGN-FT-A-1扶手带断裂',
+                        event: '苹果园南路站A出入口下段PGN-FT-A-1扶手带断裂F001',
                         type: 2
                     },
                     {
                         datetime: '2018.1.26 18:06:20',
-                        event: '廖公庄站B段风道LGZ-ZSF-B变频器综合故障',
+                        event: '廖公庄站B段风道LGZ-ZSF-B变频器综合故障F031',
                         type: 0
                     },
                     {
                         datetime: '2018.1.26 18:06:20',
-                        event: '廖公庄站D出入口上段LGZ-FT-D-4数据中断',
+                        event: '廖公庄站D出入口上段LGZ-FT-D-4数据中断F100',
                         type: 1
                     },
                     {
                         datetime: '2018.1.26 18:06:20',
-                        event: '苹果园南路站A出入口下段PGN-FT-A-1扶手带断裂',
+                        event: '苹果园南路站A出入口下段PGN-FT-A-1扶手带断裂F049',
                         type: 2
                     }
                 ]
