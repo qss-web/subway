@@ -7,11 +7,12 @@
             <div class="tab">
                 <ul class="title">
                     <dl class="notice flex">
-                        <dd class="g-red">一级报警：3次</dd>
-                        <dd class="g-orange">二级报警：2次</dd>
-                        <dd class="g-green">开机：4次</dd>
-                        <dd class="g-brown">停机：2次</dd>
+                        <dd class="g-red">二级预警：3次</dd>
+                        <dd class="g-light-orange">一级预警：2次</dd>
+                        <dd class="g-green">运行：4次</dd>
+                        <dd class="g-brown">停机：1次</dd>
                         <dd class="g-gray">断网：1次</dd>
+                        <dd class="g-orange">全部：11次</dd>
                     </dl>
                 </ul>
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
@@ -133,7 +134,8 @@
                 }, {
                     'label': '状态',
                     'width': 10,
-                    'value': 'status'
+                    'value': 'statusValue',
+                    'status': 'status'
                 }],
                 equList: {
                     total: 9,
@@ -146,7 +148,8 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '1'
+                        status: '1',
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -156,7 +159,8 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '1'
+                        status: '1',
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -166,7 +170,8 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '1'
+                        status: '1',
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -176,7 +181,8 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '2'
+                        status: '2',
+                        statusValue: '一级预警'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -186,7 +192,8 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '2'
+                        status: '2',
+                        statusValue: '一级预警'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -196,7 +203,8 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '3'
+                        status: '4',
+                        statusValue: '运行'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -206,7 +214,8 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '4'
+                        status: '4',
+                        statusValue: '运行'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -216,7 +225,8 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '4'
+                        status: '4',
+                        statusValue: '运行'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -226,7 +236,8 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '5'
+                        status: '4',
+                        statusValue: '运行'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -236,7 +247,8 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '5'
+                        status: '5',
+                        statusValue: '停机'
                     }, {
                         num: '序号',
                         byCompany: '所属公司',
@@ -246,7 +258,8 @@
                         address: '位置',
                         equNum: '设备编号',
                         equName: '设备名称',
-                        status: '5'
+                        status: '3',
+                        statusValue: '断网'
                     }]
                 }
             };

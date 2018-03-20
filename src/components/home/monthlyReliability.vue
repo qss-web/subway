@@ -1,6 +1,6 @@
 <template>
     <div class="txt-center">
-        <v-chart id="monthlyReliability" :option="option" :styleObject="styleObject"></v-chart>
+        <v-chart v-bind:id="ringInfo.id" :option="option" :styleObject="styleObject"></v-chart>
     </div>
 </template>
 
@@ -8,20 +8,18 @@
     export default {
         data() {
             return {
-                styleObject: {
-                    width: '3rem',
-                    height: '3rem'
-                },
+                styleObject: this.ringInfo.size,
                 option: {
                     chart: {
                         type: 'solidgauge',
                         backgroundColor: 'transparent'
                     },
                     title: {
-                        text: '月可靠度',
+                        text: this.ringInfo.showInfo.title,
                         verticalAlign: 'bottom',
                         style: {
-                            color: '#fff'
+                            color: '#fff',
+                            fontSize: this.ringInfo.showInfo.fontSize
                         },
                         y: 10
                     },
@@ -66,12 +64,12 @@
                     },
                     series: [{
                         data: [{
-                            y: 99.3 / 100 * 360,
-                            color: '#0ed4eb'
+                            y: this.ringInfo.value / 100 * 360,
+                            color: this.ringInfo.showInfo.color
                         }],
                         dataLabels: {
                             format: `<div style="text-align:center">
-                                        <span style="font-size:0.24rem;color:#fff">99.3%</span>
+                                        <span style="font-size:0.24rem;color:#fff">`+ this.ringInfo.value + `%</span>
                                     </div>`,
                             borderWidth: 0
                         },
@@ -83,7 +81,8 @@
                     }
                 }
             };
-        }
+        },
+        props: ['ringInfo']
     };
 </script>
 

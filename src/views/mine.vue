@@ -8,13 +8,13 @@
             <v-card-container class="card-todolist" title="待办事项" goKey="unfinished" light="true">
                 <v-mine-todolist></v-mine-todolist>
             </v-card-container>
-            <v-card-container class="card-qualification" goKey="qualification" title="技术指标" light="true">
+            <v-card-container class="card-qualification" goKey="qualification" title="设备关注度" light="true">
                 <v-mine-qualification></v-mine-qualification>
             </v-card-container>
             <v-card-container class="card-alarm-event" goKey="alarmEvent" title="报警事件" light="true">
                 <v-mine-alarm-event></v-mine-alarm-event>
             </v-card-container>
-            <v-card-container class="card-alarm-reason" goKey="alarmReason" title="报警原因" light="true">
+            <v-card-container class="card-alarm-reason" goKey="alarmReason" title="故障原因分析" light="true">
                 <v-mine-alarm-reason></v-mine-alarm-reason>
             </v-card-container>
             <div class="tabs-wrapper">

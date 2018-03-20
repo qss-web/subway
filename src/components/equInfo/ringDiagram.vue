@@ -6,13 +6,10 @@
 
 <script>
     export default {
-        props: ['id', 'title', 'time', 'showData'],
+        props: ['id', 'title', 'time', 'showData', 'size', 'setStyle'],
         data() {
             return {
-                styleObject: {
-                    width: '3rem',
-                    height: '3rem'
-                },
+                styleObject: this.size,
                 option: {
                     chart: {
                         type: 'solidgauge',
@@ -21,15 +18,12 @@
                     title: {
                         text: this.title,
                         verticalAlign: 'bottom',
-                        style: {
-                            color: '#63869e',
-                            fontSize: '0.2rem'
-                        },
+                        style: this.setStyle,
                         y: 10
                     },
                     pane: {
-                        center: ['50%', '50%'],
-                        size: '80%',
+                        center: ['50%', '45%'],
+                        size: '100%',
                         startAngle: -10,
                         endAngle: 350,
                         background: {
@@ -70,11 +64,11 @@
                         data: this.showData,
                         dataLabels: {
                             format: `<div style="text-align:center">
-                                        <span style="font-size:0.28rem; font-weight:normal; color:#63869e">`+ this.time + `</span>
+                                        <span style="font-size:`+ this.setStyle.font + ` ;font-weight:normal; color:` + this.setStyle.color + `">` + this.time + `</span>
                                     </div>`,
                             borderWidth: 0
                         },
-                        innerRadius: 70,
+                        innerRadius: 60,
                         radius: 90
                     }],
                     legend: {

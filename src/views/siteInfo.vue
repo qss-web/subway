@@ -22,9 +22,12 @@
                 <button class="device-healthy-title">今日车站健康监测指标</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
-                        <v-health-indicators class="healthy-chart" id="health1" title="自动扶梯" :percent="68"></v-health-indicators>
-                        <v-health-indicators class="healthy-chart" id="health2" title="风机" :percent="68"></v-health-indicators>
-                        <v-health-indicators class="healthy-chart" id="health3" title="站台门" :percent="68"></v-health-indicators>
+                        <v-monthly-reliability v-bind:ringInfo="ringInfo1"></v-monthly-reliability>
+                        <v-monthly-reliability v-bind:ringInfo="ringInfo2"></v-monthly-reliability>
+                        <v-monthly-reliability v-bind:ringInfo="ringInfo3"></v-monthly-reliability>
+                        <!-- <v-health-indicators class="healthy-chart" id="health1" title="自动扶梯" :percent="68"></v-health-indicators> -->
+                        <!-- <v-health-indicators class="healthy-chart" id="health2" title="风机" :percent="68"></v-health-indicators> -->
+                        <!-- <v-health-indicators class="healthy-chart" id="health3" title="站台门" :percent="68"></v-health-indicators> -->
                     </div>
                     <div class="healthy-table">
                         <v-search-list :other="other" :label="label" :list="list"></v-search-list>
@@ -59,6 +62,45 @@
     export default {
         data() {
             return {
+                ringInfo1: {
+                    showInfo: {
+                        title: '自动扶梯',
+                        color: '#32b16c',
+                        fontSize: '0.18rem'
+                    },
+                    value: '99.3',
+                    size: {
+                        width: '1.8rem',
+                        height: '1.8rem'
+                    },
+                    id: 'health1'
+                },
+                ringInfo2: {
+                    showInfo: {
+                        title: '风机',
+                        color: '#63869e',
+                        fontSize: '0.18rem'
+                    },
+                    value: '99.8',
+                    size: {
+                        width: '1.8rem',
+                        height: '1.8rem'
+                    },
+                    id: 'health2'
+                },
+                ringInfo3: {
+                    showInfo: {
+                        title: '站台门',
+                        color: '#13b5b1',
+                        fontSize: '0.18rem'
+                    },
+                    value: '99.5',
+                    size: {
+                        width: '1.8rem',
+                        height: '1.8rem'
+                    },
+                    id: 'health3'
+                },
                 label: [{
                     'label': '序号',
                     'width': 10,

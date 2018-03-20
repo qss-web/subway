@@ -25,9 +25,12 @@
                 <button class="device-healthy-title">今日车站健康监测指标</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
-                        <v-health-indicators class="healthy-chart" id="health1" title="运行时间" :percent="68"></v-health-indicators>
-                        <v-health-indicators class="healthy-chart" id="health2" title="健康指数" :percent="68"></v-health-indicators>
-                        <v-health-indicators class="healthy-chart" id="health3" title="报警事件" :percent="68"></v-health-indicators>
+                        <v-ring-diagram id="runIndex1" title="运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
+                        <v-monthly-reliability v-bind:ringInfo="ringInfo"></v-monthly-reliability>
+                        <v-ring-diagram id="runIndex2" title="报警事件" :time="showValue[2]" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
+                        <!-- <v-health-indicators class="healthy-chart" id="health1" title="运行时间" :percent="68"></v-health-indicators> -->
+                        <!-- <v-health-indicators class="healthy-chart" id="health2" title="健康指数" :percent="68"></v-health-indicators> -->
+                        <!-- <v-health-indicators class="healthy-chart" id="health3" title="报警事件" :percent="68"></v-health-indicators> -->
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -55,6 +58,37 @@
     export default {
         data() {
             return {
+                showValue: ['98小时', '300小时', '8次'],
+                test1: [{
+                    y: 360,
+                    color: '#32b16c'
+                }],
+                size: {
+                    width: '1.8rem',
+                    height: '1.8rem'
+                },
+                style: {
+                    color: '#fff',
+                    fontSize: '0.18rem',
+                    font: '0.24rem'
+                },
+                test2: [{
+                    y: 360,
+                    color: '#13b5b1'
+                }],
+                ringInfo: {
+                    showInfo: {
+                        title: '健康指数',
+                        color: '#63869e',
+                        fontSize: '0.18rem'
+                    },
+                    value: '99.8',
+                    size: {
+                        width: '1.8rem',
+                        height: '1.8rem'
+                    },
+                    id: 'health2'
+                },
                 isShowPopup: false,
                 activeIndex: '',
                 alarmTable: {
@@ -141,25 +175,22 @@
                         'width': 9,
                         'value': 'highestLimit'
                     }, {
-                        'label': '下限',
+                        'label': '测点状态',
                         'width': 9,
-                        'value': 'lowLimit'
-                    }, {
-                        'label': '下下限',
-                        'width': 9,
-                        'value': 'lowestLimit'
-                    }, {
-                        'label': '报警方式',
-                        'width': 9,
-                        'value': 'alarmWay'
-                    }, {
-                        'label': '报警类型',
-                        'width': 9,
-                        'value': 'alarmType'
+                        'value': 'statusValue',
+                        'status': 'status'
                     }, {
                         'label': '更新时间',
                         'width': 10,
                         'value': 'updateTime'
+                    }, {
+                        'label': '报警原因',
+                        'width': 18,
+                        'value': 'alarmCause'
+                    }, {
+                        'label': '检维修建议',
+                        'width': 18,
+                        'value': 'suggest'
                     }],
                     list: [{
                         num: '序号',
@@ -168,11 +199,13 @@
                         currentValue: '当前值',
                         highLimit: '高限',
                         highestLimit: '高高限',
-                        lowLimit: '下限',
-                        lowestLimit: '下下限',
                         alarmWay: '报警方式',
                         alarmType: '报警类型',
-                        updateTime: '更新时间'
+                        updateTime: '更新时间',
+                        alarmCause: '报警原因',
+                        suggest: '检维修建议',
+                        statusValue: '一级预警',
+                        status: 1
                     }, {
                         num: '序号',
                         equName: '设备名称',
@@ -184,7 +217,11 @@
                         lowestLimit: '下下限',
                         alarmWay: '报警方式',
                         alarmType: '报警类型',
-                        updateTime: '更新时间'
+                        updateTime: '更新时间',
+                        alarmCause: '报警原因',
+                        suggest: '检维修建议',
+                        statusValue: '二级预警',
+                        status: 2
                     }, {
                         num: '序号',
                         equName: '设备名称',
@@ -196,10 +233,15 @@
                         lowestLimit: '下下限',
                         alarmWay: '报警方式',
                         alarmType: '报警类型',
-                        updateTime: '更新时间'
+                        updateTime: '更新时间',
+                        alarmCause: '报警原因',
+                        suggest: '检维修建议',
+                        statusValue: '二级预警',
+                        status: 2
                     }],
                     other: {
-                        style: 5
+                        style: 5,
+                        isSubShowColor: true
                     }
                 }
             };

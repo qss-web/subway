@@ -1,14 +1,14 @@
 <template>
     <div class="txt-center">
-        <div class="flex">
+        <div class="flex" style=" padding-top: 0.39rem;">
             <div class="showChart">
-                <v-ring-diagram id="runIndex1" title="累计运行时间" :time="showValue[0]" :showData="test1"></v-ring-diagram>
+                <v-ring-diagram id="runIndex1" title="累计运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
             <div class="showChart">
-                <v-ring-diagram id="runIndex2" title="平均无故障运行时间" :time="showValue[1]" :showData="test2"></v-ring-diagram>
+                <v-ring-diagram id="runIndex2" title="平均无故障运行时间" :time="showValue[1]" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
             <div class="showChart">
-                <v-ring-diagram id="runIndex3" title="累积运行次数" :time="showValue[2]" :showData="test3"></v-ring-diagram>
+                <v-ring-diagram id="runIndex3" title="累积运行次数" :time="showValue[2]" :showData="test3" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
         </div>
         <ul class="dataShow">
@@ -36,13 +36,26 @@
                     y: 360,
                     color: '#32b16c'
                 }],
+                size: {
+                    width: '2.6rem',
+                    height: '2.6rem'
+                },
+                style: {
+                    color: '#63869e',
+                    fontSize: '0.2rem',
+                    font: '0.28rem'
+                },
                 test2: [{
                     y: 360,
                     color: '#63869e'
                 }],
                 test3: [{
                     y: 360,
-                    color: '#13b5b1'
+                    color: '#13b5b1',
+                    size: {
+                        width: '3rem',
+                        height: '3rem'
+                    }
                 }],
                 otherInfo: {
                     isCheck: false, //是否显示多选框

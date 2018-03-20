@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <v-card-container class="timely-alarm" goKey="timely" title="实时报警信息（10条）">
+        <v-card-container class="timely-alarm" goKey="timely" title="实时报警信息（10次）">
             <v-timely-alarm :data="timelyAlarm"></v-timely-alarm>
         </v-card-container>
         <v-card-container class="today-alarm" goKey="alarm" title="今日报警统计">

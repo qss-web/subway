@@ -8,8 +8,8 @@
                 <li v-on:click="tabShow=true" v-bind:class="tabShow?'active':''">实时报警信息</li>
                 <li v-on:click="tabShow=false" v-bind:class="tabShow?'':'active'">以往历史事件</li>
                 <dl class="notice flex">
-                    <dd class="g-red">二级报警：3次</dd>
-                    <dd class="g-light-orange">一级报警：2次</dd>
+                    <dd class="g-red">二级预警：3次</dd>
+                    <dd class="g-light-orange">一级预警：2次</dd>
                     <dd class="g-gray">断网：2次</dd>
                     <dd class="g-orange">全部：7次</dd>
                 </dl>
@@ -108,7 +108,7 @@
                 },
                 info1: [{
                     'label': '序号',
-                    'width': 10,
+                    'width': 5,
                     'value': 'num'
                 }, {
                     'label': '车站',
@@ -116,7 +116,7 @@
                     'value': 'station'
                 }, {
                     'label': '设备名称',
-                    'width': 20,
+                    'width': 15,
                     'value': 'equName'
                 }, {
                     'label': '时间',
@@ -124,12 +124,18 @@
                     'value': 'time'
                 }, {
                     'label': '报警事件',
-                    'width': 20,
+                    'width': 25,
                     'value': 'alarmEvent'
                 }, {
                     'label': '状态',
-                    'width': 15,
-                    'value': 'status'
+                    'width': 10,
+                    'value': 'statusValue',
+                    'status': 'status'
+                }, {
+                    'label': '操作',
+                    'width': 10,
+                    'value': 'operate'
+
                 }],
                 equList: {
                     total: 9,
@@ -139,70 +145,90 @@
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '1'
+                        status: '1',
+                        statusValue: '二级预警',
+                        operate: '【监测】'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '1'
+                        status: '1',
+                        statusValue: '二级预警',
+                        operate: '【监测】'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '1'
+                        status: '1',
+                        statusValue: '二级预警',
+                        operate: '【监测】'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '2'
+                        status: '2',
+                        statusValue: '一级预警',
+                        operate: '【监测】'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '2'
+                        status: '2',
+                        statusValue: '一级预警',
+                        operate: '【监测】'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '3'
+                        status: '3',
+                        statusValue: '断网',
+                        operate: '【监测】'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '3'
+                        status: '3',
+                        statusValue: '断网',
+                        operate: '【监测】'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '4'
+                        status: '3',
+                        statusValue: '断网',
+                        operate: '【监测】'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '4'
+                        status: '3',
+                        statusValue: '断网',
+                        operate: '【监测】'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
                         alarmEvent: '报警事件',
-                        status: '4'
+                        status: '3',
+                        statusValue: '断网',
+                        operate: '【监测】'
                     }]
                 }
             };

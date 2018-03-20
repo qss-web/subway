@@ -94,10 +94,10 @@
         color: #f9af00 !important;
     }
     .font-color-3 {
-        color: #027b03 !important;
+        color: #adadad !important;
     }
     .font-color-4 {
-        color: #ff6600 !important;
+        color: #027b03 !important;
     }
     .font-color-5 {
         color: #6e381f !important;

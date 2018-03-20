@@ -57,9 +57,12 @@
                 <button class="device-healthy-title">今日车站健康监测指标</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
-                        <v-health-indicators class="healthy-chart" id="health1" title="运行时间" :percent="68"></v-health-indicators>
-                        <v-health-indicators class="healthy-chart" id="health2" title="健康指数" :percent="68"></v-health-indicators>
-                        <v-health-indicators class="healthy-chart" id="health3" title="报警事件" :percent="68"></v-health-indicators>
+                        <v-ring-diagram id="runIndex1" title="运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
+                        <v-monthly-reliability v-bind:ringInfo="ringInfo"></v-monthly-reliability>
+                        <v-ring-diagram id="runIndex2" title="报警事件" :time="showValue[2]" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
+                        <!-- <v-health-indicators class="healthy-chart" id="health1" title="运行时间" :percent="68"></v-health-indicators> -->
+                        <!-- <v-health-indicators class="healthy-chart" id="health2" title="健康指数" :percent="68"></v-health-indicators> -->
+                        <!-- <v-health-indicators class="healthy-chart" id="health3" title="报警事件" :percent="68"></v-health-indicators> -->
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -83,6 +86,37 @@
     export default {
         data() {
             return {
+                showValue: ['98小时', '300小时', '8次'],
+                test1: [{
+                    y: 360,
+                    color: '#32b16c'
+                }],
+                size: {
+                    width: '1.8rem',
+                    height: '1.8rem'
+                },
+                style: {
+                    color: '#fff',
+                    fontSize: '0.18rem',
+                    font: '0.24rem'
+                },
+                test2: [{
+                    y: 360,
+                    color: '#13b5b1'
+                }],
+                ringInfo: {
+                    showInfo: {
+                        title: '健康指数',
+                        color: '#63869e',
+                        fontSize: '0.18rem'
+                    },
+                    value: '99.8',
+                    size: {
+                        width: '1.8rem',
+                        height: '1.8rem'
+                    },
+                    id: 'health2'
+                },
                 isUp: true,
                 activeIndex: '',
                 alarmTable: {

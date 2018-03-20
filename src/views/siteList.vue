@@ -7,11 +7,12 @@
             <div class="tab">
                 <ul class="title">
                     <dl class="notice flex">
-                        <dd class="g-red">一级报警：3次</dd>
-                        <dd class="g-orange">二级报警：2次</dd>
-                        <dd class="g-green">开机：4次</dd>
+                        <dd class="g-red">二级预警：4次</dd>
+                        <dd class="g-light-orange">一级预警：1次</dd>
+                        <dd class="g-green">运行：2次</dd>
                         <dd class="g-brown">停机：2次</dd>
-                        <dd class="g-gray">断网：1次</dd>
+                        <dd class="g-gray">断网：2次</dd>
+                        <dd class="g-orange">全部：11次</dd>
                     </dl>
                 </ul>
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
@@ -141,7 +142,8 @@
                 }, {
                     'label': '测点状态',
                     'width': 6,
-                    'value': 'status'
+                    'status': 'status',
+                    'value': 'statusValue'
                 }, {
                     'label': '更新时间',
                     'width': 6,
@@ -171,7 +173,8 @@
                         status: '1',
                         time: '2018/03/04',
                         alarmCause: '报警原因',
-                        repairAdvice: '维修建议'
+                        repairAdvice: '维修建议',
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         line: '线路',
@@ -186,7 +189,8 @@
                         status: '1',
                         time: '2018/03/04',
                         alarmCause: '报警原因',
-                        repairAdvice: '维修建议'
+                        repairAdvice: '维修建议',
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         line: '线路',
@@ -201,7 +205,8 @@
                         status: '1',
                         time: '2018/03/04',
                         alarmCause: '报警原因',
-                        repairAdvice: '维修建议'
+                        repairAdvice: '维修建议',
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         line: '线路',
@@ -216,7 +221,8 @@
                         status: '1',
                         time: '2018/03/04',
                         alarmCause: '报警原因',
-                        repairAdvice: '维修建议'
+                        repairAdvice: '维修建议',
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         line: '线路',
@@ -231,37 +237,8 @@
                         status: '2',
                         time: '2018/03/04',
                         alarmCause: '报警原因',
-                        repairAdvice: '维修建议'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        address: '位置',
-                        equName: '设备名称',
-                        detectName: '测点名称',
-                        currentValue: '当前值',
-                        hLimit: '高限',
-                        hhighLimit: '高高限',
-                        status: '3',
-                        time: '2018/03/04',
-                        alarmCause: '报警原因',
-                        repairAdvice: '维修建议'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        address: '位置',
-                        equName: '设备名称',
-                        detectName: '测点名称',
-                        currentValue: '当前值',
-                        hLimit: '高限',
-                        hhighLimit: '高高限',
-                        status: '3',
-                        time: '2018/03/04',
-                        alarmCause: '报警原因',
-                        repairAdvice: '维修建议'
+                        repairAdvice: '维修建议',
+                        statusValue: '一级预警'
                     }, {
                         num: '序号',
                         line: '线路',
@@ -276,7 +253,8 @@
                         status: '4',
                         time: '2018/03/04',
                         alarmCause: '报警原因',
-                        repairAdvice: '维修建议'
+                        repairAdvice: '维修建议',
+                        statusValue: '运行'
                     }, {
                         num: '序号',
                         line: '线路',
@@ -291,7 +269,8 @@
                         status: '4',
                         time: '2018/03/04',
                         alarmCause: '报警原因',
-                        repairAdvice: '维修建议'
+                        repairAdvice: '维修建议',
+                        statusValue: '运行'
                     }, {
                         num: '序号',
                         line: '线路',
@@ -306,7 +285,8 @@
                         status: '5',
                         time: '2018/03/04',
                         alarmCause: '报警原因',
-                        repairAdvice: '维修建议'
+                        repairAdvice: '维修建议',
+                        statusValue: '停机'
                     }, {
                         num: '序号',
                         line: '线路',
@@ -321,7 +301,40 @@
                         status: '5',
                         time: '2018/03/04',
                         alarmCause: '报警原因',
-                        repairAdvice: '维修建议'
+                        repairAdvice: '维修建议',
+                        statusValue: '停机'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '车站',
+                        equSys: '设备系统',
+                        address: '位置',
+                        equName: '设备名称',
+                        detectName: '测点名称',
+                        currentValue: '当前值',
+                        hLimit: '高限',
+                        hhighLimit: '高高限',
+                        status: '3',
+                        time: '2018/03/04',
+                        alarmCause: '报警原因',
+                        repairAdvice: '维修建议',
+                        statusValue: '断网'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '车站',
+                        equSys: '设备系统',
+                        address: '位置',
+                        equName: '设备名称',
+                        detectName: '测点名称',
+                        currentValue: '当前值',
+                        hLimit: '高限',
+                        hhighLimit: '高高限',
+                        status: '3',
+                        time: '2018/03/04',
+                        alarmCause: '报警原因',
+                        repairAdvice: '维修建议',
+                        statusValue: '断网'
                     }]
                 }
             };

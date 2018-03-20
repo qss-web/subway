@@ -1,14 +1,14 @@
 <template>
     <div class="txt-center">
-        <div class="flex">
+        <div class="flex" style=" padding-top: 0.39rem;">
             <div class="showChart">
-                <v-ring-diagram id="runIndex1" title="累计运行时间" :time="showValue[0]" :showData="test1"></v-ring-diagram>
+                <v-ring-diagram id="runIndex1" title="累计运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
             <div class="showChart">
-                <v-ring-diagram id="runIndex2" title="平均无故障运行时间" :time="showValue[1]" :showData="test2"></v-ring-diagram>
+                <v-ring-diagram id="runIndex2" title="平均无故障运行时间" :time="showValue[1]" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
             <div class="showChart">
-                <v-ring-diagram id="runIndex3" title="累积运行次数" :time="showValue[2]" :showData="test3"></v-ring-diagram>
+                <v-ring-diagram id="runIndex3" title="累积运行次数" :time="showValue[2]" :showData="test3" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
         </div>
         <v-search-list :other="otherInfo" :label="info1" :list="equList.data"></v-search-list>
@@ -19,6 +19,10 @@
     export default {
         data() {
             return {
+                size: {
+                    width: '2.6rem',
+                    height: '2.6rem'
+                },
                 showValue: ['20条', '400小时', '58次'],
                 test1: [{
                     y: 360,
@@ -32,6 +36,11 @@
                     y: 360,
                     color: '#13b5b1'
                 }],
+                style: {
+                    color: '#63869e',
+                    fontSize: '0.2rem',
+                    font: '0.28rem'
+                },
                 otherInfo: {
                     isCheck: false, //是否显示多选框
                     style: 9 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它,4站点列表,5屏蔽门的列表

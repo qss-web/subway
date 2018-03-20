@@ -13,7 +13,7 @@
                 <img v-if="indexed==2" src="../assets/search/sort02_orange.png" />
             </dd>
             <dd v-on:click="currentList(3)" v-bind:class="indexed == 3 ?'active':''">
-                <p>故障工单 <span>{{equList.amount3}}份</span></p>
+                <p>故障保修单 <span>{{equList.amount3}}份</span></p>
                 <img v-if="indexed!=3" src="../assets/search/sort03_gray.png" />
                 <img v-if="indexed==3" src="../assets/search/sort03_orange.png" />
             </dd>
@@ -31,16 +31,41 @@
         <v-search-list v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
         <v-search-list v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
         <v-search-list v-if="indexed==3" v-bind:label="equLabe3" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
-        <v-search-list v-if="indexed==4" v-bind:label="equLabe4" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
+        <div class="showPic" v-if="indexed==4">
+            <img class="border-bg" src="../assets/other/footer-border.png" />
+            <ul class="flex">
+                <li>
+                    <img src="../assets/search/pic01.png" />
+                    <p>故障图片201803201020</p>
+                </li>
+                <li>
+                    <img src="../assets/search/pic02.png" />
+                    <p>故障图片201803201020</p>
+                </li>
+                <li>
+                    <img src="../assets/search/pic03.png" />
+                    <p>故障图片201803201020</p>
+                </li>
+                <li>
+                    <img src="../assets/search/pic02.png" />
+                    <p>故障图片201803201020</p>
+                </li>
+                <li>
+                    <img src="../assets/search/pic01.png" />
+                    <p>故障图片201803201020</p>
+                </li>
+            </ul>
+        </div>
+        <!-- <v-search-list v-bind:label="equLabe4" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list> -->
         <div class="others" v-if="indexed==5">
             <ul class="title">
-                <li v-on:click="subOther=true" v-bind:class="subOther?'active':''">自动扶梯巡视巡检</li>
-                <li v-on:click="subOther=false" v-bind:class="subOther?'':'active'">故障库</li>
+                <li v-on:click="subOther=true" v-bind:class="{active:subOther==true}">巡视巡检</li>
+                <li v-on:click=" subOther=false " v-bind:class="{active:subOther==false}">故障库</li>
             </ul>
-            <v-search-list v-if="subOther" v-bind:label="equLabe5" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
-            <v-search-list v-if="!subOther" v-bind:label="equLabe4" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
+            <v-search-list v-if="subOther " v-bind:label="equLabe5 " v-bind:other="otherInfo " v-bind:list="equList.data "></v-search-list>
+            <v-search-list v-if="!subOther " v-bind:label="equLabe4 " v-bind:other="otherInfo " v-bind:list="equList.data "></v-search-list>
         </div>
-        <div v-bind:class="indexed==5?'pagination5':'pagination'">
+        <div v-bind:class="indexed==5? 'pagination5': 'pagination' ">
             <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
             </el-pagination>
@@ -52,7 +77,7 @@
     export default {
         data() {
             return {
-                indexed: 1,
+                indexed: 4,
                 currentPage: 1, //当前页数
                 pageSize: 8, //每页显示数量
                 otherInfo: {
@@ -363,6 +388,35 @@
 </script>
 
 <style scoped lang="less">
+    .showPic {
+        position: relative;
+        .border-bg {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        ul {
+            padding: 0.82rem 0.48rem 0.2rem 0.48rem;
+            background: #4d505f;
+
+            li {
+                flex: 1;
+                margin: 0 0.22rem;
+                img {
+                    width: 3.1rem;
+                    height: 3.1rem;
+                }
+                p {
+                    font-size: 0.2rem;
+                    height: 0.78rem;
+                    line-height: 0.78rem;
+                    color: #fff;
+                    text-align: center;
+                }
+            }
+        }
+    }
     .others {
         .title {
             padding-top: 0.03rem;

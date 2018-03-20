@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wholeWrap">
         <div class="flex infoWrap">
             <div class="tab">
                 <ul class="title">
@@ -381,9 +381,12 @@
 </script>
 
 <style scoped lang="less">
+    .wholeWrap {
+        padding: 0.14rem 0;
+    }
     .infoWrap {
         width: 98%;
-        margin: 0.14rem auto;
+        margin: 0 auto;
         align-items: flex-start;
         div.tab:nth-child(1) {
             margin-right: 0.14rem;

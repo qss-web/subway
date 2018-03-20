@@ -1,11 +1,24 @@
 <template>
-    <div>
+    <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
                 <v-sub-search v-bind:searchData="searchData"></v-sub-search>
             </div>
             <div class="tab">
-                <v-chart :id="id" :option="option" :styleObject="styleObject"></v-chart>
+                <ul class="title">
+                    <dl class="notice flex">
+                        <dd class="g-red">二级预警：3次</dd>
+                        <dd class="g-light-orange">一级预警：2次</dd>
+                        <dd class="g-gray">断网：1次</dd>
+                        <dd class="g-orange">全部：6次</dd>
+                    </dl>
+                </ul>
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
+                <div class=" pagination ">
+                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
+                        <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
+                    </el-pagination>
+                </div>
             </div>
         </div>
         <v-goback></v-goback>
@@ -19,11 +32,52 @@
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
                 searchData: {
+                    'btnShow': {
+                        'add': false,
+                        'export': false,
+                        'delete': false,
+                        'edit': false,
+                        'download': false,
+                        'import': false
+                    },
                     'options': [{
+                        'status': 2,
+                        'title': '线路',
+                        'placeholder': '请选择内容',
+                        'val': 'lines',
+                        'list': [{
+                            value: '1',
+                            label: '6号线'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '车站',
+                        'placeholder': '请选择内容',
+                        'val': 'stations',
+                        'list': [{
+                            value: '1',
+                            label: '金安桥站'
+                        }, {
+                            value: '2',
+                            label: '苹果园站'
+                        }, {
+                            value: '3',
+                            label: '苹果园南路站'
+                        }, {
+                            value: '4',
+                            label: '西黄村站'
+                        }, {
+                            value: '5',
+                            label: '廖公庄站'
+                        }, {
+                            value: '6',
+                            label: '田村站'
+                        }]
+                    }, {
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'equSys',
+                        'val': 'equSort',
                         'list': [{
                             value: '1',
                             label: '设备系统一'
@@ -31,6 +85,11 @@
                             value: '2',
                             label: '设备系统二'
                         }]
+                    }, {
+                        'status': 1,
+                        'title': '设备名称',
+                        'placeholder': '请输入内容',
+                        'val': 'equName'
                     }, {
                         'status': 3,
                         'title': '时间',
@@ -41,121 +100,145 @@
                     }],
                     popSave() { }
                 },
-                id: 'todayAlarm',
-                styleObject: {
-                    width: 100 + '%',
-                    height: 7.6 + 'rem'
+                otherInfo: {
+                    isCheck: true, //是否显示多选框
+                    style: 2 //列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它,4站点列表,5屏蔽门的列表
                 },
-                option: {
-                    chart: {
-                        type: 'column', //指定图表的类型
-                        backgroundColor: '#e5e8f7', //背景色
-                        margin: [100, 100, 80, 100]
-                    },
-                    credits: {
-                        enabled: false //去掉地址
-                    },
-                    title: {
-                        align: 'center',
-                        text: '报警统计', //指定图表标题
-                        style: {
-                            color: '#131313',
-                            fontSize: '0.4rem'
-                        },
-                        y: 44
-                    },
-                    xAxis: {
-                        title: {
-                            text: null
-                        },
-                        type: 'category',
-                        // categories: ['自动扶梯', '风机', '站台门'],
-                        labels: {
-                            style: {
-                                color: '#474740',
-                                fontSize: '0.2rem'
-                            },
-                            align: 'center', //标签居中对齐
-                            y: 30
-                        },
-                        lineWidth: 0, //轴线宽度
-                        tickWidth: 0, //刻度线宽度
-                        showFirstLabel: true,
-                        showLastLabel: true
-                    },
-                    yAxis: {
-                        title: {
-                            text: null //指定y轴的标题
-                        },
-                        gridLineColor: '#7281a3',
-                        labels: {
-                            style: {
-                                color: '#474740',
-                                fontSize: '0.2rem'
-                            },
-                            align: 'center', //标签居中对齐
-                            y: 5
-                        },
-                        lineColor: '#7281a3',
-                        lineWidth: 1,
-                        tickWidth: 1,
-                        tickColor: '#7281a3'
-                    },
-                    plotOptions: {
-                        series: {
-                            borderWidth: 0,
-                            maxPointWidth: 46
-                        }
-                    },
-                    series: [{
-                        color: '#006599',
-                        name: ' ',
-                        data: [{
-                            y: 4,
-                            name: '2018.3.11'
-                        }, {
-                            y: 5,
-                            name: '2018.3.12'
-                        }, {
-                            y: 4,
-                            name: '2018.3.13'
-                        }, {
-                            y: 2,
-                            name: '2018.3.14'
-                        }, {
-                            y: 5,
-                            name: '2018.3.15'
-                        }, {
-                            y: 7,
-                            name: '2018.3.16'
-                        }, {
-                            y: 3,
-                            name: '2018.3.17'
-                        }, {
-                            y: 6,
-                            name: '2018.3.18'
-                        }, {
-                            y: 5,
-                            name: '2018.3.19'
-                        }, {
-                            y: 4,
-                            name: '2018.3.20'
-                        }]
-                    }],
-                    legend: {
-                        enabled: false
-                    },
-                    labels: {
-                        style: {                         // 标签全局样式
-                            color: "#474740",
-                            fontSize: '0.2rem',
-                            fontWeight: 'normal'
-                        }
-                    }
+                info1: [{
+                    'label': '序号',
+                    'width': 5,
+                    'value': 'num'
+                }, {
+                    'label': '车站',
+                    'width': 15,
+                    'value': 'station'
+                }, {
+                    'label': '设备名称',
+                    'width': 10,
+                    'value': 'equName'
+                }, {
+                    'label': '时间',
+                    'width': 15,
+                    'value': 'time'
+                }, {
+                    'label': '报警事件',
+                    'width': 35,
+                    'value': 'event'
+                }, {
+                    'label': '状态',
+                    'width': 10,
+                    'value': 'statusValue',
+                    'status': 'status'
+                }, {
+                    'label': '操作',
+                    'width': 10,
+                    'value': 'operate'
+                }],
+                equList: {
+                    total: 9,
+                    data: [{
+                        num: '序号',
+                        event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
+                        station: '苹果园南站',
+                        time: '2018.03.20 10:24:30',
+                        equName: '扶梯',
+                        status: '1',
+                        statusValue: '二级预警',
+                        operate: '【监测】'
+                    }, {
+                        num: '序号',
+                        event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
+                        station: '苹果园南站',
+                        time: '2018.03.20 10:24:30',
+                        equName: '扶梯',
+                        status: '1',
+                        statusValue: '二级预警',
+                        operate: '【监测】'
+                    }, {
+                        num: '序号',
+                        event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
+                        station: '苹果园南站',
+                        time: '2018.03.20 10:24:30',
+                        equName: '扶梯',
+                        status: '1',
+                        statusValue: '二级预警',
+                        operate: '【监测】'
+                    }, {
+                        num: '序号',
+                        event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
+                        station: '苹果园南站',
+                        time: '2018.03.20 10:24:30',
+                        equName: '扶梯',
+                        status: '2',
+                        statusValue: '一级预警',
+                        operate: '【监测】'
+                    }, {
+                        num: '序号',
+                        event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
+                        station: '苹果园南站',
+                        time: '2018.03.20 10:24:30',
+                        equName: '扶梯',
+                        status: '2',
+                        statusValue: '一级预警',
+                        operate: '【监测】'
+                    }, {
+                        num: '序号',
+                        event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
+                        station: '苹果园南站',
+                        time: '2018.03.20 10:24:30',
+                        equName: '扶梯',
+                        status: '2',
+                        statusValue: '一级预警',
+                        operate: '【监测】'
+                    }, {
+                        num: '序号',
+                        event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
+                        station: '苹果园南站',
+                        time: '2018.03.20 10:24:30',
+                        equName: '扶梯',
+                        status: '3',
+                        statusValue: '断网',
+                        operate: '【监测】'
+                    }, {
+                        num: '序号',
+                        event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
+                        station: '苹果园南站',
+                        time: '2018.03.20 10:24:30',
+                        equName: '扶梯',
+                        status: '3',
+                        statusValue: '断网',
+                        operate: '【监测】'
+                    }, {
+                        num: '序号',
+                        event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
+                        station: '苹果园南站',
+                        time: '2018.03.20 10:24:30',
+                        equName: '扶梯',
+                        status: '3',
+                        statusValue: '断网',
+                        operate: '【监测】'
+                    }, {
+                        num: '序号',
+                        event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
+                        station: '苹果园南站',
+                        time: '2018.03.20 10:24:30',
+                        equName: '扶梯',
+                        status: '3',
+                        statusValue: '断网',
+                        operate: '【监测】'
+                    }, {
+                        num: '序号',
+                        event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
+                        station: '苹果园南站',
+                        time: '2018.03.20 10:24:30',
+                        equName: '扶梯',
+                        status: '3',
+                        statusValue: '断网',
+                        operate: '【监测】'
+                    }]
                 }
             };
         },
-        props: ['list', 'label', 'checked'],
         methods: {
             currentList(index) {
                 this.indexed = index;
@@ -170,9 +253,12 @@
 </script>
 
 <style scoped lang="less">
+    .wholeWrap {
+        padding: 0.16rem 0 0.24rem 0;
+    }
     .equWrap {
         width: 99.4%;
-        margin: 0.16rem auto 0.24rem auto;
+        margin: 0 auto;
         padding: 0.18rem 0 0.15rem;
         background: #b8bcc7;
         border-radius: 10px;
@@ -188,9 +274,8 @@
         width: 98.5%;
         margin: 0px auto;
         min-height: 7.8rem;
-        border-top: 1px solid #587386;
         .title {
-            background: #e5e8f7;
+            background: #666b79;
             position: relative;
             height: 0.52rem;
             border: 1px solid #587386;
@@ -207,6 +292,13 @@
                     line-height: 0.52rem;
                 }
             }
+        }
+        .pagination {
+            text-align: center;
+            padding: 0.07rem 0;
+            background: #45484f;
+            border: 1px solid #587386;
+            border-top: none;
         }
     }
 </style>
