@@ -13,19 +13,26 @@
                     <img v-if="!item.isCheck" src="../assets/search/check.png"/>
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
-                <span v-for="(item1, index) in label" v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''" v-bind:style="{width:item1.width+'%'}">
-                    {{item[item1.value]}}
-                </span>
+                <div v-for="(item1, index) in label" v-bind:style="{width:item1.width+'%'}">
+                    <span v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''">
+                        {{item[item1.value]}}
+                    </span>
+                    <span v-if="item1.btn">
+                        <a class="btn" v-on:click="goToOrder" style="margin-right: 0.2rem;" href="javascript:;" v-if="item1.btn.workOrder">工单</a>
+                        <a class="btn" v-on:click="goToMore" href="javascript:;" v-if="item1.btn.more">更多事件</a>
+                    </span>
+                </div>
             </dd>
         </dl>
         <dl class="content" v-else>
-            <dd v-for="(item, index) in listShow" v-on:click="goToNext" v-bind:class="{activeHand:other.isEquInfo == true}">
+            <dd v-for="(item, index) in listShow" v-on:click="goToNext" v-bind:class="{activeHand:other.isClick == true}">
                 <span style="width: 4%; cursor: pointer" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
                     <img v-if="!item.isCheck" src="../assets/search/check.png"/>
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
                 <span v-bind:class="item.status?'font-color-' + item.status:''" v-for="(item1, index) in label" v-bind:style="{width:item1.width+'%'}">
                     {{item[item1.value]}}
+                    <i class="redDot" v-if="item1.isShowRed && item.type"></i>
                 </span>
             </dd>
         </dl>
@@ -83,9 +90,15 @@
             goToNext() {
                 if(this.other.isEquInfo) {
                     this.$router.push('/equInfo');
-                } else {
-
+                } else if(this.other.isSheet) {
+                    this.$emit('isPop', true);
                 }
+            },
+            goToOrder() {
+                this.$router.push('/backlog');
+            },
+            goToMore() {
+                this.$router.push('/alarmListDay');
             }
         }
     };
@@ -94,6 +107,19 @@
     // .font-color-default {
     //     color: #1c1e2a !important;
     // }
+    .redDot {
+        display: inline-block;
+        width: 0.08rem;
+        height: 0.08rem;
+        background: red;
+        border-radius: 100%;
+        box-shadow: 0px 0px 8px 2px red;
+        margin-left: 0.1rem;
+    }
+    .btn {
+        color: #fff;
+        text-decoration: underline;
+    }
     .activeHand {
         cursor: pointer;
     }

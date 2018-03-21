@@ -6,6 +6,11 @@
         <div class="middleKey">
             <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
         </div>
+        <div class=" pagination ">
+            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
+                <span>1/1</span>
+            </el-pagination>
+        </div>
     </div>
     </div>
 </template>
@@ -86,33 +91,27 @@
                 info1: [{
                     'label': '公司名称',
                     'width': 20,
-                    'value': 'company'
+                    'value': 'num'
                 }, {
                     'label': '线路名称',
                     'width': 20,
-                    'value': 'lines'
+                    'value': 'num'
                 }, {
                     'label': '车站名称',
                     'width': 20,
-                    'value': 'stations'
+                    'value': 'port'
                 }, {
-                    'label': '操作方式',
+                    'label': '设备编号',
                     'width': 20,
                     'value': 'type'
                 }, {
-                    'label': '操作',
+                    'label': '操作方式',
                     'width': 20,
-                    'btn': { 'delete': true, 'edit': true }
+                    'select': ['未设置', '手动操作', '自动同步', '默认未设置']
                 }],
                 equList: {
                     total: 9,
                     data: [{
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
                         num: '序号',
                         ipAddress: '192.168.1.23',
                         port: '8000',
@@ -180,5 +179,9 @@
         .middleKey {
             border: 1px solid #71869b;
         }
+    }
+    .pagination {
+        text-align: center;
+        padding-top: 0.1rem;
     }
 </style>

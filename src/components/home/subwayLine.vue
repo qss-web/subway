@@ -6,15 +6,15 @@
                 <div class="infos flex">
                     <label>车站报警</label>
                     <span class="light error"></span>
-                    <span class="name">二级报警 1座</span>
+                    <span class="name">二级报警 2座</span>
                     <span class="light warn"></span>
-                    <span class="name">一级报警 1座</span>
+                    <span class="name">一级报警 2座</span>
                     <span class="light normal"></span>
-                    <span class="name">正常 4部</span>
+                    <span class="name">正常 2部</span>
                     <span class="light offline"></span>
-                    <span class="name">断网 2部</span>
+                    <span class="name">断网 0部</span>
                     <span class="light stop"></span>
-                    <span class="name">停机 1座</span>
+                    <span class="name">停机 0座</span>
                 </div>
             </div>
             <div class="line2 flex">

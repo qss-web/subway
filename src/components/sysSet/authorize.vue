@@ -22,8 +22,15 @@
                     </ul>
                 </dd>
             </dl>
-            <div class="right middleKey">
-                <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
+            <div class="right">
+                <div class="middleKey">
+                    <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
+                </div>
+                <div class=" pagination ">
+                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
+                        <span>1/1</span>
+                    </el-pagination>
+                </div>
             </div>
         </div>
     </div>
@@ -44,7 +51,7 @@
                     },
                     'options': [{
                         'status': 1,
-                        'title': '用户民',
+                        'title': '用户名',
                         'placeholder': '请输入内容',
                         'val': 'lines'
                     }],
@@ -78,12 +85,6 @@
                 equList: {
                     total: 9,
                     data: [{
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
                         num: '序号',
                         ipAddress: '192.168.1.23',
                         port: '8000',
@@ -199,5 +200,9 @@
                 }
             }
         }
+    }
+    .pagination {
+        text-align: center;
+        padding-top: 0.1rem;
     }
 </style>

@@ -51,35 +51,47 @@
                     'width': 6,
                     'value': 'num'
                 }, {
-                    'label': '日期',
+                    'label': '故障单号',
                     'width': 10,
                     'value': 'date'
                 }, {
-                    'label': '车站',
-                    'width': 10,
+                    'label': '线路',
+                    'width': 6,
                     'value': 'station'
                 }, {
-                    'label': '所属系统',
-                    'width': 12,
+                    'label': '车站',
+                    'width': 6,
+                    'value': 'station'
+                }, {
+                    'label': '设备安装位置',
+                    'width': 18,
                     'value': 'bySys'
                 }, {
-                    'label': '设备名称',
+                    'label': '设备编号',
                     'width': 12,
                     'value': 'equName'
                 }, {
-                    'label': '故障现象',
+                    'label': '设备名称',
+                    'width': 14,
+                    'value': 'equName'
+                }, {
+                    'label': '故障系统',
                     'width': 14,
                     'value': 'failureCause'
                 }, {
-                    'label': '故障处理情况',
+                    'label': '故障现象',
                     'width': 12,
-                    'value': 'troubleshoot'
+                    'value': 'repairTime'
                 }, {
                     'label': '修复时间',
                     'width': 12,
                     'value': 'repairTime'
                 }, {
-                    'label': '信息来源',
+                    'label': '维修人员',
+                    'width': 12,
+                    'value': 'repairTime'
+                }, {
+                    'label': '修复确认',
                     'width': 12,
                     'value': 'infoSources'
                 }],

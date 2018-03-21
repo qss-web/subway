@@ -2,8 +2,8 @@
     <div class="mine">
         <div class="cards">
             <v-card-container class="card-userinfo" title="用户信息" light="true">
-                <v-userinfo @edit="userinfoType = 1" v-if="!userinfoType"></v-userinfo>
-                <v-edit-userinfo @save="userinfoType = 0" v-if="userinfoType"></v-edit-userinfo>
+                <v-userinfo @edit="userinfoType = 0" v-if="userinfoType"></v-userinfo>
+                <v-edit-userinfo @save="userinfoType = 1" v-if="!userinfoType"></v-edit-userinfo>
             </v-card-container>
             <v-card-container class="card-todolist" title="待办事项" goKey="unfinished" light="true">
                 <v-mine-todolist></v-mine-todolist>
@@ -35,12 +35,15 @@
                             <el-table-column prop="desc" label="事件描述" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="status" label="状态" align="center" show-overflow-tooltip></el-table-column>
                         </el-table>
-                        <el-pagination :page-size="alarmInfo.page.offset" @current-change="alarmChangePage" class="pagination" layout="prev, slot, next" :total="alarmInfo.page.total" prev-text="上一页" next-text="下一页">
+                        <div class="moreShow">
+                            <a href="javascript:;" v-on:click="goToMoreFn1">更多</a>
+                        </div>
+                        <!-- <el-pagination :page-size="alarmInfo.page.offset" @current-change="alarmChangePage" class="pagination" layout="prev, slot, next" :total="alarmInfo.page.total" prev-text="上一页" next-text="下一页">
                             <span>{{alarmInfo.page.current}}/{{Math.ceil(alarmInfo.page.total / alarmInfo.page.offset)}}</span>
-                        </el-pagination>
+                        </el-pagination> -->
                     </div>
                     <div v-show="activeIndex == 1">
-                        <el-table :data="deviceInfo.row" style="width: 100%; background-color: #eff0f2;" stripe height="2.5rem" :row-class-name="rowClassName" header-row-class-name="header-row">
+                        <el-table :data="deviceInfo.row" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
                             <el-table-column prop="index" label="序号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="faultNo" label="故障单号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="line" label="线路" align="center" show-overflow-tooltip></el-table-column>
@@ -50,12 +53,15 @@
                             <el-table-column prop="faultSys" label="故障系统" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="faultDesc" label="故障现象" align="center" show-overflow-tooltip></el-table-column>
                         </el-table>
-                        <el-pagination :page-size="deviceInfo.page.offset" @current-change="deviceChangePage" class="pagination" layout="prev, slot, next" :total="deviceInfo.page.total" prev-text="上一页" next-text="下一页">
+                        <div class="moreShow">
+                            <a href="javascript:;" v-on:click="goToMoreFn2">更多</a>
+                        </div>
+                        <!-- <el-pagination :page-size="deviceInfo.page.offset" @current-change="deviceChangePage" class="pagination" layout="prev, slot, next" :total="deviceInfo.page.total" prev-text="上一页" next-text="下一页">
                             <span>{{deviceInfo.page.current}}/{{Math.ceil(deviceInfo.page.total / deviceInfo.page.offset)}}</span>
-                        </el-pagination>
+                        </el-pagination> -->
                     </div>
                     <div v-show="activeIndex == 2">
-                        <el-table :data="checkInfo.row" style="width: 100%; background-color: #eff0f2;" stripe height="2.5rem" :row-class-name="rowClassName" header-row-class-name="header-row">
+                        <el-table :data="checkInfo.row" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
                             <el-table-column prop="index" label="序号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="type" label="类别" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="stationName" label="安装车站" align="center" show-overflow-tooltip></el-table-column>
@@ -66,9 +72,12 @@
                             <el-table-column prop="deviceStatus" label="设备状态" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="operator" label="执行人" align="center" show-overflow-tooltip></el-table-column>
                         </el-table>
-                        <el-pagination :page-size="checkInfo.page.offset" @current-change="checkChangePage" class="pagination" layout="prev, slot, next" :total="checkInfo.page.total" prev-text="上一页" next-text="下一页">
+                        <div class="moreShow">
+                            <a href="javascript:;" v-on:click="goToMoreFn3">更多</a>
+                        </div>
+                        <!-- <el-pagination :page-size="checkInfo.page.offset" @current-change="checkChangePage" class="pagination" layout="prev, slot, next" :total="checkInfo.page.total" prev-text="上一页" next-text="下一页">
                             <span>{{checkInfo.page.current}}/{{Math.ceil(checkInfo.page.total / checkInfo.page.offset)}}</span>
-                        </el-pagination>
+                        </el-pagination> -->
                     </div>
                 </div>
             </div>
@@ -190,33 +199,6 @@
                         faultDesc: '无法运行'
                     }, {
                         index: '4',
-                        faultNo: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        deviceLocation: '位置',
-                        deviceNo: 'A111',
-                        faultSys: '风机',
-                        faultDesc: '无法运行'
-                    }, {
-                        index: '1',
-                        faultNo: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        deviceLocation: '位置',
-                        deviceNo: 'A111',
-                        faultSys: '风机',
-                        faultDesc: '无法运行'
-                    }, {
-                        index: '2',
-                        faultNo: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        deviceLocation: '位置',
-                        deviceNo: 'A111',
-                        faultSys: '风机',
-                        faultDesc: '无法运行'
-                    }, {
-                        index: '3',
                         faultNo: '2018-01-01',
                         line: '6',
                         station: '田村站',
@@ -353,6 +335,15 @@
             },
             checkChangePage(page) {
                 this.checkTotal.page.current = page;
+            },
+            goToMoreFn1() {
+                this.$router.push('/alarmListDay');
+            },
+            goToMoreFn2() {
+                this.$router.push('/backlog');
+            },
+            goToMoreFn3() {
+                this.$router.push('/inspect');
             }
         }
     };
@@ -360,6 +351,22 @@
 
 
 <style lang="less" scoped>
+    .moreShow {
+        a {
+            display: block;
+            float: right;
+            width: 1rem;
+            height: 0.38rem;
+            line-height: 0.38rem;
+            background: #54596d;
+            text-align: center;
+            border-radius: 3px;
+            font-size: 0.18rem;
+            color: #fff;
+            margin-top: 0.24rem;
+            margin-right: 0.4rem;
+        }
+    }
     .cards {
         .card-userinfo {
             left: 0.28rem;

@@ -33,6 +33,39 @@
                     },
                     'options': [{
                         'status': 2,
+                        'title': '线路',
+                        'placeholder': '请选择内容',
+                        'val': 'lines',
+                        'list': [{
+                            value: '1',
+                            label: '6号线'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '车站',
+                        'placeholder': '请选择内容',
+                        'val': 'stations',
+                        'list': [{
+                            value: '1',
+                            label: '金安桥站'
+                        }, {
+                            value: '2',
+                            label: '苹果园站'
+                        }, {
+                            value: '3',
+                            label: '苹果园南路站'
+                        }, {
+                            value: '4',
+                            label: '西黄村站'
+                        }, {
+                            value: '5',
+                            label: '廖公庄站'
+                        }, {
+                            value: '6',
+                            label: '田村站'
+                        }]
+                    }, {
+                        'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
                         'val': 'equSys',
@@ -45,28 +78,33 @@
                         }]
                     }, {
                         'status': 2,
-                        'title': '故障名称',
+                        'title': '设备名称',
                         'placeholder': '请选择内容',
                         'val': 'equSort',
                         'list': [{
                             value: '1',
-                            label: '故障名称一'
+                            label: '设备名称一'
                         }, {
                             value: '2',
-                            label: '故障名称二'
+                            label: '设备名称二'
                         }]
                     }, {
                         'status': 2,
-                        'title': '设备状态',
+                        'title': '状态',
                         'placeholder': '请选择内容',
                         'val': 'equStatus',
                         'list': [{
                             value: '1',
-                            label: '设备状态一'
+                            label: '状态一'
                         }, {
                             value: '2',
-                            label: '设备状态二'
+                            label: '状态二'
                         }]
+                    }, {
+                        'status': 4,
+                        'title': '时间',
+                        'placeholder': '请选择日期',
+                        'val': 'time'
                     }],
                     popSave() { }
                 },
@@ -103,9 +141,10 @@
                     'width': 10,
                     'value': 'status'
                 }, {
-                    'label': '设备状态',
+                    'label': '巡视巡检情况记录',
                     'width': 11,
-                    'value': 'equStatus'
+                    'value': 'equStatus',
+                    'isShowRed': true
                 }, {
                     'label': '执行人',
                     'width': 10,
@@ -131,7 +170,8 @@
                         date: '日期（月/日）',
                         arriveTime: '到达时间',
                         status: '巡检状态',
-                        equStatus: '设备状态',
+                        equStatus: '故障',
+                        type: '1',
                         name: '执行人'
                     }, {
                         num: '序号',
@@ -181,7 +221,8 @@
                         date: '日期（月/日）',
                         arriveTime: '到达时间',
                         status: '巡检状态',
-                        equStatus: '设备状态',
+                        equStatus: '故障',
+                        type: '1',
                         name: '执行人'
                     }, {
                         num: '序号',
@@ -211,7 +252,8 @@
                         date: '日期（月/日）',
                         arriveTime: '到达时间',
                         status: '巡检状态',
-                        equStatus: '设备状态',
+                        equStatus: '故障',
+                        type: '1',
                         name: '执行人'
                     }, {
                         num: '序号',

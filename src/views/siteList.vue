@@ -153,7 +153,7 @@
                     'width': 9,
                     'value': 'alarmCause'
                 }, {
-                    'label': '维修建议',
+                    'label': '检维修建议',
                     'width': 9,
                     'value': 'repairAdvice'
                 }],

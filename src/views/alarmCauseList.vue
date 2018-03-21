@@ -39,7 +39,7 @@
                         }]
                     }, {
                         'status': 1,
-                        'title': '报警原因名称',
+                        'title': '故障名称',
                         'placeholder': '请输入内容',
                         'val': 'equSort'
                     }],
@@ -58,11 +58,11 @@
                     'width': 10,
                     'value': 'equSys'
                 }, {
-                    'label': '报警原因代码',
+                    'label': '故障原因代码',
                     'width': 20,
                     'value': 'alarmCode'
                 }, {
-                    'label': '报警原因名称',
+                    'label': '故障原因名称',
                     'width': 20,
                     'value': 'alarmName'
                 }, {
@@ -70,7 +70,7 @@
                     'width': 20,
                     'value': 'faultTime'
                 }, {
-                    'label': '每千小时故障发生次数',
+                    'label': '故障发生次数',
                     'width': 20,
                     'value': 'faultNum'
                 }],

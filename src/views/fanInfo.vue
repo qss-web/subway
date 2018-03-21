@@ -14,7 +14,7 @@
             </div>
             <div class="device-3d" v-on:click="goInfoFn"></div>
             <div class="device-healthy">
-                <button class="device-healthy-title">今日车站健康监测指标</button>
+                <button class="device-healthy-title">今日车站健康监测完好率</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-ring-diagram id="runIndex1" title="运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
@@ -98,36 +98,42 @@
                     }, {
                         'label': '当前状态',
                         'width': 20,
-                        'value': 'status'
+                        'value': 'statusValue',
+                        'status': 'status'
                     }],
                     list: [{
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: '1',
+                        statusValue: '状态'
                     },
                     {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: '2',
+                        statusValue: '状态'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: '3',
+                        statusValue: '状态'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: '3',
+                        statusValue: '状态'
                     }],
                     other: {
-                        style: 5
+                        style: 5,
+                        isSubShowColor: true
                     }
                 },
                 testTable: {

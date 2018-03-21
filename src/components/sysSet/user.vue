@@ -6,6 +6,11 @@
         <div class="middleKey">
             <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
         </div>
+        <div class=" pagination ">
+            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
+                <span>1/1</span>
+            </el-pagination>
+        </div>
     </div>
     </div>
 </template>
@@ -24,7 +29,7 @@
                     },
                     'options': [{
                         'status': 1,
-                        'title': '用户民',
+                        'title': '用户名',
                         'placeholder': '请输入内容',
                         'val': 'lines'
                     }],
@@ -37,39 +42,39 @@
                 }, {
                     'label': '用户名',
                     'width': 8,
-                    'value': 'userName'
+                    'value': 'num'
                 }, {
                     'label': '密码',
                     'width': 8,
-                    'value': 'password'
+                    'value': 'num'
                 }, {
                     'label': '真实姓名',
                     'width': 8,
-                    'value': 'realName'
+                    'value': 'num'
                 }, {
                     'label': '所属角色',
                     'width': 8,
-                    'value': 'role'
+                    'value': 'num'
                 }, {
                     'label': 'E-mail',
                     'width': 10,
-                    'value': 'mail'
+                    'value': 'num'
                 }, {
                     'label': '所属集团',
                     'width': 10,
-                    'value': 'group'
+                    'value': 'num'
                 }, {
                     'label': '所属公司',
                     'width': 10,
-                    'value': 'company'
+                    'value': 'num'
                 }, {
                     'label': '所属工厂',
                     'width': 10,
-                    'value': 'factory'
+                    'value': 'num'
                 }, {
                     'label': '所属装置',
                     'width': 8,
-                    'value': 'device'
+                    'value': 'num'
                 }, {
                     'label': '操作',
                     'width': 15,
@@ -78,61 +83,55 @@
                 equList: {
                     total: 9,
                     data: [{
-                        num: '序号',
+                        num: '测试',
                         ipAddress: '192.168.1.23',
                         port: '8000',
                         type: 'A类',
                         attendedMode: '连接方式'
                     }, {
-                        num: '序号',
+                        num: '测试',
                         ipAddress: '192.168.1.23',
                         port: '8000',
                         type: 'A类',
                         attendedMode: '连接方式'
                     }, {
-                        num: '序号',
+                        num: '测试',
                         ipAddress: '192.168.1.23',
                         port: '8000',
                         type: 'A类',
                         attendedMode: '连接方式'
                     }, {
-                        num: '序号',
+                        num: '测试',
                         ipAddress: '192.168.1.23',
                         port: '8000',
                         type: 'A类',
                         attendedMode: '连接方式'
                     }, {
-                        num: '序号',
+                        num: '测试',
                         ipAddress: '192.168.1.23',
                         port: '8000',
                         type: 'A类',
                         attendedMode: '连接方式'
                     }, {
-                        num: '序号',
+                        num: '测试',
                         ipAddress: '192.168.1.23',
                         port: '8000',
                         type: 'A类',
                         attendedMode: '连接方式'
                     }, {
-                        num: '序号',
+                        num: '测试',
                         ipAddress: '192.168.1.23',
                         port: '8000',
                         type: 'A类',
                         attendedMode: '连接方式'
                     }, {
-                        num: '序号',
+                        num: '测试',
                         ipAddress: '192.168.1.23',
                         port: '8000',
                         type: 'A类',
                         attendedMode: '连接方式'
                     }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
+                        num: '测试',
                         ipAddress: '192.168.1.23',
                         port: '8000',
                         type: 'A类',
@@ -151,5 +150,9 @@
         .middleKey {
             border: 1px solid #71869b;
         }
+    }
+    .pagination {
+        text-align: center;
+        padding-top: 0.1rem;
     }
 </style>

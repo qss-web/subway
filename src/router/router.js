@@ -93,6 +93,11 @@ const router = [
         component: resolve => require(['@/views/stationStaffList'], resolve)
       },
       {
+        name: 'alarmListDay',
+        path: 'alarmListDay',
+        component: resolve => require(['@/views/alarmListDay'], resolve)
+      },
+      {
         name: 'setup',
         path: 'setup',
         component: resolve => require(['@/views/setup'], resolve)

@@ -6,7 +6,11 @@
         <div class="middleKey">
             <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
         </div>
-    </div>
+        <div class=" pagination ">
+            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
+                <span>1/1</span>
+            </el-pagination>
+        </div>
     </div>
 </template>
 <script>
@@ -78,53 +82,43 @@
                 }, {
                     'label': '运营公司',
                     'width': 10,
-                    'value': 'company'
+                    'value': 'port'
                 }, {
                     'label': '项目部',
                     'width': 10,
-                    'value': 'group'
+                    'value': 'port'
                 }, {
                     'label': '线路',
                     'width': 8,
-                    'value': 'lines'
+                    'value': 'attendedMode'
                 }, {
                     'label': '车站',
                     'width': 8,
-                    'value': 'stations'
+                    'value': 'attendedMode'
                 }, {
                     'label': '设备系统',
-                    'width': 8,
-                    'value': 'equSystem'
+                    'width': 13,
+                    'value': 'attendedMode'
                 }, {
                     'label': '设备名称',
-                    'width': 8,
-                    'value': 'equName'
+                    'width': 13,
+                    'value': 'attendedMode'
                 }, {
                     'label': '安装合同编号',
                     'width': 10,
-                    'value': 'contractNum'
+                    'value': 'attendedMode'
                 }, {
                     'label': '位置',
-                    'width': 8,
-                    'value': 'address'
+                    'width': 11,
+                    'value': 'attendedMode'
                 }, {
                     'label': '每天运行时间（小时）',
                     'width': 12,
-                    'value': 'device'
-                }, {
-                    'label': '操作',
-                    'width': 13,
-                    'btn': { 'delete': true, 'edit': true }
+                    'value': 'attendedMode'
                 }],
                 equList: {
                     total: 9,
                     data: [{
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
                         num: '序号',
                         ipAddress: '192.168.1.23',
                         port: '8000',
@@ -192,5 +186,9 @@
         .middleKey {
             border: 1px solid #71869b;
         }
+    }
+    .pagination {
+        text-align: center;
+        padding-top: 0.1rem;
     }
 </style>

@@ -14,10 +14,10 @@
                 </ul>
             </div>
             <div class="device-3d" v-on:click="goInfoFn">
-                <v-tag name="line" type="1" status="warn" x="1.8" y="1.4">右扶手带</v-tag>
+                <v-tag name="line" type="1" status="warn" x="1.8" y="1.4" style="background: #f9af00">右扶手带</v-tag>
                 <v-tag name="line" type="1" status="normal" x="2" y="2.5">左扶手带</v-tag>
                 <v-tag name="line" type="1" status="error" x="1" y="3.5">从驱动轮</v-tag>
-                <v-tag name="line" type="3" status="warn" x="8.6" y="1.4">主驱动轮</v-tag>
+                <v-tag name="line" type="3" status="warn" x="8.6" y="1.4" style="background: #f9af00">主驱动轮</v-tag>
                 <v-tag name="line" type="2" status="normal" x="5.4" y="4.7">扶梯衍架</v-tag>
                 <v-tag name="line" type="2" status="error" x="4.3" y="4.9">牵引键条</v-tag>
             </div>
@@ -64,8 +64,8 @@
                     color: '#32b16c'
                 }],
                 size: {
-                    width: '1.8rem',
-                    height: '1.8rem'
+                    width: '2.2rem',
+                    height: '2.2rem'
                 },
                 style: {
                     color: '#fff',
@@ -84,8 +84,8 @@
                     },
                     value: '99.8',
                     size: {
-                        width: '1.8rem',
-                        height: '1.8rem'
+                        width: '2.2rem',
+                        height: '2.2rem'
                     },
                     id: 'health2'
                 },
@@ -307,8 +307,8 @@
 
     .device-3d {
         position: absolute;
-        left: 0.4rem;
-        bottom: 0.05rem;
+        left: 0rem;
+        bottom: 0.4rem;
         width: 10.88rem;
         height: 7.08rem;
         background: url('~assets/siteInfo/bg_escalator.png') no-repeat;
@@ -406,7 +406,7 @@
                     background-color: #ff0000;
                 }
                 &.warn {
-                    background-color: #deff00;
+                    background-color: #f9af00;
                 }
                 &.normal {
                     background-color: #36ff00;

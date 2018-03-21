@@ -19,7 +19,7 @@
                 <v-tag name="triangle" status="normal" x="8.2" y="1.7" @onclick="goToDevice(3)">C2扶梯</v-tag>
             </div>
             <div class="device-healthy">
-                <button class="device-healthy-title">今日车站健康监测指标</button>
+                <button class="device-healthy-title">今日车站健康监测完好率</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-monthly-reliability v-bind:ringInfo="ringInfo1"></v-monthly-reliability>
@@ -30,7 +30,15 @@
                         <!-- <v-health-indicators class="healthy-chart" id="health3" title="站台门" :percent="68"></v-health-indicators> -->
                     </div>
                     <div class="healthy-table">
-                        <v-search-list :other="other" :label="label" :list="list"></v-search-list>
+                        <div class="tabs flex">
+                            <button class="tab" :class="{active: !activeIndex}" @click="activeIndex = 0">报警数据</button>
+                            <button class="tab" :class="{active: activeIndex}" @click="activeIndex = 1">测点状态</button>
+                        </div>
+                        <div class="tables">
+                            <v-search-list v-show="!activeIndex" :other="alarmTable.other" :label="alarmTable.label" :list="alarmTable.list"></v-search-list>
+                            <v-search-list v-show="activeIndex" :other="testTable.other" :label="testTable.label" :list="testTable.list"></v-search-list>
+                        </div>
+                        <!-- <v-search-list :other="other" :label="label" :list="list"></v-search-list> -->
                     </div>
                 </div>
             </div>
@@ -62,6 +70,164 @@
     export default {
         data() {
             return {
+                activeIndex: '',
+                alarmTable: {
+                    label: [{
+                        'label': '序号',
+                        'width': 20,
+                        'value': 'num'
+                    }, {
+                        'label': '设备名称',
+                        'width': 25,
+                        'value': 'equName'
+                    }, {
+                        'label': '时间',
+                        'width': 20,
+                        'value': 'time'
+                    }, {
+                        'label': '事件描述',
+                        'width': 20,
+                        'value': 'eventDesc'
+                    }, {
+                        'label': '当前状态',
+                        'width': 15,
+                        'value': 'statusValue',
+                        'status': 'status'
+                    }, {
+                        'label': '操作',
+                        'width': 25,
+                        'btn': { 'workOrder': true, 'more': true }
+                    }],
+                    list: [{
+                        num: '序号',
+                        equName: '设备名称',
+                        time: '时间',
+                        eventDesc: '报警事件',
+                        status: 1,
+                        statusValue: '状态'
+                    },
+                    {
+                        num: '序号',
+                        equName: '设备名称',
+                        time: '时间',
+                        eventDesc: '报警事件',
+                        status: 2,
+                        statusValue: '状态'
+                    }, {
+                        num: '序号',
+                        equName: '设备名称',
+                        time: '时间',
+                        eventDesc: '报警事件',
+                        status: 3,
+                        statusValue: '状态'
+                    }, {
+                        num: '序号',
+                        equName: '设备名称',
+                        time: '时间',
+                        eventDesc: '报警事件',
+                        status: 4,
+                        statusValue: '状态'
+                    }],
+                    other: {
+                        style: 5,
+                        isSubShowColor: true
+                    }
+                },
+                testTable: {
+                    label: [{
+                        'label': '序号',
+                        'width': 9,
+                        'value': 'num'
+                    }, {
+                        'label': '设备名称',
+                        'width': 9,
+                        'value': 'equName'
+                    }, {
+                        'label': '测点名称',
+                        'width': 9,
+                        'value': 'testName'
+                    }, {
+                        'label': '当前值',
+                        'width': 9,
+                        'value': 'currentValue'
+                    }, {
+                        'label': '高限',
+                        'width': 9,
+                        'value': 'highLimit'
+                    }, {
+                        'label': '高高限',
+                        'width': 9,
+                        'value': 'highestLimit'
+                    }, {
+                        'label': '测点状态',
+                        'width': 9,
+                        'value': 'statusValue',
+                        'status': 'status'
+                    }, {
+                        'label': '时间',
+                        'width': 10,
+                        'value': 'updateTime'
+                    }, {
+                        'label': '报警原因',
+                        'width': 18,
+                        'value': 'alarmCause'
+                    }, {
+                        'label': '检维修建议',
+                        'width': 18,
+                        'value': 'suggest'
+                    }],
+                    list: [{
+                        num: '序号',
+                        equName: '设备名称',
+                        testName: '测点名称',
+                        currentValue: '当前值',
+                        highLimit: '高限',
+                        highestLimit: '高高限',
+                        alarmWay: '报警方式',
+                        alarmType: '报警类型',
+                        updateTime: '更新时间',
+                        alarmCause: '报警原因',
+                        suggest: '检维修建议',
+                        statusValue: '一级预警',
+                        status: 1
+                    }, {
+                        num: '序号',
+                        equName: '设备名称',
+                        testName: '测点名称',
+                        currentValue: '当前值',
+                        highLimit: '高限',
+                        highestLimit: '高高限',
+                        lowLimit: '下限',
+                        lowestLimit: '下下限',
+                        alarmWay: '报警方式',
+                        alarmType: '报警类型',
+                        updateTime: '更新时间',
+                        alarmCause: '报警原因',
+                        suggest: '检维修建议',
+                        statusValue: '二级预警',
+                        status: 2
+                    }, {
+                        num: '序号',
+                        equName: '设备名称',
+                        testName: '测点名称',
+                        currentValue: '当前值',
+                        highLimit: '高限',
+                        highestLimit: '高高限',
+                        lowLimit: '下限',
+                        lowestLimit: '下下限',
+                        alarmWay: '报警方式',
+                        alarmType: '报警类型',
+                        updateTime: '更新时间',
+                        alarmCause: '报警原因',
+                        suggest: '检维修建议',
+                        statusValue: '二级预警',
+                        status: 2
+                    }],
+                    other: {
+                        style: 5,
+                        isSubShowColor: true
+                    }
+                },
                 ringInfo1: {
                     showInfo: {
                         title: '自动扶梯',
@@ -70,8 +236,8 @@
                     },
                     value: '99.3',
                     size: {
-                        width: '1.8rem',
-                        height: '1.8rem'
+                        width: '2.2rem',
+                        height: '2.2rem'
                     },
                     id: 'health1'
                 },
@@ -83,8 +249,8 @@
                     },
                     value: '99.8',
                     size: {
-                        width: '1.8rem',
-                        height: '1.8rem'
+                        width: '2.2rem',
+                        height: '2.2rem'
                     },
                     id: 'health2'
                 },
@@ -96,8 +262,8 @@
                     },
                     value: '99.5',
                     size: {
-                        width: '1.8rem',
-                        height: '1.8rem'
+                        width: '2.2rem',
+                        height: '2.2rem'
                     },
                     id: 'health3'
                 },
@@ -215,8 +381,8 @@
         &-body {
             width: 8.24rem;
             height: 7.9rem;
-            border-radius: 0.2rem;
-            background-color: #404455;
+            // border-radius: 0.2rem;
+            // background-color: #404455;
             position: absolute;
             left: 0.31rem;
             top: 0.6rem;
@@ -226,7 +392,37 @@
                 padding: 0 0.3rem;
             }
             .healthy-table {
-                background-color: #000;
+                width: 100%;
+                height: 5.26rem;
+                flex-direction: column;
+                .tabs {
+                    height: 0.4rem;
+                    width: 100%;
+                    align-items: flex-end;
+                    padding-left: 0.2rem;
+                    .tab {
+                        background-color: #7b8398;
+                        color: #fff;
+                        height: 0.4rem;
+                        border-radius: 0.1rem 0.1rem 0 0;
+                        padding: 0 0.1rem;
+                        margin: 0 0.04rem;
+                        line-height: 0.4rem;
+                        width: 2rem;
+                        text-align: center;
+                        font-size: 0.16rem;
+                        &.active {
+                            background-color: #414455;
+                        }
+                    }
+                }
+                .tables {
+                    width: 100%;
+                    height: 4.86rem;
+                    background-color: #414455;
+                    border-radius: 0.2rem;
+                    box-shadow: 0px 2px 4px 2px #333;
+                }
             }
         }
     }
@@ -255,7 +451,7 @@
                     background-color: #ff0000;
                 }
                 &.warn {
-                    background-color: #a7bb1e;
+                    background-color: #f9af00;
                 }
                 &.normal {
                     background-color: #13c613;

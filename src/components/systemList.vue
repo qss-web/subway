@@ -7,10 +7,21 @@
             <dd v-for="(item, index) in listShow">
                 <div v-for="(item1, index) in label" v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''" v-bind:style="{width:item1.width+'%'}">
                     <span v-if="item1.value">{{item[item1.value]}}</span>
-                    <span v-else>
+                    <span v-if="item1.btn">
                         <a class="btn" href="javascript:;" v-if="item1.btn.delete">删除</a>
                         <a class="btn" href="javascript:;" v-if="item1.btn.edit">编辑</a>
+                        <a class="btn" href="javascript:;" v-if="item1.btn.childMenu">添加菜单</a>
                     </span>
+                    <select v-if="item1.select">
+                        <option value="1">未设置</option>
+                        <option value="2">手动操作</option>
+                        <option value="3">自动同步</option>
+                        <option value="4">默认未设置</option>
+                    </select>
+                    <!-- <el-select v-if="item1.select" v-model="value" placeholder="请选择">
+                        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select> -->
                 </div>
             </dd>
         </dl>
@@ -22,7 +33,21 @@
             return {
                 isAllCkeck: false,
                 listShow: [],
-                numLength: 0
+                numLength: 0,
+                options: [{
+                    value: '1',
+                    label: '未设置'
+                }, {
+                    value: '2',
+                    label: '手动操作'
+                }, {
+                    value: '3',
+                    label: '自动同步'
+                }, {
+                    value: '4',
+                    label: '默认未设置'
+                }],
+                value: ''
             };
         },
         props: ['list', 'label'],
@@ -82,7 +107,7 @@
                     border-right: none;
                     text-align: center;
                     .btn {
-                        width: 0.68rem;
+                        min-width: 0.28rem;
                         height: 0.28rem;
                         line-height: 0.28rem;
                         display: inline-block;
@@ -90,6 +115,7 @@
                         color: #fff;
                         font-size: 0.16rem;
                         margin-right: 0.1rem;
+                        padding: 0 0.2rem;
                     }
                     .btn:hover {
                         text-decoration: none;

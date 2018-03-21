@@ -4,13 +4,14 @@
             <li v-on:click="tabShow=1" v-bind:class="tabShow==1?'active':''">设备信息</li>
             <li v-on:click="tabShow=2" v-bind:class="tabShow==2?'active':''">故障库</li>
             <li v-on:click="tabShow=3" v-bind:class="tabShow==3?'active':''">系统设置</li>
+            <li v-on:click="tabShow=4" v-bind:class="tabShow==4?'active':''">人员情况统计</li>
         </ul>
         <div class="equWrap" v-if="tabShow==1">
             <div class="searchWrap">
                 <v-sub-search v-on:receive="testPop" v-bind:searchData="searchData"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
+                <v-search-list v-bind:other="otherInfo1" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
@@ -35,6 +36,19 @@
             <v-system-set></v-system-set>
             <!-- <button @click="isShowUnitAccount = true" class="add-btn">增加</button>
             <img class="tempPic" src="../assets/other/temp.jpg" /> -->
+        </div>
+        <div class="equWrap" v-if="tabShow==4">
+            <div class="searchWrap">
+                <v-sub-search v-on:receive="testPop" v-bind:searchData="searchData02"></v-sub-search>
+            </div>
+            <div class="tab">
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info3" v-bind:list="equList.data"></v-search-list>
+                <div class=" pagination ">
+                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
+                        <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
+                    </el-pagination>
+                </div>
+            </div>
         </div>
         <v-goback></v-goback>
 
@@ -78,7 +92,7 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="unit-account-dialog-footer" :center="true">
-                <el-button type="primary" @click="isShowUnitAccount = false">确定</el-button>
+                <el-button type="primary" @click="goToFn">确定</el-button>
                 <el-button @click="isShowUnitAccount = false">取消</el-button>
             </div>
         </el-dialog>
@@ -89,7 +103,7 @@
     export default {
         data() {
             return {
-                tabShow: 3,
+                tabShow: 1,
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
                 isShowUnitAccount: false,
@@ -98,8 +112,8 @@
                     'btnShow': {
                         'add': true,
                         'export': false,
-                        'delete': false,
-                        'edit': true,
+                        'delete': true,
+                        'edit': false,
                         'download': true,
                         'import': true,
                         'synchronization': true
@@ -224,57 +238,144 @@
                     }],
                     popSave() { }
                 },
+                searchData02: {
+                    'btnShow': {
+                        'add': false,
+                        'export': true,
+                        'delete': false,
+                        'edit': false,
+                        'download': false,
+                        'import': false
+                    },
+                    'options': [{
+                        'status': 2,
+                        'title': '人员',
+                        'placeholder': '请选择内容',
+                        'val': 'people',
+                        'list': [{
+                            value: '1',
+                            label: '巡检人员1'
+                        }, {
+                            value: '2',
+                            label: '巡检人员2'
+                        }, {
+                            value: '3',
+                            label: '巡检人员3'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '车站',
+                        'placeholder': '请选择内容',
+                        'val': 'lines',
+                        'list': [{
+                            value: '1',
+                            label: '金安桥站'
+                        }, {
+                            value: '2',
+                            label: '苹果园站'
+                        }, {
+                            value: '3',
+                            label: '苹果园南路站'
+                        }, {
+                            value: '4',
+                            label: '西黄村站'
+                        }, {
+                            value: '5',
+                            label: '廖公庄站'
+                        }, {
+                            value: '6',
+                            label: '田村站'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '月份',
+                        'placeholder': '请选择内容',
+                        'val': 'month',
+                        'list': [{
+                            value: '1',
+                            label: '一月'
+                        }, {
+                            value: '2',
+                            label: '二月'
+                        }, {
+                            value: '3',
+                            label: '三月'
+                        }, {
+                            value: '4',
+                            label: '四月'
+                        }, {
+                            value: '5',
+                            label: '五月'
+                        }, {
+                            value: '6',
+                            label: '六月'
+                        }, {
+                            value: '7',
+                            label: '七月'
+                        }, {
+                            value: '8',
+                            label: '八月'
+                        }, {
+                            value: '9',
+                            label: '九月'
+                        }, {
+                            value: '10',
+                            label: '十月'
+                        }, {
+                            value: '11',
+                            label: '十一月'
+                        }, {
+                            value: '12',
+                            label: '十二月'
+                        }]
+                    }],
+                    popSave() { }
+                },
                 otherInfo: {
                     isCheck: false, //是否显示多选框
                     style: 3 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                },
+                otherInfo1: {
+                    isCheck: false, //是否显示多选框
+                    style: 3, // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    isClick: true,
+                    isEquInfo: true
                 },
                 info1: [{
                     'label': '序号',
                     'width': 5,
                     'value': 'num'
                 }, {
-                    'label': '运营公司',
-                    'width': 10,
-                    'value': 'equType'
-                }, {
-                    'label': '项目部',
-                    'width': 10,
-                    'value': 'alarmCode'
-                }, {
                     'label': '线路',
-                    'width': 10,
+                    'width': 15,
                     'value': 'alarmName'
                 }, {
                     'label': '车站',
                     'width': 10,
                     'value': 'faultTime'
                 }, {
-                    'label': '设备系统',
+                    'label': '设备编号',
                     'width': 10,
                     'value': 'faultNum'
                 }, {
                     'label': '设备名称',
+                    'width': 15,
+                    'value': 'faultNum'
+                }, {
+                    'label': '设备系统',
                     'width': 10,
                     'value': 'faultNum'
                 }, {
-                    'label': '安装合同编号',
+                    'label': '生产厂家',
                     'width': 10,
                     'value': 'faultNum'
                 }, {
-                    'label': '位置',
-                    'width': 10,
-                    'value': 'faultNum'
-                }, {
-                    'label': '品牌',
-                    'width': 5,
-                    'value': 'faultNum'
-                }, {
-                    'label': '生产厂',
-                    'width': 5,
+                    'label': '安装地点',
+                    'width': 15,
                     'value': 'faultNum'
                 }, {
                     'label': '规格型号',
-                    'width': 5,
+                    'width': 10,
                     'value': 'faultNum'
                 }],
                 info2: [{
@@ -290,7 +391,7 @@
                     'width': 10,
                     'value': 'alarmCode'
                 }, {
-                    'label': '故障位置编码',
+                    'label': '故障部位编码',
                     'width': 10,
                     'value': 'alarmName'
                 }, {
@@ -311,6 +412,35 @@
                     'value': 'faultNum'
                 }, {
                     'label': '维修建议',
+                    'width': 15,
+                    'value': 'faultNum'
+                }],
+                info3: [{
+                    'label': '序号',
+                    'width': 5,
+                    'value': 'num'
+                }, {
+                    'label': '人员名称',
+                    'width': 10,
+                    'value': 'equType'
+                }, {
+                    'label': '所属车站',
+                    'width': 10,
+                    'value': 'alarmCode'
+                }, {
+                    'label': '所属线路',
+                    'width': 10,
+                    'value': 'alarmName'
+                }, {
+                    'label': '月份',
+                    'width': 15,
+                    'value': 'faultTime'
+                }, {
+                    'label': '巡检台次',
+                    'width': 10,
+                    'value': 'faultTime'
+                }, {
+                    'label': '处理故障单次数',
                     'width': 15,
                     'value': 'faultNum'
                 }],
@@ -417,6 +547,10 @@
             testPop(value) {
                 console.log(value);
                 this.isShowUnitAccount = value;
+            },
+            goToFn() {
+                this.isShowUnitAccount = false;
+                this.$router.push('/equInfo');
             }
         }
     };

@@ -51,7 +51,7 @@
                     plotOptions: {
                         solidgauge: {
                             dataLabels: {
-                                y: -25,
+                                y: -18,
                                 borderWidth: 0,
                                 useHTML: true
                             }
@@ -63,7 +63,7 @@
                     series: [{
                         data: this.showData,
                         dataLabels: {
-                            format: `<div style="text-align:center">
+                            format: `<div style="text-align:center;">
                                         <span style="font-size:`+ this.setStyle.font + ` ;font-weight:normal; color:` + this.setStyle.color + `">` + this.time + `</span>
                                     </div>`,
                             borderWidth: 0

@@ -9,6 +9,8 @@
                 <li v-if="item.status == 2">
                     <span>{{item.title}}：</span>
                     <el-select v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                        <el-option key="0" label="全部" value="0">
+                        </el-option>
                         <el-option v-for="itemSel in item.list" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
@@ -23,10 +25,10 @@
                     <span>{{item.title}}：</span>
                     <el-date-picker v-model="req[item.val]" type="date" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
                 </li>
-                <a class="btn" href="javascript:;"><img src="~assets/other/search.png" /></a>
+                <a class="btn" v-if="!searchData.btnShow.upload" href="javascript:;"><img src="~assets/other/search.png" /></a>
             </ul>
         </div>
-        <a class="exportBtn" href="javascript:;">查询</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.check" class="exportBtn" href="javascript:;">查询</a>
         <a v-if="searchData.btnShow && searchData.btnShow.export" class="exportBtn" href="javascript:;">导出</a>
         <a v-if="searchData.btnShow && searchData.btnShow.add" v-on:click="testPop" class="exportBtn" href="javascript:;">增加</a>
         <a v-if="searchData.btnShow && searchData.btnShow.delete" class="exportBtn" href="javascript:;">删除</a>
@@ -35,6 +37,7 @@
         <a v-if="searchData.btnShow && searchData.btnShow.download" class="exportBtn" href="javascript:;">下载</a>
         <a v-if="searchData.btnShow && searchData.btnShow.import" class="exportBtn" href="javascript:;">导入</a>
         <a v-if="searchData.btnShow && searchData.btnShow.save" class="exportBtn" href="javascript:;">保存</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.upload" class="exportBtn" href="javascript:;">上传</a>
     </div>
 </template>
 <script>

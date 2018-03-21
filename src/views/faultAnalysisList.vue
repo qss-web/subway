@@ -116,7 +116,7 @@
                     'width': 10,
                     'value': 'faultTime'
                 }, {
-                    'label': '每千小时故障发生次数',
+                    'label': '故障发生次数',
                     'width': 20,
                     'value': 'faultNum'
                 }],

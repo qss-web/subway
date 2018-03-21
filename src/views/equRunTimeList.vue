@@ -66,22 +66,22 @@
                             label: '田村站'
                         }]
                     }, {
-                        'status': 1,
-                        'title': '设备名称',
-                        'placeholder': '请输入内容',
-                        'val': 'equName'
-                    }, {
                         'status': 2,
-                        'title': '设备类型',
+                        'title': '设备系统',
                         'placeholder': '请选择内容',
                         'val': 'equSort',
                         'list': [{
                             value: '1',
-                            label: '设备类型一'
+                            label: '设备系统一'
                         }, {
                             value: '2',
-                            label: '测试类型二'
+                            label: '设备系统二'
                         }]
+                    }, {
+                        'status': 1,
+                        'title': '设备名称',
+                        'placeholder': '请输入内容',
+                        'val': 'equName'
                     }, {
                         'status': 3,
                         'title': '时间',

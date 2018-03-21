@@ -5,8 +5,7 @@
         </div>
         <div class="tab">
             <ul class="title">
-                <li v-on:click="tabShow=true" v-bind:class="tabShow?'active':''">实时报警信息</li>
-                <li v-on:click="tabShow=false" v-bind:class="tabShow?'':'active'">以往历史事件</li>
+                <li v-bind:class="tabShow?'active':''">报警信息</li>
                 <dl class="notice flex">
                     <dd class="g-red">二级预警：3次</dd>
                     <dd class="g-light-orange">一级预警：2次</dd>
@@ -284,7 +283,6 @@
                 right: 1rem;
                 top: 0;
                 dd {
-                    cursor: pointer;
                     flex: auto;
                     font-size: 0.2rem;
                     margin-left: 0.26rem;

@@ -16,7 +16,7 @@
                 <li v-on:click="isUp = true" v-bind:class="{active:isUp==true}">上行</li>
                 <li v-on:click="isUp = false" v-bind:class="{active:isUp==false}">下行</li>
             </ul>
-            <div class="device-3d" v-on:click="goInfoFn">
+            <div class="device-3d" v-on:click="goInfoFn" v-if="isUp">
                 <v-tag name="number" status="error" x="0.85" y="0.05" :number="1"></v-tag>
                 <v-tag name="number" x="1.85" y="0.05" :number="2"></v-tag>
                 <v-tag name="number" status="error" x="2.85" y="0.05" :number="3"></v-tag>
@@ -53,8 +53,45 @@
                 <v-tag name="number" x="6.85" y="3.76" :number="31"></v-tag>
                 <v-tag name="number" x="7.85" y="3.76" :number="32"></v-tag>
             </div>
+            <div class="device-3d" v-on:click="goInfoFn" v-if="!isUp">
+                <v-tag name="number" x="0.85" y="0.05" :number="1"></v-tag>
+                <v-tag name="number" x="1.85" y="0.05" :number="2"></v-tag>
+                <v-tag name="number" x="2.85" y="0.05" :number="3"></v-tag>
+                <v-tag name="number" status="error" x="3.85" y="0.05" :number="4"></v-tag>
+                <v-tag name="number" x="4.85" y="0.05" :number="5"></v-tag>
+                <v-tag name="number" x="5.85" y="0.05" :number="6"></v-tag>
+                <v-tag name="number" x="6.85" y="0.05" :number="7"></v-tag>
+                <v-tag name="number" status="error" x="7.85" y="0.05" :number="8"></v-tag>
+
+                <v-tag name="number" x="0.85" y="1.28" :number="9"></v-tag>
+                <v-tag name="number" x="1.85" y="1.28" :number="10"></v-tag>
+                <v-tag name="number" x="2.85" y="1.28" :number="11"></v-tag>
+                <v-tag name="number" status="error" x="3.85" y="1.28" :number="12"></v-tag>
+                <v-tag name="number" x="4.85" y="1.28" :number="13"></v-tag>
+                <v-tag name="number" x="5.85" y="1.28" :number="14"></v-tag>
+                <v-tag name="number" status="error" x="6.85" y="1.28" :number="15"></v-tag>
+                <v-tag name="number" x="7.85" y="1.28" :number="16"></v-tag>
+
+                <v-tag name="number" x="0.85" y="2.55" :number="17"></v-tag>
+                <v-tag name="number" x="1.85" y="2.55" :number="18"></v-tag>
+                <v-tag name="number" x="2.85" y="2.55" :number="19"></v-tag>
+                <v-tag name="number" x="3.85" y="2.55" :number="20"></v-tag>
+                <v-tag name="number" x="4.85" y="2.55" :number="21"></v-tag>
+                <v-tag name="number" x="5.85" y="2.55" :number="22"></v-tag>
+                <v-tag name="number" x="6.85" y="2.55" :number="23"></v-tag>
+                <v-tag name="number" status="error" x="7.85" y="2.55" :number="24"></v-tag>
+
+                <v-tag name="number" x="0.85" y="3.76" :number="25"></v-tag>
+                <v-tag name="number" x="1.85" y="3.76" :number="26"></v-tag>
+                <v-tag name="number" x="2.85" y="3.76" :number="27"></v-tag>
+                <v-tag name="number" x="3.85" y="3.76" :number="28"></v-tag>
+                <v-tag name="number" status="error" x="4.85" y="3.76" :number="29"></v-tag>
+                <v-tag name="number" x="5.85" y="3.76" :number="30"></v-tag>
+                <v-tag name="number" status="error" x="6.85" y="3.76" :number="31"></v-tag>
+                <v-tag name="number" x="7.85" y="3.76" :number="32"></v-tag>
+            </div>
             <div class="device-healthy">
-                <button class="device-healthy-title">今日车站健康监测指标</button>
+                <button class="device-healthy-title">今日车站健康监测完好率</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-ring-diagram id="runIndex1" title="运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
@@ -92,8 +129,8 @@
                     color: '#32b16c'
                 }],
                 size: {
-                    width: '1.8rem',
-                    height: '1.8rem'
+                    width: '2.2rem',
+                    height: '2.2rem'
                 },
                 style: {
                     color: '#fff',
@@ -112,8 +149,8 @@
                     },
                     value: '99.8',
                     size: {
-                        width: '1.8rem',
-                        height: '1.8rem'
+                        width: '2.2rem',
+                        height: '2.2rem'
                     },
                     id: 'health2'
                 },
@@ -139,36 +176,42 @@
                     }, {
                         'label': '当前状态',
                         'width': 20,
-                        'value': 'status'
+                        'value': 'statusValue',
+                        'status': 'status'
                     }],
                     list: [{
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: '1',
+                        statusValue: '状态'
                     },
                     {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: '2',
+                        statusValue: '状态'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: '2',
+                        statusValue: '状态'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
                         eventDesc: '报警事件',
-                        status: '状态'
+                        status: '2',
+                        statusValue: '状态'
                     }],
                     other: {
-                        style: 5
+                        style: 5,
+                        isSubShowColor: true
                     }
                 },
                 testTable: {

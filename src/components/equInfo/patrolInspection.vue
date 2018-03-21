@@ -2,13 +2,13 @@
     <div class="txt-center">
         <div class="flex" style=" padding-top: 0.39rem;">
             <div class="showChart">
-                <v-ring-diagram id="runIndex1" title="累计运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
+                <v-ring-diagram id="runIndex1" title="巡视巡检条数" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
             <div class="showChart">
-                <v-ring-diagram id="runIndex2" title="平均无故障运行时间" :time="showValue[1]" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
+                <v-ring-diagram id="runIndex2" title="正常条数" :time="showValue[1]" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
             <div class="showChart">
-                <v-ring-diagram id="runIndex3" title="累积运行次数" :time="showValue[2]" :showData="test3" :size="size" :setStyle="style"></v-ring-diagram>
+                <v-ring-diagram id="runIndex3" title="故障条数" :time="showValue[2]" :showData="test3" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
         </div>
         <v-search-list :other="otherInfo" :label="info1" :list="equList.data"></v-search-list>
@@ -23,7 +23,7 @@
                     width: '2.6rem',
                     height: '2.6rem'
                 },
-                showValue: ['20条', '400小时', '58次'],
+                showValue: ['20条', '40条', '58条'],
                 test1: [{
                     y: 360,
                     color: '#32b16c'

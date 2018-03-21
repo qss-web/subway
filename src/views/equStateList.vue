@@ -104,20 +104,16 @@
                     'width': 5,
                     'value': 'num'
                 }, {
-                    'label': '所属公司',
-                    'width': 10,
-                    'value': 'byCompany'
-                }, {
                     'label': '线路',
                     'width': 20,
                     'value': 'line'
                 }, {
                     'label': '车站',
-                    'width': 10,
+                    'width': 15,
                     'value': 'station'
                 }, {
                     'label': '设备系统',
-                    'width': 10,
+                    'width': 15,
                     'value': 'equSys'
                 }, {
                     'label': '位置',

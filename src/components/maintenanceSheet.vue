@@ -86,7 +86,11 @@
 </template>
 <script>
     export default {
-        data() { },
+        data() {
+            return {
+
+            };
+        },
         methods: {
             closeFn() {
                 this.$emit('isPop', false);

@@ -12,8 +12,10 @@
 <style lang="less" scoped>
     .footer {
         width: 100%;
-        height: 0.74rem;
-        line-height: 0.74rem;
+        padding: 0.16rem 0;
+        // height: 0.74rem;
+        // line-height: 0.74rem;
+        line-height: 0.3rem;
         position: fixed;
         bottom: 0;
         left: 0;
@@ -23,7 +25,8 @@
         color: #fff;
         z-index: 10001;
         span {
-            margin-right: 0.4rem;
+            display: block;
+            // margin-right: 0.4rem;
             i {
                 font-size: 0.2rem;
             }
