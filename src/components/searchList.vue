@@ -19,7 +19,7 @@
             </dd>
         </dl>
         <dl class="content" v-else>
-            <dd v-for="(item, index) in listShow">
+            <dd v-for="(item, index) in listShow" v-on:click="goToNext" v-bind:class="{activeHand:other.isEquInfo == true}">
                 <span style="width: 4%; cursor: pointer" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
                     <img v-if="!item.isCheck" src="../assets/search/check.png"/>
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
@@ -79,6 +79,13 @@
                 } else {
                     this.isAllCkeck = false;
                 }
+            },
+            goToNext() {
+                if(this.other.isEquInfo) {
+                    this.$router.push('/equInfo');
+                } else {
+
+                }
             }
         }
     };
@@ -87,6 +94,9 @@
     // .font-color-default {
     //     color: #1c1e2a !important;
     // }
+    .activeHand {
+        cursor: pointer;
+    }
     .font-color-1 {
         color: #cc0000 !important;
     }

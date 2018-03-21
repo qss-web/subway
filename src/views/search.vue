@@ -28,9 +28,9 @@
                 <img v-if="indexed==5" src="../assets/search/sort05_orange.png" />
             </dd>
         </dl>
-        <v-search-list v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
+        <v-search-list v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="equList.data"></v-search-list>
         <v-search-list v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
-        <v-search-list v-if="indexed==3" v-bind:label="equLabe3" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
+        <v-search-list v-if="indexed==3" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="equList.data"></v-search-list>
         <div class="showPic" v-if="indexed==4">
             <img class="border-bg" src="../assets/other/footer-border.png" />
             <ul class="flex">
@@ -70,6 +70,7 @@
                 <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
             </el-pagination>
         </div>
+        <!-- <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn"></v-maintenance-sheet> -->
     </div>
 </template>
 
@@ -77,12 +78,23 @@
     export default {
         data() {
             return {
-                indexed: 4,
+                isPop: true,
+                indexed: 1,
                 currentPage: 1, //当前页数
                 pageSize: 8, //每页显示数量
                 otherInfo: {
                     isCheck: true, //是否显示多选框
                     style: 1 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                },
+                otherInfo1: {
+                    isCheck: true, //是否显示多选框
+                    style: 1, // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    isEquInfo: true //是否查看设备详情
+                },
+                otherInfo2: {
+                    isCheck: true, //是否显示多选框
+                    style: 1, // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    isSheet: true //是否查看设备详情
                 },
                 subOther: true, //其它子菜单二选一
                 equLabel: [{
@@ -382,6 +394,9 @@
             changePages(val) {
                 this.currentPage = val;
                 // this.list();
+            },
+            isPopFn(value) {
+                this.isPop = value;
             }
         }
     };

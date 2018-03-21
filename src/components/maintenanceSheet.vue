@@ -1,0 +1,187 @@
+<template>
+    <div class="box">
+        <div class="layer" v-on:click="closeFn"></div>
+        <div class="sheet" v-on:click="closeFn">
+            <h3>
+                北京市地铁运营有限公司 分公司设备设施故障报修单
+            </h3>
+            <div class="sheetBox">
+                <ul class="flex">
+                    <li>日期</li>
+                    <li></li>
+                    <li>故障系统</li>
+                    <li></li>
+                </ul>
+                <ul class="flex">
+                    <li>报修单位</li>
+                    <li></li>
+                    <li>故障时间</li>
+                    <li></li>
+                </ul>
+                <ul class="flex">
+                    <li>报修时间</li>
+                    <li></li>
+                    <li>到达时间</li>
+                    <li></li>
+                </ul>
+                <ul class="flex">
+                    <li>报修内容</li>
+                    <li></li>
+                    <li>报修人</li>
+                    <li></li>
+                </ul>
+                <ul class="flex">
+                    <li>接报单位</li>
+                    <li></li>
+                    <li>接报人</li>
+                    <li></li>
+                </ul>
+                <ul class="flex">
+                    <li>故障类型</li>
+                    <li></li>
+                    <li>处理方式</li>
+                    <li></li>
+                </ul>
+                <dl class="textareaShow">
+                    <dt>故障现象及车站先期处理内容（车站人员填写）：</dt>
+                    <dd>
+                        <textarea placeholder="请输入内容"></textarea>
+                    </dd>
+                </dl>
+                <dl class="textareaShow">
+                    <dt>故障处理（维修人员填写，如不能现场修复说明情况）：</dt>
+                    <dd>
+                        <textarea placeholder="请输入内容"></textarea>
+                    </dd>
+                </dl>
+                <dl class="sign flex">
+                    <dd>更换零配件情况（维修人员填写）：
+                        <input type="radio" name="radio1" value="是" /> 是 &nbsp;&nbsp;
+                        <input type="radio" name="radio1" value="否" /> 否
+                    </dd>
+                </dl>
+                <dl class="sign flex">
+                    <dd>修复时间：</dd>
+                    <dd>维修人员签字：</dd>
+                    <dd>修复确认签字：</dd>
+                </dl>
+                <dl class="textareaShow">
+                    <dt>备注：</dt>
+                    <dd>
+                        <textarea placeholder="请输入备注内容"></textarea>
+                    </dd>
+                </dl>
+                <dl class="textareaShow">
+                    <dt>注：</dt>
+                    <dd style="line-height: 0.26rem;">
+                        1、此表格一式三联，第一联（白色）本站保存、第二联（蓝色）维修单位保存、第三联（粉色）运营三分公司机关保存。<br/> 2、遇设备保障涉及两方以上（含两方）处理时，需要本报修单上一同填写各自维修情况。
+                    </dd>
+                </dl>
+            </div>
+            <div class="btnPrint">
+                <button>打印</button>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    export default {
+        data() { },
+        methods: {
+            closeFn() {
+                this.$emit('isPop', false);
+            }
+        }
+    };
+</script>
+<style lang="less" scoped>
+    .layer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 2;
+    }
+    .sheet {
+        width: 12rem;
+        height: 10rem;
+        position: fixed;
+        background: #e4e8f7;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        z-index: 3;
+        color: #363232;
+        h3 {
+            font-size: 0.2rem;
+            font-weight: normal;
+            text-align: center;
+            height: 0.56rem;
+            line-height: 0.56rem;
+        }
+        .sheetBox {
+            width: 86%;
+            margin: 0 auto;
+            border-left: 1px solid #54596e;
+            border-bottom: 1px solid #54596e;
+            ul {
+                li {
+                    border-top: 1px solid #54596e;
+                    border-right: 1px solid #54596e;
+                    height: 0.48rem;
+                    line-height: 0.48rem;
+                    font-size: 0.18rem;
+                }
+                li:nth-child(2n-1) {
+                    flex: 1;
+                    text-align: center;
+                }
+                li:nth-child(2n) {
+                    flex: 2;
+                }
+            }
+            .textareaShow {
+                border-top: 1px solid #54596e;
+                border-right: 1px solid #54596e;
+                dt {
+                    text-indent: 1em;
+                    line-height: 0.36rem;
+                }
+                dd {
+                    padding: 0 0.2rem 0.2rem 0.2rem;
+                    textarea {
+                        background: #e4e8f7;
+                        width: 100%;
+                        line-height: 0.36rem;
+                        height: 0.6rem;
+                    }
+                }
+            }
+            .sign {
+                border-top: 1px solid #54596e;
+                border-right: 1px solid #54596e;
+                dd {
+                    flex: 1;
+                    line-height: 0.48rem;
+                    text-indent: 1em;
+                }
+            }
+        }
+        .btnPrint {
+            text-align: center;
+            margin: 0.2rem 0;
+            button {
+                width: 0.8rem;
+                height: 0.38rem;
+                line-height: 0.38rem;
+                border-radius: 4px;
+                background: #3e414f;
+                color: #fff;
+            }
+        }
+    }
+</style>

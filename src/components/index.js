@@ -47,6 +47,7 @@ import role from './sysSet/role'; //角色
 import checkEqu from './sysSet/checkEqu'; //检测配备设置
 import runniState from './sysSet/runniState'; //当前设备运行状态
 import timeManagement from './sysSet/timeManagement'; //运行时间管理
+import maintenanceSheet from './maintenanceSheet'; //报修单
 
 export default {
   header,
@@ -97,5 +98,6 @@ export default {
   checkEqu,
   runniState,
   timeManagement,
-  equ
+  equ,
+  maintenanceSheet
 };
