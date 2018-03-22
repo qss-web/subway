@@ -8,7 +8,7 @@
                 <img v-if="indexed==1" src="../assets/search/sort01_orange.png" />
             </dd>
             <dd v-on:click="currentList(2)" v-bind:class="indexed == 2 ?'active':''">
-                <p>报警信息 <span>{{equList.amount2}}份</span></p>
+                <p>预警信息 <span>{{equList.amount2}}份</span></p>
                 <img v-if="indexed!=2" src="../assets/search/sort02_gray.png" />
                 <img v-if="indexed==2" src="../assets/search/sort02_orange.png" />
             </dd>
@@ -84,17 +84,17 @@
                 pageSize: 8, //每页显示数量
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 1 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 1 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                 },
                 otherInfo1: {
                     isCheck: true, //是否显示多选框
-                    style: 1, // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 1, // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                     isEquInfo: true, //是否查看设备详情
                     isClick: true
                 },
                 otherInfo2: {
                     isCheck: true, //是否显示多选框
-                    style: 1, // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 1, // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                     isSheet: true, //是否查看设备详情
                     isClick: true
                 },
@@ -167,7 +167,7 @@
                     'width': 15,
                     'value': 'project'
                 }, {
-                    'label': '报警事件',
+                    'label': '预警事件',
                     'width': 15,
                     'value': 'line'
                 }, {

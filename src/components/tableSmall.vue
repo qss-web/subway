@@ -60,7 +60,7 @@
                 margin: 0.06rem 0;
                 background-color: #000;
                 box-shadow: 0px -1px 1px #f3f3f3 inset;
-                min-height: 0.33rem;
+                min-height: 0.38rem;
                 &.status-1 {
                     color: #a17c26;
                     .light {

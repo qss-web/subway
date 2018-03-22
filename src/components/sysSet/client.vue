@@ -1,13 +1,18 @@
 <template>
     <div class="timeManagement">
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData"></v-sub-search>
+            <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-progress="uploadFn">
+                <button class="upload">上传</button>
+                <span v-if="isUpload.isShow" class="title">{{isUpload.title}}</span>
+                <span v-if="isUpload.isShow" class="progress">{{isUpload.progress}}</span>
+            </el-upload>
+            <!-- <v-sub-search v-bind:searchData="searchData"></v-sub-search> -->
         </div>
         <div class="middleKey">
             <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
         </div>
         <div class=" pagination ">
-            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size="pageSize" @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
                 <span>1/1</span>
             </el-pagination>
         </div>
@@ -17,25 +22,10 @@
     export default {
         data() {
             return {
-                searchData: {
-                    'btnShow': {
-                        'check': false,
-                        'add': false,
-                        'export': false,
-                        'delete': false,
-                        'edit': false,
-                        'download': false,
-                        'import': false,
-                        'save': false,
-                        'upload': true
-                    },
-                    'options': [{
-                        'status': 1,
-                        'title': '地址',
-                        'placeholder': '',
-                        'val': 'lines'
-                    }],
-                    popSave() { }
+                isUpload: {
+                    isShow: false,
+                    title: '',
+                    progress: '0'
                 },
                 info1: [{
                     'label': '序号',
@@ -113,6 +103,13 @@
                     }]
                 }
             };
+        },
+        methods: {
+            uploadFn(event, file, fileList) {
+                this.isUpload.isShow = true;
+                this.isUpload.title = file.name;
+                this.isUpload.progress = parseInt(event.percent) + '%';
+            }
         }
     };
 </script>
@@ -120,6 +117,20 @@
     .timeManagement {
         .searchWrap {
             padding-bottom: 0.14rem;
+            .upload {
+                width: 0.88rem;
+                height: 0.38rem;
+                line-height: 0.38rem;
+                background: #7c8298;
+                color: #fff;
+                margin-left: 0.1rem;
+            }
+            .title {
+                color: #2f4554;
+            }
+            .progress {
+                color: red;
+            }
         }
         .middleKey {
             border: 1px solid #71869b;

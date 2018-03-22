@@ -83,16 +83,18 @@
                         'placeholder': '请输入内容',
                         'val': 'equSort'
                     }, {
-                        'status': 4,
+                        'status': 3,
                         'title': '时间',
-                        'placeholder': '选择开始日期',
-                        'val': 'startTime'
+                        'placeholderS': '选择开始日期',
+                        'placeholderE': '选择结束日期',
+                        'val1': 'startTime',
+                        'val2': 'endTime'
                     }],
                     popSave() { }
                 },
                 otherInfo: {
                     isCheck: false, //是否显示多选框
-                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                 },
                 info1: [{
                     'label': '序号',

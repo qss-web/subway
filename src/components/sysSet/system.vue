@@ -26,8 +26,8 @@
                         <el-checkbox label="系统"></el-checkbox>
                         <el-checkbox label="扶梯专用图谱"></el-checkbox>
                         <el-checkbox label="在线报表报告"></el-checkbox>
-                        <el-checkbox label="报警统计"></el-checkbox>
-                        <el-checkbox label="屏蔽门专用图谱"></el-checkbox>
+                        <el-checkbox label="预警统计"></el-checkbox>
+                        <el-checkbox label="站台门专用图谱"></el-checkbox>
                         <el-checkbox label="分析诊断专用图谱"></el-checkbox>
                     </el-checkbox-group>
                 </dd>

@@ -2,7 +2,7 @@
     <div class="machine-summary">
         <div class="line1">
             <div class="title flex">
-                <span class="text">本月设备运行时间</span>
+                <span class="text">当月设备运行时间</span>
                 <span class="line"></span>
             </div>
             <div class="chart flex" v-on:click="goRunList">

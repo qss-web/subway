@@ -76,28 +76,38 @@
                             label: '田村站'
                         }]
                     }, {
-                        'status': 1,
+                        'status': 2,
                         'title': '设备名称',
-                        'placeholder': '请输入内容',
-                        'val': 'equName'
+                        'placeholder': '请选择内容',
+                        'val': 'equName',
+                        'list': [{
+                            value: '1',
+                            label: '扶梯'
+                        }, {
+                            value: '2',
+                            label: '站台门'
+                        }, {
+                            value: '3',
+                            label: '风机'
+                        }]
                     }, {
                         'status': 2,
-                        'title': '设备类型',
+                        'title': '设备系统',
                         'placeholder': '请选择内容',
                         'val': 'equSort',
                         'list': [{
                             value: '1',
-                            label: '设备类型一'
+                            label: '设备系统一'
                         }, {
                             value: '2',
-                            label: '测试类型二'
+                            label: '设备系统二'
                         }]
                     }],
                     popSave() { }
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 2 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 2 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                 },
                 info1: [{
                     'label': '序号',
@@ -149,7 +159,7 @@
                     'width': 6,
                     'value': 'time'
                 }, {
-                    'label': '报警原因',
+                    'label': '预警原因',
                     'width': 9,
                     'value': 'alarmCause'
                 }, {
@@ -172,7 +182,7 @@
                         hhighLimit: '高高限',
                         status: '1',
                         time: '2018/03/04',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         repairAdvice: '维修建议',
                         statusValue: '二级预警'
                     }, {
@@ -188,7 +198,7 @@
                         hhighLimit: '高高限',
                         status: '1',
                         time: '2018/03/04',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         repairAdvice: '维修建议',
                         statusValue: '二级预警'
                     }, {
@@ -204,7 +214,7 @@
                         hhighLimit: '高高限',
                         status: '1',
                         time: '2018/03/04',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         repairAdvice: '维修建议',
                         statusValue: '二级预警'
                     }, {
@@ -220,7 +230,7 @@
                         hhighLimit: '高高限',
                         status: '1',
                         time: '2018/03/04',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         repairAdvice: '维修建议',
                         statusValue: '二级预警'
                     }, {
@@ -236,7 +246,7 @@
                         hhighLimit: '高高限',
                         status: '2',
                         time: '2018/03/04',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         repairAdvice: '维修建议',
                         statusValue: '一级预警'
                     }, {
@@ -252,7 +262,7 @@
                         hhighLimit: '高高限',
                         status: '4',
                         time: '2018/03/04',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         repairAdvice: '维修建议',
                         statusValue: '运行'
                     }, {
@@ -268,7 +278,7 @@
                         hhighLimit: '高高限',
                         status: '4',
                         time: '2018/03/04',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         repairAdvice: '维修建议',
                         statusValue: '运行'
                     }, {
@@ -284,7 +294,7 @@
                         hhighLimit: '高高限',
                         status: '5',
                         time: '2018/03/04',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         repairAdvice: '维修建议',
                         statusValue: '停机'
                     }, {
@@ -300,7 +310,7 @@
                         hhighLimit: '高高限',
                         status: '5',
                         time: '2018/03/04',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         repairAdvice: '维修建议',
                         statusValue: '停机'
                     }, {
@@ -316,7 +326,7 @@
                         hhighLimit: '高高限',
                         status: '3',
                         time: '2018/03/04',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         repairAdvice: '维修建议',
                         statusValue: '断网'
                     }, {
@@ -332,7 +342,7 @@
                         hhighLimit: '高高限',
                         status: '3',
                         time: '2018/03/04',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         repairAdvice: '维修建议',
                         statusValue: '断网'
                     }]

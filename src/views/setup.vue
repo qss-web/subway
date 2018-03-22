@@ -34,8 +34,6 @@
         </div>
         <div class="equWrap" v-if="tabShow==3">
             <v-system-set></v-system-set>
-            <!-- <button @click="isShowUnitAccount = true" class="add-btn">增加</button>
-            <img class="tempPic" src="../assets/other/temp.jpg" /> -->
         </div>
         <div class="equWrap" v-if="tabShow==4">
             <div class="searchWrap">
@@ -173,7 +171,7 @@
                             label: '自动扶梯'
                         }, {
                             value: '2',
-                            label: '屏蔽门'
+                            label: '站台门'
                         }, {
                             value: '3',
                             label: '风机'
@@ -200,7 +198,7 @@
                             label: '自动扶梯'
                         }, {
                             value: '2',
-                            label: '屏蔽门'
+                            label: '站台门'
                         }, {
                             value: '3',
                             label: '风机'
@@ -333,11 +331,11 @@
                 },
                 otherInfo: {
                     isCheck: false, //是否显示多选框
-                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                 },
                 otherInfo1: {
                     isCheck: false, //是否显示多选框
-                    style: 3, // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 3, // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                     isClick: true,
                     isEquInfo: true
                 },
@@ -450,84 +448,84 @@
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }]

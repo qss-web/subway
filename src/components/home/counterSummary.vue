@@ -29,7 +29,24 @@
                 {
                     sequence: 3,
                     name: '6号线',
+                    str: '苹果园南路站',
+                    state: '良'
+                }, {
+                    sequence: 4,
+                    name: '6号线',
                     str: '西黄村站',
+                    state: '优'
+                },
+                {
+                    sequence: 5,
+                    name: '6号线',
+                    str: '廖公庄站',
+                    state: '良'
+                },
+                {
+                    sequence: 6,
+                    name: '6号线',
+                    str: '田村站',
                     state: '良'
                 }]
             };

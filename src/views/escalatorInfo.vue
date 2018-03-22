@@ -4,10 +4,10 @@
             <div class="button-group flex">
                 <button class="btn-name">A-1</button>
                 <button class="btn-name">上行</button>
-                <button class="btn-alarm" @click="isShowPopup = true">报警</button>
+                <button class="btn-alarm" @click="isShowPopup = true">预警</button>
             </div>
             <div class="alarm-reason">
-                <div class="alarm-reason-title">报警原因</div>
+                <div class="alarm-reason-title">预警原因</div>
                 <ul class="alarm-reason-body">
                     <li>1、苹果园南路站 A出入口下段PGN-FT-A-1 扶手带断裂</li>
                     <li>2、廖公庄站B端风道LGZ-FT-D-4数据中断</li>
@@ -27,14 +27,14 @@
                     <div class="healthy-charts flex">
                         <v-ring-diagram id="runIndex1" title="运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
                         <v-monthly-reliability v-bind:ringInfo="ringInfo"></v-monthly-reliability>
-                        <v-ring-diagram id="runIndex2" title="报警事件" :time="showValue[2]" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
+                        <v-ring-diagram id="runIndex2" title="预警事件" :time="showValue[2]" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
                         <!-- <v-health-indicators class="healthy-chart" id="health1" title="运行时间" :percent="68"></v-health-indicators> -->
                         <!-- <v-health-indicators class="healthy-chart" id="health2" title="健康指数" :percent="68"></v-health-indicators> -->
-                        <!-- <v-health-indicators class="healthy-chart" id="health3" title="报警事件" :percent="68"></v-health-indicators> -->
+                        <!-- <v-health-indicators class="healthy-chart" id="health3" title="预警事件" :percent="68"></v-health-indicators> -->
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
-                            <button class="tab" :class="{active: !activeIndex}" @click="activeIndex = 0">报警数据</button>
+                            <button class="tab" :class="{active: !activeIndex}" @click="activeIndex = 0">事件信息</button>
                             <button class="tab" :class="{active: activeIndex}" @click="activeIndex = 1">测点状态</button>
                         </div>
                         <div class="tables">
@@ -118,7 +118,7 @@
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
-                        eventDesc: '报警事件',
+                        eventDesc: '预警事件',
                         status: 1,
                         statusValue: '状态'
                     },
@@ -126,21 +126,21 @@
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
-                        eventDesc: '报警事件',
+                        eventDesc: '预警事件',
                         status: 2,
                         statusValue: '状态'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
-                        eventDesc: '报警事件',
+                        eventDesc: '预警事件',
                         status: 3,
                         statusValue: '状态'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
-                        eventDesc: '报警事件',
+                        eventDesc: '预警事件',
                         status: 4,
                         statusValue: '状态'
                     }],
@@ -184,7 +184,7 @@
                         'width': 10,
                         'value': 'updateTime'
                     }, {
-                        'label': '报警原因',
+                        'label': '预警原因',
                         'width': 18,
                         'value': 'alarmCause'
                     }, {
@@ -199,10 +199,10 @@
                         currentValue: '当前值',
                         highLimit: '高限',
                         highestLimit: '高高限',
-                        alarmWay: '报警方式',
-                        alarmType: '报警类型',
+                        alarmWay: '预警方式',
+                        alarmType: '预警类型',
                         updateTime: '更新时间',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         suggest: '检维修建议',
                         statusValue: '一级预警',
                         status: 1
@@ -215,10 +215,10 @@
                         highestLimit: '高高限',
                         lowLimit: '下限',
                         lowestLimit: '下下限',
-                        alarmWay: '报警方式',
-                        alarmType: '报警类型',
+                        alarmWay: '预警方式',
+                        alarmType: '预警类型',
                         updateTime: '更新时间',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         suggest: '检维修建议',
                         statusValue: '二级预警',
                         status: 2
@@ -231,10 +231,10 @@
                         highestLimit: '高高限',
                         lowLimit: '下限',
                         lowestLimit: '下下限',
-                        alarmWay: '报警方式',
-                        alarmType: '报警类型',
+                        alarmWay: '预警方式',
+                        alarmType: '预警类型',
                         updateTime: '更新时间',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         suggest: '检维修建议',
                         statusValue: '二级预警',
                         status: 2

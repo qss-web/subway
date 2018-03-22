@@ -47,7 +47,7 @@
                 },
                 otherInfo: {
                     isCheck: false, //是否显示多选框
-                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                 },
                 info1: [{
                     'label': '序号',
@@ -80,84 +80,84 @@
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equSys: '设备系统',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }]

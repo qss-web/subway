@@ -26,47 +26,9 @@
                 pageSize: 9, //每页显示数量
                 searchData: {
                     'btnShow': {
-                        'add': false,
-                        'export': true,
-                        'delete': false,
-                        'edit': false,
-                        'download': false,
-                        'import': false
+                        'export': true
                     },
                     'options': [{
-                        'status': 2,
-                        'title': '线路',
-                        'placeholder': '请选择内容',
-                        'val': 'lines',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
-                    }, {
-                        'status': 2,
-                        'title': '车站',
-                        'placeholder': '请选择内容',
-                        'val': 'stations',
-                        'list': [{
-                            value: '1',
-                            label: '金安桥站'
-                        }, {
-                            value: '2',
-                            label: '苹果园站'
-                        }, {
-                            value: '3',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '4',
-                            label: '西黄村站'
-                        }, {
-                            value: '5',
-                            label: '廖公庄站'
-                        }, {
-                            value: '6',
-                            label: '田村站'
-                        }]
-                    }, {
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
@@ -83,32 +45,27 @@
                         'title': '设备名称',
                         'placeholder': '请输入内容',
                         'val': 'equName'
-                    }, {
-                        'status': 4,
-                        'title': '时间',
-                        'placeholder': '请选择日期',
-                        'val': 'time'
                     }],
                     popSave() { }
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                 },
                 info1: [{
                     'label': '序号',
                     'width': 5,
                     'value': 'num'
                 }, {
-                    'label': '设备类型',
+                    'label': '设备系统',
                     'width': 10,
                     'value': 'equType'
                 }, {
-                    'label': '报警原因代码',
+                    'label': '故障原因代码',
                     'width': 20,
                     'value': 'alarmCode'
                 }, {
-                    'label': '报警原因名称',
+                    'label': '故障原因名称',
                     'width': 10,
                     'value': 'alarmName'
                 }, {
@@ -126,84 +83,84 @@
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
-                        alarmName: '报警原因名称',
+                        alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }]

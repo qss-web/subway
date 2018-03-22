@@ -3,9 +3,9 @@
         <img class="logo" src="~assets/header/logo.png" />
         <span class="title flex-auto">机电设备运维服务智能监控系统</span>
         <div class="btn-group flex">
-            <button v-on:click="homeFn"><img src="~assets/header/icon_home.png" /></button>
+            <router-link tag="button" to="index"><img src="~assets/header/icon_home.png" /></router-link>
             <router-link tag="button" to="mine"><img src="~assets/header/icon_mine.png" /></router-link>
-            <button v-on:click="searchFn"><img src="~assets/header/icon_search.png" /></button>
+            <router-link tag="button" to="search"><img src="~assets/header/icon_search.png" /></router-link>
             <router-link tag="button" to="setup"><img src="~assets/header/icon_setting.png" /></router-link>
         </div>
     </div>
@@ -16,12 +16,6 @@
             return {};
         },
         methods: {
-            homeFn() { //首页
-                this.$router.push('index');
-            },
-            searchFn() { //搜索
-                this.$router.push('search');
-            }
         }
     };
 </script>

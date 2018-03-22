@@ -33,12 +33,7 @@
                 pageSize: 9, //每页显示数量
                 searchData: {
                     'btnShow': {
-                        'add': false,
-                        'export': false,
-                        'delete': false,
-                        'edit': false,
-                        'download': false,
-                        'import': false
+                        'export': true
                     },
                     'options': [{
                         'status': 2,
@@ -102,7 +97,7 @@
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 2 //列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它,4站点列表,5屏蔽门的列表
+                    style: 2 //列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
                 },
                 info1: [{
                     'label': '序号',
@@ -121,7 +116,7 @@
                     'width': 15,
                     'value': 'time'
                 }, {
-                    'label': '报警事件',
+                    'label': '预警事件',
                     'width': 35,
                     'value': 'event'
                 }, {

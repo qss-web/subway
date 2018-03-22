@@ -4,11 +4,11 @@
             <div class="line1 flex">
                 <img src="~assets/home/icon_line6.png" />
                 <div class="infos flex">
-                    <label>车站报警</label>
+                    <label>车站预警</label>
                     <span class="light error"></span>
-                    <span class="name">二级报警 2座</span>
+                    <span class="name">二级预警 2座</span>
                     <span class="light warn"></span>
-                    <span class="name">一级报警 2座</span>
+                    <span class="name">一级预警 2座</span>
                     <span class="light normal"></span>
                     <span class="name">正常 2部</span>
                     <span class="light offline"></span>
@@ -21,20 +21,20 @@
                 <div class="infos flex">
                     <img src="~assets/home/icon_escalator.png" />
                     <span>正常 <span class="normal">9</span> 部</span>
-                    <span>一级报警 <span class="warn">2</span> 部</span>
-                    <span>二级报警 <span class="error">1</span> 部</span>
+                    <span>一级预警 <span class="warn">2</span> 部</span>
+                    <span>二级预警 <span class="error">1</span> 部</span>
                 </div>
                 <div class="infos flex">
                     <img src="~assets/home/icon_fan.png" />
                     <span>正常 <span class="normal">9</span> 部</span>
-                    <span>一级报警 <span class="warn">2</span> 部</span>
-                    <span>二级报警 <span class="error">1</span> 部</span>
+                    <span>一级预警 <span class="warn">2</span> 部</span>
+                    <span>二级预警 <span class="error">1</span> 部</span>
                 </div>
                 <div class="infos flex">
                     <img src="~assets/home/icon_door.png" />
                     <span>正常 <span class="normal">9</span> 部</span>
-                    <span>一级报警 <span class="warn">2</span> 部</span>
-                    <span>二级报警 <span class="error">1</span> 部</span>
+                    <span>一级预警 <span class="warn">2</span> 部</span>
+                    <span>二级预警 <span class="error">1</span> 部</span>
                 </div>
             </div>
         </div>

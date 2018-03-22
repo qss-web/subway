@@ -3,7 +3,7 @@
         <div class="flex infoWrap">
             <div class="tab">
                 <ul class="title">
-                    <li class="active">实时报警信息</li>
+                    <li class="active">实时预警信息</li>
                 </ul>
                 <dl class="leftShow">
                     <dt>位置信息</dt>
@@ -246,7 +246,7 @@
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 2 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它,4站点列表,5屏蔽门的列表
+                    style: 2 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
                 },
                 info1: [{
                     'label': '序号',
@@ -265,7 +265,7 @@
                     'width': 13,
                     'value': 'station'
                 }, {
-                    'label': '报警事件',
+                    'label': '预警事件',
                     'width': 15,
                     'value': 'alarmEvent'
                 }, {
@@ -284,7 +284,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '状态',
                         operationInfo: '操作'
                     }, {
@@ -292,7 +292,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '状态',
                         operationInfo: '操作'
                     }, {
@@ -300,7 +300,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '状态',
                         operationInfo: '操作'
                     }, {
@@ -308,7 +308,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '状态',
                         operationInfo: '操作'
                     }, {
@@ -316,7 +316,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '状态',
                         operationInfo: '操作'
                     }, {
@@ -324,7 +324,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '状态',
                         operationInfo: '操作'
                     }, {
@@ -332,7 +332,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '状态',
                         operationInfo: '操作'
                     }, {
@@ -340,7 +340,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '状态',
                         operationInfo: '操作'
                     }, {
@@ -348,7 +348,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '状态',
                         operationInfo: '操作'
                     }, {
@@ -356,7 +356,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '状态',
                         operationInfo: '操作'
                     }]

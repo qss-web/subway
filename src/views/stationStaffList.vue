@@ -104,7 +104,7 @@
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它
+                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                 },
                 info1: [{
                     'label': '序号',
@@ -123,7 +123,7 @@
                     'width': 10,
                     'value': 'mouth'
                 },{
-                    'label': '故障报警次数',
+                    'label': '故障预警次数',
                     'width': 10,
                     'value': 'faultNum'
                 },{

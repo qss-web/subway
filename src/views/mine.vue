@@ -11,7 +11,7 @@
             <v-card-container class="card-qualification" goKey="qualification" title="设备关注度" light="true">
                 <v-mine-qualification></v-mine-qualification>
             </v-card-container>
-            <v-card-container class="card-alarm-event" goKey="alarmEvent" title="报警事件" light="true">
+            <v-card-container class="card-alarm-event" goKey="alarmEvent" title="预警事件" light="true">
                 <v-mine-alarm-event></v-mine-alarm-event>
             </v-card-container>
             <v-card-container class="card-alarm-reason" goKey="alarmReason" title="故障原因分析" light="true">
@@ -19,7 +19,7 @@
             </v-card-container>
             <div class="tabs-wrapper">
                 <div class="tabs flex">
-                    <button class="tab" :class="{active: activeIndex == 0}" @click="activeIndex = 0">今日报警信息</button>
+                    <button class="tab" :class="{active: activeIndex == 0}" @click="activeIndex = 0">今日预警信息</button>
                     <button class="tab" :class="{active: activeIndex == 1}" @click="activeIndex = 1">当前设备故障</button>
                     <button class="tab" :class="{active: activeIndex == 2}" @click="activeIndex = 2">今日巡检</button>
                 </div>
@@ -106,7 +106,7 @@
                         station: '田村站',
                         device: '风机',
                         system: '无',
-                        desc: '今日报警信息',
+                        desc: '今日预警信息',
                         status: '正常'
                     }, {
                         index: '2',
@@ -115,7 +115,7 @@
                         station: '田村站',
                         device: '风机',
                         system: '无',
-                        desc: '今日报警信息',
+                        desc: '今日预警信息',
                         status: '正常'
                     }, {
                         index: '3',
@@ -124,7 +124,7 @@
                         station: '田村站',
                         device: '风机',
                         system: '无',
-                        desc: '今日报警信息',
+                        desc: '今日预警信息',
                         status: '正常'
                     }, {
                         index: '4',
@@ -133,7 +133,7 @@
                         station: '田村站',
                         device: '风机',
                         system: '无',
-                        desc: '今日报警信息',
+                        desc: '今日预警信息',
                         status: '正常'
                     }, {
                         index: '1',
@@ -142,7 +142,7 @@
                         station: '田村站',
                         device: '风机',
                         system: '无',
-                        desc: '今日报警信息',
+                        desc: '今日预警信息',
                         status: '正常'
                     }, {
                         index: '2',
@@ -151,7 +151,7 @@
                         station: '田村站',
                         device: '风机',
                         system: '无',
-                        desc: '今日报警信息',
+                        desc: '今日预警信息',
                         status: '正常'
                     }, {
                         index: '3',
@@ -160,7 +160,7 @@
                         station: '田村站',
                         device: '风机',
                         system: '无',
-                        desc: '今日报警信息',
+                        desc: '今日预警信息',
                         status: '正常'
                     }]
                 },

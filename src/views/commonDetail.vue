@@ -21,7 +21,7 @@
                             <span>0次</span>
                         </li>
                         <li>
-                            <span>报警次数</span>
+                            <span>预警次数</span>
                             <span>0次</span>
                         </li>
                     </ul>

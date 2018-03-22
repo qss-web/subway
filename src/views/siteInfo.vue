@@ -2,13 +2,13 @@
     <div>
         <div>
             <div class="device-3d">
-                <v-tag name="triangle" status="error" x="2.1" y="2.6" @onclick="goToDevice(2)">1#屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="2.8" y="4" @onclick="goToDevice(2)">1#屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="2.9" y="4.82" @onclick="goToDevice(2)">2#屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="8.42" y="2.3" @onclick="goToDevice(2)">3#屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="3.63" y="2.11" @onclick="goToDevice(2)">A2屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="3.6" y="3.0" @onclick="goToDevice(2)">A3屏蔽门</v-tag>
-                <v-tag name="triangle" status="error" x="5.5" y="3.2" @onclick="goToDevice(2)">4#屏蔽门</v-tag>
+                <v-tag name="triangle" status="error" x="2.1" y="2.6" @onclick="goToDevice(2)">1#站台门</v-tag>
+                <v-tag name="triangle" status="error" x="2.8" y="4" @onclick="goToDevice(2)">1#站台门</v-tag>
+                <v-tag name="triangle" status="error" x="2.9" y="4.82" @onclick="goToDevice(2)">2#站台门</v-tag>
+                <v-tag name="triangle" status="error" x="8.42" y="2.3" @onclick="goToDevice(2)">3#站台门</v-tag>
+                <v-tag name="triangle" status="error" x="3.63" y="2.11" @onclick="goToDevice(2)">A2站台门</v-tag>
+                <v-tag name="triangle" status="error" x="3.6" y="3.0" @onclick="goToDevice(2)">A3站台门</v-tag>
+                <v-tag name="triangle" status="error" x="5.5" y="3.2" @onclick="goToDevice(2)">4#站台门</v-tag>
                 <v-tag name="triangle" status="normal" x="3.43" y="2.68" @onclick="goToDevice(3)">A2扶梯</v-tag>
                 <v-tag name="triangle" status="normal" x="6.1" y="2.53" @onclick="goToDevice(3)">B1扶梯</v-tag>
                 <v-tag name="triangle" status="normal" x="5.33" y="2.36" @onclick="goToDevice(3)">B2扶梯</v-tag>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
-                            <button class="tab" :class="{active: !activeIndex}" @click="activeIndex = 0">报警数据</button>
+                            <button class="tab" :class="{active: !activeIndex}" @click="activeIndex = 0">事件信息</button>
                             <button class="tab" :class="{active: activeIndex}" @click="activeIndex = 1">测点状态</button>
                         </div>
                         <div class="tables">
@@ -102,7 +102,7 @@
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
-                        eventDesc: '报警事件',
+                        eventDesc: '预警事件',
                         status: 1,
                         statusValue: '状态'
                     },
@@ -110,21 +110,21 @@
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
-                        eventDesc: '报警事件',
+                        eventDesc: '预警事件',
                         status: 2,
                         statusValue: '状态'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
-                        eventDesc: '报警事件',
+                        eventDesc: '预警事件',
                         status: 3,
                         statusValue: '状态'
                     }, {
                         num: '序号',
                         equName: '设备名称',
                         time: '时间',
-                        eventDesc: '报警事件',
+                        eventDesc: '预警事件',
                         status: 4,
                         statusValue: '状态'
                     }],
@@ -168,7 +168,7 @@
                         'width': 10,
                         'value': 'updateTime'
                     }, {
-                        'label': '报警原因',
+                        'label': '预警原因',
                         'width': 18,
                         'value': 'alarmCause'
                     }, {
@@ -183,10 +183,10 @@
                         currentValue: '当前值',
                         highLimit: '高限',
                         highestLimit: '高高限',
-                        alarmWay: '报警方式',
-                        alarmType: '报警类型',
+                        alarmWay: '预警方式',
+                        alarmType: '预警类型',
                         updateTime: '更新时间',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         suggest: '检维修建议',
                         statusValue: '一级预警',
                         status: 1
@@ -199,10 +199,10 @@
                         highestLimit: '高高限',
                         lowLimit: '下限',
                         lowestLimit: '下下限',
-                        alarmWay: '报警方式',
-                        alarmType: '报警类型',
+                        alarmWay: '预警方式',
+                        alarmType: '预警类型',
                         updateTime: '更新时间',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         suggest: '检维修建议',
                         statusValue: '二级预警',
                         status: 2
@@ -215,10 +215,10 @@
                         highestLimit: '高高限',
                         lowLimit: '下限',
                         lowestLimit: '下下限',
-                        alarmWay: '报警方式',
-                        alarmType: '报警类型',
+                        alarmWay: '预警方式',
+                        alarmType: '预警类型',
                         updateTime: '更新时间',
-                        alarmCause: '报警原因',
+                        alarmCause: '预警原因',
                         suggest: '检维修建议',
                         statusValue: '二级预警',
                         status: 2
@@ -297,7 +297,7 @@
                     num: '序号',
                     equName: '设备名称',
                     time: '时间',
-                    eventDesc: '报警事件',
+                    eventDesc: '预警事件',
                     status: '1',
                     operate: '操作',
                     statusValue: '状态'
@@ -306,7 +306,7 @@
                     num: '序号',
                     equName: '设备名称',
                     time: '时间',
-                    eventDesc: '报警事件',
+                    eventDesc: '预警事件',
                     status: '2',
                     operate: '操作',
                     statusValue: '状态'
@@ -314,7 +314,7 @@
                     num: '序号',
                     equName: '设备名称',
                     time: '时间',
-                    eventDesc: '报警事件',
+                    eventDesc: '预警事件',
                     status: '1',
                     operate: '操作',
                     statusValue: '状态'
@@ -322,7 +322,7 @@
                     num: '序号',
                     equName: '设备名称',
                     time: '时间',
-                    eventDesc: '报警事件',
+                    eventDesc: '预警事件',
                     status: '2',
                     operate: '操作',
                     statusValue: '状态'

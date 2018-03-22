@@ -11,8 +11,8 @@
     </div>
 </template>
 <script>
-    // goKey    timely实时报警信息  alarm今日报警统计  failure故障原因分析   patrol今日巡检比例
-    //qualification 技术指标    alarmEvent 报警事件      alarmReason 报警原因   unfinished 待办事项
+    // goKey    timely实时预警信息  alarm今日预警统计  failure故障原因分析   patrol今日巡检比例
+    //qualification 技术指标    alarmEvent 预警事件      alarmReason 预警原因   unfinished 待办事项
     export default {
         props: ['title', 'goKey', 'light'],
         methods: {

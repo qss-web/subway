@@ -5,7 +5,7 @@
         </div>
         <div class="tab">
             <ul class="title">
-                <li v-on:click="tabShow=true" v-bind:class="tabShow?'active':''">实时报警信息</li>
+                <li v-on:click="tabShow=true" v-bind:class="tabShow?'active':''">实时预警信息</li>
                 <li v-on:click="tabShow=false" v-bind:class="tabShow?'':'active'">以往历史事件</li>
                 <dl class="notice flex">
                     <dd class="g-red">二级预警：3次</dd>
@@ -104,7 +104,7 @@
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 2 // 列表共有三种样式，1 搜索模块的样式, 2报警信息列表的样式，3其它,4站点列表,5屏蔽门的列表
+                    style: 2 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
                 },
                 info1: [{
                     'label': '序号',
@@ -123,7 +123,7 @@
                     'width': 13,
                     'value': 'time'
                 }, {
-                    'label': '报警事件',
+                    'label': '预警事件',
                     'width': 25,
                     'value': 'alarmEvent'
                 }, {
@@ -144,7 +144,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '1',
                         statusValue: '二级预警',
                         operate: '【监测】'
@@ -153,7 +153,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '1',
                         statusValue: '二级预警',
                         operate: '【监测】'
@@ -162,7 +162,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '1',
                         statusValue: '二级预警',
                         operate: '【监测】'
@@ -171,7 +171,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '2',
                         statusValue: '一级预警',
                         operate: '【监测】'
@@ -180,7 +180,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '2',
                         statusValue: '一级预警',
                         operate: '【监测】'
@@ -189,7 +189,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '3',
                         statusValue: '断网',
                         operate: '【监测】'
@@ -198,7 +198,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '3',
                         statusValue: '断网',
                         operate: '【监测】'
@@ -207,7 +207,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '3',
                         statusValue: '断网',
                         operate: '【监测】'
@@ -216,7 +216,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '3',
                         statusValue: '断网',
                         operate: '【监测】'
@@ -225,7 +225,7 @@
                         equName: '设备名称',
                         time: '时间',
                         station: '车站',
-                        alarmEvent: '报警事件',
+                        alarmEvent: '预警事件',
                         status: '3',
                         statusValue: '断网',
                         operate: '【监测】'

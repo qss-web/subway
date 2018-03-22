@@ -27,7 +27,7 @@
                     // 图表标题
                     title: {
                         // text: `<div class="chart-title">
-                        //             <span>今日报警信息</span><br />
+                        //             <span>今日预警信息</span><br />
                         //             <span class="count">21</span>
                         //             <span class="unit">条</span>
                         //         </div>`, // 指定图表标题
@@ -37,7 +37,7 @@
                     xAxis: {
                         visible: true, // 是否显示x轴
                         title: { text: null }, // 标题
-                        categories: ['电梯系统', '风机系统', '屏蔽门系统'], //分类
+                        categories: ['电梯系统', '风机系统', '站台门系统'], //分类
                         labels: {
                             enalbed: true, // 是否显示轴标签
                             style: { // label样式
@@ -134,7 +134,7 @@
                         title: {
                             ...this.option.title,
                             text: `<div class="chart-title today-alarm">
-                                    <span>今日报警信息</span><br />
+                                    <span>今日预警信息</span><br />
                                     <span class="count">21</span>
                                     <span class="unit">台</span>
                                 </div>` // 指定图表标题
@@ -170,7 +170,7 @@
                                     }
                                 }, {
                                     y: 3,
-                                    name: '屏蔽门系统',
+                                    name: '站台门系统',
                                     color: '#cfa972',
                                     dataLabels: {
                                         enabled: true,
@@ -186,7 +186,7 @@
                         // 数据提示框
                         tooltip: {
                             ...this.option.tooltip,
-                            headerFormat: '今日报警信息<br />',
+                            headerFormat: '今日预警信息<br />',
                             pointFormat: '{point.name}{point.y}条'
                         }
                     }
@@ -237,7 +237,7 @@
                                     }
                                 }, {
                                     y: 3,
-                                    name: '屏蔽门系统',
+                                    name: '站台门系统',
                                     color: '#cfa972',
                                     dataLabels: {
                                         enabled: true,
@@ -303,7 +303,7 @@
                                     }
                                 }, {
                                     y: 3,
-                                    name: '屏蔽门系统',
+                                    name: '站台门系统',
                                     color: '#cfa972',
                                     dataLabels: {
                                         enabled: true,

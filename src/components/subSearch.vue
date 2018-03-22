@@ -25,10 +25,9 @@
                     <span>{{item.title}}：</span>
                     <el-date-picker v-model="req[item.val]" type="date" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
                 </li>
-                <a class="btn" v-if="!searchData.btnShow.upload" href="javascript:;"><img src="~assets/other/search.png" /></a>
             </ul>
         </div>
-        <a v-if="searchData.btnShow && searchData.btnShow.check" class="exportBtn" href="javascript:;">查询</a>
+        <a class="exportBtn" href="javascript:;">查询</a>
         <a v-if="searchData.btnShow && searchData.btnShow.export" class="exportBtn" href="javascript:;">导出</a>
         <a v-if="searchData.btnShow && searchData.btnShow.add" v-on:click="testPop" class="exportBtn" href="javascript:;">增加</a>
         <a v-if="searchData.btnShow && searchData.btnShow.delete" class="exportBtn" href="javascript:;">删除</a>
@@ -37,7 +36,6 @@
         <a v-if="searchData.btnShow && searchData.btnShow.download" class="exportBtn" href="javascript:;">下载</a>
         <a v-if="searchData.btnShow && searchData.btnShow.import" class="exportBtn" href="javascript:;">导入</a>
         <a v-if="searchData.btnShow && searchData.btnShow.save" class="exportBtn" href="javascript:;">保存</a>
-        <a v-if="searchData.btnShow && searchData.btnShow.upload" class="exportBtn" href="javascript:;">上传</a>
     </div>
 </template>
 <script>
@@ -67,11 +65,11 @@
 </script>
 <style lang="less" scoped>
     .el-input--mini {
-        width: 1.6rem;
+        width: 1.4rem;
         background: none;
     }
     .el-select--mini {
-        width: 1.6rem;
+        width: 1.4rem;
         background: none;
     }
     .el-date-editor.el-input,
@@ -82,7 +80,7 @@
     .searchWidth {
         overflow: hidden;
         padding-left: 0.33rem;
-        padding-right: 1.1rem;
+        padding-right: 0.2rem;
         border-radius: 10px;
         background: url('~assets/other/title_bg.png') repeat;
         position: relative;
@@ -105,30 +103,12 @@
                     font-style: normal;
                 }
             }
-            a.btn {
-                position: absolute;
-                width: 0.53rem;
-                height: 0.4rem;
-                line-height: 0.4rem;
-                text-align: center;
-                top: 0.04rem;
-                right: 0.06rem;
-                z-index: 1;
-                background: #54596e;
-                border-radius: 6px;
-                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-                text-decoration: none;
-                img {
-                    width: 0.28rem;
-                    height: 0.28rem;
-                }
-            }
         }
     }
     .exportBtn {
         float: left;
         margin-left: 0.1rem;
-        width: 1.1rem;
+        width: 0.8rem;
         height: 0.42rem;
         line-height: 0.42rem;
         text-align: center;

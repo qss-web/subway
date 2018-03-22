@@ -3,7 +3,7 @@
         <div class="table-header flex">
             <span>序号</span>
             <span>日期</span>
-            <span>报警事件</span>
+            <span>预警事件</span>
             <span>状态</span>
         </div>
         <ul class="table-body">

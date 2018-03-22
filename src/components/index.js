@@ -2,9 +2,9 @@ import header from './home/header'; //首页header
 import cardContainer from './cardContainer'; //卡片容器
 import chart from './chart'; //chart容器
 import tableSmall from './tableSmall'; //table容器
-import timelyAlarm from './home/timelyAlarm'; //实时报警信息
+import timelyAlarm from './home/timelyAlarm'; //实时预警信息
 import failureAnalysis from './home/failureAnalysis'; //故障原因分析
-import todayAlarm from './home/todayAlarm'; //今日报警统计
+import todayAlarm from './home/todayAlarm'; //今日预警统计
 import todayPatrol from './home/todayPatrol'; //今日巡检比例
 import subwayLine from './home/subwayLine'; //整体线路图
 import flashing from './home/flashing'; //站台警告灯
@@ -23,9 +23,9 @@ import userinfo from './mine/userinfo'; //用户信息
 import editUserinfo from './mine/editUserinfo'; //修改用户信息
 import mineTodolist from './mine/mineTodolist'; //我的-待办事项
 import mineQualification from './mine/mineQualification'; //我的-技术指标
-import mineAlarmEvent from './mine/mineAlarmEvent'; //我的-报警事件
-import mineAlarmReason from './mine/mineAlarmReason'; //我的-报警原因
-import alarmPopup from './alarmPopup'; //报警弹窗
+import mineAlarmEvent from './mine/mineAlarmEvent'; //我的-预警事件
+import mineAlarmReason from './mine/mineAlarmReason'; //我的-预警原因
+import alarmPopup from './alarmPopup'; //预警弹窗
 import loginHeader from './loginHeader';
 import loginFooter from './loginFooter';
 import search from './search';
