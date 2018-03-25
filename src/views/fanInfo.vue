@@ -3,7 +3,7 @@
         <div>
             <div class="button-group flex">
                 <button class="btn-name">**风机</button>
-                <button class="btn-alarm">预警</button>
+                <button class="btn-alarm" @click="isShowPopup = true">预警</button>
             </div>
             <div class="alarm-reason">
                 <div class="alarm-reason-title">预警原因</div>
@@ -15,6 +15,7 @@
             <div class="device-3d" v-on:click="goInfoFn"></div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日车站健康监测完好率</button>
+                <button class="device-healthy-monitor" v-on:click="monitorFn">监测</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-ring-diagram id="runIndex1" title="运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
@@ -39,6 +40,10 @@
             <v-train></v-train>
         </div>
         <v-goback></v-goback>
+        <el-dialog :visible.sync="isShowPopup">
+            <img style="width: 100%; height: 110px;" src="~assets/other/test.jpg" />
+            <!-- <v-alarm-popup></v-alarm-popup> -->
+        </el-dialog>
     </div>
 </template>
 
@@ -46,6 +51,7 @@
     export default {
         data() {
             return {
+                isShowPopup: false,
                 showValue: ['98小时', '300小时', '8次'],
                 test1: [{
                     y: 360,
@@ -231,6 +237,9 @@
             },
             goInfoFn() {
                 this.$router.push('equInfo');
+            },
+            monitorFn() {
+                this.$router.push('/monitorPage');
             }
         }
     };
@@ -312,6 +321,19 @@
             left: 0.34rem;
             top: 0.12rem;
             padding-bottom: 0.04rem;
+        }
+        &-monitor {
+            background: #373f5b;
+            width: 0.8rem;
+            height: 0.4rem;
+            line-height: 0.4rem;
+            color: #fff;
+            font-size: 0.2rem;
+            position: absolute;
+            right: 0.44rem;
+            top: 0.12rem;
+            padding-bottom: 0.04rem;
+            border-radius: 6px;
         }
         &-body {
             width: 8.24rem;

@@ -8,19 +8,13 @@
                 <div class="column" :style="{width: widths[index] + '%'}" v-for="(values, keys, index) in row">{{values}}</div>
             </li>
         </ul>
-
-        <button class="more" v-on:click="goListFn">更多</button>
     </div>
 </template>
 
 <script>
     export default {
         props: ['title', 'list', 'widths'],
-        methods: {
-            goListFn() {
-                this.$router.push('/stationStaffList');
-            }
-        }
+        methods: {}
     };
 </script>
 
@@ -32,7 +26,7 @@
         padding-top: 0.06rem;
         border-radius: 0.1rem;
         overflow: hidden;
-        position: relative;
+        // position: relative;
         .column {
             color: #fff;
             text-align: center;
@@ -56,7 +50,7 @@
             overflow-y: auto;
             font-size: 0.14rem;
             li {
-                padding: 0.1rem;
+                padding: 0.13rem;
                 margin: 0.06rem 0;
                 background-color: #000;
                 box-shadow: 0px -1px 1px #f3f3f3 inset;
@@ -114,17 +108,17 @@
                 flex: 0 0 auto;
             }
         }
-        .more {
-            position: absolute;
-            right: 0.1rem;
-            bottom: 0.1rem;
-            border-radius: 0.05rem;
-            color: #fff;
-            background-color: #65666a;
-            font-size: 0.16rem;
-            box-shadow: -1px -1px 1px 1px #929292 inset;
-            padding: 0.02rem 0.08rem;
-        }
+        // .more {
+        //     position: absolute;
+        //     right: 0.1rem;
+        //     bottom: 0.1rem;
+        //     border-radius: 0.05rem;
+        //     color: #fff;
+        //     background-color: #65666a;
+        //     font-size: 0.16rem;
+        //     box-shadow: -1px -1px 1px 1px #929292 inset;
+        //     padding: 0.02rem 0.08rem;
+        // }
     }
 </style>
 

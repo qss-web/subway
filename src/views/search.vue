@@ -13,7 +13,7 @@
                 <img v-if="indexed==2" src="../assets/search/sort02_orange.png" />
             </dd>
             <dd v-on:click="currentList(3)" v-bind:class="indexed == 3 ?'active':''">
-                <p>故障保修单 <span>{{equList.amount3}}份</span></p>
+                <p>故障报修单 <span>{{equList.amount3}}份</span></p>
                 <img v-if="indexed!=3" src="../assets/search/sort03_gray.png" />
                 <img v-if="indexed==3" src="../assets/search/sort03_orange.png" />
             </dd>
@@ -151,17 +151,17 @@
                     // }
                 ],
                 equLabe2: [{
-                    'label': '设备',
-                    'width': 15,
+                    'label': '序号',
+                    'width': 5,
                     'value': 'num'
+                }, {
+                    'label': '车站',
+                    'width': 15,
+                    'value': 'company'
                 }, {
                     'label': '设备名称',
                     'width': 21,
                     'value': 'company'
-                }, {
-                    'label': '车站',
-                    'width': 15,
-                    'value': 'station'
                 }, {
                     'label': '时间',
                     'width': 15,
@@ -172,7 +172,7 @@
                     'value': 'line'
                 }, {
                     'label': '状态',
-                    'width': 15,
+                    'width': 10,
                     'value': 'station'
                 }],
                 equLabe3: [{
@@ -230,16 +230,40 @@
                 }],
                 equLabe4: [{
                     'label': '序号',
-                    'width': 30,
+                    'width': 5,
                     'value': 'company'
                 }, {
-                    'label': '设备名称',
-                    'width': 36,
-                    'value': 'project'
+                    'label': '设备类型编码',
+                    'width': 10,
+                    'value': 'company'
                 }, {
-                    'label': '设备位号',
-                    'width': 30,
-                    'value': 'line'
+                    'label': '设备类型',
+                    'width': 10,
+                    'value': 'company'
+                }, {
+                    'label': '故障部位编码',
+                    'width': 10,
+                    'value': 'company'
+                }, {
+                    'label': '故障部位',
+                    'width': 10,
+                    'value': 'company'
+                }, {
+                    'label': '故障原因编码',
+                    'width': 10,
+                    'value': 'company'
+                }, {
+                    'label': '故障原因',
+                    'width': 10,
+                    'value': 'company'
+                }, {
+                    'label': '维修策略编码',
+                    'width': 10,
+                    'value': 'company'
+                }, {
+                    'label': '维修建议',
+                    'width': 10,
+                    'value': 'project'
                 }],
                 equLabe5: [{
                     'label': '序号',

@@ -169,7 +169,52 @@
                         'import': false
                     },
                     'options': [{
-                        'status': 3,
+                        'status': 2,
+                        'title': '线路',
+                        'placeholder': '请选择内容',
+                        'val': 'lines',
+                        'list': [{
+                            value: '1',
+                            label: '6号线'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '车站',
+                        'placeholder': '请选择内容',
+                        'val': 'stations',
+                        'list': [{
+                            value: '1',
+                            label: '金安桥站'
+                        }, {
+                            value: '2',
+                            label: '苹果园站'
+                        }, {
+                            value: '3',
+                            label: '苹果园南路站'
+                        }, {
+                            value: '4',
+                            label: '西黄村站'
+                        }, {
+                            value: '5',
+                            label: '廖公庄站'
+                        }, {
+                            value: '6',
+                            label: '田村站'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '设备系统',
+                        'placeholder': '请选择内容',
+                        'val': 'equSort',
+                        'list': [{
+                            value: '1',
+                            label: '设备系统一'
+                        }, {
+                            value: '2',
+                            label: '设备系统二'
+                        }]
+                    }, {
+                        'status': 4,
                         'title': '时间',
                         'placeholderS': '选择开始日期',
                         'placeholderE': '选择结束日期',
@@ -243,34 +288,40 @@
                         color: '#006599',
                         data: [{
                             y: 4,
-                            name: '2018.3.11'
+                            name: '2017.04'
                         }, {
                             y: 5,
-                            name: '2018.3.12'
+                            name: '2017.05'
                         }, {
                             y: 4,
-                            name: '2018.3.13'
+                            name: '2017.06'
                         }, {
                             y: 2,
-                            name: '2018.3.14'
+                            name: '2017.07'
                         }, {
                             y: 5,
-                            name: '2018.3.15'
+                            name: '2017.08'
                         }, {
                             y: 7,
-                            name: '2018.3.16'
+                            name: '2017.09'
                         }, {
                             y: 3,
-                            name: '2018.3.17'
+                            name: '2017.10'
                         }, {
                             y: 6,
-                            name: '2018.3.18'
+                            name: '2017.11'
                         }, {
                             y: 5,
-                            name: '2018.3.19'
+                            name: '2017.12'
                         }, {
                             y: 4,
-                            name: '2018.3.20'
+                            name: '2018.01'
+                        }, {
+                            y: 5,
+                            name: '2018.02'
+                        }, {
+                            y: 4,
+                            name: '2018.03'
                         }]
                     }],
                     legend: {

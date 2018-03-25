@@ -77,8 +77,8 @@
                             label: '测试名称二'
                         }]
                     }, {
-                        'status': 3,
-                        'title': '时间',
+                        'status': 4,
+                        'title': '月份',
                         'placeholderS': '选择开始日期',
                         'placeholderE': '选择结束日期',
                         'val1': 'startTime',

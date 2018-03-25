@@ -1,7 +1,7 @@
 <template>
     <div class="counter-summary">
         <div class="tabs flex">
-            <p class="tab" :class="{active: !activeIndex}" @click="activeIndex = 0">车站运行情况</p>
+            <p class="tab" v-on:click="goListFn">车站运行情况</p>
         </div>
         <div class="tables">
             <v-table-small v-show="!activeIndex" :title="['综合排名','线路','车站','状态']" :list="failureCount" :widths="[20,30,30,20]"></v-table-small>
@@ -50,6 +50,11 @@
                     state: '良'
                 }]
             };
+        },
+        methods: {
+            goListFn() {
+                this.$router.push('/stationStaffList');
+            }
         }
     };
 </script>
@@ -65,16 +70,14 @@
             align-items: flex-end;
             padding-left: 0.2rem;
             .tab {
-                background-color: #7b8399;
+                background-color: #525667;
                 color: #fff;
                 height: 0.28rem;
                 border-radius: 0.1rem 0.1rem 0 0;
                 padding: 0 0.1rem;
                 margin: 0 0.02rem;
                 line-height: 0.28rem;
-                &.active {
-                    background-color: #525667;
-                }
+                cursor: pointer;
             }
         }
         .tables {

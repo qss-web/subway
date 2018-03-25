@@ -3,7 +3,7 @@
         <div class="flex infoWrap">
             <div class="tab">
                 <ul class="title">
-                    <li class="active">实时预警信息</li>
+                    <li class="active">设备档案</li>
                 </ul>
                 <dl class="leftShow">
                     <dt>位置信息</dt>

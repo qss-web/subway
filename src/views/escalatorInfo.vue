@@ -23,6 +23,7 @@
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日车站健康监测指标</button>
+                <button class="device-healthy-monitor" v-on:click="monitorFn">监测</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-ring-diagram id="runIndex1" title="运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
@@ -252,6 +253,9 @@
             },
             goInfoFn() {
                 this.$router.push('equInfo');
+            },
+            monitorFn() {
+                this.$router.push('/monitorPage');
             }
         }
     };
@@ -334,6 +338,19 @@
             left: 0.34rem;
             top: 0.12rem;
             padding-bottom: 0.04rem;
+        }
+        &-monitor {
+            background: #373f5b;
+            width: 0.8rem;
+            height: 0.4rem;
+            line-height: 0.4rem;
+            color: #fff;
+            font-size: 0.2rem;
+            position: absolute;
+            right: 0.44rem;
+            top: 0.12rem;
+            padding-bottom: 0.04rem;
+            border-radius: 6px;
         }
         &-body {
             width: 8.24rem;

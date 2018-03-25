@@ -27,13 +27,12 @@
                     <div v-show="activeIndex == 0">
                         <el-table :data="alarmInfo.row" style="width: 100%; background-color: #eff0f2;" stripe height="2.5rem" :row-class-name="rowClassName" header-row-class-name="header-row">
                             <el-table-column prop="index" label="序号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="time" label="时间" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="line" label="线路" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="station" label="车站" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="device" label="设备名称" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="system" label="系统" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="time" label="时间" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="desc" label="事件描述" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="status" label="状态" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="system" label="操作" align="center" show-overflow-tooltip></el-table-column>
                         </el-table>
                         <div class="moreShow">
                             <a href="javascript:;" v-on:click="goToMoreFn1">更多</a>
@@ -43,15 +42,16 @@
                         </el-pagination> -->
                     </div>
                     <div v-show="activeIndex == 1">
-                        <el-table :data="deviceInfo.row" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
-                            <el-table-column prop="index" label="序号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="faultNo" label="故障单号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="line" label="线路" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="station" label="车站" align="center" show-overflow-tooltip></el-table-column>
+                        <el-table :data="deviceInfo.row" width="100" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
+                            <el-table-column prop="index" width="80" label="序号" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="faultNo" width="150" label="故障单号" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="line" width="120" label="线路" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="station" width="100" label="车站" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="deviceLocation" label="设备安装位置" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="deviceNo" label="设备编号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="faultSys" label="故障系统" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="faultDesc" label="故障现象" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="deviceNo" width="110" label="设备编号" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="deviceNo" width="110" label="设备名称" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="faultSys" width="110" label="故障系统" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="faultDesc" width="110" label="故障现象" align="center" show-overflow-tooltip></el-table-column>
                         </el-table>
                         <div class="moreShow">
                             <a href="javascript:;" v-on:click="goToMoreFn2">更多</a>

@@ -10,9 +10,9 @@
                     <span class="light warn"></span>
                     <span class="name">一级预警 2座</span>
                     <span class="light normal"></span>
-                    <span class="name">正常 2部</span>
+                    <span class="name">正常 2座</span>
                     <span class="light offline"></span>
-                    <span class="name">断网 0部</span>
+                    <span class="name">断网 0座</span>
                     <span class="light stop"></span>
                     <span class="name">停机 0座</span>
                 </div>
@@ -20,21 +20,27 @@
             <div class="line2 flex">
                 <div class="infos flex">
                     <img src="~assets/home/icon_escalator.png" />
-                    <span>正常 <span class="normal">9</span> 部</span>
-                    <span>一级预警 <span class="warn">2</span> 部</span>
                     <span>二级预警 <span class="error">1</span> 部</span>
+                    <span>一级预警 <span class="warn">2</span> 部</span>
+                    <span>正常 <span class="normal">9</span> 部</span>
+                    <span>断网 <span class="g-gray">1</span> 部</span>
+                    <span>停机 <span class="g-brown">0</span> 部</span>
                 </div>
                 <div class="infos flex">
                     <img src="~assets/home/icon_fan.png" />
-                    <span>正常 <span class="normal">9</span> 部</span>
-                    <span>一级预警 <span class="warn">2</span> 部</span>
-                    <span>二级预警 <span class="error">1</span> 部</span>
+                    <span>二级预警 <span class="error">1</span> 台</span>
+                    <span>一级预警 <span class="warn">2</span> 台</span>
+                    <span>正常 <span class="normal">9</span> 台</span>
+                    <span>断网 <span class="g-gray">1</span> 台</span>
+                    <span>停机 <span class="g-brown">0</span> 台</span>
                 </div>
                 <div class="infos flex">
                     <img src="~assets/home/icon_door.png" />
-                    <span>正常 <span class="normal">9</span> 部</span>
-                    <span>一级预警 <span class="warn">2</span> 部</span>
-                    <span>二级预警 <span class="error">1</span> 部</span>
+                    <span>二级预警 <span class="error">1</span> 组</span>
+                    <span>一级预警 <span class="warn">2</span> 组</span>
+                    <span>正常 <span class="normal">9</span> 组</span>
+                    <span>断网 <span class="g-gray">1</span> 组</span>
+                    <span>停机 <span class="g-brown">0</span> 组</span>
                 </div>
             </div>
         </div>
@@ -78,7 +84,7 @@
 </script>
 <style lang="less" scoped>
     .subway-line {
-        padding: 0 0.2rem;
+        // padding: 0 0.2rem;
         .alarm-info {
             .line1 {
                 height: 0.7rem;
@@ -121,19 +127,20 @@
                 }
             }
             .line2 {
+                padding-right: 0.05rem;
                 .infos {
                     border-radius: 0.5rem;
                     background-color: #000;
                     color: #fff;
                     height: 0.36rem;
-                    padding: 0 0.2rem;
-                    font-size: 0.14rem;
+                    padding: 0 0.08rem;
+                    font-size: 0.12rem;
                     flex: auto;
-                    margin: 0 0.1rem;
+                    margin-left: 0.05rem;
                     img {
                         margin-right: 0.05rem;
-                        width: 0.22rem;
-                        height: 0.22rem;
+                        width: 0.16rem;
+                        height: 0.16rem;
                     }
                 }
                 .error {

@@ -125,6 +125,11 @@ const router = [
     ]
   },
   {
+    name: 'monitorPage',
+    path: '/monitorPage',
+    component: resolve => require(['@/views/monitorPage'], resolve)
+  },
+  {
     name: 'login',
     path: '/login',
     component: resolve => require(['@/views/login'], resolve)

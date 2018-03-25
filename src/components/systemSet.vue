@@ -7,7 +7,7 @@
             <li v-on:click="indexed=4" v-bind:class="indexed==4?'active':''">客户端</li>
             <li v-on:click="indexed=5" v-bind:class="indexed==5?'active':''">设备授权</li>
             <li v-on:click="indexed=6" v-bind:class="indexed==6?'active':''">角色</li>
-            <li v-on:click="indexed=7" v-bind:class="indexed==7?'active':''">检测设备配置</li>
+            <li v-on:click="indexed=7" v-bind:class="indexed==7?'active':''">监测设备配置</li>
             <li v-on:click="indexed=8" v-bind:class="indexed==8?'active':''">当前设备运行状态</li>
             <li v-on:click="indexed=9" v-bind:class="indexed==9?'active':''">运行时间管理</li>
             <li v-on:click="indexed=10" v-bind:class="indexed==10?'active':''">菜单管理</li>
