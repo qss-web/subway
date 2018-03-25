@@ -13,40 +13,39 @@
     export default {
         data() {
             return {
-                activeIndex: 0,
                 failureCount: [{
                     sequence: 1,
                     name: '6号线',
-                    str: '金安桥站',
+                    station: '金安桥站',
                     state: '优'
                 },
                 {
                     sequence: 2,
                     name: '6号线',
-                    str: '苹果园站',
+                    station: '苹果园站',
                     state: '良'
                 },
                 {
                     sequence: 3,
                     name: '6号线',
-                    str: '苹果园南路站',
+                    station: '苹果园南路站',
                     state: '良'
                 }, {
                     sequence: 4,
                     name: '6号线',
-                    str: '西黄村站',
+                    station: '西黄村站',
                     state: '优'
                 },
                 {
                     sequence: 5,
                     name: '6号线',
-                    str: '廖公庄站',
+                    station: '廖公庄站',
                     state: '良'
                 },
                 {
                     sequence: 6,
                     name: '6号线',
-                    str: '田村站',
+                    station: '田村站',
                     state: '良'
                 }]
             };
