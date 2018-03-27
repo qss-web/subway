@@ -59,7 +59,7 @@
                 }, {
                     'label': '设备系统',
                     'width': 10,
-                    'value': 'equType'
+                    'value': 'equSys'
                 }, {
                     'label': '故障原因代码',
                     'width': 20,
@@ -81,14 +81,14 @@
                     total: 9,
                     data: [{
                         num: '序1',
-                        equType: '设备类型',
+                        equSys: '设备系统',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
                         num: '序1',
-                        equType: '设备类型',
+                        equSys: '设备系统',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',

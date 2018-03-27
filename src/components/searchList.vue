@@ -30,10 +30,15 @@
                     <img v-if="!item.isCheck" src="../assets/search/check.png"/>
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
-                <span v-bind:class="item.status?'font-color-' + item.status:''" v-for="(item1, index) in label" v-bind:style="{width:item1.width+'%'}">
-                    {{item[item1.value]}}
-                    <i class="redDot" v-if="item1.isShowRed && item.type"></i>
-                </span>
+                <div v-for="(item1, index) in label" v-bind:style="{width:item1.width+'%'}">
+                    <span v-bind:class="item.status?'font-color-' + item.status:''">
+                        {{item[item1.value]}}
+                        <i class="redDot" v-if="item1.isShowRed && item.type==0"></i>
+                    </span>
+                    <span v-if="item1.btn">
+                        <a v-for="(subItem,index) in item1.btn" class="btn" v-on:click="goToNextPage(subItem.fn)" href="javascript:;">{{subItem.name}}</a>
+                    </span>
+                </div>
             </dd>
         </dl>
     </div>
@@ -99,6 +104,9 @@
             },
             goToMore() {
                 this.$router.push('/alarmListDay');
+            },
+            goToNextPage(fn) {
+                this.$emit('receive', fn);
             }
         }
     };

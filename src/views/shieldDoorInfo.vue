@@ -91,7 +91,7 @@
                 <v-tag name="number" x="7.85" y="3.76" :number="32"></v-tag>
             </div>
             <div class="device-healthy">
-                <button class="device-healthy-title">今日车站健康监测完好率</button>
+                <button class="device-healthy-title">今日设备健康监测指标</button>
                 <button class="device-healthy-monitor" v-on:click="monitorFn">监测</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
@@ -118,7 +118,7 @@
         </div>
         <v-goback></v-goback>
         <el-dialog :visible.sync="isShowPopup">
-            <img style="width: 100%; height: 110px;" src="~assets/other/test.jpg" />
+            <img style="width: 100%; height: 110px;" src="~assets/other/test.png" />
             <!-- <v-alarm-popup></v-alarm-popup> -->
         </el-dialog>
     </div>
@@ -325,7 +325,7 @@
                 this.$router.push('equInfo');
             },
             monitorFn() {
-                this.$router.push('/monitorPage');
+                this.$router.push({ path: '/monitorPage', query: { key: "shieldDoor" } });
             }
         }
     };

@@ -14,7 +14,7 @@
                     <dd class="g-orange">全部：7次</dd>
                 </dl>
             </ul>
-            <v-search-list v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data" v-bind:test="true"></v-search-list>
+            <v-search-list v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data" v-on:receive="btnFn"></v-search-list>
             <v-search-list v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
             <div class=" pagination ">
                 <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -35,12 +36,7 @@
                 pageSize: 9, //每页显示数量
                 searchData: {
                     'btnShow': {
-                        'add': false,
-                        'export': true,
-                        'delete': false,
-                        'edit': false,
-                        'download': false,
-                        'import': false
+                        'export': true
                     },
                     'options': [{
                         'status': 2,
@@ -134,7 +130,7 @@
                 }, {
                     'label': '操作',
                     'width': 10,
-                    'value': 'operate'
+                    'btn': [{ 'monitor': true, 'name': '监测', 'fn': 'monitorFn' }]
 
                 }],
                 equList: {
@@ -146,8 +142,7 @@
                         station: '车站',
                         alarmEvent: '预警事件',
                         status: '1',
-                        statusValue: '二级预警',
-                        operate: '【监测】'
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         equName: '设备名称',
@@ -155,8 +150,7 @@
                         station: '车站',
                         alarmEvent: '预警事件',
                         status: '1',
-                        statusValue: '二级预警',
-                        operate: '【监测】'
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         equName: '设备名称',
@@ -164,8 +158,7 @@
                         station: '车站',
                         alarmEvent: '预警事件',
                         status: '1',
-                        statusValue: '二级预警',
-                        operate: '【监测】'
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         equName: '设备名称',
@@ -173,8 +166,7 @@
                         station: '车站',
                         alarmEvent: '预警事件',
                         status: '2',
-                        statusValue: '一级预警',
-                        operate: '【监测】'
+                        statusValue: '一级预警'
                     }, {
                         num: '序号',
                         equName: '设备名称',
@@ -182,8 +174,7 @@
                         station: '车站',
                         alarmEvent: '预警事件',
                         status: '2',
-                        statusValue: '一级预警',
-                        operate: '【监测】'
+                        statusValue: '一级预警'
                     }, {
                         num: '序号',
                         equName: '设备名称',
@@ -191,8 +182,7 @@
                         station: '车站',
                         alarmEvent: '预警事件',
                         status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
+                        statusValue: '断网'
                     }, {
                         num: '序号',
                         equName: '设备名称',
@@ -200,8 +190,7 @@
                         station: '车站',
                         alarmEvent: '预警事件',
                         status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
+                        statusValue: '断网'
                     }, {
                         num: '序号',
                         equName: '设备名称',
@@ -209,8 +198,7 @@
                         station: '车站',
                         alarmEvent: '预警事件',
                         status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
+                        statusValue: '断网'
                     }, {
                         num: '序号',
                         equName: '设备名称',
@@ -218,8 +206,7 @@
                         station: '车站',
                         alarmEvent: '预警事件',
                         status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
+                        statusValue: '断网'
                     }, {
                         num: '序号',
                         equName: '设备名称',
@@ -227,14 +214,18 @@
                         station: '车站',
                         alarmEvent: '预警事件',
                         status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
+                        statusValue: '断网'
                     }]
                 }
             };
         },
         props: ['list', 'label', 'checked'],
+        created() {
+            this.test();
+            this.test2();
+        },
         methods: {
+            ...mapActions(['_getList']),
             currentList(index) {
                 this.indexed = index;
             },
@@ -242,6 +233,33 @@
             changePages(val) {
                 this.currentPage = val;
                 // this.list();
+            },
+            monitorFn() {
+                alert(3);
+            },
+            //子组件按钮
+            btnFn(val) {
+                this[val]();
+            },
+            test() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'testtest',
+                    callback: () => {
+                        console.log(111);
+                    }
+                });
+            },
+            test2() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'xjhangyou',
+                    callback: () => {
+                        console.log(111);
+                    }
+                });
             }
         }
     };

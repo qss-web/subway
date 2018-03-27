@@ -1,9 +1,16 @@
-//接口api
-let api = {
-    cityList: { url: 'api-customer/findCityAll' } //首页-城市列表
+const api = {
+  //获取阿里云授权
+  testtest: 'qmsCode/getProvice',
+  xjhangyou: 'http://61.138.253.141:88/xjhangyou/visitRegister/getldDataTest'
 };
 
 for (var k in api) {
-    api[k].url = (process.env.NODE_ENV == 'development' ? '/proxy/' : window.config.apihost) + api[k].url;
+  if (/http/.test(api[k])) {
+  } else if (process.env.NODE_ENV == 'development') {
+    api[k] = '/api/' + api[k];
+  } else {
+    api[k] = 'https://platform-dev.qms888.com/' + api[k];
+  }
 }
+
 export default api;

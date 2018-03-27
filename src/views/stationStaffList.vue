@@ -118,23 +118,23 @@
                     'label': '所属线路',
                     'width': 10,
                     'value': 'station'
-                },{
+                }, {
                     'label': '月份',
                     'width': 10,
-                    'value': 'mouth'
-                },{
+                    'value': 'month'
+                }, {
                     'label': '故障预警次数',
                     'width': 10,
                     'value': 'faultNum'
-                },{
+                }, {
                     'label': '设备数量',
                     'width': 10,
                     'value': 'total'
-                },{
+                }, {
                     'label': '综合排名',
                     'width': 10,
                     'value': 'rank'
-                },{
+                }, {
                     'label': '状态',
                     'width': 10,
                     'value': 'state'
@@ -145,110 +145,110 @@
                         'num': '1',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'1',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '1',
+                        'state': '优'
                     }, {
                         'num': '2',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'2',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '2',
+                        'state': '优'
                     }, {
                         'num': '3',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'3',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '3',
+                        'state': '优'
                     }, {
                         'num': '4',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'4',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '4',
+                        'state': '优'
                     }, {
                         'num': '5',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'5',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '5',
+                        'state': '优'
                     }, {
                         'num': '6',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'6',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '6',
+                        'state': '优'
                     }, {
                         'num': '7',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'7',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '7',
+                        'state': '优'
                     }, {
                         'num': '8',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'8',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '8',
+                        'state': '优'
                     }, {
                         'num': '9',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'9',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '9',
+                        'state': '优'
                     }, {
                         'num': '10',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'10',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '10',
+                        'state': '优'
                     }, {
                         'num': '11',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'11',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '11',
+                        'state': '优'
                     }, {
                         'num': '12',
                         'station': '金安桥站',
                         'line': '6号线',
-                        'mouth':'1',
-                        'faultNum':'2',
-                        'total':'24',
-                        'rank':'12',
-                        'state':'优'
+                        'month': '1',
+                        'faultNum': '2',
+                        'total': '24',
+                        'rank': '12',
+                        'state': '优'
                     }]
                 }
             };

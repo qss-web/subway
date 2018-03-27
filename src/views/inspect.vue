@@ -24,12 +24,8 @@
                 pageSize: 9, //每页显示数量
                 searchData: {
                     'btnShow': {
-                        'add': false,
                         'export': true,
-                        'delete': true,
-                        'edit': false,
-                        'download': false,
-                        'import': false
+                        'delete': true
                     },
                     'options': [{
                         'status': 2,
@@ -163,16 +159,6 @@
                         arriveTime: '到达时间',
                         status: '巡检状态',
                         equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '故障',
                         type: '1',
                         name: '执行人'
                     }, {
@@ -183,48 +169,28 @@
                         date: '日期（月/日）',
                         arriveTime: '到达时间',
                         status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
                         equStatus: '故障',
-                        type: '1',
+                        type: '0',
+                        name: '执行人'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
                         name: '执行人'
                     }, {
                         num: '序号',
@@ -255,7 +221,38 @@
                         arriveTime: '到达时间',
                         status: '巡检状态',
                         equStatus: '故障',
-                        type: '1',
+                        type: '0',
+                        name: '执行人'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '设备状态',
+                        name: '执行人'
+                    }, {
+                        num: '序号',
+                        line: '线路',
+                        station: '安装车站',
+                        equNum: '设备编号',
+                        date: '日期（月/日）',
+                        arriveTime: '到达时间',
+                        status: '巡检状态',
+                        equStatus: '故障',
+                        type: '0',
                         name: '执行人'
                     }, {
                         num: '序号',

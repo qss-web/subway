@@ -4,7 +4,7 @@
             <p class="tab" v-on:click="goListFn">车站运行情况</p>
         </div>
         <div class="tables">
-            <v-table-small v-show="!activeIndex" :title="['综合排名','线路','车站','状态']" :list="failureCount" :widths="[20,30,30,20]"></v-table-small>
+            <v-table-small :title="['综合排名','线路','车站','状态']" :list="failureCount" :widths="[20,30,30,20]"></v-table-small>
         </div>
     </div>
 </template>

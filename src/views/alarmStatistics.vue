@@ -13,7 +13,7 @@
                         <dd class="g-orange">全部：6次</dd>
                     </dl>
                 </ul>
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data" v-on:receive="btnFn"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
@@ -127,7 +127,7 @@
                 }, {
                     'label': '操作',
                     'width': 10,
-                    'value': 'operate'
+                    'btn': [{ 'monitor': true, 'name': '监测', 'fn': 'monitorFn' }]
                 }],
                 equList: {
                     total: 9,
@@ -138,8 +138,7 @@
                         time: '2018.03.20 10:24:30',
                         equName: '扶梯',
                         status: '1',
-                        statusValue: '二级预警',
-                        operate: '【监测】'
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
@@ -147,8 +146,7 @@
                         time: '2018.03.20 10:24:30',
                         equName: '扶梯',
                         status: '1',
-                        statusValue: '二级预警',
-                        operate: '【监测】'
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
@@ -156,8 +154,7 @@
                         time: '2018.03.20 10:24:30',
                         equName: '扶梯',
                         status: '1',
-                        statusValue: '二级预警',
-                        operate: '【监测】'
+                        statusValue: '二级预警'
                     }, {
                         num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
@@ -165,8 +162,7 @@
                         time: '2018.03.20 10:24:30',
                         equName: '扶梯',
                         status: '2',
-                        statusValue: '一级预警',
-                        operate: '【监测】'
+                        statusValue: '一级预警'
                     }, {
                         num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
@@ -174,8 +170,7 @@
                         time: '2018.03.20 10:24:30',
                         equName: '扶梯',
                         status: '2',
-                        statusValue: '一级预警',
-                        operate: '【监测】'
+                        statusValue: '一级预警'
                     }, {
                         num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
@@ -183,8 +178,7 @@
                         time: '2018.03.20 10:24:30',
                         equName: '扶梯',
                         status: '2',
-                        statusValue: '一级预警',
-                        operate: '【监测】'
+                        statusValue: '一级预警'
                     }, {
                         num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
@@ -192,8 +186,7 @@
                         time: '2018.03.20 10:24:30',
                         equName: '扶梯',
                         status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
+                        statusValue: '断网'
                     }, {
                         num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
@@ -201,8 +194,7 @@
                         time: '2018.03.20 10:24:30',
                         equName: '扶梯',
                         status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
+                        statusValue: '断网'
                     }, {
                         num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
@@ -210,8 +202,7 @@
                         time: '2018.03.20 10:24:30',
                         equName: '扶梯',
                         status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
+                        statusValue: '断网'
                     }, {
                         num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
@@ -219,8 +210,7 @@
                         time: '2018.03.20 10:24:30',
                         equName: '扶梯',
                         status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
+                        statusValue: '断网'
                     }, {
                         num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
@@ -228,8 +218,7 @@
                         time: '2018.03.20 10:24:30',
                         equName: '扶梯',
                         status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
+                        statusValue: '断网'
                     }]
                 }
             };
@@ -242,6 +231,14 @@
             changePages(val) {
                 this.currentPage = val;
                 // this.list();
+            },
+            //列表子组件按钮
+            btnFn(val) {
+                this[val]();
+            },
+            //监测
+            monitorFn() {
+                // alert('监测');
             }
         }
     };

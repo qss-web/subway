@@ -9,11 +9,11 @@ Vue.use(Vuex);
 
 // 状态机入口文件
 const store = new Vuex.Store({
-    strict: process.env.NODE_ENV !== 'production',
-    state,
-    getters,
-    mutations,
-    actions
+  strict: process.env.NODE_ENV !== 'production',
+  state,
+  getters,
+  mutations,
+  actions
 });
 
 export default store;

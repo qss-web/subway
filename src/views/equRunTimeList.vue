@@ -25,12 +25,7 @@
                 pageSize: 9, //每页显示数量
                 searchData: {
                     'btnShow': {
-                        'add': false,
-                        'export': true,
-                        'delete': false,
-                        'edit': false,
-                        'download': false,
-                        'import': false
+                        'export': true
                     },
                     'options': [{
                         'status': 2,

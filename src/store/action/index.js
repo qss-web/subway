@@ -1,9 +1,17 @@
-import { xhr } from '@/http';
+import { Notification } from 'element-ui';
+import htp from '../../http';
 
 export default {
-    _ajax(state, { name, ...options }) {
-        return new Promise(function(resolve, reject) {
-            xhr({ name, ...options }).then(res => resolve(res), err => reject(err));
-        });
-    }
+  _getList({ commit }, data) {
+    const method = data.method ? data.method : 'post';
+
+    htp({ ur: data.api, options: data.ops, method: method }).then(
+      res => {
+        typeof data.callback == 'function' && data.callback(res);
+      },
+      er => {
+        Notification.error({ title: data.title || '提示', message: er });
+      }
+    );
+  }
 };

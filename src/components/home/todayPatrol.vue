@@ -26,7 +26,7 @@
                         title: {
                             text: null
                         },
-                        categories: ['综合巡检率', '自动扶梯', '屏幕门', '风机'],
+                        categories: ['综合巡检率', '自动扶梯', '站台门', '风机'],
                         labels: {
                             style: {
                                 color: '#fff'

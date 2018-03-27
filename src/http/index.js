@@ -1,117 +1,161 @@
-import Vue from 'vue';
+// 封装请求
 import api from './api';
-import store from '../store';
-// import MintUI from 'mint-ui';
-import router from '../router';
+import axios from 'axios';
+import { Notification, Loading } from 'element-ui';
+// import store from '../store';
 
-let xhr = ({ method = 'post', name, options = {}, userId = true, cusError = false }) => {
-    let promise;
-    let str = '';
-    let time = new Date();
-    let loading = true;
-    let headerOptions = {
-        emulateJSON: api[name].version != 2,
-        headers: {
-            session: api[name].session === false ? '' : store.getters.session
-        }
-    };
+// 全局设置
+axios.defaults.headers.common['Authorization'] = 'subway';
+// axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-    if (userId) {
-        options.userId = store.getters.userId || '';
-    }
+// 拦截request,设置全局请求为ajax请求
+axios.interceptors.request.use(config => {
+  config.headers['X-Requested-With'] = 'XMLHttpRequest';
+  return config;
+});
 
-    for (var i in options) {
-        str += i + '=' + options[i] + '&';
-    }
-    str = str.slice(0, -1);
-    if (api[name].version == 2) {
-        options = JSON.stringify(options);
-    }
+// 拦截响应response，并做一些错误处理
+axios.interceptors.response.use(
+  response => {
+    const data = response.data;
 
-    //加载动画
-    setTimeout(() => {
-        if (loading) {
-            // MintUI.Indicator.open({
-            //     text: '加载中',
-            //     spinnerType: 'triple-bounce'
-            // });
-        }
-    }, 2000);
+    return data;
+  },
+  err => {
+    // 这里是返回状态码不为200时候的错误处理
+    if (err && err.response) {
+      switch (err.response.status) {
+        case 400:
+          err.message = '请求错误';
+          break;
 
-    function loginError() {
-        // MintUI.Toast('登录失效，请重新登录');
-        loading = false;
-        // MintUI.Indicator.close();
-        store._actions._userInfo[0]({
-            userId: store.getters.userId
-        });
-        setTimeout(() => {
-            router.push('login');
-        }, 1000);
-        return false;
-    }
+        case 401:
+          err.message = '未授权，请登录';
+          break;
 
-    function errHandler(data, error, msg) {
-        // MintUI.Indicator.close();
+        case 403:
+          err.message = '拒绝访问';
+          break;
 
-        if (data.status == 401) {
-            loginError();
-        } else if (cusError) {
-            error(data);
-        } else if (msg) {
-            // MintUI.Toast(msg);
-        }
+        case 404:
+          err.message = `请求地址出错: ${err.response.config.url}`;
+          break;
 
-        setTimeout(() => {
-            // MintUI.Indicator.close();
-        }, 3000);
-    }
+        case 408:
+          err.message = '请求超时';
+          break;
 
-    function successV1({ data, success, error }) {
-        if (data.data.header && data.data.header.statusCode && ~~data.data.header.statusCode) {
-            success(data.data.body);
-            console.log(api[name].url.replace('/proxy', '') + '?' + str, JSON.parse(JSON.stringify(data.data.body)), new Date() - time); //eslint-disable-line
-        } else {
-            errHandler(data, error, data.data.header.errorMsg.errorDesc);
-        }
-        loading = false;
-        // MintUI.Indicator.close();
-    }
+        case 500:
+          err.message = '服务器内部错误';
+          break;
 
-    function successV2({ data, success, error }) {
-        if (data.data.code && data.data.code == 200) {
-            success(data.data.body);
-            console.log(api[name].url.replace('/proxy', '') + '?' + str, JSON.parse(JSON.stringify(data.data.body)), new Date() - time); //eslint-disable-line
-        } else {
-            errHandler(data, error, data.data.msg);
-        }
-        loading = false;
-        // MintUI.Indicator.close();
-    }
+        case 501:
+          err.message = '服务未实现';
+          break;
 
-    function successHandler(data, success, error) {
-        let params = { data, success, error };
+        case 502:
+          err.message = '网关错误';
+          break;
 
-        if (api[name].version == 2) {
-            successV2(params);
-        } else {
-            successV1(params);
-        }
-    }
+        case 503:
+          err.message = '服务不可用';
+          break;
 
-    switch (method) {
-        case 'get':
-            promise = new Promise(function(resolve, reject) {
-                Vue.http.get(api[name].url, { params: options }, headerOptions).then(data => successHandler(data, success => resolve(success), error => reject(error)), data => errHandler(data, reject));
-            });
-            return promise;
-        case 'post':
-            promise = new Promise(function(resolve, reject) {
-                Vue.http.post(api[name].url, options, headerOptions).then(data => successHandler(data, success => resolve(success), error => reject(error)), data => errHandler(data, reject));
-            });
-            return promise;
+        case 504:
+          err.message = '网关超时';
+          break;
+
+        case 505:
+          err.message = 'HTTP版本不受支持';
+          break;
+
         default:
+          err.message = '未知错误';
+      }
     }
+    return Promise.reject(err);
+  }
+);
+
+const htp = axios.create({
+  baseURL: '/',
+  timeout: 10000
+});
+
+// 处理接口规范的公有方法
+const xhr = ({ method = 'post', ur, options = {} }) => {
+  let p,
+    m = false;
+  let load = { close: () => {} };
+
+  setTimeout(() => {
+    !m &&
+      (load = Loading.service({
+        fullscreen: true,
+        text: '拼命加载中...'
+      }));
+  }, 500);
+  //   const ops = JSON.parse(JSON.stringify(store.state.common));
+
+  const ops = { token: 'E011E3CA883AA403AFB0DE8D1353FEC0' };
+
+  Object.assign(ops, options);
+  switch (method) {
+    case 'get':
+      p = new Promise(function(resolve, reject) {
+        htp
+          .get(api[ur] + '?token=' + ops.token, {
+            params: ops
+          })
+          .then(
+            response => {
+              m = true;
+              load.close();
+              if (response.data.code && response.data.code == 200) {
+                resolve(response.data.body);
+              } else {
+                reject(response.data.msg);
+              }
+            },
+            er => {
+              m = true;
+              load.close();
+              errHandler(er);
+            }
+          );
+      });
+      break;
+    case 'post':
+      p = new Promise(function(resolve, reject) {
+        htp.post(api[ur] + '?token=' + ops.token, ops).then(
+          response => {
+            m = true;
+            load.close();
+            if (response.data.code && response.data.code == 200) {
+              resolve(response.data.body);
+            } else {
+              reject(response.data.msg);
+            }
+          },
+          er => {
+            m = true;
+            load.close();
+            errHandler(er);
+          }
+        );
+      });
+      break;
+    default:
+      break;
+  }
+  return p;
 };
 
-export { xhr, api };
+function errHandler(er) {
+  Notification.error({
+    title: '网络连接错误',
+    message: '请检查您的网络连接是否正常'
+  });
+}
+
+export default xhr;

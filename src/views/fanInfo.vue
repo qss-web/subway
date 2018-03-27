@@ -14,7 +14,7 @@
             </div>
             <div class="device-3d" v-on:click="goInfoFn"></div>
             <div class="device-healthy">
-                <button class="device-healthy-title">今日车站健康监测完好率</button>
+                <button class="device-healthy-title">今日设备健康监测指标</button>
                 <button class="device-healthy-monitor" v-on:click="monitorFn">监测</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
@@ -41,7 +41,7 @@
         </div>
         <v-goback></v-goback>
         <el-dialog :visible.sync="isShowPopup">
-            <img style="width: 100%; height: 110px;" src="~assets/other/test.jpg" />
+            <img style="width: 100%; height: 110px;" src="~assets/other/test.png" />
             <!-- <v-alarm-popup></v-alarm-popup> -->
         </el-dialog>
     </div>
@@ -145,48 +145,44 @@
                 testTable: {
                     label: [{
                         'label': '序号',
-                        'width': 9,
+                        'width': 5,
                         'value': 'num'
                     }, {
                         'label': '设备名称',
-                        'width': 9,
+                        'width': 10,
                         'value': 'equName'
                     }, {
                         'label': '测点名称',
-                        'width': 9,
+                        'width': 10,
                         'value': 'testName'
                     }, {
                         'label': '当前值',
-                        'width': 9,
+                        'width': 10,
                         'value': 'currentValue'
                     }, {
                         'label': '高限',
-                        'width': 9,
+                        'width': 10,
                         'value': 'highLimit'
                     }, {
                         'label': '高高限',
-                        'width': 9,
+                        'width': 10,
                         'value': 'highestLimit'
                     }, {
-                        'label': '下限',
-                        'width': 9,
-                        'value': 'lowLimit'
-                    }, {
-                        'label': '下下限',
-                        'width': 9,
-                        'value': 'lowestLimit'
-                    }, {
-                        'label': '预警方式',
-                        'width': 9,
+                        'label': '测点状态',
+                        'width': 10,
                         'value': 'alarmWay'
                     }, {
-                        'label': '预警类型',
-                        'width': 9,
+                        'label': '更新时间',
+                        'width': 12,
+                        'value': 'updateTime'
+                    }, {
+                        'label': '报警原因',
+                        'width': 11,
                         'value': 'alarmType'
                     }, {
-                        'label': '更新时间',
-                        'width': 10,
-                        'value': 'updateTime'
+                        'label': '检维修建议',
+                        'width': 12,
+                        'value': 'alarmType'
                     }],
                     list: [{
                         num: '序号',
@@ -239,7 +235,7 @@
                 this.$router.push('equInfo');
             },
             monitorFn() {
-                this.$router.push('/monitorPage');
+                this.$router.push({ path: '/monitorPage', query: { key: "fan" } });
             }
         }
     };
