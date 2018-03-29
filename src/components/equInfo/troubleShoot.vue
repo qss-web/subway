@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -49,7 +50,7 @@
                 info1: [{
                     'label': '序号',
                     'width': 6,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '故障单号',
                     'width': 10,
@@ -98,7 +99,6 @@
                 equList: {
                     total: 9,
                     data: [{
-                        num: '1',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -108,7 +108,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '2',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -118,7 +117,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '3',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -128,7 +126,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '4',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -138,7 +135,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '5',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -148,7 +144,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '6',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -158,7 +153,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '7',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -168,7 +162,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '8',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -178,7 +171,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '9',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -188,7 +180,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '10',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -198,7 +189,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '11',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -208,7 +198,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '12',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -218,7 +207,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '13',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -228,7 +216,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '14',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -238,7 +225,6 @@
                         repairTime: '修复时间',
                         infoSources: '信息来源'
                     }, {
-                        num: '15',
                         date: '日期',
                         station: '车站',
                         bySys: '所属系统',
@@ -250,7 +236,35 @@
                     }]
                 }
             };
+        },
+        created() {
+            this.infoFaultFn();
+            this.infoFaultListFn();
+        },
+        methods: {
+            ...mapActions(['_getList']),
+            infoFaultFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'infoFault',
+                    callback: () => {
+
+                    }
+                });
+            },
+            infoFaultListFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'infoFaultList',
+                    callback: () => {
+
+                    }
+                });
+            }
         }
+
     };
 </script>
 

@@ -8,7 +8,7 @@
                     <a href="javascript:;">重新启动Tomcat</a>
                 </dt>
                 <dd>
-                    <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
+                    <v-system-list v-bind:label="info1" v-bind:list="equList.data" v-on:receive="btnFn"></v-system-list>
                 </dd>
             </dl>
             <div class=" pagination ">
@@ -58,7 +58,7 @@
                 info1: [{
                     'label': '序号',
                     'width': 10,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': 'IP地址',
                     'width': 18,
@@ -78,7 +78,7 @@
                 }, {
                     'label': '操作',
                     'width': 15,
-                    'btn': { 'delete': true, 'edit': true }
+                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
                 equList: {
                     total: 9,
@@ -133,6 +133,21 @@
                     }]
                 }
             };
+        },
+        methods: {
+            //子组件按钮
+            btnFn(val) {
+                this[val]();
+            },
+            //删除操作
+            deleteFn() {
+                // alert(2);
+            },
+            //编辑操作
+            editFn() {
+                // alert(3);
+            }
+
         }
     };
 </script>

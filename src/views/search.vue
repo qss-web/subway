@@ -59,8 +59,8 @@
         <!-- <v-search-list v-bind:label="equLabe4" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list> -->
         <div class="others" v-if="indexed==5">
             <ul class="title">
-                <li v-on:click="subOther=true" v-bind:class="{active:subOther==true}">巡视巡检</li>
-                <li v-on:click=" subOther=false " v-bind:class="{active:subOther==false}">故障库</li>
+                <li v-on:click="otherFn(true)" v-bind:class="{active:subOther==true}">巡视巡检</li>
+                <li v-on:click="otherFn(false)" v-bind:class="{active:subOther==false}">故障库</li>
             </ul>
             <v-search-list v-if="subOther " v-bind:label="equLabe5 " v-bind:other="otherInfo " v-bind:list="equList.data "></v-search-list>
             <v-search-list v-if="!subOther " v-bind:label="equLabe4 " v-bind:other="otherInfo " v-bind:list="equList.data "></v-search-list>
@@ -75,6 +75,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -102,7 +103,7 @@
                 equLabel: [{
                     'label': '序号',
                     'width': 8,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '线路',
                     'width': 11,
@@ -153,7 +154,7 @@
                 equLabe2: [{
                     'label': '序号',
                     'width': 5,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '车站',
                     'width': 15,
@@ -178,7 +179,7 @@
                 equLabe3: [{
                     'label': '序号',
                     'width': 8,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '故障单号',
                     'width': 9,
@@ -231,7 +232,7 @@
                 equLabe4: [{
                     'label': '序号',
                     'width': 5,
-                    'value': 'company'
+                    'value': 'index'
                 }, {
                     'label': '设备类型编码',
                     'width': 10,
@@ -268,7 +269,7 @@
                 equLabe5: [{
                     'label': '序号',
                     'width': 9,
-                    'value': 'company'
+                    'value': 'index'
                 }, {
                     'label': '线路',
                     'width': 13,
@@ -412,9 +413,23 @@
                 }
             };
         },
+        created() {
+            this.queryCountFn();
+            this.queryFn1();
+        },
         methods: {
+            ...mapActions(['_getList']),
             currentList(index) {
                 this.indexed = index;
+                this['queryFn' + index]();
+            },
+            otherFn(value) {
+                this.subOther = value;
+                if(value) {
+                    this.queryFn5();
+                } else {
+                    this.queryFaultlibraryFn();
+                }
             },
             //改变当前页数
             changePages(val) {
@@ -423,6 +438,82 @@
             },
             isPopFn(value) {
                 this.isPop = value;
+            },
+            queryCountFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'queryCount',
+                    callback: () => {
+
+                    }
+                });
+            },
+            queryFn1() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'queryDevice',
+                    callback: () => {
+
+                    }
+                });
+            },
+            //预警信息
+            // TODO 缺少预警信息
+            queryFn2() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'queryDevice',
+                    callback: () => {
+
+                    }
+                });
+            },
+            //故障报修
+            queryFn3() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'queryFault',
+                    callback: () => {
+
+                    }
+                });
+            },
+            //图片
+            queryFn4() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'queryPic',
+                    callback: () => {
+
+                    }
+                });
+            },
+            //其他--巡视巡检
+            queryFn5() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'queryInspect',
+                    callback: () => {
+
+                    }
+                });
+            },
+            //其他--故障库
+            queryFaultlibraryFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'queryFaultlibrary',
+                    callback: () => {
+
+                    }
+                });
             }
         }
     };

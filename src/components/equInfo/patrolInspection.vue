@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -48,7 +49,7 @@
                 info1: [{
                     'label': '序号',
                     'width': 6,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '类别',
                     'width': 10,
@@ -81,7 +82,6 @@
                 equList: {
                     total: 9,
                     data: [{
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -90,7 +90,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -99,7 +98,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -108,7 +106,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -117,7 +114,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -126,7 +122,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -135,7 +130,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -144,7 +138,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -153,7 +146,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -162,7 +154,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -171,7 +162,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -180,7 +170,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -189,7 +178,6 @@
                         record: '巡视巡检情况记录',
                         executor: '执行人'
                     }, {
-                        num: '1',
                         sort: '类别',
                         installStations: '安装车站',
                         equNum: '设备编号',
@@ -200,6 +188,33 @@
                     }]
                 }
             };
+        },
+        created() {
+            this.infoCheckFn();
+            this.infoCheckListFn();
+        },
+        methods: {
+            ...mapActions(['_getList']),
+            infoCheckFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'infoCheck',
+                    callback: () => {
+
+                    }
+                });
+            },
+            infoCheckListFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'infoCheckList',
+                    callback: () => {
+
+                    }
+                });
+            }
         }
     };
 </script>

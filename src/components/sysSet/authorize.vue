@@ -11,20 +11,28 @@
                 </dt>
                 <dd v-if="isRole">
                     <ul>
-                        <li>我是角色一</li>
-                        <li>我是角色二</li>
+                        <li v-bind:class="{ active: roleIndex == index }" v-for="(item, index) in roleList" v-on:click="roleFn(index)">
+                            <span>{{item.value}}</span>
+                            <span class="icon">
+                                <i class="el-icon-check"></i>
+                            </span>
+                        </li>
                     </ul>
                 </dd>
                 <dd v-else>
                     <ul>
-                        <li>16748950989</li>
-                        <li>16783798768</li>
+                        <li v-bind:class="{ active: telIndex == index }" v-for="(item, index) in telList" v-on:click="telFn(index)">
+                            <span>{{item.value}}</span>
+                            <span class="icon">
+                                <i class="el-icon-check"></i>
+                            </span>
+                        </li>
                     </ul>
                 </dd>
             </dl>
             <div class="right">
                 <div class="middleKey">
-                    <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
+                    <v-system-list v-bind:label="info1" v-bind:list="equList.data" v-on:receive="btnFn"></v-system-list>
                 </div>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
@@ -40,14 +48,25 @@
         data() {
             return {
                 isRole: true, //选项卡
+                roleIndex: 1,
+                roleList: [{
+                    key: 1,
+                    value: '角色一'
+                }, {
+                    key: 2,
+                    value: '角色二'
+                }],
+                telIndex: 1,
+                telList: [{
+                    key: 1,
+                    value: '12345678909'
+                }, {
+                    key: 2,
+                    value: '12345678909'
+                }],
                 searchData: {
                     'btnShow': {
-                        'add': true,
-                        'export': false,
-                        'delete': true,
-                        'edit': false,
-                        'download': false,
-                        'import': false
+                        'add': true
                     },
                     'options': [{
                         'status': 1,
@@ -60,7 +79,7 @@
                 info1: [{
                     'label': '序号',
                     'width': 10,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': 'IP地址',
                     'width': 18,
@@ -80,7 +99,7 @@
                 }, {
                     'label': '操作',
                     'width': 15,
-                    'btn': { 'delete': true, 'edit': true }
+                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
                 equList: {
                     total: 9,
@@ -141,6 +160,26 @@
                     }]
                 }
             };
+        },
+        methods: {
+            //子组件按钮
+            btnFn(val) {
+                this[val]();
+            },
+            //删除操作
+            deleteFn() {
+                // alert(2);
+            },
+            //编辑操作
+            editFn() {
+                // alert(3);
+            },
+            roleFn(index) {
+                this.roleIndex = index;
+            },
+            telFn(index) {
+                this.telIndex = index;
+            }
         }
     };
 </script>
@@ -196,6 +235,22 @@
                         line-height: 0.36rem;
                         color: #2f4554;
                         font-size: 0.18rem;
+                        text-indent: 1em;
+                        overflow: hidden;
+                        cursor: pointer;
+                        span.icon {
+                            float: right;
+                            display: none;
+                            margin-right: 0.2rem;
+                        }
+                    }
+                    li.active {
+                        background: rgba(124, 130, 152, 0.4);
+                        color: #fff;
+                        border-radius: 5px;
+                        span.icon {
+                            display: inline-block;
+                        }
                     }
                 }
             }

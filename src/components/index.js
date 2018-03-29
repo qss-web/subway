@@ -49,6 +49,7 @@ import runniState from './sysSet/runniState'; //当前设备运行状态
 import timeManagement from './sysSet/timeManagement'; //运行时间管理
 import menu from './sysSet/menu'; //菜单管理
 import maintenanceSheet from './maintenanceSheet'; //报修单
+import popBox from './popBox'; //增加编辑等弹出框
 
 export default {
   header,
@@ -101,5 +102,6 @@ export default {
   timeManagement,
   equ,
   maintenanceSheet,
-  menu
+  menu,
+  popBox
 };

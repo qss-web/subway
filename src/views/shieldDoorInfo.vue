@@ -166,7 +166,7 @@
                     label: [{
                         'label': '序号',
                         'width': 10,
-                        'value': 'num'
+                        'value': 'index'
                     }, {
                         'label': '设备名称',
                         'width': 25,
@@ -224,7 +224,7 @@
                     label: [{
                         'label': '序号',
                         'width': 9,
-                        'value': 'num'
+                        'value': 'index'
                     }, {
                         'label': '设备名称',
                         'width': 9,

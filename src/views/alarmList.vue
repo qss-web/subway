@@ -105,7 +105,7 @@
                 info1: [{
                     'label': '序号',
                     'width': 5,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '车站',
                     'width': 18,
@@ -221,7 +221,6 @@
         },
         props: ['list', 'label', 'checked'],
         created() {
-            this.test();
             this.test2();
         },
         methods: {
@@ -240,16 +239,6 @@
             //子组件按钮
             btnFn(val) {
                 this[val]();
-            },
-            test() {
-                this._getList({
-                    ops: {},
-                    method: 'get',
-                    api: 'testtest',
-                    callback: () => {
-                        console.log(111);
-                    }
-                });
             },
             test2() {
                 this._getList({

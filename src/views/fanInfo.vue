@@ -88,7 +88,7 @@
                     label: [{
                         'label': '序号',
                         'width': 20,
-                        'value': 'num'
+                        'value': 'index'
                     }, {
                         'label': '设备名称',
                         'width': 25,

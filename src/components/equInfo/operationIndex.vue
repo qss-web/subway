@@ -28,6 +28,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -64,7 +65,7 @@
                 info1: [{
                     'label': '序号',
                     'width': 10,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '所属车站',
                     'width': 15,
@@ -93,7 +94,6 @@
                 equList: {
                     total: 9,
                     data: [{
-                        num: '1',
                         station: '所属车站5',
                         equSys: '设备系统5',
                         equNum: '设备编号5',
@@ -101,7 +101,6 @@
                         equStatus: '设备状态5',
                         time: '状态变更时间5'
                     }, {
-                        num: '2',
                         station: '所属车站',
                         equSys: '设备系统',
                         equNum: '设备编号',
@@ -109,7 +108,6 @@
                         equStatus: '设备状态',
                         time: '状态变更时间'
                     }, {
-                        num: '3',
                         station: '所属车站',
                         equSys: '设备系统',
                         equNum: '设备编号',
@@ -117,7 +115,6 @@
                         equStatus: '设备状态',
                         time: '状态变更时间'
                     }, {
-                        num: '4',
                         station: '所属车站',
                         equSys: '设备系统',
                         equNum: '设备编号',
@@ -125,7 +122,6 @@
                         equStatus: '设备状态',
                         time: '状态变更时间'
                     }, {
-                        num: '5',
                         station: '所属车站',
                         equSys: '设备系统',
                         equNum: '设备编号',
@@ -133,7 +129,6 @@
                         equStatus: '设备状态',
                         time: '状态变更时间'
                     }, {
-                        num: '6',
                         station: '所属车站',
                         equSys: '设备系统',
                         equNum: '设备编号',
@@ -141,7 +136,6 @@
                         equStatus: '设备状态',
                         time: '状态变更时间'
                     }, {
-                        num: '7',
                         station: '所属车站',
                         equSys: '设备系统',
                         equNum: '设备编号',
@@ -149,7 +143,6 @@
                         equStatus: '设备状态',
                         time: '状态变更时间'
                     }, {
-                        num: '8',
                         station: '所属车站',
                         equSys: '设备系统',
                         equNum: '设备编号',
@@ -157,7 +150,6 @@
                         equStatus: '设备状态',
                         time: '状态变更时间'
                     }, {
-                        num: '9',
                         station: '所属车站',
                         equSys: '设备系统',
                         equNum: '设备编号',
@@ -165,7 +157,6 @@
                         equStatus: '设备状态',
                         time: '状态变更时间'
                     }, {
-                        num: '10',
                         station: '所属车站',
                         equSys: '设备系统',
                         equNum: '设备编号',
@@ -173,7 +164,6 @@
                         equStatus: '设备状态',
                         time: '状态变更时间'
                     }, {
-                        num: '11',
                         station: '所属车站',
                         equSys: '设备系统',
                         equNum: '设备编号',
@@ -183,6 +173,33 @@
                     }]
                 }
             };
+        },
+        created() {
+            this.infoRunFn();
+            this.infoRunListFn();
+        },
+        methods: {
+            ...mapActions(['_getList']),
+            infoRunFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'infoRun',
+                    callback: () => {
+
+                    }
+                });
+            },
+            infoRunListFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'infoRunList',
+                    callback: () => {
+
+                    }
+                });
+            }
         }
     };
 </script>

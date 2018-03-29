@@ -4,29 +4,47 @@
             <v-sub-search v-bind:searchData="searchData"></v-sub-search>
         </div>
         <div class="middleKey">
-            <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
+            <v-system-list v-bind:label="info1" v-bind:list="equList.data" v-on:receive="btnFn"></v-system-list>
         </div>
         <div class=" pagination ">
             <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
                 <span>1/1</span>
             </el-pagination>
         </div>
-    </div>
+        <v-pop-box v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
     </div>
 </template>
 <script>
     export default {
         data() {
             return {
+                isShowPop: false,
+                popData1: {
+                    'titleTotal': '编辑操作方式',
+                    'options': [{
+                        'status': 2,
+                        'title': '操作方式',
+                        'placeholder': '请选择操作方式',
+                        'val': 'userName',
+                        'list': [{
+                            value: '1',
+                            label: '未设置'
+                        }, {
+                            value: '2',
+                            label: '手动操作'
+                        }, {
+                            value: '3',
+                            label: '自动同步'
+                        }, {
+                            value: '4',
+                            label: '默认未设置'
+                        }]
+                    }],
+                    popSave(val) { }
+                },
                 searchData: {
                     'btnShow': {
-                        'add': true,
-                        'export': true,
-                        'delete': true,
-                        'edit': false,
-                        'download': false,
-                        'import': false,
-                        'save': false
+                        'export': true
                     },
                     'options': [{
                         'status': 2,
@@ -90,7 +108,7 @@
                 },
                 info1: [{
                     'label': '公司名称',
-                    'width': 20,
+                    'width': 15,
                     'value': 'num'
                 }, {
                     'label': '线路名称',
@@ -106,8 +124,12 @@
                     'value': 'type'
                 }, {
                     'label': '操作方式',
-                    'width': 20,
-                    'select': ['未设置', '手动操作', '自动同步', '默认未设置']
+                    'width': 15,
+                    'value': 'type'
+                }, {
+                    'label': '操作',
+                    'width': 10,
+                    'btn': [{ 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
                 equList: {
                     total: 9,
@@ -168,6 +190,22 @@
                     }]
                 }
             };
+        },
+        methods: {
+            //子组件按钮
+            btnFn(val) {
+                this[val]();
+            },
+            //编辑操作
+            editFn() {
+                this.isShowPop = true;
+            },
+            saveFn() {
+                this.isShowPop = false;
+            },
+            cancleFn() {
+                this.isShowPop = false;
+            }
         }
     };
 </script>

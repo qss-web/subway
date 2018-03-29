@@ -94,7 +94,7 @@
                 info1: [{
                     'label': '序号',
                     'width': 5,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '线路',
                     'width': 10,

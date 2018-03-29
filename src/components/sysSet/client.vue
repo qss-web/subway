@@ -30,7 +30,7 @@
                 info1: [{
                     'label': '序号',
                     'width': 10,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '名称',
                     'width': 30,

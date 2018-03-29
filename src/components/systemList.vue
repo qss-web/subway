@@ -5,12 +5,11 @@
         </ul>
         <dl class="content">
             <dd v-for="(item, index) in listShow">
-                <div v-for="(item1, index) in label" v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''" v-bind:style="{width:item1.width+'%'}">
+                <div v-for="(item1, index1) in label" v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''" v-bind:style="{width:item1.width+'%'}">
                     <span v-if="item1.value">{{item[item1.value]}}</span>
+                    <span v-if="item1.value == 'index'">{{index+1}}</span>
                     <span v-if="item1.btn">
-                        <a class="btn" href="javascript:;" v-if="item1.btn.delete">删除</a>
-                        <a class="btn" href="javascript:;" v-if="item1.btn.edit">编辑</a>
-                        <a class="btn" href="javascript:;" v-if="item1.btn.childMenu">添加菜单</a>
+                        <a v-for="(subItem,index) in item1.btn" class="btn" v-on:click="goToNextPage(subItem.fn)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <select v-if="item1.select">
                         <option value="1">未设置</option>
@@ -18,10 +17,6 @@
                         <option value="3">自动同步</option>
                         <option value="4">默认未设置</option>
                     </select>
-                    <!-- <el-select v-if="item1.select" v-model="value" placeholder="请选择">
-                        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                        </el-option>
-                    </el-select> -->
                 </div>
             </dd>
         </dl>
@@ -58,6 +53,9 @@
             });
         },
         methods: {
+            goToNextPage(fn) {
+                this.$emit('receive', fn);
+            }
         }
     };
 </script>

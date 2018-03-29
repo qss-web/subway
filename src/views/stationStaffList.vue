@@ -19,6 +19,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -109,7 +110,7 @@
                 info1: [{
                     'label': '序号',
                     'width': 5,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '车站',
                     'width': 10,
@@ -254,7 +255,11 @@
             };
         },
         props: ['list', 'label', 'checked'],
+        created() {
+            this.stationListFn();
+        },
         methods: {
+            ...mapActions(['_getList']),
             currentList(index) {
                 this.indexed = index;
             },
@@ -262,6 +267,16 @@
             changePages(val) {
                 this.currentPage = val;
                 // this.list();
+            },
+            stationListFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'stationList',
+                    callback: () => {
+
+                    }
+                });
             }
         }
     };

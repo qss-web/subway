@@ -108,7 +108,7 @@
                 info1: [{
                     'label': '序号',
                     'width': 5,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '车站',
                     'width': 18,

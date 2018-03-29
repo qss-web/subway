@@ -41,8 +41,8 @@ module.exports = {
 
     cssSourceMap: false,
     proxyTable: {
-      '/api': {
-        target: 'https://platform-dev.qms888.com',
+      '/bjdt': {
+        target: 'http://localhost:8080',
         changeOrigin: true,
         pathRewrite: {
           '^/proxy': ''

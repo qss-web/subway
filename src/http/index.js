@@ -83,7 +83,7 @@ const htp = axios.create({
 });
 
 // 处理接口规范的公有方法
-const xhr = ({ method = 'post', ur, options = {} }) => {
+const xhr = ({ method = 'get', ur, options = {} }) => {
   let p,
     m = false;
   let load = { close: () => {} };
@@ -104,7 +104,7 @@ const xhr = ({ method = 'post', ur, options = {} }) => {
     case 'get':
       p = new Promise(function(resolve, reject) {
         htp
-          .get(api[ur] + '?token=' + ops.token, {
+          .get(api[ur], {
             params: ops
           })
           .then(
@@ -127,7 +127,7 @@ const xhr = ({ method = 'post', ur, options = {} }) => {
       break;
     case 'post':
       p = new Promise(function(resolve, reject) {
-        htp.post(api[ur] + '?token=' + ops.token, ops).then(
+        htp.post(api[ur], ops).then(
           response => {
             m = true;
             load.close();

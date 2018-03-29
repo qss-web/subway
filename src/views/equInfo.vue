@@ -170,208 +170,44 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
-                tabShow: 1,
-                currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
-                searchData: {
-                    'options': [{
-                        'status': 2,
-                        'title': '线路',
-                        'placeholder': '请选择内容',
-                        'val': 'lines',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
-                    }, {
-                        'status': 2,
-                        'title': '车站',
-                        'placeholder': '请选择内容',
-                        'val': 'stations',
-                        'list': [{
-                            value: '1',
-                            label: '金安桥站'
-                        }, {
-                            value: '2',
-                            label: '苹果园站'
-                        }, {
-                            value: '3',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '4',
-                            label: '西黄村站'
-                        }, {
-                            value: '5',
-                            label: '廖公庄站'
-                        }, {
-                            value: '6',
-                            label: '田村站'
-                        }]
-                    }, {
-                        'status': 2,
-                        'title': '设备系统',
-                        'placeholder': '请选择内容',
-                        'val': 'equSys',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
-                    }, {
-                        'status': 2,
-                        'title': '设备类型',
-                        'placeholder': '请选择内容',
-                        'val': 'equSort',
-                        'list': [{
-                            value: '1',
-                            label: '设备类型一'
-                        }, {
-                            value: '2',
-                            label: '测试类型二'
-                        }]
-                    }, {
-                        'status': 3,
-                        'title': '时间',
-                        'placeholderS': '选择开始日期',
-                        'placeholderE': '选择结束日期',
-                        'val1': 'startTime',
-                        'val2': 'endTime'
-                    }],
-                    popSave() { }
-                },
-                otherInfo: {
-                    isCheck: true, //是否显示多选框
-                    style: 2 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
-                },
-                info1: [{
-                    'label': '序号',
-                    'width': 10,
-                    'value': 'num'
-                }, {
-                    'label': '设备名称',
-                    'width': 15,
-                    'value': 'equName'
-                }, {
-                    'label': '时间',
-                    'width': 13,
-                    'value': 'time'
-                }, {
-                    'label': '车站',
-                    'width': 13,
-                    'value': 'station'
-                }, {
-                    'label': '预警事件',
-                    'width': 15,
-                    'value': 'alarmEvent'
-                }, {
-                    'label': '状态',
-                    'width': 15,
-                    'value': 'status'
-                }, {
-                    'label': '操作',
-                    'width': 15,
-                    'value': 'operationInfo'
-                }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '状态',
-                        operationInfo: '操作'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '状态',
-                        operationInfo: '操作'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '状态',
-                        operationInfo: '操作'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '状态',
-                        operationInfo: '操作'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '状态',
-                        operationInfo: '操作'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '状态',
-                        operationInfo: '操作'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '状态',
-                        operationInfo: '操作'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '状态',
-                        operationInfo: '操作'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '状态',
-                        operationInfo: '操作'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '状态',
-                        operationInfo: '操作'
-                    }]
-                }
+                tabShow: 1
             };
         },
         props: ['list', 'label', 'checked'],
+        created() {
+            this.getInfoListFn();
+            this.getInfoDetailFn();
+        },
         methods: {
+            ...mapActions(['_getList']),
+            //设备档案列表
+            getInfoListFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'infoList',
+                    callback: () => {
+
+                    }
+                });
+            },
+            //设备档案详情
+            getInfoDetailFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'infoDetail',
+                    callback: () => {
+
+                    }
+                });
+            },
             currentList(index) {
                 this.indexed = index;
-            },
-            //改变当前页数
-            changePages(val) {
-                this.currentPage = val;
-                // this.list();
             },
             tabShowFn(index) {
                 this.tabShow = index;

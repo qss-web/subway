@@ -1,14 +1,14 @@
 <template>
     <div class="setup">
         <ul class="tabTitle">
-            <li v-on:click="tabShow=1" v-bind:class="tabShow==1?'active':''">设备信息</li>
-            <li v-on:click="tabShow=2" v-bind:class="tabShow==2?'active':''">故障库</li>
-            <li v-on:click="tabShow=3" v-bind:class="tabShow==3?'active':''">系统设置</li>
-            <li v-on:click="tabShow=4" v-bind:class="tabShow==4?'active':''">人员情况统计</li>
+            <li v-on:click="currentList(1)" v-bind:class="tabShow==1?'active':''">设备信息</li>
+            <li v-on:click="currentList(2)" v-bind:class="tabShow==2?'active':''">故障库</li>
+            <li v-on:click="currentList(3)" v-bind:class="tabShow==3?'active':''">系统设置</li>
+            <li v-on:click="currentList(4)" v-bind:class="tabShow==4?'active':''">人员情况统计</li>
         </ul>
         <div class="equWrap" v-if="tabShow==1">
             <div class="searchWrap">
-                <v-sub-search v-on:receive="testPop" v-bind:searchData="searchData"></v-sub-search>
+                <v-sub-search v-on:receive="btnShowPopFn" v-bind:searchData="searchData"></v-sub-search>
             </div>
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo1" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
@@ -21,7 +21,7 @@
         </div>
         <div class="equWrap" v-if="tabShow==2">
             <div class="searchWrap">
-                <v-sub-search v-on:receive="testPop" v-bind:searchData="searchData01"></v-sub-search>
+                <v-sub-search v-on:receive="btnShowPopFn" v-bind:searchData="searchData01"></v-sub-search>
             </div>
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info2" v-bind:list="equList.data"></v-search-list>
@@ -37,7 +37,7 @@
         </div>
         <div class="equWrap" v-if="tabShow==4">
             <div class="searchWrap">
-                <v-sub-search v-on:receive="testPop" v-bind:searchData="searchData02"></v-sub-search>
+                <v-sub-search v-on:receive="btnShowPopFn" v-bind:searchData="searchData02"></v-sub-search>
             </div>
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info3" v-bind:list="equList.data"></v-search-list>
@@ -49,69 +49,97 @@
             </div>
         </div>
         <v-goback></v-goback>
-
-        <el-dialog :visible.sync="isShowUnitAccount" :modal="false" :show-close="false" custom-class="unit-account" top="1.6rem">
-            <div slot="title" class="unit-account-dialog-header">增加机组台账</div>
-            <el-form :inline="true" label-position="left" label-width="1.6rem" :model="unitAccount" class="unit-account-dialog-body">
-                <el-form-item label="线路" class="unit-account-form-label">
-                    <el-select v-model="unitAccount.line" placeholder="请选择" popper-class="unit-account-select">
-                        <el-option label="线路1" value="" class="unit-account-select-option"></el-option>
-                        <el-option label="线路2" value="" class="unit-account-select-option"></el-option>
-                        <el-option label="线路3" value="" class="unit-account-select-option"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="车站">
-                    <el-select v-model="unitAccount.station" placeholder="请选择" popper-class="unit-account-select">
-                        <el-option label="车站1" value="" class="unit-account-select-option"></el-option>
-                        <el-option label="车站2" value="" class="unit-account-select-option"></el-option>
-                        <el-option label="车站3" value="" class="unit-account-select-option"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="出口位置">
-                    <el-select v-model="unitAccount.exit" placeholder="请选择" popper-class="unit-account-select">
-                        <el-option label="出口位置1" value="" class="unit-account-select-option"></el-option>
-                        <el-option label="出口位置2" value="" class="unit-account-select-option"></el-option>
-                        <el-option label="出口位置3" value="" class="unit-account-select-option"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="设备名称">
-                    <el-select v-model="unitAccount.name" placeholder="请选择" popper-class="unit-account-select">
-                        <el-option label="设备名称1" value="" class="unit-account-select-option"></el-option>
-                        <el-option label="设备名称2" value="" class="unit-account-select-option"></el-option>
-                        <el-option label="设备名称3" value="" class="unit-account-select-option"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="设备系统">
-                    <el-select v-model="unitAccount.system" placeholder="请选择" popper-class="unit-account-select">
-                        <el-option label="设备系统1" value="" class="unit-account-select-option"></el-option>
-                        <el-option label="设备系统2" value="" class="unit-account-select-option"></el-option>
-                        <el-option label="设备系统3" value="" class="unit-account-select-option"></el-option>
-                    </el-select>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="unit-account-dialog-footer" :center="true">
-                <el-button type="primary" @click="goToFn">确定</el-button>
-                <el-button @click="isShowUnitAccount = false">取消</el-button>
-            </div>
-        </el-dialog>
+        <v-pop-box v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
     </div>
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
                 tabShow: 1,
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
-                isShowUnitAccount: false,
+                isShowPop: false,
                 unitAccount: {},
+                popData1: {
+                    'titleTotal': '测试测试',
+                    'options': [{
+                        'status': 2,
+                        'title': '线路',
+                        'placeholder': '请选择内容',
+                        'val': 'lines',
+                        'list': [{
+                            value: '1',
+                            label: '6号线'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '车站',
+                        'placeholder': '请选择内容',
+                        'val': 'stations',
+                        'list': [{
+                            value: '1',
+                            label: '金安桥站'
+                        }, {
+                            value: '2',
+                            label: '苹果园站'
+                        }, {
+                            value: '3',
+                            label: '苹果园南路站'
+                        }, {
+                            value: '4',
+                            label: '西黄村站'
+                        }, {
+                            value: '5',
+                            label: '廖公庄站'
+                        }, {
+                            value: '6',
+                            label: '田村站'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '设备名称',
+                        'placeholder': '请选择内容',
+                        'val': 'equSort',
+                        'list': [{
+                            value: '1',
+                            label: '设备名称1'
+                        }, {
+                            value: '2',
+                            label: '设备名称2'
+                        }, {
+                            value: '3',
+                            label: '设备名称3'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '设备系统',
+                        'placeholder': '请选择内容',
+                        'val': 'equSys',
+                        'list': [{
+                            value: '1',
+                            label: '设备系统1'
+                        }, {
+                            value: '2',
+                            label: '设备系统2'
+                        }, {
+                            value: '3',
+                            label: '设备系统3'
+                        }]
+                    }, {
+                        'status': 1,
+                        'title': '位置',
+                        'placeholder': '请输入内容',
+                        'val': 'exportAddress'
+                    }],
+                    popSave(val) { }
+                },
                 searchData: {
                     'btnShow': {
                         'add': true,
-                        'export': false,
                         'delete': true,
-                        'edit': false,
                         'download': true,
                         'import': true,
                         'synchronization': true
@@ -182,11 +210,9 @@
                 searchData01: {
                     'btnShow': {
                         'add': true,
-                        'export': false,
                         'delete': true,
                         'edit': true,
-                        'download': true,
-                        'import': false
+                        'download': true
                     },
                     'options': [{
                         'status': 2,
@@ -238,12 +264,7 @@
                 },
                 searchData02: {
                     'btnShow': {
-                        'add': false,
-                        'export': true,
-                        'delete': false,
-                        'edit': false,
-                        'download': false,
-                        'import': false
+                        'export': true
                     },
                     'options': [{
                         'status': 2,
@@ -342,7 +363,7 @@
                 info1: [{
                     'label': '序号',
                     'width': 5,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '线路',
                     'width': 15,
@@ -379,7 +400,7 @@
                 info2: [{
                     'label': '序号',
                     'width': 5,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '设备类型编码',
                     'width': 10,
@@ -416,7 +437,7 @@
                 info3: [{
                     'label': '序号',
                     'width': 5,
-                    'value': 'num'
+                    'value': 'index'
                 }, {
                     'label': '人员名称',
                     'width': 10,
@@ -445,84 +466,72 @@
                 equList: {
                     total: 9,
                     data: [{
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
                         faultTime: '20',
                         faultNum: '300'
                     }, {
-                        num: '序1',
                         equType: '设备类型',
                         alarmCode: '02',
                         alarmName: '预警原因名称',
@@ -534,20 +543,39 @@
         },
         props: ['list', 'label', 'checked'],
         methods: {
+            ...mapActions(['_getList']),
             currentList(index) {
-                this.indexed = index;
+                this.tabShow = index;
+                if(index == 4) {
+                    this.staffStatisticsFn();
+                }
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
                 // this.list();
             },
-            testPop(value) {
-                console.log(value);
-                this.isShowUnitAccount = value;
+            btnShowPopFn(value) {
+                this.isShowPop = value;
             },
-            goToFn() {
-                this.isShowUnitAccount = false;
+            staffStatisticsFn() {
+                this._getList({
+                    ops: {},
+                    method: 'get',
+                    api: 'staffStatistics',
+                    callback: () => {
+
+                    }
+                });
+            },
+            //关闭弹出框
+            cancleFn(value) {
+                this.isShowPop = value;
+            },
+            //关闭弹出框并保存数据
+            saveFn(value) {
+                // console.log(value);
+                this.isShowPop = true;
                 this.$router.push('/equInfo');
             }
         }
