@@ -1,24 +1,24 @@
 <template>
     <div>
-        <v-search></v-search>
+        <v-search v-on:receive="fifterBtn"></v-search>
         <dl class="middleSort clearfix">
             <dd v-on:click="currentList(1)" v-bind:class="indexed == 1 ?'active':''">
-                <p>设备档案 <span>{{equList.amount1}}份</span></p>
+                <p>设备档案 <span>{{count.archives}}份</span></p>
                 <img v-if="indexed!=1" src="../assets/search/sort01_gray.png" />
                 <img v-if="indexed==1" src="../assets/search/sort01_orange.png" />
             </dd>
             <dd v-on:click="currentList(2)" v-bind:class="indexed == 2 ?'active':''">
-                <p>预警信息 <span>{{equList.amount2}}份</span></p>
+                <p>预警信息 <span>{{count.warnInfo}}份</span></p>
                 <img v-if="indexed!=2" src="../assets/search/sort02_gray.png" />
                 <img v-if="indexed==2" src="../assets/search/sort02_orange.png" />
             </dd>
             <dd v-on:click="currentList(3)" v-bind:class="indexed == 3 ?'active':''">
-                <p>故障报修单 <span>{{equList.amount3}}份</span></p>
+                <p>故障报修单 <span>{{count.fault}}份</span></p>
                 <img v-if="indexed!=3" src="../assets/search/sort03_gray.png" />
                 <img v-if="indexed==3" src="../assets/search/sort03_orange.png" />
             </dd>
             <dd v-on:click="currentList(4)" v-bind:class="indexed == 4 ?'active':''">
-                <p>图片 <span>{{equList.amount4}}张</span></p>
+                <p>图片 <span>{{count.picture}}张</span></p>
                 <img v-if="indexed!=4" src="../assets/search/sort04_gray.png" />
                 <img v-if="indexed==4" src="../assets/search/sort04_orange.png" />
             </dd>
@@ -28,46 +28,29 @@
                 <img v-if="indexed==5" src="../assets/search/sort05_orange.png" />
             </dd>
         </dl>
-        <v-search-list v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="equList.data"></v-search-list>
-        <v-search-list v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list>
-        <v-search-list v-if="indexed==3" v-on:isPop="isPopFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="equList.data"></v-search-list>
+        <v-search-list v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list"></v-search-list>
+        <v-search-list v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="list"></v-search-list>
+        <v-search-list v-if="indexed==3" v-on:isPop="isPopFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list"></v-search-list>
         <div class="showPic" v-if="indexed==4">
             <img class="border-bg" src="../assets/other/footer-border.png" />
             <ul class="flex">
-                <li>
-                    <img src="../assets/search/pic01.png" />
-                    <p>故障图片201803201020</p>
-                </li>
-                <li>
-                    <img src="../assets/search/pic02.png" />
-                    <p>故障图片201803201020</p>
-                </li>
-                <li>
-                    <img src="../assets/search/pic03.png" />
-                    <p>故障图片201803201020</p>
-                </li>
-                <li>
-                    <img src="../assets/search/pic02.png" />
-                    <p>故障图片201803201020</p>
-                </li>
-                <li>
-                    <img src="../assets/search/pic01.png" />
-                    <p>故障图片201803201020</p>
+                <li v-for="(item, index) in picList">
+                    <img v-bind:src="item.url" />
+                    <p>{{item.name}}</p>
                 </li>
             </ul>
         </div>
-        <!-- <v-search-list v-bind:label="equLabe4" v-bind:other="otherInfo" v-bind:list="equList.data"></v-search-list> -->
         <div class="others" v-if="indexed==5">
             <ul class="title">
                 <li v-on:click="otherFn(true)" v-bind:class="{active:subOther==true}">巡视巡检</li>
                 <li v-on:click="otherFn(false)" v-bind:class="{active:subOther==false}">故障库</li>
             </ul>
-            <v-search-list v-if="subOther " v-bind:label="equLabe5 " v-bind:other="otherInfo " v-bind:list="equList.data "></v-search-list>
-            <v-search-list v-if="!subOther " v-bind:label="equLabe4 " v-bind:other="otherInfo " v-bind:list="equList.data "></v-search-list>
+            <v-search-list v-if="subOther " v-bind:label="equLabe5 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
+            <v-search-list v-if="!subOther " v-bind:label="equLabe4 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
         </div>
         <div v-bind:class="indexed==5? 'pagination5': 'pagination' ">
-            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
+            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="totalPage" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage}}/{{totalPage}}</span>
             </el-pagination>
         </div>
         <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn"></v-maintenance-sheet>
@@ -79,10 +62,12 @@
     export default {
         data() {
             return {
+                list: [],
                 isPop: false,
                 indexed: 1,
                 currentPage: 1, //当前页数
                 pageSize: 8, //每页显示数量
+                totalPage: 1, //总页数
                 otherInfo: {
                     isCheck: true, //是否显示多选框
                     style: 1 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
@@ -100,6 +85,7 @@
                     isClick: true
                 },
                 subOther: true, //其它子菜单二选一
+                count: {},
                 equLabel: [{
                     'label': '序号',
                     'width': 8,
@@ -115,7 +101,7 @@
                 }, {
                     'label': '设备编号',
                     'width': 11,
-                    'value': 'company'
+                    'value': 'equNum'
                 }, {
                     'label': '设备名称',
                     'width': 11,
@@ -136,21 +122,7 @@
                     'label': '规格型号',
                     'width': 11,
                     'value': 'standard'
-                }
-                    // {
-                    //     'label': '项目部',
-                    //     'width': 8,
-                    //     'value': 'project'
-                    // }, {
-                    //     'label': '安装合同编号',
-                    //     'width': 8,
-                    //     'value': 'contract'
-                    // }, {
-                    //     'label': '品牌',
-                    //     'width': 8,
-                    //     'value': 'brand'
-                    // }
-                ],
+                }],
                 equLabe2: [{
                     'label': '序号',
                     'width': 5,
@@ -183,51 +155,43 @@
                 }, {
                     'label': '故障单号',
                     'width': 9,
-                    'value': 'company'
+                    'value': 'faultNum'
                 }, {
                     'label': '线路',
                     'width': 8,
-                    'value': 'station'
+                    'value': 'line'
                 }, {
                     'label': '车站',
                     'width': 8,
-                    'value': 'equSystem'
+                    'value': 'station'
                 }, {
                     'label': '设备安装位置',
                     'width': 9,
-                    'value': 'contract'
+                    'value': 'address'
                 }, {
                     'label': '设备编号',
                     'width': 9,
-                    'value': 'address'
+                    'value': 'equNum'
                 }, {
                     'label': '故障系统',
                     'width': 9,
-                    'value': 'brand'
+                    'value': 'faultSys'
                 }, {
                     'label': '故障现象',
                     'width': 9,
-                    'value': 'line'
+                    'value': 'faultAppear'
                 }, {
                     'label': '修复时间',
                     'width': 9,
-                    'value': 'factory'
+                    'value': 'repairTime'
                 }, {
                     'label': '维修人员',
                     'width': 9,
-                    'value': 'standard'
-                },
-
-
-                // {
-                //     'label': '运行公司',
-                //     'width': 8,
-                //     'value': 'project'
-                // },
-                {
+                    'value': 'repairMember'
+                }, {
                     'label': '修复确认',
                     'width': 9,
-                    'value': 'equName'
+                    'value': 'repairConfirm'
                 }],
                 equLabe4: [{
                     'label': '序号',
@@ -236,35 +200,35 @@
                 }, {
                     'label': '设备类型编码',
                     'width': 10,
-                    'value': 'company'
+                    'value': 'equNum'
                 }, {
                     'label': '设备类型',
                     'width': 10,
-                    'value': 'company'
+                    'value': 'equSort'
                 }, {
                     'label': '故障部位编码',
                     'width': 10,
-                    'value': 'company'
+                    'value': 'faultPositionNum'
                 }, {
                     'label': '故障部位',
                     'width': 10,
-                    'value': 'company'
+                    'value': 'faultPosition'
                 }, {
                     'label': '故障原因编码',
                     'width': 10,
-                    'value': 'company'
+                    'value': 'faultReasonNum'
                 }, {
                     'label': '故障原因',
                     'width': 10,
-                    'value': 'company'
+                    'value': 'faultReason'
                 }, {
                     'label': '维修策略编码',
                     'width': 10,
-                    'value': 'company'
+                    'value': 'repairNum'
                 }, {
                     'label': '维修建议',
                     'width': 10,
-                    'value': 'project'
+                    'value': 'repairAdvise'
                 }],
                 equLabe5: [{
                     'label': '序号',
@@ -277,140 +241,30 @@
                 }, {
                     'label': '安装车站',
                     'width': 13,
-                    'value': 'line'
+                    'value': 'station'
                 }, {
                     'label': '设备编号',
                     'width': 13,
-                    'value': 'num'
+                    'value': 'equNum'
                 }, {
                     'label': '日期',
                     'width': 13,
-                    'value': 'company'
+                    'value': 'date'
                 }, {
                     'label': '到达时间',
                     'width': 13,
-                    'value': 'project'
+                    'value': 'arrivalTime'
                 }, {
                     'label': '巡视巡检情况记录',
                     'width': 13,
-                    'value': 'line'
+                    'value': 'record'
                 }, {
                     'label': '执行人',
                     'width': 13,
-                    'value': 'line'
+                    'value': 'executor'
                 }],
-                equList: {
-                    total: 9,
-                    amount1: 39,
-                    amount2: 87,
-                    amount3: 16,
-                    amount4: 57,
-                    data: [{
-                        num: '1',
-                        company: '测试',
-                        project: '测试',
-                        line: '测试',
-                        station: '测试',
-                        equSystem: '测试',
-                        equName: '测试',
-                        contract: '测试',
-                        address: '测试',
-                        brand: '测试',
-                        factory: '测试',
-                        standard: '测试'
-                    }, {
-                        num: '1',
-                        company: '测试',
-                        project: '测试',
-                        line: '测试',
-                        station: '测试',
-                        equSystem: '测试',
-                        equName: '测试',
-                        contract: '测试',
-                        address: '测试',
-                        brand: '测试',
-                        factory: '测试',
-                        standard: '测试'
-                    }, {
-                        num: '1',
-                        company: '测试',
-                        project: '测试',
-                        line: '测试',
-                        station: '测试',
-                        equSystem: '测试',
-                        equName: '测试',
-                        contract: '测试',
-                        address: '测试',
-                        brand: '测试',
-                        factory: '测试',
-                        standard: '测试'
-                    }, {
-                        num: '1',
-                        company: '测试',
-                        project: '测试',
-                        line: '测试',
-                        station: '测试',
-                        equSystem: '测试',
-                        equName: '测试',
-                        contract: '测试',
-                        address: '测试',
-                        brand: '测试',
-                        factory: '测试',
-                        standard: '测试'
-                    }, {
-                        num: '1',
-                        company: '测试',
-                        project: '测试',
-                        line: '测试',
-                        station: '测试',
-                        equSystem: '测试',
-                        equName: '测试',
-                        contract: '测试',
-                        address: '测试',
-                        brand: '测试',
-                        factory: '测试',
-                        standard: '测试'
-                    }, {
-                        num: '1',
-                        company: '测试',
-                        project: '测试',
-                        line: '测试',
-                        station: '测试',
-                        equSystem: '测试',
-                        equName: '测试',
-                        contract: '测试',
-                        address: '测试',
-                        brand: '测试',
-                        factory: '测试',
-                        standard: '测试'
-                    }, {
-                        num: '1',
-                        company: '测试',
-                        project: '测试',
-                        line: '测试',
-                        station: '测试',
-                        equSystem: '测试',
-                        equName: '测试',
-                        contract: '测试',
-                        address: '测试',
-                        brand: '测试',
-                        factory: '测试',
-                        standard: '测试'
-                    }, {
-                        num: '1',
-                        company: '测试',
-                        project: '测试',
-                        line: '测试',
-                        station: '测试',
-                        equSystem: '测试',
-                        equName: '测试',
-                        contract: '测试',
-                        address: '测试',
-                        brand: '测试',
-                        factory: '测试',
-                        standard: '测试'
-                    }]
-                }
+                picList: [],
+                queryInfo: ''
             };
         },
         created() {
@@ -418,9 +272,15 @@
             this.queryFn1();
         },
         methods: {
-            ...mapActions(['_getList']),
+            ...mapActions(['_getList', '_getInfo']),
+            fifterBtn(value) {
+                this['queryFn' + this.indexed](value);
+            },
             currentList(index) {
                 this.indexed = index;
+                this.currentPage = 1;
+                this.totalPage = 1;
+                this.queryInfo = '';
                 this['queryFn' + index]();
             },
             otherFn(value) {
@@ -434,84 +294,155 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.list();
+                this['queryFn' + this.indexed]();
             },
             isPopFn(value) {
                 this.isPop = value;
             },
             queryCountFn() {
-                this._getList({
-                    ops: {},
-                    method: 'get',
+                this._getInfo({
                     api: 'queryCount',
-                    callback: () => {
-
+                    callback: res => {
+                        this.count = res;
+                        // archives: 39, //档案
+                        // warnInfo: 87, //预警信息
+                        // fault: 16, //故障报修单
+                        // picture: 57 //图片
                     }
                 });
             },
-            queryFn1() {
-                this._getList({
-                    ops: {},
-                    method: 'get',
-                    api: 'queryDevice',
-                    callback: () => {
+            queryFn1(value) {
+                const ops = {
+                    curPage: this.currentPage,
+                    pageSize: this.pageSize
+                };
 
+                if(value) {
+                    Object.assign(ops, { "queryInfo": value });
+                }
+
+                this._getList({
+                    ops: ops,
+                    api: 'queryDevice',
+                    callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.list = res.rows;
+                        this.totalPage = res.total;
                     }
                 });
             },
             //预警信息
-            // TODO 缺少预警信息
-            queryFn2() {
-                this._getList({
-                    ops: {},
-                    method: 'get',
-                    api: 'queryDevice',
-                    callback: () => {
+            queryFn2(value) {
+                const ops = {
+                    curPage: this.currentPage,
+                    pageSize: this.pageSize
+                };
 
+                if(value) {
+                    Object.assign(ops, { "queryInfo": value });
+                }
+
+                this._getList({
+                    ops: ops,
+                    api: 'queryDevice',
+                    callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.list = res.rows;
+                        this.totalPage = res.total;
                     }
                 });
             },
             //故障报修
-            queryFn3() {
-                this._getList({
-                    ops: {},
-                    method: 'get',
-                    api: 'queryFault',
-                    callback: () => {
+            queryFn3(value) {
+                const ops = {
+                    curPage: this.currentPage,
+                    pageSize: this.pageSize
+                };
 
+                if(value) {
+                    Object.assign(ops, { "queryInfo": value });
+                }
+
+                this._getList({
+                    ops: ops,
+                    api: 'queryFault',
+                    callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.list = res.rows;
+                        this.totalPage = res.total;
                     }
                 });
             },
             //图片
-            queryFn4() {
-                this._getList({
-                    ops: {},
-                    method: 'get',
-                    api: 'queryPic',
-                    callback: () => {
+            queryFn4(value) {
+                this.pageSize = 5;
+                const ops = {
+                    curPage: this.currentPage,
+                    pageSize: this.pageSize
+                };
 
+                if(value) {
+                    Object.assign(ops, { "queryInfo": value });
+                }
+
+                this._getList({
+                    ops: ops,
+                    api: 'queryPic',
+                    callback: res => {
+                        this.picList = res.rows;
+                        this.totalPage = res.total;
                     }
                 });
             },
             //其他--巡视巡检
-            queryFn5() {
-                this._getList({
-                    ops: {},
-                    method: 'get',
-                    api: 'queryInspect',
-                    callback: () => {
+            queryFn5(value) {
+                const ops = {
+                    curPage: this.currentPage,
+                    pageSize: this.pageSize
+                };
 
+                if(value) {
+                    Object.assign(ops, { "queryInfo": value });
+                }
+
+                this._getList({
+                    ops: ops,
+                    api: 'queryInspect',
+                    callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.list = res.rows;
+                        this.totalPage = res.total;
                     }
                 });
             },
             //其他--故障库
-            queryFaultlibraryFn() {
-                this._getList({
-                    ops: {},
-                    method: 'get',
-                    api: 'queryFaultlibrary',
-                    callback: () => {
+            queryFaultlibraryFn(value) {
+                const ops = {
+                    curPage: this.currentPage,
+                    pageSize: this.pageSize
+                };
 
+                if(value) {
+                    Object.assign(ops, { "queryInfo": value });
+                }
+
+                this._getList({
+                    ops: ops,
+                    api: 'queryFaultlibrary',
+                    callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.list = res.rows;
+                        this.totalPage = res.total;
                     }
                 });
             }

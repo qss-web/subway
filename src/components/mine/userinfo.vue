@@ -2,7 +2,7 @@
     <div class="userinfo">
         <div class="user-common">
             <div class="user-common-photo">
-                <img src="~assets/mine/icon_photo.png" />
+                <img v-bind:src="userinfo.imageUrl" />
             </div>
             <ul class="user-common-info">
                 <li class="flex">
@@ -31,26 +31,28 @@
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
-                userinfo: {
-                    account: 'LINTAO',
-                    name: '林涛',
-                    company: '机电公司',
-                    deptment: '项目二部 设备维修部',
-                    role: '维修部主任',
-                    email: '',
-                    phone: '',
-                    password: '',
-                    conPassword: ''
-                },
-                imageUrl: ''
+                userinfo: {}
             };
         },
+        created() {
+            this.getUserInfo();
+        },
         methods: {
+            ...mapActions(['_getInfo']),
             edit() {
                 this.$emit('edit');
+            },
+            getUserInfo() {
+                this._getInfo({
+                    api: 'mineCount',
+                    callback: res => {
+                        this.userinfo = res;
+                    }
+                });
             }
         }
     };

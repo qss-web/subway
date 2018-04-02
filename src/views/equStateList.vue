@@ -92,8 +92,7 @@
                             value: '2',
                             label: '设备系统二'
                         }]
-                    }],
-                    popSave() { }
+                    }]
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框

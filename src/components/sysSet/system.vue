@@ -12,8 +12,8 @@
                 </dd>
             </dl>
             <div class=" pagination ">
-                <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                    <span>1/1</span>
+                <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                    <span>{{currentPage}}/{{totalPage}}</span>
                 </el-pagination>
             </div>
         </div>
@@ -54,6 +54,10 @@
     export default {
         data() {
             return {
+                currentPage: 1, //当前页数
+                pageSize: 9, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
                 checkList: [],
                 info1: [{
                     'label': '序号',
@@ -137,7 +141,7 @@
         methods: {
             //子组件按钮
             btnFn(val) {
-                this[val]();
+                this[val.fn](val.id);
             },
             //删除操作
             deleteFn() {
@@ -146,8 +150,12 @@
             //编辑操作
             editFn() {
                 // alert(3);
+            },
+            //改变当前页数
+            changePages(val) {
+                this.currentPage = val;
+                // this.getUserList();
             }
-
         }
     };
 </script>

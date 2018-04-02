@@ -2,13 +2,13 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData"></v-sub-search>
+                <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn" v-on:delete="deleteBtn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:ids="deleteValue"></v-search-list>
                 <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                        <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
+                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                        <span>{{currentPage}}/{{totalPage}}</span>
                     </el-pagination>
                 </div>
             </div>
@@ -17,11 +17,15 @@
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
+                ids: '',//删除的id
                 searchData: {
                     'btnShow': {
                         'export': true,
@@ -31,7 +35,7 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'lines',
+                        'val': 'line',
                         'list': [{
                             value: '1',
                             label: '6号线'
@@ -40,26 +44,7 @@
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'stations',
-                        'list': [{
-                            value: '1',
-                            label: '金安桥站'
-                        }, {
-                            value: '2',
-                            label: '苹果园站'
-                        }, {
-                            value: '3',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '4',
-                            label: '西黄村站'
-                        }, {
-                            value: '5',
-                            label: '廖公庄站'
-                        }, {
-                            value: '6',
-                            label: '田村站'
-                        }]
+                        'val': 'station'
                     }, {
                         'status': 2,
                         'title': '设备系统',
@@ -76,7 +61,7 @@
                         'status': 2,
                         'title': '设备名称',
                         'placeholder': '请选择内容',
-                        'val': 'equSort',
+                        'val': 'equName',
                         'list': [{
                             value: '1',
                             label: '设备名称一'
@@ -103,8 +88,7 @@
                         'placeholderE': '选择结束日期',
                         'val1': 'startTime',
                         'val2': 'endTime'
-                    }],
-                    popSave() { }
+                    }]
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
@@ -148,145 +132,66 @@
                     'width': 10,
                     'value': 'name'
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        type: '1',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '故障',
-                        type: '0',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '故障',
-                        type: '0',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '故障',
-                        type: '0',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期（月/日）',
-                        arriveTime: '到达时间',
-                        status: '巡检状态',
-                        equStatus: '设备状态',
-                        name: '执行人'
-                    }]
-                }
+                equList: []
             };
         },
         props: ['list', 'label', 'checked'],
+        created() {
+            this.getCheckRatioListFn();
+        },
         methods: {
+            ...mapActions(['_getList']),
             currentList(index) {
                 this.indexed = index;
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.list();
+                this.getCheckRatioListFn();
+            },
+            getCheckRatioListFn(req) {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
+                this._getList({
+                    ops: ops,
+                    api: 'checkRatioList',
+                    callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.equList = res.rows;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
+                    }
+                });
+            },
+            //获取筛选的值
+            filterBtn(req) {
+                this.getCheckRatioListFn(req);
+            },
+            //删除接口
+            deleteBtn() {
+                if(this.ids) {
+                    this._getList({
+                        ops: {
+                            'ids': this.ids
+                        },
+                        api: 'checkRatioDel',
+                        callback: () => {
+                            this.$message('删除成功！');
+                            this.getCheckRatioListFn();
+                        }
+                    });
+                }
+            },
+            deleteValue(id) {
+                this.ids = id.substr(0, id.length - 1);
             }
         }
     };

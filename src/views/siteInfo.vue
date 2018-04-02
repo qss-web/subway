@@ -22,12 +22,9 @@
                 <button class="device-healthy-title">今日车站健康监测完好率</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
-                        <v-monthly-reliability v-bind:ringInfo="ringInfo1"></v-monthly-reliability>
-                        <v-monthly-reliability v-bind:ringInfo="ringInfo2"></v-monthly-reliability>
-                        <v-monthly-reliability v-bind:ringInfo="ringInfo3"></v-monthly-reliability>
-                        <!-- <v-health-indicators class="healthy-chart" id="health1" title="自动扶梯" :percent="68"></v-health-indicators> -->
-                        <!-- <v-health-indicators class="healthy-chart" id="health2" title="风机" :percent="68"></v-health-indicators> -->
-                        <!-- <v-health-indicators class="healthy-chart" id="health3" title="站台门" :percent="68"></v-health-indicators> -->
+                        <v-monthly-reliability v-if="ringInfo1.value" v-bind:ringInfo="ringInfo1"></v-monthly-reliability>
+                        <v-monthly-reliability v-if="ringInfo2.value" v-bind:ringInfo="ringInfo2"></v-monthly-reliability>
+                        <v-monthly-reliability v-if="ringInfo3.value" v-bind:ringInfo="ringInfo3"></v-monthly-reliability>
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -38,7 +35,6 @@
                             <v-search-list v-show="!activeIndex" :other="alarmTable.other" :label="alarmTable.label" :list="alarmTable.list"></v-search-list>
                             <v-search-list v-show="activeIndex" :other="testTable.other" :label="testTable.label" :list="testTable.list"></v-search-list>
                         </div>
-                        <!-- <v-search-list :other="other" :label="label" :list="list"></v-search-list> -->
                     </div>
                 </div>
             </div>
@@ -67,6 +63,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -234,7 +231,7 @@
                         color: '#32b16c',
                         fontSize: '0.18rem'
                     },
-                    value: '99.3',
+                    value: '',
                     size: {
                         width: '2.2rem',
                         height: '2.2rem'
@@ -247,7 +244,7 @@
                         color: '#63869e',
                         fontSize: '0.18rem'
                     },
-                    value: '99.8',
+                    value: '',
                     size: {
                         width: '2.2rem',
                         height: '2.2rem'
@@ -260,7 +257,7 @@
                         color: '#13b5b1',
                         fontSize: '0.18rem'
                     },
-                    value: '99.5',
+                    value: '',
                     size: {
                         width: '2.2rem',
                         height: '2.2rem'
@@ -330,10 +327,15 @@
                 other: {
                     style: 4,
                     isSubShowColor: true
-                }
+                },
+                equValue: {} //图标的值
             };
         },
+        created() {
+            this.getAvailabilityFn();
+        },
         methods: {
+            ...mapActions(['_getList']),
             goToDevice(deviceType) {
                 if(deviceType == 1) {
                     this.$router.push('faninfo');
@@ -342,6 +344,17 @@
                 } else {
                     this.$router.push('escalatorinfo');
                 }
+            },
+            getAvailabilityFn() {
+                this._getList({
+                    ops: {},
+                    api: 'availability',
+                    callback: res => {
+                        this.ringInfo1.value = res.ft;
+                        this.ringInfo2.value = res.fj;
+                        this.ringInfo3.value = res.ztm;
+                    }
+                });
             }
         }
     };

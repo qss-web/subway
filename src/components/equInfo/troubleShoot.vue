@@ -11,7 +11,7 @@
                 <v-pie-chart id="test3" v-bind:chartData="test3"></v-pie-chart>
             </div>
         </div>
-        <v-search-list :other="otherInfo" :label="info1" :list="equList.data"></v-search-list>
+        <v-search-list :other="otherInfo" :label="info1" :list="equList"></v-search-list>
     </div>
 </template>
 
@@ -20,6 +20,7 @@
     export default {
         data() {
             return {
+                equId: '',//设备id
                 test1: [{
                     name: '故障维修',
                     data: [{ name: '驱动电机', color: '#c23531', y: 29.9 },
@@ -58,23 +59,23 @@
                 }, {
                     'label': '线路',
                     'width': 6,
-                    'value': 'station'
+                    'value': 'deviceInLineName'
                 }, {
                     'label': '车站',
                     'width': 6,
-                    'value': 'station'
+                    'value': 'deviceInStationName'
                 }, {
                     'label': '设备安装位置',
                     'width': 18,
-                    'value': 'bySys'
+                    'value': 'devicePosition'
                 }, {
                     'label': '设备编号',
                     'width': 12,
-                    'value': 'equName'
+                    'value': 'deviceCode'
                 }, {
                     'label': '设备名称',
                     'width': 14,
-                    'value': 'equName'
+                    'value': 'deviceName'
                 }, {
                     'label': '故障系统',
                     'width': 14,
@@ -96,148 +97,11 @@
                     'width': 12,
                     'value': 'infoSources'
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }, {
-                        date: '日期',
-                        station: '车站',
-                        bySys: '所属系统',
-                        equName: '设备名称',
-                        failureCause: '故障现象',
-                        troubleshoot: '故障处理情况',
-                        repairTime: '修复时间',
-                        infoSources: '信息来源'
-                    }]
-                }
+                equList: []
             };
         },
         created() {
+            this.equId = this.$route.query.id;
             this.infoFaultFn();
             this.infoFaultListFn();
         },
@@ -246,7 +110,6 @@
             infoFaultFn() {
                 this._getList({
                     ops: {},
-                    method: 'get',
                     api: 'infoFault',
                     callback: () => {
 
@@ -255,11 +118,12 @@
             },
             infoFaultListFn() {
                 this._getList({
-                    ops: {},
-                    method: 'get',
+                    ops: {
+                        id: this.equId
+                    },
                     api: 'infoFaultList',
-                    callback: () => {
-
+                    callback: res => {
+                        this.equList = res;
                     }
                 });
             }

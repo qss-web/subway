@@ -42,8 +42,7 @@
                         'title': '故障名称',
                         'placeholder': '请输入内容',
                         'val': 'equSort'
-                    }],
-                    popSave() { }
+                    }]
                 },
                 otherInfo: {
                     isCheck: false, //是否显示多选框

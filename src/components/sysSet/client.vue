@@ -12,16 +12,21 @@
             <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
         </div>
         <div class=" pagination ">
-            <el-pagination :page-size="pageSize" @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                <span>1/1</span>
+            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage}}/{{totalPage}}</span>
             </el-pagination>
         </div>
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
+                currentPage: 1, //当前页数
+                pageSize: 9, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
                 isUpload: {
                     isShow: false,
                     title: '',
@@ -104,11 +109,29 @@
                 }
             };
         },
+        created() {
+            this.getClientListFn();
+        },
         methods: {
+            ...mapActions(['_getList']),
             uploadFn(event, file, fileList) {
                 this.isUpload.isShow = true;
                 this.isUpload.title = file.name;
                 this.isUpload.progress = parseInt(event.percent) + '%';
+            },
+            getClientListFn() {
+                this._getList({
+                    ops: {},
+                    api: 'clientList',
+                    callback: () => {
+
+                    }
+                });
+            },
+            //改变当前页数
+            changePages(val) {
+                this.currentPage = val;
+                // this.getUserList();
             }
         }
     };

@@ -2,7 +2,7 @@
     <div class="userinfo">
         <div class="user-common flex">
             <el-upload class="user-common-photo avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                <img v-if="userinfo.imageUrl" :src="userinfo.imageUrl" class="avatar">
                 <i v-else class="avatar-uploader-icon"></i>
             </el-upload>
             <ul class="user-common-info">
@@ -32,25 +32,25 @@
             <li class="flex">
                 <p class="label">个人邮箱：</p>
                 <p class="value">
-                    <input type="email" v-model="userinfo.email" />
+                    <input type="email" v-model="repairInfo.email" />
                 </p>
             </li>
             <li class="flex">
                 <p class="label">手机号码：</p>
                 <p class="value">
-                    <input type="tel" maxlength="11" v-model="userinfo.phone" />
+                    <input type="tel" maxlength="11" v-model="repairInfo.phone" />
                 </p>
             </li>
             <li class="flex">
                 <p class="label">输入密码：</p>
                 <p class="value">
-                    <input type="password" v-model="userinfo.password" />
+                    <input type="password" v-model="repairInfo.password" />
                 </p>
             </li>
             <li class="flex">
                 <p class="label">确认密码：</p>
                 <p class="value">
-                    <input type="password" v-model="userinfo.conPassword" />
+                    <input type="password" v-model="repairInfo.conPassword" />
                 </p>
             </li>
         </ul>
@@ -61,26 +61,26 @@
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
-                userinfo: {
-                    account: 'LINTAO',
-                    name: '林涛',
-                    company: '机电公司',
-                    deptment: '项目二部 设备维修部',
-                    role: '维修部主任',
+                userinfo: {},
+                repairInfo: {
                     email: '',
                     phone: '',
                     password: '',
                     conPassword: ''
-                },
-                imageUrl: ''
+                }
             };
         },
+        created() {
+            this.getUserInfo();
+        },
         methods: {
+            ...mapActions(['_getInfo']),
             handleAvatarSuccess(res, file) {
-                this.imageUrl = URL.createObjectURL(file.raw);
+                this.userinfo.imageUrl = URL.createObjectURL(file.raw);
             },
             beforeAvatarUpload(file) {
                 const isPic = (file.type === 'image/jpeg' || file.type === 'image/png');
@@ -95,11 +95,25 @@
                 return isPic && isLt2M;
             },
             save() {
-                //do something
-                this.$emit('save');
+                this._getInfo({
+                    ops: this.repairInfo,
+                    api: 'mineUpdateuser',
+                    callback: () => {
+                        this.$message('修改成功！');
+                        this.$emit('save');
+                    }
+                });
             },
             cancel() {
                 this.$emit('save');
+            },
+            getUserInfo() {
+                this._getInfo({
+                    api: 'mineUserInfo',
+                    callback: res => {
+                        this.userinfo = res;
+                    }
+                });
             }
         }
     };

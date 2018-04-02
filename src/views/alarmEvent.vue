@@ -83,8 +83,7 @@
                         'placeholderE': '选择结束日期',
                         'val1': 'startTime',
                         'val2': 'endTime'
-                    }],
-                    popSave() { }
+                    }]
                 },
                 id: 'todayAlarm',
                 styleObject: {

@@ -9,7 +9,7 @@
                     <span v-if="item1.value">{{item[item1.value]}}</span>
                     <span v-if="item1.value == 'index'">{{index+1}}</span>
                     <span v-if="item1.btn">
-                        <a v-for="(subItem,index) in item1.btn" class="btn" v-on:click="goToNextPage(subItem.fn)" href="javascript:;">{{subItem.name}}</a>
+                        <a v-for="(subItem,index) in item1.btn" class="btn" v-on:click="goToNextPage(subItem.fn,item.id)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <select v-if="item1.select">
                         <option value="1">未设置</option>
@@ -27,7 +27,6 @@
         data() {
             return {
                 isAllCkeck: false,
-                listShow: [],
                 numLength: 0,
                 options: [{
                     value: '1',
@@ -42,19 +41,27 @@
                     value: '4',
                     label: '默认未设置'
                 }],
-                value: ''
+                value: '',
+                receiveValue: {}
             };
         },
         props: ['list', 'label'],
-        created() {
-            this.listShow = this.list;
-            this.listShow.forEach(item => {
-                item.isCheck = false;
-            });
+        computed: {
+            listShow() {
+                this.list.forEach(item => {
+                    item.isCheck = false;
+                });
+                return this.list;
+            }
         },
+        created() { },
         methods: {
-            goToNextPage(fn) {
-                this.$emit('receive', fn);
+            goToNextPage(fn, id) {
+                this.receiveValue = {
+                    'fn': fn,
+                    'id': id
+                };
+                this.$emit('receive', this.receiveValue);
             }
         }
     };

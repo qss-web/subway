@@ -1,9 +1,14 @@
 const api = {
   //----------------------设备相关--------------------------
+
+  //根据线路，车站，设备系统获取设备名称
+  selectlist: 'webapi/device/selectlist',
   //设备档案列表 GET
   infoList: 'webapi/device/list',
   //设备档案详情 GET
   infoDetail: 'webapi/device/details',
+  //修改设备
+  deviceUpdate: 'webapi/device/update',
   //设备档案详情 --运行指标 GET
   infoRun: 'webapi/device/details/run/count',
   //设备档案详情 --运行指标列表 GET
@@ -121,7 +126,8 @@ const api = {
 };
 
 for (var k in api) {
-  if (process.env.NODE_ENV == 'development') {
+  if (/http/.test(api[k])) {
+  } else if (process.env.NODE_ENV == 'development') {
     api[k] = '/bjdt/' + api[k];
   } else {
     api[k] = 'https://platform-dev.qms888.com/' + api[k];

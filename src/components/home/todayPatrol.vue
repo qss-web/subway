@@ -1,8 +1,9 @@
 <template>
-    <v-chart :id="id" :option="option" :styleObject="styleObject"></v-chart>
+    <v-chart :id="id" v-if="todayInspectionRate.length != 0" :option="option" :styleObject="styleObject"></v-chart>
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -11,6 +12,9 @@
                     width: 4.3 + 'rem',
                     height: 2.7 + 'rem'
                 },
+                todayInspectionRate: [],
+                nameShow: [],
+                valueShow: [],
                 option: {
                     chart: {
                         type: 'bar', //指定图表的类型
@@ -26,7 +30,7 @@
                         title: {
                             text: null
                         },
-                        categories: ['综合巡检率', '自动扶梯', '站台门', '风机'],
+                        categories: '',
                         labels: {
                             style: {
                                 color: '#fff'
@@ -66,7 +70,7 @@
                             //指定数据列
                             name: ' ',
                             color: '#2f4554',
-                            data: [92, 72, 40, 48] //数据
+                            data: ''//数据
                         }
                     ],
                     legend: {
@@ -79,7 +83,7 @@
                             fontWeight: 'normal'
                         },
                         items: [{                       // items 数组，可以设置多个标签
-                            html: '(%)',
+                            // html: '(%)',
                             style: {                    // 标签样式，会继承和重写上层全局样式
                                 top: 228,
                                 left: 300,
@@ -92,6 +96,27 @@
                     }
                 }
             };
+        },
+        created() {
+            this.getBacklogCountFn();
+        },
+        methods: {
+            ...mapActions(['_getInfo']),
+            getBacklogCountFn() {
+                this._getInfo({
+                    ops: {},
+                    api: 'checkRatio',
+                    callback: res => {
+                        this.todayInspectionRate = res;
+                        this.todayInspectionRate.forEach(item => {
+                            this.nameShow.push(item.name);
+                            this.valueShow.push(item.value);
+                        });
+                        this.option.xAxis.categories = this.nameShow;
+                        this.option.series[0].data = this.valueShow;
+                    }
+                });
+            }
         }
     };
 </script>

@@ -14,6 +14,11 @@
 <script>
     export default {
         props: ['title', 'list', 'widths'],
+        computed: {
+            // listr() {
+            //     return this.list;
+            // }
+        },
         methods: {}
     };
 </script>

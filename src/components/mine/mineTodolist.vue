@@ -1,14 +1,17 @@
 <template>
     <div class="flex todolist">
-        <v-chart :id="chart1.id" :option="chart1.option" :styleObject="styleObject"></v-chart>
-        <v-chart :id="chart2.id" :option="chart2.option" :styleObject="styleObject"></v-chart>
-        <v-chart :id="chart3.id" :option="chart3.option" :styleObject="styleObject"></v-chart>
+        <v-chart v-if="backlogInfo.warnInfo" :id="chart1.id" :option="chart1.option" :styleObject="styleObject"></v-chart>
+        <v-chart v-if="backlogInfo.faultInfo" :id="chart2.id" :option="chart2.option" :styleObject="styleObject"></v-chart>
+        <v-chart v-if="backlogInfo.checkInfo" :id="chart3.id" :option="chart3.option" :styleObject="styleObject"></v-chart>
     </div>
+
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
+                backlogInfo: {},
                 // id: 'mineTodoList1',
                 styleObject: {
                     width: '100%',
@@ -103,25 +106,6 @@
                         },
                         align: 'right' // 图例水平右对齐
                     }
-                    // 标签
-                    // labels: {
-                    //     style: {                         // 标签全局样式
-                    //         color: "#fff",
-                    //         fontSize: '12px',
-                    //         fontWeight: 'normal'
-                    //     },
-                    //     items: [{                       // items 数组，可以设置多个标签
-                    //         html: '( 次 )',
-                    //         style: {                    // 标签样式，会继承和重写上层全局样式
-                    //             left: -35,
-                    //             top: -40,
-                    //             color: '#fff',
-                    //             fontSize: 12,
-                    //             fontWeight: 'normal',
-                    //             textShadow: '1px 1px 1px black'
-                    //         }
-                    //     }]
-                    // }
                 }
             };
         },
@@ -135,7 +119,7 @@
                             ...this.option.title,
                             text: `<div class="chart-title today-alarm">
                                     <span>今日预警信息</span><br />
-                                    <span class="count">21</span>
+                                    <span class="count">`+ this.backlogInfo.warnInfo.total + `</span>
                                     <span class="unit">台</span>
                                 </div>` // 指定图表标题
                         },
@@ -146,7 +130,7 @@
                                 color: '#2f4554',
                                 data: [{
                                     name: '电梯系统',
-                                    y: 10,
+                                    y: this.backlogInfo.warnInfo.data[0],
                                     color: '#2f4554',
                                     dataLabels: {
                                         enabled: true,
@@ -157,7 +141,7 @@
                                         overflow: true
                                     }
                                 }, {
-                                    y: 2,
+                                    y: this.backlogInfo.warnInfo.data[1],
                                     name: '风机系统',
                                     color: '#737f9d',
                                     dataLabels: {
@@ -169,7 +153,7 @@
                                         overflow: true
                                     }
                                 }, {
-                                    y: 3,
+                                    y: this.backlogInfo.warnInfo.data[2],
                                     name: '站台门系统',
                                     color: '#cfa972',
                                     dataLabels: {
@@ -201,7 +185,7 @@
                             ...this.option.title,
                             text: `<div class="chart-title device-failure">
                                     <span>当前设备故障</span><br />
-                                    <span class="count">21</span>
+                                    <span class="count">`+ this.backlogInfo.faultInfo.total + `</span>
                                     <span class="unit">台</span>
                                 </div>` // 指定图表标题
                         },
@@ -212,7 +196,7 @@
                                 name: '电梯系统',
                                 color: '#2f4554',
                                 data: [{
-                                    y: 10,
+                                    y: this.backlogInfo.faultInfo.data[0],
                                     name: '电梯系统',
                                     color: '#2f4554',
                                     dataLabels: {
@@ -224,7 +208,7 @@
                                         overflow: true
                                     }
                                 }, {
-                                    y: 2,
+                                    y: this.backlogInfo.faultInfo.data[1],
                                     name: '风机系统',
                                     color: '#737f9d',
                                     dataLabels: {
@@ -236,7 +220,7 @@
                                         overflow: true
                                     }
                                 }, {
-                                    y: 3,
+                                    y: this.backlogInfo.faultInfo.data[2],
                                     name: '站台门系统',
                                     color: '#cfa972',
                                     dataLabels: {
@@ -268,7 +252,7 @@
                             ...this.option.title,
                             text: `<div class="chart-title today-patrol">
                                     <span>今日巡检比例</span><br />
-                                    <span class="count">88%</span>
+                                    <span class="count">`+ this.backlogInfo.checkInfo.total + `</span>
                                 </div>` // 指定图表标题
                         },
                         // 数据列
@@ -278,7 +262,7 @@
                                 name: '电梯系统',
                                 color: '#2f4554',
                                 data: [{
-                                    y: 10,
+                                    y: this.backlogInfo.checkInfo.data[0],
                                     name: '电梯系统',
                                     color: '#2f4554',
                                     dataLabels: {
@@ -290,7 +274,7 @@
                                         overflow: true
                                     }
                                 }, {
-                                    y: 2,
+                                    y: this.backlogInfo.checkInfo.data[1],
                                     name: '风机系统',
                                     color: '#737f9d',
                                     dataLabels: {
@@ -302,7 +286,7 @@
                                         overflow: true
                                     }
                                 }, {
-                                    y: 3,
+                                    y: this.backlogInfo.checkInfo.data[2],
                                     name: '站台门系统',
                                     color: '#cfa972',
                                     dataLabels: {
@@ -324,6 +308,21 @@
                         }
                     }
                 };
+            }
+        },
+        created() {
+            this.getBacklogInfoFn();
+        },
+        methods: {
+            ...mapActions(['_getInfo']),
+            getBacklogInfoFn() {
+                this._getInfo({
+                    ops: {},
+                    api: 'mineCount',
+                    callback: res => {
+                        this.backlogInfo = res;
+                    }
+                });
             }
         }
     };

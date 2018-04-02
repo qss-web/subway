@@ -17,21 +17,44 @@
                 <span class="line"></span>
             </div>
             <div class="chart flex" v-on:click="goBacklog">
-                <v-failure-count title="自动扶梯" :count="4"></v-failure-count>
-                <v-failure-count title="风机" :count="5"></v-failure-count>
-                <v-failure-count title="站台门" :count="4"></v-failure-count>
+                <v-failure-count title="自动扶梯" :count="failure.escalator"></v-failure-count>
+                <v-failure-count title="风机" :count="failure.fan"></v-failure-count>
+                <v-failure-count title="站台门" :count="failure.door"></v-failure-count>
             </div>
         </div>
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
+        data() {
+            return {
+                failure: {
+                    // 'escalator': '5', //扶梯
+                    // 'fan': '3', //风机
+                    // 'door': '5' //站台门
+                }
+            };
+        },
+        created() {
+            this.getBacklogCountFn();
+        },
         methods: {
+            ...mapActions(['_getInfo']),
             goRunList() {
                 this.$router.push('equRunTimeList');
             },
             goBacklog() {
                 this.$router.push('backlog');
+            },
+            getBacklogCountFn() {
+                this._getInfo({
+                    ops: {},
+                    api: 'backlogCount',
+                    callback: res => {
+                        this.failure = res;
+                    }
+                });
             }
         }
     };

@@ -92,8 +92,7 @@
                         'placeholderE': '选择结束日期',
                         'val1': 'startTime',
                         'val2': 'endTime'
-                    }],
-                    popSave() { }
+                    }]
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
@@ -132,7 +131,6 @@
                 equList: {
                     total: 9,
                     data: [{
-                        num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
                         station: '苹果园南站',
                         time: '2018.03.20 10:24:30',
@@ -140,7 +138,6 @@
                         status: '1',
                         statusValue: '二级预警'
                     }, {
-                        num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
                         station: '苹果园南站',
                         time: '2018.03.20 10:24:30',
@@ -148,7 +145,6 @@
                         status: '1',
                         statusValue: '二级预警'
                     }, {
-                        num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
                         station: '苹果园南站',
                         time: '2018.03.20 10:24:30',
@@ -156,7 +152,6 @@
                         status: '1',
                         statusValue: '二级预警'
                     }, {
-                        num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
                         station: '苹果园南站',
                         time: '2018.03.20 10:24:30',
@@ -164,7 +159,6 @@
                         status: '2',
                         statusValue: '一级预警'
                     }, {
-                        num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
                         station: '苹果园南站',
                         time: '2018.03.20 10:24:30',
@@ -172,7 +166,6 @@
                         status: '2',
                         statusValue: '一级预警'
                     }, {
-                        num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
                         station: '苹果园南站',
                         time: '2018.03.20 10:24:30',
@@ -180,7 +173,6 @@
                         status: '2',
                         statusValue: '一级预警'
                     }, {
-                        num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
                         station: '苹果园南站',
                         time: '2018.03.20 10:24:30',
@@ -188,7 +180,6 @@
                         status: '3',
                         statusValue: '断网'
                     }, {
-                        num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
                         station: '苹果园南站',
                         time: '2018.03.20 10:24:30',
@@ -196,7 +187,6 @@
                         status: '3',
                         statusValue: '断网'
                     }, {
-                        num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
                         station: '苹果园南站',
                         time: '2018.03.20 10:24:30',
@@ -204,7 +194,6 @@
                         status: '3',
                         statusValue: '断网'
                     }, {
-                        num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
                         station: '苹果园南站',
                         time: '2018.03.20 10:24:30',
@@ -212,7 +201,6 @@
                         status: '3',
                         statusValue: '断网'
                     }, {
-                        num: '序号',
                         event: '苹果园南路站 A出入口下段 PGN-FT-A-1 扶梯故障扶手带断裂',
                         station: '苹果园南站',
                         time: '2018.03.20 10:24:30',

@@ -54,16 +54,18 @@
         data() {
             return {
                 isAllCkeck: false,
-                listShow: [],
-                numLength: 0
+                numLength: 0,
+                listCheck: [],
+                checkedValue: ''
             };
         },
         props: ['list', 'label', 'other'],
+        computed: {
+            listShow() {
+                return this.list;
+            }
+        },
         created() {
-            this.listShow = this.list;
-            this.listShow.forEach(item => {
-                item.isCheck = false;
-            });
         },
         methods: {
             currentList(index) {
@@ -83,6 +85,13 @@
                     }
                 });
                 this.isAllCkeck = !this.isAllCkeck;
+                this.checkedValue = '';
+                this.listShow.forEach(item => {
+                    if(item.isCheck) {
+                        this.checkedValue += item.id + ',';
+                    }
+                });
+                this.$emit('ids', this.checkedValue);
             },
             singleCheckFn(index) {
                 this.listShow[index].isCheck = !this.listShow[index].isCheck;
@@ -97,11 +106,16 @@
                 } else {
                     this.isAllCkeck = false;
                 }
+                this.checkedValue = '';
+                this.listShow.forEach(item => {
+                    if(item.isCheck) {
+                        this.checkedValue += item.id + ',';
+                    }
+                });
+                this.$emit('ids', this.checkedValue);
             },
             goToNext() {
-                if(this.other.isEquInfo) {
-                    this.$router.push('/equInfo');
-                } else if(this.other.isSheet) {
+                if(this.other.isSheet) {
                     this.$emit('isPop', true);
                 }
             },

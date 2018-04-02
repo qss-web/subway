@@ -2,10 +2,10 @@
     <div class="search">
         <div class="searchWidth">
             <div>
-                <!-- <input type="text" /> -->
+                <input type="text" v-model="fifterValue" />
                 <a href="javascript:;"><img src="../assets/search/delete_icon.png" /></a>
             </div>
-            <span>查询</span>
+            <span v-on:click="fifterBtn">查询</span>
             <span>下载</span>
             <!-- <span><img src="../assets/search/search_icon.png"/></span> -->
             <!-- <span><img src="../assets/search/download_icon.png"/></span> -->
@@ -13,7 +13,21 @@
     </div>
 </template>
 <script>
+    export default {
+        data() {
+            return {
+                fifterValue: ''
+            };
+        },
+        created() {
 
+        },
+        methods: {
+            fifterBtn() {
+                this.$emit('receive', this.fifterValue);
+            }
+        }
+    };
 </script>
 <style lang="less" scoped>
     .search {
@@ -33,6 +47,15 @@
                 width: 87%;
                 border-radius: 1.2rem;
                 position: relative;
+                padding: 0 0.4rem;
+                input {
+                    background: none;
+                    width: 96%;
+                    height: 0.66rem;
+                    line-height: 0.66rem;
+                    color: #fff;
+                    font-size: 0.2rem;
+                }
                 a {
                     position: absolute;
                     width: 0.69rem;

@@ -23,8 +23,26 @@
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
+        data() {
+            return {
+
+            };
+        },
+        created() {
+            this.getMineRateFn();
+        },
         methods: {
+            ...mapActions(['_getList']),
+            getMineRateFn() {
+                this._getList({
+                    ops: {},
+                    api: 'mineRate',
+                    callback: () => {
+                    }
+                });
+            }
         }
     };
 </script>

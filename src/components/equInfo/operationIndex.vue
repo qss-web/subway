@@ -2,28 +2,28 @@
     <div class="txt-center">
         <div class="flex" style=" padding-top: 0.39rem;">
             <div class="showChart">
-                <v-ring-diagram id="runIndex1" title="累计运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
+                <v-ring-diagram id="runIndex1" title="累计运行时间" v-if="runInfo.ljyxsj" :time="runInfo.ljyxsj +'小时'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
             <div class="showChart">
-                <v-ring-diagram id="runIndex2" title="平均无故障运行时间" :time="showValue[1]" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
+                <v-ring-diagram id="runIndex2" title="平均无故障运行时间" v-if="runInfo.pjwgzyxsj" :time="runInfo.pjwgzyxsj+'小时'" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
             <div class="showChart">
-                <v-ring-diagram id="runIndex3" title="累积运行次数" :time="showValue[2]" :showData="test3" :size="size" :setStyle="style"></v-ring-diagram>
+                <v-ring-diagram id="runIndex3" title="累积运行次数" v-if="runInfo.ljyxcs" :time="runInfo.ljyxcs+'次'" :showData="test3" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
         </div>
         <ul class="dataShow">
             <li class="flex">
-                <span>累计运行时间：1000小时</span>
-                <span>累计运行次数：500次</span>
-                <span>能耗统计：12500度</span>
+                <span>累计运行时间：{{runInfo.ljyxsj}}小时</span>
+                <span>累计运行次数：{{runInfo.ljyxcs}}次</span>
+                <span>能耗统计：{{runInfo.ljnh}}度</span>
             </li>
             <li class="flex">
-                <span>平均无故障运行时间：100小时</span>
-                <span>最长无故障运行时间：500小时</span>
-                <span>最短无故障运行时间：125小时</span>
+                <span>平均无故障运行时间：{{runInfo.pjwgzyxsj}}小时</span>
+                <span>最长无故障运行时间：{{runInfo.zcwgzyxsj}}小时</span>
+                <span>最短无故障运行时间：{{runInfo.zdwgzyxsj}}小时</span>
             </li>
         </ul>
-        <v-search-list :other="otherInfo" :label="info1" :list="equList.data"></v-search-list>
+        <v-search-list :other="otherInfo" :label="info1" :list="equList"></v-search-list>
     </div>
 </template>
 
@@ -32,7 +32,8 @@
     export default {
         data() {
             return {
-                showValue: ['98小时', '300小时', '98次'],
+                equId: '',//设备id
+                runInfo: {},
                 test1: [{
                     y: 360,
                     color: '#32b16c'
@@ -69,19 +70,19 @@
                 }, {
                     'label': '所属车站',
                     'width': 15,
-                    'value': 'station'
+                    'value': 'deviceInStationName'
                 }, {
                     'label': '设备系统',
                     'width': 13,
-                    'value': 'equSys'
+                    'value': 'deviceSys'
                 }, {
                     'label': '设备编号',
                     'width': 13,
-                    'value': 'equNum'
+                    'value': 'deviceCode'
                 }, {
                     'label': '安装位置',
                     'width': 15,
-                    'value': 'installPosition'
+                    'value': 'devicePosition'
                 }, {
                     'label': '设备状态',
                     'width': 15,
@@ -91,112 +92,33 @@
                     'width': 15,
                     'value': 'time'
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        station: '所属车站5',
-                        equSys: '设备系统5',
-                        equNum: '设备编号5',
-                        installPosition: '安装位置5',
-                        equStatus: '设备状态5',
-                        time: '状态变更时间5'
-                    }, {
-                        station: '所属车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        installPosition: '安装位置',
-                        equStatus: '设备状态',
-                        time: '状态变更时间'
-                    }, {
-                        station: '所属车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        installPosition: '安装位置',
-                        equStatus: '设备状态',
-                        time: '状态变更时间'
-                    }, {
-                        station: '所属车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        installPosition: '安装位置',
-                        equStatus: '设备状态',
-                        time: '状态变更时间'
-                    }, {
-                        station: '所属车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        installPosition: '安装位置',
-                        equStatus: '设备状态',
-                        time: '状态变更时间'
-                    }, {
-                        station: '所属车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        installPosition: '安装位置',
-                        equStatus: '设备状态',
-                        time: '状态变更时间'
-                    }, {
-                        station: '所属车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        installPosition: '安装位置',
-                        equStatus: '设备状态',
-                        time: '状态变更时间'
-                    }, {
-                        station: '所属车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        installPosition: '安装位置',
-                        equStatus: '设备状态',
-                        time: '状态变更时间'
-                    }, {
-                        station: '所属车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        installPosition: '安装位置',
-                        equStatus: '设备状态',
-                        time: '状态变更时间'
-                    }, {
-                        station: '所属车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        installPosition: '安装位置',
-                        equStatus: '设备状态',
-                        time: '状态变更时间'
-                    }, {
-                        station: '所属车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        installPosition: '安装位置',
-                        equStatus: '设备状态',
-                        time: '状态变更时间'
-                    }]
-                }
+                equList: []
             };
         },
         created() {
+            this.equId = this.$route.query.id;
             this.infoRunFn();
             this.infoRunListFn();
         },
         methods: {
-            ...mapActions(['_getList']),
+            ...mapActions(['_getInfo']),
             infoRunFn() {
-                this._getList({
+                this._getInfo({
                     ops: {},
-                    method: 'get',
                     api: 'infoRun',
-                    callback: () => {
-
+                    callback: res => {
+                        this.runInfo = res;
                     }
                 });
             },
             infoRunListFn() {
-                this._getList({
-                    ops: {},
-                    method: 'get',
+                this._getInfo({
+                    ops: {
+                        id: this.equId
+                    },
                     api: 'infoRunList',
-                    callback: () => {
-
+                    callback: res => {
+                        this.equList = res;
                     }
                 });
             }

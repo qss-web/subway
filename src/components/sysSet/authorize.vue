@@ -35,8 +35,8 @@
                     <v-system-list v-bind:label="info1" v-bind:list="equList.data" v-on:receive="btnFn"></v-system-list>
                 </div>
                 <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                        <span>1/1</span>
+                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                        <span>{{currentPage}}/{{totalPage}}</span>
                     </el-pagination>
                 </div>
             </div>
@@ -47,6 +47,10 @@
     export default {
         data() {
             return {
+                currentPage: 1, //当前页数
+                pageSize: 9, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
                 isRole: true, //选项卡
                 roleIndex: 1,
                 roleList: [{
@@ -73,8 +77,7 @@
                         'title': '用户名',
                         'placeholder': '请输入内容',
                         'val': 'lines'
-                    }],
-                    popSave() { }
+                    }]
                 },
                 info1: [{
                     'label': '序号',
@@ -179,6 +182,11 @@
             },
             telFn(index) {
                 this.telIndex = index;
+            },
+            //改变当前页数
+            changePages(val) {
+                this.currentPage = val;
+                // this.getUserList();
             }
         }
     };

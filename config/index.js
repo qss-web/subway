@@ -42,7 +42,7 @@ module.exports = {
     cssSourceMap: false,
     proxyTable: {
       '/bjdt': {
-        target: 'http://localhost:8080',
+        target: 'http://47.94.165.211:80',
         changeOrigin: true,
         pathRewrite: {
           '^/proxy': ''

@@ -8,13 +8,13 @@
         </ul>
         <div class="equWrap" v-if="tabShow==1">
             <div class="searchWrap">
-                <v-sub-search v-on:receive="btnShowPopFn" v-bind:searchData="searchData"></v-sub-search>
+                <v-sub-search v-on:receive="btnShowPopFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo1" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
                 <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                        <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
+                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                        <span>{{currentPage}}/{{pageTotal}}</span>
                     </el-pagination>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info2" v-bind:list="equList.data"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                        <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
+                        <span>{{currentPage}}/{{pageTotal}}</span>
                     </el-pagination>
                 </div>
             </div>
@@ -37,19 +37,19 @@
         </div>
         <div class="equWrap" v-if="tabShow==4">
             <div class="searchWrap">
-                <v-sub-search v-on:receive="btnShowPopFn" v-bind:searchData="searchData02"></v-sub-search>
+                <v-sub-search v-on:receive="btnShowPopFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData02"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info3" v-bind:list="equList.data"></v-search-list>
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info3" v-bind:list="equList3"></v-search-list>
                 <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                        <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
+                    <el-pagination :page-size=" pageSize " @current-change="changePages3 " layout="prev, slot, next " :total="pageNumber3 " prev-text="上一页 " next-text="下一页 ">
+                        <span>{{currentPage3}}/{{pageTotal3}}</span>
                     </el-pagination>
                 </div>
             </div>
         </div>
         <v-goback></v-goback>
-        <v-pop-box v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
+        <v-pop-box v-on:getEquName="getEquNameFn" v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
     </div>
 </template>
 
@@ -60,81 +60,78 @@
             return {
                 tabShow: 1,
                 currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
+                pageSize: 12, //每页显示数量
+                pageTotal: 0,//总页数
+                pageNumber: 0,//总条目数
+                currentPage3: 1, //当前页数
+                pageSize3: 12, //每页显示数量
+                pageTotal3: 0,//总页数
+                pageNumber3: 0,//总条目数
                 isShowPop: false,
+                getEquNameArr: [],//接口获取的设备名称
                 unitAccount: {},
                 popData1: {
-                    'titleTotal': '测试测试',
+                    'titleTotal': '新增设备',
                     'options': [{
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'lines',
+                        'val': 'deviceInLineId',
                         'list': [{
-                            value: '1',
+                            value: '6号线西延线',
                             label: '6号线'
                         }]
                     }, {
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'stations',
+                        'val': 'deviceInStationId',
                         'list': [{
-                            value: '1',
+                            value: '金安桥站',
                             label: '金安桥站'
                         }, {
-                            value: '2',
+                            value: '苹果园站',
                             label: '苹果园站'
                         }, {
-                            value: '3',
+                            value: '苹果园南路站',
                             label: '苹果园南路站'
                         }, {
-                            value: '4',
+                            value: '西黄村站',
                             label: '西黄村站'
                         }, {
-                            value: '5',
+                            value: '廖公庄站',
                             label: '廖公庄站'
                         }, {
-                            value: '6',
+                            value: '田村站',
                             label: '田村站'
-                        }]
-                    }, {
-                        'status': 2,
-                        'title': '设备名称',
-                        'placeholder': '请选择内容',
-                        'val': 'equSort',
-                        'list': [{
-                            value: '1',
-                            label: '设备名称1'
-                        }, {
-                            value: '2',
-                            label: '设备名称2'
-                        }, {
-                            value: '3',
-                            label: '设备名称3'
                         }]
                     }, {
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'equSys',
+                        'val': 'deviceTypeCode',
                         'list': [{
-                            value: '1',
-                            label: '设备系统1'
+                            value: '0',
+                            label: '站台门'
                         }, {
-                            value: '2',
-                            label: '设备系统2'
+                            value: '7',
+                            label: '自动扶梯'
                         }, {
-                            value: '3',
-                            label: '设备系统3'
+                            value: '8',
+                            label: '风机'
                         }]
+                    }, {
+                        'status': 2,
+                        'title': '设备名称',
+                        'placeholder': '请选择内容',
+                        'val': 'id',
+                        'list': []
                     }, {
                         'status': 1,
                         'title': '位置',
                         'placeholder': '请输入内容',
-                        'val': 'exportAddress'
-                    }],
-                    popSave(val) { }
+                        'val': 'devicePosition'
+                    }]
                 },
                 searchData: {
                     'btnShow': {
@@ -148,7 +145,7 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'lines',
+                        'val': 'deviceInLineId',
                         'list': [{
                             value: '1',
                             label: '6号线'
@@ -157,31 +154,13 @@
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'stations',
-                        'list': [{
-                            value: '1',
-                            label: '金安桥站'
-                        }, {
-                            value: '2',
-                            label: '苹果园站'
-                        }, {
-                            value: '3',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '4',
-                            label: '西黄村站'
-                        }, {
-                            value: '5',
-                            label: '廖公庄站'
-                        }, {
-                            value: '6',
-                            label: '田村站'
-                        }]
+                        'val': 'deviceInStationId',
+                        'list': []
                     }, {
                         'status': 2,
                         'title': '设备编号',
                         'placeholder': '请选择内容',
-                        'val': 'equSys',
+                        'val': 'deviceCode',
                         'list': [{
                             value: '1',
                             label: '设备编号一'
@@ -193,7 +172,7 @@
                         'status': 2,
                         'title': '设备类型',
                         'placeholder': '请选择内容',
-                        'val': 'equSort',
+                        'val': 'deviceTypeCode',
                         'list': [{
                             value: '1',
                             label: '自动扶梯'
@@ -204,8 +183,7 @@
                             value: '3',
                             label: '风机'
                         }]
-                    }],
-                    popSave() { }
+                    }]
                 },
                 searchData01: {
                     'btnShow': {
@@ -259,8 +237,7 @@
                             value: '2',
                             label: '维护建议二'
                         }]
-                    }],
-                    popSave() { }
+                    }]
                 },
                 searchData02: {
                     'btnShow': {
@@ -270,7 +247,7 @@
                         'status': 2,
                         'title': '人员',
                         'placeholder': '请选择内容',
-                        'val': 'people',
+                        'val': 'username',
                         'list': [{
                             value: '1',
                             label: '巡检人员1'
@@ -285,26 +262,8 @@
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'lines',
-                        'list': [{
-                            value: '1',
-                            label: '金安桥站'
-                        }, {
-                            value: '2',
-                            label: '苹果园站'
-                        }, {
-                            value: '3',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '4',
-                            label: '西黄村站'
-                        }, {
-                            value: '5',
-                            label: '廖公庄站'
-                        }, {
-                            value: '6',
-                            label: '田村站'
-                        }]
+                        'val': 'stationId',
+                        'list': []
                     }, {
                         'status': 2,
                         'title': '月份',
@@ -347,18 +306,11 @@
                             value: '12',
                             label: '十二月'
                         }]
-                    }],
-                    popSave() { }
+                    }]
                 },
                 otherInfo: {
                     isCheck: false, //是否显示多选框
                     style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
-                },
-                otherInfo1: {
-                    isCheck: false, //是否显示多选框
-                    style: 3, // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
-                    isClick: true,
-                    isEquInfo: true
                 },
                 info1: [{
                     'label': '序号',
@@ -367,35 +319,35 @@
                 }, {
                     'label': '线路',
                     'width': 15,
-                    'value': 'alarmName'
+                    'value': 'deviceInLineName'
                 }, {
                     'label': '车站',
                     'width': 10,
-                    'value': 'faultTime'
+                    'value': 'deviceInStationName'
                 }, {
                     'label': '设备编号',
                     'width': 10,
-                    'value': 'faultNum'
+                    'value': 'deviceCode'
                 }, {
                     'label': '设备名称',
                     'width': 15,
-                    'value': 'faultNum'
+                    'value': 'deviceName'
                 }, {
                     'label': '设备系统',
                     'width': 10,
-                    'value': 'faultNum'
+                    'value': 'deviceSys'
                 }, {
                     'label': '生产厂家',
                     'width': 10,
-                    'value': 'faultNum'
+                    'value': 'deviceEleRegFactory'
                 }, {
                     'label': '安装地点',
                     'width': 15,
-                    'value': 'faultNum'
+                    'value': 'devicePosition'
                 }, {
                     'label': '规格型号',
                     'width': 10,
-                    'value': 'faultNum'
+                    'value': 'deviceEleRegSpe'
                 }],
                 info2: [{
                     'label': '序号',
@@ -441,142 +393,144 @@
                 }, {
                     'label': '人员名称',
                     'width': 10,
-                    'value': 'equType'
+                    'value': 'name'
                 }, {
                     'label': '所属车站',
                     'width': 10,
-                    'value': 'alarmCode'
+                    'value': 'station'
                 }, {
                     'label': '所属线路',
                     'width': 10,
-                    'value': 'alarmName'
+                    'value': 'line'
                 }, {
                     'label': '月份',
                     'width': 15,
-                    'value': 'faultTime'
+                    'value': 'month'
                 }, {
                     'label': '巡检台次',
                     'width': 10,
-                    'value': 'faultTime'
+                    'value': 'checkNum'
                 }, {
                     'label': '处理故障单次数',
                     'width': 15,
                     'value': 'faultNum'
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }]
-                }
+                equList: [],
+                equList3: []
             };
         },
         props: ['list', 'label', 'checked'],
+        created() {
+            this.infoListFn();
+        },
         methods: {
             ...mapActions(['_getList']),
             currentList(index) {
                 this.tabShow = index;
-                if(index == 4) {
+                if(index == 1) {
+                    this.infoListFn();
+                } else if(index == 4) {
                     this.staffStatisticsFn();
                 }
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.list();
+                this.infoListFn();
+            },
+            //改变当前页数
+            changePages3(val) {
+                this.currentPage3 = val;
+                this.staffStatisticsFn();
             },
             btnShowPopFn(value) {
                 this.isShowPop = value;
-            },
-            staffStatisticsFn() {
-                this._getList({
-                    ops: {},
-                    method: 'get',
-                    api: 'staffStatistics',
-                    callback: () => {
-
-                    }
-                });
             },
             //关闭弹出框
             cancleFn(value) {
                 this.isShowPop = value;
             },
             //关闭弹出框并保存数据
-            saveFn(value) {
-                // console.log(value);
-                this.isShowPop = true;
-                this.$router.push('/equInfo');
+            saveFn(req) {
+                req.id = req.id.toString();
+                this._getList({
+                    ops: req,
+                    api: 'infoDetail',
+                    callback: () => {
+                        this.$message('新增成功！');
+                        this.isShowPop = true;
+                        this.$router.push({ path: '/equInfo', query: { 'id': req.id } });
+                    }
+                });
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                if(req.deviceTypeCode && req.deviceInLineId && req.deviceInStationId) {
+                    this._getList({
+                        ops: req,
+                        api: 'selectlist',
+                        callback: res => {
+                            res.forEach(item => {
+                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id });
+                            });
+                            this.popData1.options.forEach(item1 => {
+                                if(item1.val == 'id') {
+                                    item1.list = this.getEquNameArr;
+                                }
+                            });
+                        }
+                    });
+                }
+            },
+            //获取设备信息列表
+            infoListFn(req) {
+                const ops = {
+                    curPage: this.currentPage,
+                    pageSize: this.pageSize
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
+                this._getList({
+                    ops: ops,
+                    api: 'infoList',
+                    callback: res => {
+                        this.equList = res.rows;
+                        this.currentPage = res.page;
+                        this.pageTotal = res.total;
+                        this.pageNumber = res.records;
+                    }
+                });
+            },
+            //搜索的传值
+            fifterBtnFn(req) {
+                if(this.tabShow == 1) {
+                    this.infoListFn(req);
+                } else if(this.tabShow == 4) {
+                    this.staffStatisticsFn(req);
+                }
+            },
+            //人员情况统计
+            staffStatisticsFn(req) {
+                const ops = {
+                    curPage: this.currentPage,
+                    pageSize: this.pageSize
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
+                this._getList({
+                    ops: ops,
+                    api: 'staffStatistics',
+                    callback: res => {
+                        this.equList3 = res.rows;
+                        this.currentPage3 = res.page;
+                        this.pageTotal3 = res.total;
+                        this.pageNumber3 = res.records;
+                    }
+                });
             }
         }
     };

@@ -84,8 +84,7 @@
                         'placeholderE': '选择结束日期',
                         'val1': 'startTime',
                         'val2': 'endTime'
-                    }],
-                    popSave(val) { }
+                    }]
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框

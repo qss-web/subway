@@ -26,12 +26,9 @@
                 <button class="device-healthy-monitor" v-on:click="monitorFn">监测</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
-                        <v-ring-diagram id="runIndex1" title="运行时间" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
-                        <v-monthly-reliability v-bind:ringInfo="ringInfo"></v-monthly-reliability>
-                        <v-ring-diagram id="runIndex2" title="预警事件" :time="showValue[2]" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
-                        <!-- <v-health-indicators class="healthy-chart" id="health1" title="运行时间" :percent="68"></v-health-indicators> -->
-                        <!-- <v-health-indicators class="healthy-chart" id="health2" title="健康指数" :percent="68"></v-health-indicators> -->
-                        <!-- <v-health-indicators class="healthy-chart" id="health3" title="预警事件" :percent="68"></v-health-indicators> -->
+                        <v-ring-diagram id="runIndex1" v-if="showValue.yxsj" title="运行时间" :time="showValue.yxsj+'小时'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
+                        <v-monthly-reliability v-if="ringInfo.value" v-bind:ringInfo="ringInfo"></v-monthly-reliability>
+                        <v-ring-diagram id="runIndex2" v-if="showValue.yjsj" title="预警事件" :time="showValue.yjsj+'次'" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -56,10 +53,14 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
-                showValue: ['98小时', '300小时', '8次'],
+                showValue: {
+                    'yxsj': '',
+                    'yjsj': ''
+                },
                 test1: [{
                     y: 360,
                     color: '#32b16c'
@@ -247,7 +248,11 @@
                 }
             };
         },
+        created() {
+            this.getEquRuninfoFn();
+        },
         methods: {
+            ...mapActions(['_getInfo']),
             gotoFan() {
                 this.$router.push('faninfo');
             },
@@ -256,6 +261,21 @@
             },
             monitorFn() {
                 this.$router.push({ path: '/monitorPage', query: { key: "escalator" } });
+            },
+            getEquRuninfoFn() {
+                this._getInfo({
+                    ops: {
+                        "deviceInLineId": "6号线西延线",  //线路
+                        "deviceInStationId": "苹果园站",  //站点
+                        "deviceId": "8"  //设备id
+                    },
+                    api: 'equRuninfo',
+                    callback: res => {
+                        this.showValue.yxsj = res.yxsj;
+                        this.showValue.yjsj = res.yjsj;
+                        this.ringInfo.value = res.jkzs;
+                    }
+                });
             }
         }
     };

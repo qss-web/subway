@@ -12,7 +12,7 @@
                         </li>
                         <li v-if="item.status == 2">
                             <span>{{item.title}}：</span>
-                            <el-select v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                            <el-select v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="test">
                                 <el-option v-for="itemSel in item.list" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
                             </el-select>
@@ -54,6 +54,9 @@
             },
             onCancle() {
                 this.$emit('receive', false);
+            },
+            test() {
+                this.$emit('getEquName', this.req);
             }
         }
     };

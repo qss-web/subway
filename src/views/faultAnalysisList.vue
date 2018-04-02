@@ -45,8 +45,7 @@
                         'title': '设备名称',
                         'placeholder': '请输入内容',
                         'val': 'equName'
-                    }],
-                    popSave() { }
+                    }]
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框

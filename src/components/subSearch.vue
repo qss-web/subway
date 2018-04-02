@@ -8,9 +8,12 @@
                 </li>
                 <li v-if="item.status == 2">
                     <span>{{item.title}}：</span>
-                    <el-select v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
-                        <el-option key="0" label="全部" value="0">
+                    <!-- 判断是不是车站的列表，如果是车站列表，数据直接在子组件请求 -->
+                    <el-select v-if="item.val == 'station' || item.val == 'deviceInStationId' || item.val == 'stationId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                        <el-option v-for="itemSel in staionsList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
+                    </el-select>
+                    <el-select v-else v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
                         <el-option v-for="itemSel in item.list" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
@@ -29,10 +32,10 @@
                 </li>
             </ul>
         </div>
-        <a class="exportBtn" href="javascript:;">查询</a>
+        <a class="exportBtn" href="javascript:;" v-on:click="filterBtn">查询</a>
         <a v-if="searchData.btnShow && searchData.btnShow.export" class="exportBtn" href="javascript:;">导出</a>
         <a v-if="searchData.btnShow && searchData.btnShow.add" v-on:click="testPop" class="exportBtn" href="javascript:;">增加</a>
-        <a v-if="searchData.btnShow && searchData.btnShow.delete" class="exportBtn" href="javascript:;">删除</a>
+        <a v-if="searchData.btnShow && searchData.btnShow.delete" v-on:click="deleteBtn" class="exportBtn" href="javascript:;">删除</a>
         <a v-if="searchData.btnShow && searchData.btnShow.synchronization" class="exportBtn" href="javascript:;">同步</a>
         <a v-if="searchData.btnShow && searchData.btnShow.edit" class="exportBtn" href="javascript:;">编辑</a>
         <a v-if="searchData.btnShow && searchData.btnShow.download" class="exportBtn" href="javascript:;">下载</a>
@@ -44,14 +47,26 @@
     export default {
         data() {
             return {
-                req: {
-                    // lines: '',
-                    // stations: '',
-                    // equSys: '',
-                    // equSort: '',
-                    // startTime: '',
-                    // endTime: ''
-                }
+                req: {},
+                staionsList: [{
+                    value: '金安桥站',
+                    label: '金安桥站'
+                }, {
+                    value: '苹果园站',
+                    label: '苹果园站'
+                }, {
+                    value: '苹果园南路站',
+                    label: '苹果园南路站'
+                }, {
+                    value: '西黄村站',
+                    label: '西黄村站'
+                }, {
+                    value: '廖公庄站',
+                    label: '廖公庄站'
+                }, {
+                    value: '田村站',
+                    label: '田村站'
+                }]
             };
         },
         props: ['searchData'],
@@ -61,6 +76,14 @@
             },
             testPop() {
                 this.$emit('receive', true);
+            },
+            //查询
+            filterBtn() {
+                this.$emit('filter', this.req);
+            },
+            //删除
+            deleteBtn() {
+                this.$emit('delete');
             }
         }
     };

@@ -33,8 +33,7 @@
                         'title': '角色名称',
                         'placeholder': '请输入内容',
                         'val': 'lines'
-                    }],
-                    popSave() { }
+                    }]
                 },
                 info1: [{
                     'label': '序号',

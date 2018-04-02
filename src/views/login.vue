@@ -6,10 +6,10 @@
             <div class="login">
                 <dl class="loginBox">
                     <dt>用户登录</dt>
-                    <dd class="account"><input type="text" placeholder="Username" /><img src="../assets/login/account_icon.png" /></dd>
-                    <dd class="password"><input type="password" placeholder="Password" /><img src="../assets/login/password_icon.png" /></dd>
+                    <dd class="account"><input type="text" placeholder="Username" v-model="req.username" /><img src="../assets/login/account_icon.png" /></dd>
+                    <dd class="password"><input type="password" placeholder="Password" v-model="req.password" /><img src="../assets/login/password_icon.png" /></dd>
                     <dd class="btn">
-                        <button type="button">登录</button>
+                        <button type="button" v-on:click="loginFn">登录</button>
                     </dd>
                 </dl>
             </div>
@@ -28,15 +28,30 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
-                isNotice: true
+                isNotice: true,
+                req: {
+                    username: '',
+                    password: ''
+                }
             };
         },
         methods: {
+            ...mapActions(['_login']),
             close() {
                 this.isNotice = false;
+            },
+            loginFn() {
+                this._login({
+                    ops: this.req,
+                    api: 'login',
+                    callback: () => {
+                        this.$router.push('/');
+                    }
+                });
             }
         }
     };

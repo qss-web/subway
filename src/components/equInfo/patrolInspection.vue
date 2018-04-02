@@ -2,16 +2,16 @@
     <div class="txt-center">
         <div class="flex" style=" padding-top: 0.39rem;">
             <div class="showChart">
-                <v-ring-diagram id="runIndex1" title="巡视巡检条数" :time="showValue[0]" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
+                <v-ring-diagram id="runIndex1" v-if="showValue.xjnum" title="巡视巡检条数" :time="showValue.xjnum+'条'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
             <div class="showChart">
-                <v-ring-diagram id="runIndex2" title="正常条数" :time="showValue[1]" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
+                <v-ring-diagram id="runIndex2" v-if="showValue.zcnum" title="正常条数" :time="showValue.zcnum+'条'" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
             <div class="showChart">
-                <v-ring-diagram id="runIndex3" title="故障条数" :time="showValue[2]" :showData="test3" :size="size" :setStyle="style"></v-ring-diagram>
+                <v-ring-diagram id="runIndex3" v-if="showValue.gznum" title="故障条数" :time="showValue.gznum+'条'" :showData="test3" :size="size" :setStyle="style"></v-ring-diagram>
             </div>
         </div>
-        <v-search-list :other="otherInfo" :label="info1" :list="equList.data"></v-search-list>
+        <v-search-list :other="otherInfo" :label="info1" :list="equList"></v-search-list>
     </div>
 </template>
 
@@ -20,11 +20,12 @@
     export default {
         data() {
             return {
+                equId: '',//设备id
                 size: {
                     width: '2.6rem',
                     height: '2.6rem'
                 },
-                showValue: ['20条', '40条', '58条'],
+                showValue: {},
                 test1: [{
                     y: 360,
                     color: '#32b16c'
@@ -61,7 +62,7 @@
                 }, {
                     'label': '设备编号',
                     'width': 15,
-                    'value': 'equNum'
+                    'value': 'deviceCode'
                 }, {
                     'label': '日期',
                     'width': 15,
@@ -79,117 +80,11 @@
                     'width': 15,
                     'value': 'executor'
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }, {
-                        sort: '类别',
-                        installStations: '安装车站',
-                        equNum: '设备编号',
-                        date: '日期',
-                        arrivalTime: '到达时间',
-                        record: '巡视巡检情况记录',
-                        executor: '执行人'
-                    }]
-                }
+                equList: []
             };
         },
         created() {
+            this.equId = this.$route.query.id;
             this.infoCheckFn();
             this.infoCheckListFn();
         },
@@ -198,20 +93,20 @@
             infoCheckFn() {
                 this._getList({
                     ops: {},
-                    method: 'get',
                     api: 'infoCheck',
-                    callback: () => {
-
+                    callback: res => {
+                        this.showValue = res;
                     }
                 });
             },
             infoCheckListFn() {
                 this._getList({
-                    ops: {},
-                    method: 'get',
+                    ops: {
+                        id: this.equId
+                    },
                     api: 'infoCheckList',
-                    callback: () => {
-
+                    callback: res => {
+                        this.equList = res;
                     }
                 });
             }

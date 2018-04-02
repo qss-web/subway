@@ -2,15 +2,10 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData"></v-sub-search>
+                <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
-                <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                        <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
-                    </el-pagination>
-                </div>
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
             </div>
 
         </div>
@@ -23,46 +18,20 @@
     export default {
         data() {
             return {
-                currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
                 searchData: {
                     'btnShow': {
-                        'add': false,
-                        'export': true,
-                        'delete': false,
-                        'edit': false,
-                        'download': false,
-                        'import': false
+                        'export': true
                     },
                     'options': [{
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'stations',
-                        'list': [{
-                            value: '1',
-                            label: '金安桥站'
-                        }, {
-                            value: '2',
-                            label: '苹果园站'
-                        }, {
-                            value: '3',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '4',
-                            label: '西黄村站'
-                        }, {
-                            value: '5',
-                            label: '廖公庄站'
-                        }, {
-                            value: '6',
-                            label: '田村站'
-                        }]
+                        'val': 'station'
                     }, {
                         'status': 2,
                         'title': '月份',
                         'placeholder': '请选择内容',
-                        'val': 'equSys',
+                        'val': 'month',
                         'list': [{
                             value: '1',
                             label: '一月'
@@ -100,8 +69,7 @@
                             value: '12',
                             label: '十二月'
                         }]
-                    }],
-                    popSave() { }
+                    }]
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
@@ -130,7 +98,7 @@
                 }, {
                     'label': '设备数量',
                     'width': 10,
-                    'value': 'total'
+                    'value': 'equAmount'
                 }, {
                     'label': '综合排名',
                     'width': 10,
@@ -140,118 +108,7 @@
                     'width': 10,
                     'value': 'state'
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        'num': '1',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '1',
-                        'state': '优'
-                    }, {
-                        'num': '2',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '2',
-                        'state': '优'
-                    }, {
-                        'num': '3',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '3',
-                        'state': '优'
-                    }, {
-                        'num': '4',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '4',
-                        'state': '优'
-                    }, {
-                        'num': '5',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '5',
-                        'state': '优'
-                    }, {
-                        'num': '6',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '6',
-                        'state': '优'
-                    }, {
-                        'num': '7',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '7',
-                        'state': '优'
-                    }, {
-                        'num': '8',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '8',
-                        'state': '优'
-                    }, {
-                        'num': '9',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '9',
-                        'state': '优'
-                    }, {
-                        'num': '10',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '10',
-                        'state': '优'
-                    }, {
-                        'num': '11',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '11',
-                        'state': '优'
-                    }, {
-                        'num': '12',
-                        'station': '金安桥站',
-                        'line': '6号线',
-                        'month': '1',
-                        'faultNum': '2',
-                        'total': '24',
-                        'rank': '12',
-                        'state': '优'
-                    }]
-                }
+                equList: {}
             };
         },
         props: ['list', 'label', 'checked'],
@@ -263,20 +120,18 @@
             currentList(index) {
                 this.indexed = index;
             },
-            //改变当前页数
-            changePages(val) {
-                this.currentPage = val;
-                // this.list();
-            },
-            stationListFn() {
+            stationListFn(req) {
                 this._getList({
-                    ops: {},
-                    method: 'get',
+                    ops: req,
                     api: 'stationList',
-                    callback: () => {
-
+                    callback: res => {
+                        this.equList = res;
                     }
                 });
+            },
+            //获取筛选的值
+            filterBtn(req) {
+                this.stationListFn(req);
             }
         }
     };

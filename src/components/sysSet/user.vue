@@ -1,23 +1,28 @@
 <template>
     <div class="user">
         <div class="searchWrap">
-            <v-sub-search v-on:receive="addUserFn" v-bind:searchData="searchData"></v-sub-search>
+            <v-sub-search v-on:receive="addUserFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
-            <v-system-list v-bind:label="info1" v-bind:list="equList.data" v-on:receive="btnFn"></v-system-list>
+            <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
         </div>
         <div class=" pagination ">
-            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                <span>1/1</span>
+            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage}}/{{totalPage}}</span>
             </el-pagination>
         </div>
         <v-pop-box v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
+                currentPage: 1, //当前页数
+                pageSize: 9, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
                 isShowPop: false,
                 popData1: {
                     'titleTotal': '新增用户',
@@ -25,7 +30,7 @@
                         'status': 1,
                         'title': '用户名',
                         'placeholder': '请输入用户名',
-                        'val': 'userName'
+                        'val': 'username'
                     }, {
                         'status': 1,
                         'title': '密码',
@@ -35,27 +40,27 @@
                         'status': 1,
                         'title': '真实姓名',
                         'placeholder': '请输入真实姓名',
-                        'val': 'relaName'
+                        'val': 'name'
                     }, {
                         'status': 1,
                         'title': '所属角色',
                         'placeholder': '请输入所属角色',
-                        'val': 'role'
+                        'val': 'roleName'
                     }, {
                         'status': 1,
                         'title': 'E-mail',
                         'placeholder': '请输入E-mail',
-                        'val': 'relaName'
+                        'val': 'mail'
                     }, {
                         'status': 1,
                         'title': '所属集团',
                         'placeholder': '请输入所属集团',
-                        'val': 'relaName'
+                        'val': 'groupName'
                     }, {
                         'status': 1,
                         'title': '所属公司',
                         'placeholder': '请输入所属公司',
-                        'val': 'company'
+                        'val': 'companyName'
                     }, {
                         'status': 1,
                         'title': '所属工厂',
@@ -66,8 +71,7 @@
                         'title': '所属装置',
                         'placeholder': '请输入所属装置',
                         'val': 'equ'
-                    }],
-                    popSave(val) { }
+                    }]
                 },
                 searchData: {
                     'btnShow': {
@@ -77,9 +81,8 @@
                         'status': 1,
                         'title': '用户名',
                         'placeholder': '请输入内容',
-                        'val': 'lines'
-                    }],
-                    popSave() { }
+                        'val': 'username'
+                    }]
                 },
                 info1: [{
                     'label': '序号',
@@ -88,31 +91,31 @@
                 }, {
                     'label': '用户名',
                     'width': 8,
-                    'value': 'num'
+                    'value': 'username'
                 }, {
                     'label': '密码',
                     'width': 8,
-                    'value': 'num'
+                    'value': 'password'
                 }, {
                     'label': '真实姓名',
                     'width': 8,
-                    'value': 'num'
+                    'value': 'name'
                 }, {
                     'label': '所属角色',
                     'width': 8,
-                    'value': 'num'
+                    'value': 'roleName'
                 }, {
                     'label': 'E-mail',
                     'width': 10,
-                    'value': 'num'
+                    'value': 'mail'
                 }, {
                     'label': '所属集团',
                     'width': 10,
-                    'value': 'num'
+                    'value': 'groupName'
                 }, {
                     'label': '所属公司',
                     'width': 10,
-                    'value': 'num'
+                    'value': 'companyName'
                 }, {
                     'label': '所属工厂',
                     'width': 10,
@@ -126,77 +129,58 @@
                     'width': 15,
                     'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }]
-                }
+                equList: []
             };
         },
+        created() {
+            this.getUserList();
+        },
         methods: {
+            ...mapActions(['_getList']),
+            getUserList(req) {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
+                this._getList({
+                    ops: ops,
+                    api: 'userList',
+                    callback: res => {
+                        this.equList = res.rows;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
+                    }
+                });
+            },
+            //改变当前页数
+            changePages(val) {
+                this.currentPage = val;
+                this.getUserList();
+            },
             //子组件按钮
             btnFn(val) {
-                this[val]();
+                this[val.fn](val.id);
             },
             //删除操作
-            deleteFn() {
-                // alert(2);
+            deleteFn(id) {
+                this._getList({
+                    ops: {
+                        'ids': id
+                    },
+                    api: 'userDel',
+                    callback: () => {
+                        this.$message('删除成功！');
+                        this.getUserList();
+                    }
+                });
             },
             //编辑操作
             editFn() {
+                // userDel;
                 // alert(3);
             },
             //增加用户操作
@@ -204,12 +188,24 @@
                 this.isShowPop = val;
             },
             //弹出框保存数据
-            saveFn() {
-                this.isShowPop = true;
+            saveFn(req) {
+                this._getList({
+                    ops: req,
+                    api: 'userAdd',
+                    callback: () => {
+                        this.$message('新增成功！');
+                        this.isShowPop = false;
+                        this.getUserList();
+                    }
+                });
             },
             //关闭弹出框
             cancleFn(value) {
                 this.isShowPop = value;
+            },
+            //获取筛选的值
+            filterBtn(req) {
+                this.getUserList(req);
             }
         }
     };
