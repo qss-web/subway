@@ -126,7 +126,7 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.list();
+                this.getBacklogFn();
             },
             getBacklogFn(req) {
                 const ops = {

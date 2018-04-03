@@ -62,7 +62,7 @@
                 }, {
                     'label': '设备编号',
                     'width': 15,
-                    'value': 'deviceCode'
+                    'value': 'equNum'
                 }, {
                     'label': '日期',
                     'width': 15,

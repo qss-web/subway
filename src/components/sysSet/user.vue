@@ -169,11 +169,11 @@
             deleteFn(id) {
                 this._getList({
                     ops: {
-                        'ids': id
+                        'ids': id.toString()
                     },
                     api: 'userDel',
                     callback: () => {
-                        this.$message('删除成功！');
+                        this.$message.success('删除成功！');
                         this.getUserList();
                     }
                 });
@@ -193,7 +193,7 @@
                     ops: req,
                     api: 'userAdd',
                     callback: () => {
-                        this.$message('新增成功！');
+                        this.$message.success('新增成功！');
                         this.isShowPop = false;
                         this.getUserList();
                     }

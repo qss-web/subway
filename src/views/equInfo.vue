@@ -171,7 +171,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapState, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -228,25 +228,20 @@
                 resInfo: {}
             };
         },
-        props: ['list', 'label', 'checked'],
+        computed: {
+            ...mapState(['equInfo'])
+        },
         created() {
             this.equId = this.$route.query.id;
             this.getInfoFn();
         },
         methods: {
-            ...mapActions(['_getList']),
+            ...mapActions(['_getInfo']),
+            ...mapMutations(['_equInfo']),
             //设备档案列表
             getInfoFn() {
-                this._getList({
-                    ops: {
-                        id: this.equId
-                    },
-                    api: 'infoDetail',
-                    callback: res => {
-                        this.resInfo = res;
-                        this.info = this.resInfo;
-                    }
-                });
+                this.resInfo = JSON.parse(JSON.stringify(this.equInfo));
+                this.info = this.resInfo;
             },
             currentList(index) {
                 this.indexed = index;
@@ -255,10 +250,11 @@
                 this.tabShow = index;
             },
             saveInfoFn() {
-                this._getList({
+                this._getInfo({
                     ops: this.resInfo,
                     api: 'deviceUpdate',
                     callback: () => {
+                        this._equInfo(this.resInfo);
                         this.$message.success('保存成功');
                     }
                 });

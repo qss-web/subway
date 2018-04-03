@@ -99,7 +99,7 @@
                     ops: this.repairInfo,
                     api: 'mineUpdateuser',
                     callback: () => {
-                        this.$message('修改成功！');
+                        this.$message.success('修改成功！');
                         this.$emit('save');
                     }
                 });
@@ -138,6 +138,7 @@
                 width: 1.28rem;
                 height: 1.62rem;
                 margin-right: 0.2rem;
+                overflow: hidden;
                 img,
                 i {
                     width: 100%;

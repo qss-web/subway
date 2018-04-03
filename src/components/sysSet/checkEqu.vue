@@ -142,7 +142,7 @@
                     ops: ops,
                     api: 'equConfigUpdate',
                     callback: () => {
-                        this.$message('保存成功！');
+                        this.$message.success('保存成功！');
                         this.isShowPop = false;
                         this.getEquConfigListFn();
                     }

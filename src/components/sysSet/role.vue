@@ -119,11 +119,11 @@
             deleteFn(id) {
                 this._getList({
                     ops: {
-                        "ids": id
+                        "ids": id.toString()
                     },
                     api: 'roleDel',
                     callback: () => {
-                        this.$message('删除成功！');
+                        this.$message.success('删除成功！');
                         this.getRoleListFn();
                     }
                 });
@@ -133,7 +133,7 @@
                     ops: req,
                     api: 'roleAdd',
                     callback: () => {
-                        this.$message('新增成功！');
+                        this.$message.success('新增成功！');
                         this.isShowPop = false;
                         this.getRoleListFn();
                     }

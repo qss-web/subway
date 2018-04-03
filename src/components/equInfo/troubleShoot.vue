@@ -55,35 +55,35 @@
                 }, {
                     'label': '故障单号',
                     'width': 10,
-                    'value': 'date'
+                    'value': 'faultNum'
                 }, {
                     'label': '线路',
                     'width': 6,
-                    'value': 'deviceInLineName'
+                    'value': 'line'
                 }, {
                     'label': '车站',
                     'width': 6,
-                    'value': 'deviceInStationName'
+                    'value': 'station'
                 }, {
                     'label': '设备安装位置',
                     'width': 18,
-                    'value': 'devicePosition'
+                    'value': 'installAddress'
                 }, {
                     'label': '设备编号',
                     'width': 12,
-                    'value': 'deviceCode'
+                    'value': 'equNum'
                 }, {
                     'label': '设备名称',
                     'width': 14,
-                    'value': 'deviceName'
+                    'value': 'equName'
                 }, {
                     'label': '故障系统',
                     'width': 14,
-                    'value': 'failureCause'
+                    'value': 'faultSys'
                 }, {
                     'label': '故障现象',
                     'width': 12,
-                    'value': 'repairTime'
+                    'value': 'faultShow'
                 }, {
                     'label': '修复时间',
                     'width': 12,
@@ -91,18 +91,18 @@
                 }, {
                     'label': '维修人员',
                     'width': 12,
-                    'value': 'repairTime'
+                    'value': 'repairMember'
                 }, {
                     'label': '修复确认',
                     'width': 12,
-                    'value': 'infoSources'
+                    'value': 'repeatCon'
                 }],
                 equList: []
             };
         },
         created() {
             this.equId = this.$route.query.id;
-            this.infoFaultFn();
+            //this.infoFaultFn();
             this.infoFaultListFn();
         },
         methods: {

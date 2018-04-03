@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -425,6 +425,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_equInfo']),
             currentList(index) {
                 this.tabShow = index;
                 if(index == 1) {
@@ -456,9 +457,10 @@
                 this._getList({
                     ops: req,
                     api: 'infoDetail',
-                    callback: () => {
-                        this.$message('新增成功！');
+                    callback: res => {
+                        this.$message.success('新增成功！');
                         this.isShowPop = true;
+                        this._equInfo(res);
                         this.$router.push({ path: '/equInfo', query: { 'id': req.id } });
                     }
                 });

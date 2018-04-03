@@ -125,6 +125,9 @@
                     ops: req,
                     api: 'stationList',
                     callback: res => {
+                        res.forEach(item => {
+                            item.isCheck = false;
+                        });
                         this.equList = res;
                     }
                 });

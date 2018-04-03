@@ -184,7 +184,7 @@
                         },
                         api: 'checkRatioDel',
                         callback: () => {
-                            this.$message('删除成功！');
+                            this.$message.success('删除成功！');
                             this.getCheckRatioListFn();
                         }
                     });

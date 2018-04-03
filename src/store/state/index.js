@@ -1,7 +1,8 @@
-import { getLoc } from '../../utils';
+import { getLoc, getSen } from '../../utils';
 /*
  * 参数说明:
  * @userInfo 用户信息
+ * @equInfo 设备信息
 
  *
  */
@@ -9,5 +10,6 @@ import { getLoc } from '../../utils';
 const userInfo = getLoc('userInfo') || '';
 
 export default {
-  userInfo: userInfo
+  userInfo: userInfo,
+  equInfo: getSen('equInfo') || ''
 };

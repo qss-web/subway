@@ -70,19 +70,19 @@
                 }, {
                     'label': '所属车站',
                     'width': 15,
-                    'value': 'deviceInStationName'
+                    'value': 'station'
                 }, {
                     'label': '设备系统',
                     'width': 13,
-                    'value': 'deviceSys'
+                    'value': 'equSys'
                 }, {
                     'label': '设备编号',
                     'width': 13,
-                    'value': 'deviceCode'
+                    'value': 'equNum'
                 }, {
                     'label': '安装位置',
                     'width': 15,
-                    'value': 'devicePosition'
+                    'value': 'installPosition'
                 }, {
                     'label': '设备状态',
                     'width': 15,

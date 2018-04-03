@@ -48,7 +48,7 @@
             },
             getUserInfo() {
                 this._getInfo({
-                    api: 'mineCount',
+                    api: 'mineUserInfo',
                     callback: res => {
                         this.userinfo = res;
                     }
