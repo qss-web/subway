@@ -3,6 +3,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -104,6 +105,22 @@
                     }
                 }
             };
+        },
+        created() {
+            this.getTodayAlarmTopFn();
+        },
+        methods: {
+            ...mapActions(['_getInfo']),
+            getTodayAlarmTopFn() {
+                this._getInfo({
+                    ops: {},
+                    api: 'todayAlarmTop',
+                    callback: res => {
+                        console.log(res);
+                    }
+                });
+            }
+
         }
     };
 </script>

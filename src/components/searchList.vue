@@ -17,9 +17,8 @@
                     <span v-if="item1.value == 'index'">
                         {{index+1}}
                     </span>
-                    <span v-if="item1.btn">
-                        <a class="btn" v-on:click="goToOrder" style="margin-right: 0.2rem;" href="javascript:;" v-if="item1.btn.workOrder">工单</a>
-                        <a class="btn" v-on:click="goToMore" href="javascript:;" v-if="item1.btn.more">更多事件</a>
+                    <span v-if="item1.btn" class="btn">
+                        <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <span v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''">
                         {{item[item1.value]}}
@@ -37,8 +36,8 @@
                     <span v-if="item1.value == 'index'">
                         {{index+1}}
                     </span>
-                    <span v-if="item1.btn">
-                        <a v-for="(subItem,index) in item1.btn" class="btn" v-on:click="goToNextPage(subItem.fn)" href="javascript:;">{{subItem.name}}</a>
+                    <span v-if="item1.btn" class="btn">
+                        <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <span v-bind:class="item.status?'font-color-' + item.status:''">
                         {{item[item1.value]}}
@@ -119,12 +118,6 @@
                     this.$emit('isPop', true);
                 }
             },
-            goToOrder() {
-                this.$router.push('/backlog');
-            },
-            goToMore() {
-                this.$router.push('/alarmListDay');
-            },
             goToNextPage(fn) {
                 this.$emit('receive', fn);
             }
@@ -145,8 +138,14 @@
         margin-left: 0.1rem;
     }
     .btn {
-        color: #fff;
-        text-decoration: underline;
+        a {
+            color: #fff;
+            text-decoration: underline;
+            margin-right: 0.2rem;
+        }
+        a:last-child {
+            margin-right: 0;
+        }
     }
     .activeHand {
         cursor: pointer;

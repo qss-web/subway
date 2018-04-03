@@ -6,41 +6,41 @@
                 <div class="infos flex">
                     <label>车站预警</label>
                     <span class="light error"></span>
-                    <span class="name">二级预警 2座</span>
+                    <span class="name">二级预警 {{total[0]}}座</span>
                     <span class="light warn"></span>
-                    <span class="name">一级预警 2座</span>
+                    <span class="name">一级预警 {{total[1]}}座</span>
                     <span class="light normal"></span>
-                    <span class="name">正常 2座</span>
+                    <span class="name">正常 {{total[2]}}座</span>
                     <span class="light offline"></span>
-                    <span class="name">断网 0座</span>
+                    <span class="name">断网 {{total[3]}}座</span>
                     <span class="light stop"></span>
-                    <span class="name">停机 0座</span>
+                    <span class="name">停机 {{total[4]}}座</span>
                 </div>
             </div>
             <div class="line2 flex">
                 <div class="infos flex">
                     <img src="~assets/home/icon_escalator.png" />
-                    <span>二级预警 <span class="error">1</span> 部</span>
-                    <span>一级预警 <span class="warn">2</span> 部</span>
-                    <span>正常 <span class="normal">9</span> 部</span>
-                    <span>断网 <span class="g-gray">1</span> 部</span>
-                    <span>停机 <span class="g-brown">0</span> 部</span>
+                    <span>二级预警 <span class="error">{{escalator[0]}}</span> 部</span>
+                    <span>一级预警 <span class="warn">{{escalator[1]}}</span> 部</span>
+                    <span>正常 <span class="normal">{{escalator[2]}}</span> 部</span>
+                    <span>断网 <span class="g-gray">{{escalator[3]}}</span> 部</span>
+                    <span>停机 <span class="g-brown">{{escalator[4]}}</span> 部</span>
                 </div>
                 <div class="infos flex">
                     <img src="~assets/home/icon_fan.png" />
-                    <span>二级预警 <span class="error">1</span> 台</span>
-                    <span>一级预警 <span class="warn">2</span> 台</span>
-                    <span>正常 <span class="normal">9</span> 台</span>
-                    <span>断网 <span class="g-gray">1</span> 台</span>
-                    <span>停机 <span class="g-brown">0</span> 台</span>
+                    <span>二级预警 <span class="error">{{fan[0]}}</span> 台</span>
+                    <span>一级预警 <span class="warn">{{fan[1]}}</span> 台</span>
+                    <span>正常 <span class="normal">{{fan[2]}}</span> 台</span>
+                    <span>断网 <span class="g-gray">{{fan[3]}}</span> 台</span>
+                    <span>停机 <span class="g-brown">{{fan[4]}}</span> 台</span>
                 </div>
                 <div class="infos flex">
                     <img src="~assets/home/icon_door.png" />
-                    <span>二级预警 <span class="error">1</span> 组</span>
-                    <span>一级预警 <span class="warn">2</span> 组</span>
-                    <span>正常 <span class="normal">9</span> 组</span>
-                    <span>断网 <span class="g-gray">1</span> 组</span>
-                    <span>停机 <span class="g-brown">0</span> 组</span>
+                    <span>二级预警 <span class="error">{{door[0]}}</span> 组</span>
+                    <span>一级预警 <span class="warn">{{door[1]}}</span> 组</span>
+                    <span>正常 <span class="normal">{{door[2]}}</span> 组</span>
+                    <span>断网 <span class="g-gray">{{door[3]}}</span> 组</span>
+                    <span>停机 <span class="g-brown">{{door[4]}}</span> 组</span>
                 </div>
             </div>
         </div>
@@ -63,14 +63,22 @@
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
+                total: [], //车站预警
+                escalator: [],//扶梯预警
+                fan: [],//风机预警
+                door: [],//站台门预警
+                station: [] //车站
             };
         },
         created() {
+            this.getStationAlarmStatisticalFn();
         },
         methods: {
+            ...mapActions(['_getInfo']),
             //设备实时状态
             goStateFn() {
                 this.$router.push('equStateList');
@@ -78,6 +86,21 @@
             //测点实时状态
             goSiteFn() {
                 this.$router.push('siteList');
+            },
+            getStationAlarmStatisticalFn() {
+                this._getInfo({
+                    ops: {},
+                    api: 'stationAlarmStatistical',
+                    callback: res => {
+                        const data = res.rows;
+
+                        this.total = data.total; //车站预警
+                        this.escalator = data.escalator;//扶梯预警
+                        this.fan = data.fan;//风机预警
+                        this.door = data.door;//站台门预警
+                        this.station = data.station; //车站
+                    }
+                });
             }
         }
     };

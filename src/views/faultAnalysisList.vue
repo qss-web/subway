@@ -2,28 +2,30 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData"></v-sub-search>
+                <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
                 <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                        <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
+                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                        <span>{{currentPage}}/{{totalPage}}</span>
                     </el-pagination>
                 </div>
             </div>
-
         </div>
         <v-goback></v-goback>
     </div>
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
                 searchData: {
                     'btnShow': {
                         'export': true
@@ -76,105 +78,47 @@
                     'width': 20,
                     'value': 'faultNum'
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        num: '序1',
-                        equSys: '设备系统',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        num: '序1',
-                        equSys: '设备系统',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }, {
-                        num: '序1',
-                        equType: '设备类型',
-                        alarmCode: '02',
-                        alarmName: '预警原因名称',
-                        faultTime: '20',
-                        faultNum: '300'
-                    }]
-                }
+                equList: []
             };
         },
-        props: ['list', 'label', 'checked'],
+        created() {
+            this.getFailureAnalysisListFn();
+        },
         methods: {
+            ...mapActions(['_getList']),
             currentList(index) {
                 this.indexed = index;
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.list();
+                this.getFailureAnalysisListFn();
+            },
+            //获取筛选的值
+            filterBtn(req) {
+                this.getFailureAnalysisListFn(req);
+            },
+            getFailureAnalysisListFn(req) {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
+                this._getList({
+                    ops: ops,
+                    api: 'failureAnalysisList',
+                    callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.equList = res.rows;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
+                    }
+                });
             }
         }
     };

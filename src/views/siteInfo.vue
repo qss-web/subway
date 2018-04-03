@@ -28,11 +28,11 @@
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
-                            <button class="tab" :class="{active: !activeIndex}" @click="activeIndex = 0">事件信息</button>
-                            <button class="tab" :class="{active: activeIndex}" @click="activeIndex = 1">测点状态</button>
+                            <button class="tab" :class="{active: !activeIndex}" @click="tabListFn(0)">事件信息</button>
+                            <button class="tab" :class="{active: activeIndex}" @click="tabListFn(1)">测点状态</button>
                         </div>
                         <div class="tables">
-                            <v-search-list v-show="!activeIndex" :other="alarmTable.other" :label="alarmTable.label" :list="alarmTable.list"></v-search-list>
+                            <v-search-list v-show="!activeIndex" :other="alarmTable.other" :label="alarmTable.label" :list="alarmTable.list" v-on:receive="btnFn"></v-search-list>
                             <v-search-list v-show="activeIndex" :other="testTable.other" :label="testTable.label" :list="testTable.list"></v-search-list>
                         </div>
                     </div>
@@ -93,38 +93,9 @@
                     }, {
                         'label': '操作',
                         'width': 25,
-                        'btn': { 'workOrder': true, 'more': true }
+                        'btn': [{ 'workOrder': true, 'name': '工单', 'fn': 'goToOrderFn' }, { 'more': true, 'name': '更多事件', 'fn': 'goToMoreFn' }]
                     }],
-                    list: [{
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        eventDesc: '预警事件',
-                        status: 1,
-                        statusValue: '状态'
-                    },
-                    {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        eventDesc: '预警事件',
-                        status: 2,
-                        statusValue: '状态'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        eventDesc: '预警事件',
-                        status: 3,
-                        statusValue: '状态'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        eventDesc: '预警事件',
-                        status: 4,
-                        statusValue: '状态'
-                    }],
+                    list: [],
                     other: {
                         style: 5,
                         isSubShowColor: true
@@ -173,53 +144,7 @@
                         'width': 18,
                         'value': 'suggest'
                     }],
-                    list: [{
-                        num: '序号',
-                        equName: '设备名称',
-                        testName: '测点名称',
-                        currentValue: '当前值',
-                        highLimit: '高限',
-                        highestLimit: '高高限',
-                        alarmWay: '预警方式',
-                        alarmType: '预警类型',
-                        updateTime: '更新时间',
-                        alarmCause: '预警原因',
-                        suggest: '检维修建议',
-                        statusValue: '一级预警',
-                        status: 1
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        testName: '测点名称',
-                        currentValue: '当前值',
-                        highLimit: '高限',
-                        highestLimit: '高高限',
-                        lowLimit: '下限',
-                        lowestLimit: '下下限',
-                        alarmWay: '预警方式',
-                        alarmType: '预警类型',
-                        updateTime: '更新时间',
-                        alarmCause: '预警原因',
-                        suggest: '检维修建议',
-                        statusValue: '二级预警',
-                        status: 2
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        testName: '测点名称',
-                        currentValue: '当前值',
-                        highLimit: '高限',
-                        highestLimit: '高高限',
-                        lowLimit: '下限',
-                        lowestLimit: '下下限',
-                        alarmWay: '预警方式',
-                        alarmType: '预警类型',
-                        updateTime: '更新时间',
-                        alarmCause: '预警原因',
-                        suggest: '检维修建议',
-                        statusValue: '二级预警',
-                        status: 2
-                    }],
+                    list: [],
                     other: {
                         style: 5,
                         isSubShowColor: true
@@ -333,6 +258,8 @@
         },
         created() {
             this.getAvailabilityFn();
+            this.getEventInfoFn();
+            this.getPointStatusFn();
         },
         methods: {
             ...mapActions(['_getList']),
@@ -353,6 +280,46 @@
                         this.ringInfo1.value = res.ft;
                         this.ringInfo2.value = res.fj;
                         this.ringInfo3.value = res.ztm;
+                    }
+                });
+            },
+            //切换选项卡
+            tabListFn(value) {
+                this.activeIndex = value;
+                if(value) {
+                    this.getEventInfoFn();
+                } else {
+                    this.getPointStatusFn();
+                }
+            },
+            btnFn(val) {
+                this[val]();
+            },
+            //工单点击事件
+            goToOrderFn() {
+                this.$router.push('/backlog');
+            },
+            //更多事件 点击事件
+            goToMoreFn() {
+                this.$router.push('/alarmListDay');
+            },
+            //获取事件信息
+            getEventInfoFn() {
+                this._getList({
+                    ops: {},
+                    api: 'eventInfo',
+                    callback: res => {
+                        this.alarmTable.list = res.rows;
+                    }
+                });
+            },
+            //获取测点信息
+            getPointStatusFn() {
+                this._getList({
+                    ops: {},
+                    api: 'pointStatus',
+                    callback: res => {
+                        this.testTable.list = res.rows;
                     }
                 });
             }

@@ -60,15 +60,8 @@
                     }, {
                         'status': 2,
                         'title': '设备名称',
-                        'placeholder': '请选择内容',
-                        'val': 'equName',
-                        'list': [{
-                            value: '1',
-                            label: '设备名称一'
-                        }, {
-                            value: '2',
-                            label: '设备名称二'
-                        }]
+                        'placeholder': '请输入内容',
+                        'val': 'equName'
                     }, {
                         'status': 2,
                         'title': '状态',

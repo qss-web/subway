@@ -122,7 +122,37 @@ const api = {
   menuUpdate: 'webapi/menu/update',
 
   // 人员情况统计
-  staffStatistics: 'webapi/statistics/user/list'
+  staffStatistics: 'webapi/statistics/user/list',
+
+  //   ------------------------------其它接口---------------------------------
+  //首页实时报警信息
+  timelyAlarmTop: 'monitor/timelyAlarmTop',
+  //实时预警信息列表----实时预警信息
+  timelyAlarmList: 'monitor/timelyAlarm',
+  //实时预警信息列表----以往历史事件
+  alarmListHistory: 'monitor/timelyAlarmList',
+  // 今日报警统计
+  todayAlarmTop: 'monitor/todayAlarmTop',
+  //今日报警统计列表
+  todayAlarm: 'monitor/todayAlarm',
+  // 故障原因分析
+  failureAnalysis: 'monitor/failureAnalysis',
+  //故障分析列表
+  failureAnalysisList: 'monitor/failureAnalysisList',
+  // 车站报警
+  stationAlarmStatistical: 'monitor/stationAlarmStatistical',
+  // 当月设备运行时间
+  monthRunningTime: 'monitor/monthRunningTime',
+  //当月设备运行时间列表
+  monthRunningTimeList: 'monitor/monthRunningTimeList',
+  //设备实时状态列表
+  eqTimelyStatus: 'monitor/eqTimelyStatus',
+  //测点实时状态
+  pointTimelyStatus: 'monitor/pointTimelyStatus',
+  //事件信息列表
+  eventInfo: 'monitor/eventInfo',
+  //测点状态列表
+  pointStatus: 'monitor/pointStatus'
 };
 
 for (var k in api) {

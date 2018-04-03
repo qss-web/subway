@@ -95,9 +95,15 @@ const xhr = ({ method = 'post', ur, options = {} }) => {
         text: '拼命加载中...'
       }));
   }, 500);
-  const ops = JSON.parse(JSON.stringify(store.state.userInfo));
 
-  Object.assign(ops, options);
+  let ops = {};
+
+  if (store.state.userInfo) {
+    ops = JSON.parse(JSON.stringify(store.state.userInfo));
+    Object.assign(ops, options);
+  } else {
+    ops = options;
+  }
   switch (method) {
     case 'get':
       p = new Promise(function(resolve, reject) {

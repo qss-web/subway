@@ -65,17 +65,10 @@
                             label: '设备系统二'
                         }]
                     }, {
-                        'status': 2,
+                        'status': 1,
                         'title': '设备名称',
-                        'placeholder': '请选择内容',
-                        'val': 'equSort',
-                        'list': [{
-                            value: '1',
-                            label: '设备名称一'
-                        }, {
-                            value: '2',
-                            label: '测试名称二'
-                        }]
+                        'placeholder': '请输入内容',
+                        'val': 'equSort'
                     }, {
                         'status': 4,
                         'title': '月份',

@@ -5,8 +5,8 @@
         </div>
         <div class="tab">
             <ul class="title">
-                <li v-on:click="tabShow=true" v-bind:class="tabShow?'active':''">实时预警信息</li>
-                <li v-on:click="tabShow=false" v-bind:class="tabShow?'':'active'">以往历史事件</li>
+                <li v-on:click="tabShowFn(true)" v-bind:class="tabShow?'active':''">实时预警信息</li>
+                <li v-on:click="tabShowFn(false)" v-bind:class="tabShow?'':'active'">以往历史事件</li>
                 <dl class="notice flex">
                     <dd class="g-red">二级预警：3次</dd>
                     <dd class="g-light-orange">一级预警：2次</dd>
@@ -220,7 +220,7 @@
         },
         props: ['list', 'label', 'checked'],
         created() {
-            this.test2();
+            this.getTimelyAlarmListFn();
         },
         methods: {
             ...mapActions(['_getList']),
@@ -239,14 +239,31 @@
             btnFn(val) {
                 this[val]();
             },
-            test2() {
+            getTimelyAlarmListFn() {
                 this._getList({
                     ops: {},
-                    method: 'get',
-                    api: 'xjhangyou',
+                    api: 'timelyAlarmList',
                     callback: () => {
                     }
                 });
+            },
+            getAlarmListHistoryFn() {
+                this._getList({
+                    ops: {},
+                    api: 'alarmListHistory',
+                    callback: () => {
+                    }
+                });
+            },
+            tabShowFn(b) {
+                this.tabShow = b;
+                //b==true  实时预警信息
+                //b==false 以往历史事件
+                if(b) {
+                    this.getTimelyAlarmListFn();
+                } else {
+                    this.getAlarmListHistoryFn();
+                }
             }
         }
     };

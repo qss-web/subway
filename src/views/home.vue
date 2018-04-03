@@ -22,6 +22,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -48,6 +49,21 @@
                     }
                 ]
             };
+        },
+        created() {
+            this.getTimelyAlarmTopFn();
+        },
+        methods: {
+            ...mapActions(['_getInfo']),
+            getTimelyAlarmTopFn() {
+                this._getInfo({
+                    ops: {},
+                    api: 'timelyAlarmTop',
+                    callback: res => {
+                        console.log(res);
+                    }
+                });
+            }
         }
     };
 </script>

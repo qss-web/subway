@@ -6,9 +6,9 @@
                 <span class="line"></span>
             </div>
             <div class="chart flex" v-on:click="goRunList">
-                <v-running-time id="running1" title="自动扶梯" :max="912" :current="188"></v-running-time>
-                <v-running-time id="running2" title="风机" :max="912" :current="48"></v-running-time>
-                <v-running-time id="running3" title="站台门" :max="912" :current="48"></v-running-time>
+                <v-running-time v-if="escalator.max" id="running1" title="自动扶梯" :max="escalator.max" :current="escalator.current"></v-running-time>
+                <v-running-time v-if="fan.max" id="running2" title="风机" :max="fan.max" :current="fan.current"></v-running-time>
+                <v-running-time v-if="door.max" id="running3" title="站台门" :max="door.max" :current="door.current"></v-running-time>
             </div>
         </div>
         <div class="line2">
@@ -33,10 +33,16 @@
                     // 'escalator': '5', //扶梯
                     // 'fan': '3', //风机
                     // 'door': '5' //站台门
-                }
+                },
+                escalator: {}, //扶梯
+                fan: {}, //风机
+                door: {} //站台门
             };
         },
         created() {
+            //当月设备运行时间
+            this.getMonthRunningTimeFn();
+            //今日故障待办事项
             this.getBacklogCountFn();
         },
         methods: {
@@ -47,12 +53,27 @@
             goBacklog() {
                 this.$router.push('backlog');
             },
+            //今日故障待办事项
             getBacklogCountFn() {
                 this._getInfo({
                     ops: {},
                     api: 'backlogCount',
                     callback: res => {
                         this.failure = res;
+                    }
+                });
+            },
+            //当月设备运行时间
+            getMonthRunningTimeFn() {
+                this._getInfo({
+                    ops: {},
+                    api: 'monthRunningTime',
+                    callback: res => {
+                        let data = res.rows;
+
+                        this.escalator = data[0]; //扶梯
+                        this.fan = data[1]; //风机
+                        this.door = data[2];//站台门
                     }
                 });
             }
