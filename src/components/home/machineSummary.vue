@@ -69,7 +69,7 @@
                     ops: {},
                     api: 'monthRunningTime',
                     callback: res => {
-                        let data = res.rows;
+                        let data = res;
 
                         this.escalator = data[0]; //扶梯
                         this.fan = data[1]; //风机

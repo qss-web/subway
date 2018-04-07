@@ -12,7 +12,7 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -56,16 +56,18 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_itemObj']),
             //子组件按钮
             btnFn(val) {
-                this[val.fn](val.id);
+                this[val.fn](val.id, val.item);
             },
             //删除操作
             deleteFn() {
 
             },
             //编辑操作
-            editFn(id) {
+            editFn(id, item) {
+                this._itemObj(item);
                 this.currentId = id;
                 this.isShowPop = true;
             },

@@ -40,14 +40,22 @@
     </div>
 </template>
 <script>
+    import { mapState } from 'vuex';
     export default {
         data() {
             return {
-                req: {
-                }
+                req: {}
             };
         },
         props: ['popData'],
+        computed: {
+            ...mapState(['itemObj'])
+        },
+        created() {
+            if(this.itemObj) {
+                this.req = JSON.parse(JSON.stringify(this.itemObj));
+            }
+        },
         methods: {
             onSubmit() {
                 this.$emit('save', this.req);

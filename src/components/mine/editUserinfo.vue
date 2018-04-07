@@ -1,7 +1,7 @@
 <template>
     <div class="userinfo">
         <div class="user-common flex">
-            <el-upload class="user-common-photo avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+            <el-upload class="user-common-photo avatar-uploader" action="http://192.168.0.196:8080/bjdt/common/upload" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                 <img v-if="userinfo.imageUrl" :src="userinfo.imageUrl" class="avatar">
                 <i v-else class="avatar-uploader-icon"></i>
             </el-upload>

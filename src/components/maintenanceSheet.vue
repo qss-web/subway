@@ -1,57 +1,67 @@
 <template>
     <div class="box">
         <div class="layer" v-on:click="closeFn"></div>
-        <div class="sheet" v-on:click="closeFn">
+        <div class="sheet">
             <h3>
                 北京市地铁运营有限公司 分公司设备设施故障报修单
             </h3>
             <div class="sheetBox">
                 <ul class="flex">
                     <li>日期</li>
-                    <li></li>
+                    <li>{{info.faultOrderDate}}</li>
                     <li>故障系统</li>
-                    <li></li>
+                    <li>{{info.deviceSys}}</li>
                 </ul>
                 <ul class="flex">
                     <li>报修单位</li>
-                    <li></li>
+                    <li>{{info.reportCompany}}</li>
                     <li>故障时间</li>
-                    <li></li>
+                    <li>{{info.faultTime}}</li>
                 </ul>
                 <ul class="flex">
                     <li>报修时间</li>
-                    <li></li>
+                    <li>{{info.reportTime}}</li>
                     <li>到达时间</li>
-                    <li></li>
+                    <li>{{info.arriveTime}}</li>
                 </ul>
                 <ul class="flex">
                     <li>报修内容</li>
-                    <li></li>
+                    <li>{{info.reportContent}}</li>
                     <li>报修人</li>
-                    <li></li>
+                    <li>{{info.reportUserName}}</li>
                 </ul>
                 <ul class="flex">
                     <li>接报单位</li>
-                    <li></li>
+                    <li>{{info.receiveCompany}}</li>
                     <li>接报人</li>
-                    <li></li>
+                    <li>{{info.receiveUserName}}</li>
                 </ul>
                 <ul class="flex">
                     <li>故障类型</li>
-                    <li></li>
+                    <li>
+                        <select v-model="info.faultType">
+                            <option value="0">设备本身</option>
+                            <option value="1">外界因素</option>
+                        </select>
+                    </li>
                     <li>处理方式</li>
-                    <li></li>
+                    <li>
+                        <select v-model="info.handleType">
+                            <option value="0">立即完成</option>
+                            <option value="1">延时处理</option>
+                        </select>
+                    </li>
                 </ul>
                 <dl class="textareaShow">
                     <dt>故障现象及车站先期处理内容（车站人员填写）：</dt>
                     <dd>
-                        <textarea placeholder="请输入内容"></textarea>
+                        <textarea v-model="info.reportPretreatment" placeholder="请输入内容"></textarea>
                     </dd>
                 </dl>
                 <dl class="textareaShow">
                     <dt>故障处理（维修人员填写，如不能现场修复说明情况）：</dt>
                     <dd>
-                        <textarea placeholder="请输入内容"></textarea>
+                        <textarea v-model="info.reportProcessContent" placeholder="请输入内容"></textarea>
                     </dd>
                 </dl>
                 <dl class="sign flex">
@@ -61,14 +71,14 @@
                     </dd>
                 </dl>
                 <dl class="sign flex">
-                    <dd>修复时间：</dd>
-                    <dd>维修人员签字：</dd>
-                    <dd>修复确认签字：</dd>
+                    <dd>修复时间：<input type="text" value="" v-model="info.repairTime" /></dd>
+                    <dd>维修人员签字：<input type="text" value="" v-model="info.repairUserName" /></dd>
+                    <dd>修复确认签字：<input type="text" value="" v-model="info.confirmUserName" /></dd>
                 </dl>
                 <dl class="textareaShow">
                     <dt>备注：</dt>
                     <dd>
-                        <textarea placeholder="请输入备注内容"></textarea>
+                        <textarea v-model="info.remark" placeholder="请输入备注内容"></textarea>
                     </dd>
                 </dl>
                 <dl class="textareaShow">
@@ -79,21 +89,49 @@
                 </dl>
             </div>
             <div class="btnPrint">
+                <button v-on:click="onSubmit">保存</button>
                 <button>打印</button>
             </div>
         </div>
     </div>
 </template>
 <script>
+    import { mapActions, mapState } from 'vuex';
     export default {
         data() {
             return {
-
+                info: {}
             };
         },
+        created() {
+            this.goDetail();
+        },
+        computed: {
+            ...mapState(['itemObj'])
+        },
         methods: {
+            ...mapActions(['_getInfo']),
             closeFn() {
                 this.$emit('isPop', false);
+            },
+            onSubmit() {
+                this._getInfo({
+                    ops: this.info,
+                    api: 'faultUpdate',
+                    callback: () => {
+                        this.$message.success('保存成功！');
+                        this.$emit('isPop', false);
+                    }
+                });
+            },
+            goDetail() {
+                this._getInfo({
+                    ops: { 'id': this.itemObj.id.toString() },
+                    api: 'faultDetail',
+                    callback: res => {
+                        this.info = res;
+                    }
+                });
             }
         }
     };
@@ -172,6 +210,9 @@
                     flex: 1;
                     line-height: 0.48rem;
                     text-indent: 1em;
+                    input[type='text'] {
+                        width: 1.8rem;
+                    }
                 }
             }
         }

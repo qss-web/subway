@@ -9,37 +9,37 @@
         </ul>
         <dl class="content" v-if="other.isSubShowColor">
             <dd v-for="(item, index) in listShow">
-                <span style="width: 4%; cursor: pointer" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
+                <span style="width: 4%!important; cursor: pointer" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
                     <img v-if="!item.isCheck" src="../assets/search/check.png"/>
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
                 <div v-for="(item1, index1) in label" v-bind:style="{width:item1.width+'%'}">
-                    <span v-if="item1.value == 'index'">
+                    <span v-if="item1.value == 'index'" v-on:click="goToNextPage(other.goToNextFn,item)">
                         {{index+1}}
                     </span>
-                    <span v-if="item1.btn" class="btn">
-                        <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn)" href="javascript:;">{{subItem.name}}</a>
+                    <span v-else-if="item1.btn" class="btn">
+                        <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
-                    <span v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''">
+                    <span v-else v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''" v-on:click="goToNextPage(other.goToNextFn,item)">
                         {{item[item1.value]}}
                     </span>
                 </div>
             </dd>
         </dl>
         <dl class="content" v-else>
-            <dd v-for="(item, index) in listShow" v-on:click="goToNext" v-bind:class="{activeHand:other.isClick == true}">
-                <span style="width: 4%; cursor: pointer" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
+            <dd v-for="(item, index) in listShow" v-bind:class="{activeHand:other.isClick == true}">
+                <span style="width: 4%!important; cursor: pointer" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
                     <img v-if="!item.isCheck" src="../assets/search/check.png"/>
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
                 <div v-for="(item1, index1) in label" v-bind:style="{width:item1.width+'%'}">
-                    <span v-if="item1.value == 'index'">
+                    <span v-if="item1.value == 'index'" v-on:click="goToNextPage(other.goToNextFn,item)">
                         {{index+1}}
                     </span>
-                    <span v-if="item1.btn" class="btn">
-                        <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn)" href="javascript:;">{{subItem.name}}</a>
+                    <span v-else-if="item1.btn" class="btn">
+                        <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
-                    <span v-bind:class="item.status?'font-color-' + item.status:''">
+                    <span v-else v-bind:class="item.status?'font-color-' + item.status:''" v-on:click="goToNextPage(other.goToNextFn,item)">
                         {{item[item1.value]}}
                         <i class="redDot" v-if="item1.isShowRed && item.type==0"></i>
                     </span>
@@ -49,6 +49,7 @@
     </div>
 </template>
 <script>
+    import { mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -67,6 +68,7 @@
         created() {
         },
         methods: {
+            ...mapMutations(['_itemObj']),
             currentList(index) {
                 this.indexed = index;
             },
@@ -113,12 +115,13 @@
                 });
                 this.$emit('ids', this.checkedValue);
             },
-            goToNext() {
-                if(this.other.isSheet) {
-                    this.$emit('isPop', true);
-                }
-            },
-            goToNextPage(fn) {
+            // goToNext() {
+            //     if(this.other.isSheet) {
+            //         this.$emit('isPop', true);
+            //     }
+            // },
+            goToNextPage(fn, item) {
+                this._itemObj(item);
                 this.$emit('receive', fn);
             }
         }
@@ -128,6 +131,10 @@
     // .font-color-default {
     //     color: #1c1e2a !important;
     // }
+    div span {
+        display: block;
+        width: 100% !important;
+    }
     .redDot {
         display: inline-block;
         width: 0.08rem;

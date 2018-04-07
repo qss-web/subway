@@ -13,6 +13,16 @@
                         <el-option v-for="itemSel in staionsList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
+                    <!-- 判断是不是设备系统的列表，如果是设备系统列表，数据直接在子组件请求 -->
+                    <el-select v-else-if="item.val == 'equSys'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                        <el-option v-for="itemSel in sysList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                        </el-option>
+                    </el-select>
+                    <!-- 判断是不是线路列表，如果是线路列表，数据直接在子组件请求 -->
+                    <el-select v-else-if="item.val == 'line'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                        <el-option v-for="itemSel in lineList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                        </el-option>
+                    </el-select>
                     <el-select v-else v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
                         <el-option v-for="itemSel in item.list" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
@@ -20,7 +30,7 @@
                 </li>
                 <li v-if="item.status == 3">
                     <span>{{item.title}}：</span>
-                    <el-date-picker v-model="req[item.val1]" type="date" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
+                    <el-date-picker v-model="req[item.val1]" format="yyyy-MM-dd" type="date" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
                     <i>至</i>
                     <el-date-picker v-model="req[item.val2]" type="date" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
                 </li>
@@ -29,6 +39,10 @@
                     <el-date-picker v-model="req[item.val1]" type="month" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
                     <i>至</i>
                     <el-date-picker v-model="req[item.val2]" type="month" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
+                </li>
+                <li v-if="item.status == 5">
+                    <span>{{item.title}}：</span>
+                    <el-date-picker v-model="req[item.val1]" type="month" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
                 </li>
             </ul>
         </div>
@@ -66,7 +80,22 @@
                 }, {
                     value: '田村站',
                     label: '田村站'
-                }]
+                }],
+                sysList: [{
+                    value: '0',
+                    label: '站台门'
+                }, {
+                    value: '7',
+                    label: '自动扶梯'
+                }, {
+                    value: '8',
+                    label: '风机'
+                }],
+                lineList: [{
+                    value: '6号线西延线',
+                    label: '6号线'
+                }],
+                testData: ''
             };
         },
         props: ['searchData'],
@@ -85,6 +114,11 @@
             deleteBtn() {
                 this.$emit('delete');
             }
+            // getSTime(val) {
+            //     this.testData = val;
+            //     console.log(this.testData);
+            //     // this.sTime = val;//这个sTime是在data中声明的，也就是v-model绑定的值
+            // }
         }
     };
 </script>

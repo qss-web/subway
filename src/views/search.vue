@@ -3,22 +3,22 @@
         <v-search v-on:receive="fifterBtn"></v-search>
         <dl class="middleSort clearfix">
             <dd v-on:click="currentList(1)" v-bind:class="indexed == 1 ?'active':''">
-                <p>设备档案 <span>{{count.archives}}份</span></p>
+                <p>设备档案 <span v-if="count.archives|| count.archives==0">{{count.archives+'份'}}</span></p>
                 <img v-if="indexed!=1" src="../assets/search/sort01_gray.png" />
                 <img v-if="indexed==1" src="../assets/search/sort01_orange.png" />
             </dd>
             <dd v-on:click="currentList(2)" v-bind:class="indexed == 2 ?'active':''">
-                <p>预警信息 <span>{{count.warnInfo}}份</span></p>
+                <p>预警信息 <span v-if="count.warnInfo || count.warnInfo==0">{{count.warnInfo+'份'}}</span></p>
                 <img v-if="indexed!=2" src="../assets/search/sort02_gray.png" />
                 <img v-if="indexed==2" src="../assets/search/sort02_orange.png" />
             </dd>
             <dd v-on:click="currentList(3)" v-bind:class="indexed == 3 ?'active':''">
-                <p>故障报修单 <span>{{count.fault}}份</span></p>
+                <p>故障报修单 <span v-if="count.fault || count.fault==0">{{count.fault+'份'}}</span></p>
                 <img v-if="indexed!=3" src="../assets/search/sort03_gray.png" />
                 <img v-if="indexed==3" src="../assets/search/sort03_orange.png" />
             </dd>
             <dd v-on:click="currentList(4)" v-bind:class="indexed == 4 ?'active':''">
-                <p>图片 <span>{{count.picture}}张</span></p>
+                <p>图片 <span v-if="count.picture || count.picture==0">{{count.picture+'张'}}</span></p>
                 <img v-if="indexed!=4" src="../assets/search/sort04_gray.png" />
                 <img v-if="indexed==4" src="../assets/search/sort04_orange.png" />
             </dd>
@@ -30,7 +30,7 @@
         </dl>
         <v-search-list v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list"></v-search-list>
         <v-search-list v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="list"></v-search-list>
-        <v-search-list v-if="indexed==3" v-on:isPop="isPopFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list"></v-search-list>
+        <v-search-list v-if="indexed==3" v-on:receive="clickFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list"></v-search-list>
         <div class="showPic" v-if="indexed==4">
             <img class="border-bg" src="../assets/other/footer-border.png" />
             <ul class="flex">
@@ -49,11 +49,12 @@
             <v-search-list v-if="!subOther " v-bind:label="equLabe4 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
         </div>
         <div v-bind:class="indexed==5? 'pagination5': 'pagination' ">
-            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="totalPage" prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage}}/{{totalPage}}</span>
             </el-pagination>
         </div>
         <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn"></v-maintenance-sheet>
+        <!-- <v-maintenance-sheet v-on:isPop="isPopFn"></v-maintenance-sheet> -->
     </div>
 </template>
 
@@ -67,6 +68,7 @@
                 indexed: 1,
                 currentPage: 1, //当前页数
                 pageSize: 8, //每页显示数量
+                pageNumber: 0, //总条数
                 totalPage: 1, //总页数
                 otherInfo: {
                     isCheck: true, //是否显示多选框
@@ -75,14 +77,12 @@
                 otherInfo1: {
                     isCheck: true, //是否显示多选框
                     style: 1, // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
-                    isEquInfo: true, //是否查看设备详情
-                    isClick: true
+                    goToNextFn: 'goToEquDetail' //跳转方法设置字段
                 },
                 otherInfo2: {
                     isCheck: true, //是否显示多选框
                     style: 1, // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
-                    isSheet: true, //是否查看设备详情
-                    isClick: true
+                    goToNextFn: 'goToFaultSheet' //跳转方法设置字段
                 },
                 subOther: true, //其它子菜单二选一
                 count: {},
@@ -267,28 +267,37 @@
                 queryInfo: ''
             };
         },
-        created() {
-            this.queryCountFn();
-            this.queryFn1();
-        },
+        created() { },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
             fifterBtn(value) {
-                this['queryFn' + this.indexed](value);
+                if(value) {
+                    this.queryInfo = value;
+                    this.queryCountFn(value);
+                    this['queryFn' + this.indexed](value);
+                }
+            },
+            clickFn(val) {
+                this[val]();
+            },
+            goToFaultSheet() {
+                this.isPop = true;
             },
             currentList(index) {
                 this.indexed = index;
                 this.currentPage = 1;
                 this.totalPage = 1;
-                this.queryInfo = '';
-                this['queryFn' + index]();
+                if(this.queryInfo) {
+                    this['queryFn' + index](this.queryInfo);
+                }
             },
+            //子菜单栏的点击
             otherFn(value) {
                 this.subOther = value;
-                if(value) {
-                    this.queryFn5();
-                } else {
-                    this.queryFaultlibraryFn();
+                if(value && this.queryInfo) {
+                    this.queryFn5(this.queryInfo);
+                } else if(this.queryInfo) {
+                    this.queryFaultlibraryFn(this.queryInfo);
                 }
             },
             //改变当前页数
@@ -299,15 +308,12 @@
             isPopFn(value) {
                 this.isPop = value;
             },
-            queryCountFn() {
+            queryCountFn(value) {
                 this._getInfo({
+                    ops: { 'queryInfo': value },
                     api: 'queryCount',
                     callback: res => {
                         this.count = res;
-                        // archives: 39, //档案
-                        // warnInfo: 87, //预警信息
-                        // fault: 16, //故障报修单
-                        // picture: 57 //图片
                     }
                 });
             },
@@ -330,6 +336,7 @@
                         });
                         this.list = res.rows;
                         this.totalPage = res.total;
+                        this.pageNumber = res.records;
                     }
                 });
             },
@@ -346,13 +353,14 @@
 
                 this._getList({
                     ops: ops,
-                    api: 'queryDevice',
+                    api: 'queryAlarm',
                     callback: res => {
                         res.rows.forEach(item => {
                             item.isCheck = false;
                         });
                         this.list = res.rows;
                         this.totalPage = res.total;
+                        this.pageNumber = res.records;
                     }
                 });
             },
@@ -376,6 +384,7 @@
                         });
                         this.list = res.rows;
                         this.totalPage = res.total;
+                        this.pageNumber = res.records;
                     }
                 });
             },
@@ -397,6 +406,7 @@
                     callback: res => {
                         this.picList = res.rows;
                         this.totalPage = res.total;
+                        this.pageNumber = res.records;
                     }
                 });
             },
@@ -420,6 +430,7 @@
                         });
                         this.list = res.rows;
                         this.totalPage = res.total;
+                        this.pageNumber = res.records;
                     }
                 });
             },
@@ -443,6 +454,7 @@
                         });
                         this.list = res.rows;
                         this.totalPage = res.total;
+                        this.pageNumber = res.records;
                     }
                 });
             }

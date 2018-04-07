@@ -115,8 +115,8 @@
         </div>
         <v-goback></v-goback>
         <el-dialog :visible.sync="isShowPopup">
-            <img style="width: 100%; height: 110px;" src="~assets/other/test.png" />
-            <!-- <v-alarm-popup></v-alarm-popup> -->
+            <!-- <img style="width: 100%; height: 110px;" src="~assets/other/test.png" /> -->
+            <v-alarm-popup></v-alarm-popup>
         </el-dialog>
     </div>
 </template>

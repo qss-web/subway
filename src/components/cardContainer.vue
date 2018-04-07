@@ -30,7 +30,8 @@
                 } else if(key == 'alarmEvent') {
                     this.$router.push('alarmEvent');
                 } else if(key == 'alarmReason') {
-                    this.$router.push('alarmCauseList');
+                    this.$router.push('faultAnalysisList');
+                    // this.$router.push('alarmCauseList');
                 } else if(key == 'unfinished') {
                     this.$router.push('backlog');
                 }

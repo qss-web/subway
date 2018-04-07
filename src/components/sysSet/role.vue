@@ -15,7 +15,7 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -72,7 +72,8 @@
                 }, {
                     'label': '操作',
                     'width': 20,
-                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
+                    // 'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
+                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }]
                 }],
                 equList: []
             };
@@ -82,6 +83,7 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
+            ...mapMutations(['_itemObj']),
             //获取列表
             getRoleListFn(req) {
                 const ops = {
@@ -109,10 +111,11 @@
             },
             //子组件按钮
             btnFn(val) {
-                this[val.fn](val.id);
+                this[val.fn](val.id, val.item);
             },
             //编辑操作
-            editFn() {
+            editFn(id, item) {
+                this._itemObj(item);
                 this.isShowPop = true;
             },
             //删除操作
@@ -144,6 +147,7 @@
             },
             //增加用户操作
             addUserFn(val) {
+                this._itemObj('');
                 this.isShowPop = val;
             },
             //获取筛选的值

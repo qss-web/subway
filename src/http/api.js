@@ -51,6 +51,8 @@ const api = {
   querySelect: 'webapi/search/select',
   // 设备档案  (详情查看设备模块接口 )
   queryDevice: 'webapi/search/device',
+  //预警信息
+  queryAlarm: 'monitor/fullTextSearch',
   // 故障报修单
   queryFault: 'webapi/search/fault',
   // 图片
@@ -69,6 +71,8 @@ const api = {
   mineCount: 'webapi/self/todo/count',
   // 设备关注度
   mineRate: 'webapi/self/device/rate',
+  //预警事件
+  warningEvents: 'monitor/warningEvents',
 
   //   ------------------------------系统管理相关---------------------------------
   // 用户登录
@@ -79,6 +83,8 @@ const api = {
   userAdd: 'webapi/user/add',
   // 用户删除   POST
   userDel: 'webapi/user/del',
+  //查询用户信息
+  userDetail: 'webapi/user/detail',
   // 客户端列表
   clientList: 'webapi/client/list',
   // 客户端上传   POST
@@ -128,7 +134,7 @@ const api = {
   //首页实时报警信息
   timelyAlarmTop: 'monitor/timelyAlarmTop',
   //实时预警信息列表----实时预警信息
-  timelyAlarmList: 'monitor/timelyAlarm',
+  timelyAlarmList: 'monitor/timelyAlarms',
   //实时预警信息列表----以往历史事件
   alarmListHistory: 'monitor/timelyAlarmList',
   // 今日报警统计
@@ -152,7 +158,21 @@ const api = {
   //事件信息列表
   eventInfo: 'monitor/eventInfo',
   //测点状态列表
-  pointStatus: 'monitor/pointStatus'
+  pointStatus: 'monitor/pointStatus',
+  //首页月可靠度/平均每日修复时间/保修超时率详情页面
+  commonDetail: 'webapi/quota/count/detail',
+  commonLeft01: 'webapi/quota/count/detail/col1',
+  commonLeft02: 'webapi/quota/count/detail/col2',
+  commonLeft03: 'webapi/quota/count/detail/col3',
+  commonRight01: 'webapi/quota/count/detail/list1',
+  commonRight02: 'webapi/quota/count/detail/list2',
+  commonRight03: 'webapi/quota/count/detail/list3',
+  //折线图接口
+  test8: 'webapi/device/zd/data',
+  //故障设备详情获取
+  faultDetail: 'webapi/fault/Detail',
+  //故障设备详情修改
+  faultUpdate: 'webapi/fault/add'
 };
 
 for (var k in api) {

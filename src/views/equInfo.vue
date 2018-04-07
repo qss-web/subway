@@ -4,149 +4,150 @@
             <div class="tab">
                 <ul class="title">
                     <li class="active">设备档案</li>
-                    <button class="saveBtn" v-on:click="saveInfoFn">保存</button>
+                    <button class="saveBtn" v-on:click="saveInfoFn" v-if="!isShow">保存</button>
                 </ul>
-                <dl class="leftShow">
+                <dl class="leftShow" v-bind:class="isShow?'editCss':''">
+                    <div class="mask" v-if="isShow"></div>
                     <dt>位置信息</dt>
                     <dd class="gray">
                         <span>运营公司</span>
-                        <span><input v-model="info.deviceCompanyName" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceCompanyName" placeholder=""/></span>
                         <span>项目部</span>
-                        <span><input v-model="info.deviceProjectDepartmentName" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceProjectDepartmentName" placeholder=""/></span>
                     </dd>
                     <dd class="white">
                         <span>线路</span>
-                        <span><input readonly v-model="info.deviceInLineName" placeholder="请输入"/></span>
+                        <span><input readonly v-model="info.deviceInLineName" placeholder=""/></span>
                         <span>车站</span>
-                        <span><input readonly v-model="info.deviceInStationName" placeholder="请输入"/></span>
+                        <span><input readonly v-model="info.deviceInStationName" placeholder=""/></span>
                     </dd>
                     <dd class="gray">
                         <span>设备系统</span>
-                        <span><input readonly v-model="info.deviceSys" placeholder="请输入"/></span>
+                        <span><input readonly v-model="info.deviceSys" placeholder=""/></span>
                         <span>设备名称</span>
-                        <span><input readonly v-model="info.deviceName" placeholder="请输入"/></span>
+                        <span><input readonly v-model="info.deviceName" placeholder=""/></span>
                     </dd>
                     <dd class="white">
                         <span>安装合同编号</span>
-                        <span><input v-model="info.deviceContractCode" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceContractCode" placeholder=""/></span>
                         <span>位置</span>
-                        <span><input v-model="info.devicePosition" placeholder="请输入"/></span>
+                        <span><input v-model="info.devicePosition" placeholder=""/></span>
                     </dd>
                     <dt>注册信息</dt>
                     <dd class="gray">
                         <span>注册代码</span>
-                        <span><input v-model="info.deviceEleRegRegcode" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleRegRegcode" placeholder=""/></span>
                         <span>所属区县</span>
-                        <span><input v-model="info.deviceEleRegCounty" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleRegCounty" placeholder=""/></span>
                     </dd>
                     <dd class="white">
                         <span>内部编号</span>
-                        <span><input v-model="info.deviceEleRegCode" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleRegCode" placeholder=""/></span>
                         <span>品牌</span>
-                        <span><input v-model="info.deviceEleRegBrand" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleRegBrand" placeholder=""/></span>
                     </dd>
                     <dd class="gray">
                         <span>生产厂</span>
-                        <span><input v-model="info.deviceEleRegFactory" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleRegFactory" placeholder=""/></span>
                         <span>规模型号</span>
-                        <span><input v-model="info.deviceEleRegSpe" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleRegSpe" placeholder=""/></span>
                     </dd>
                     <dd class="white">
                         <span>ISCS编号</span>
-                        <span><input v-model="info.deviceEleRegIscscode" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleRegIscscode" placeholder=""/></span>
                         <span>初检日期</span>
-                        <span><input v-model="info.deviceEleRegInitiallyDate" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleRegInitiallyDate" placeholder=""/></span>
                     </dd>
                     <dd class="gray">
                         <span>下次定检日期</span>
-                        <span><input v-model="info.deviceEleRegInspectionDate" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleRegInspectionDate" placeholder=""/></span>
                         <span>检验单位</span>
-                        <span><input v-model="info.deviceEleRegInspectionCompany" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleRegInspectionCompany" placeholder=""/></span>
                     </dd>
                     <dt>技术参数</dt>
                     <dd class="gray">
                         <span>梯形</span>
-                        <span><input v-model="info.deviceEleTecLadderType" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecLadderType" placeholder=""/></span>
                         <span>提升高度</span>
-                        <span><input v-model="info.deviceEleTecRise" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecRise" placeholder=""/></span>
                     </dd>
                     <dd class="white">
                         <span>额定速度</span>
-                        <span><input v-model="info.deviceEleTecRatedSpeed" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecRatedSpeed" placeholder=""/></span>
                         <span>主机功率</span>
-                        <span><input v-model="info.deviceEleTecHostPower" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecHostPower" placeholder=""/></span>
                     </dd>
                     <dd class="gray">
                         <span>电机型号</span>
-                        <span><input v-model="info.deviceEleTecMotorModel" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecMotorModel" placeholder=""/></span>
                         <span>单/双驱动机</span>
-                        <span><input v-model="info.deviceEleTecDriver" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecDriver" placeholder=""/></span>
                     </dd>
                     <dd class="white">
                         <span>减速机型号</span>
-                        <span><input v-model="info.deviceEleTecReducerModel" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecReducerModel" placeholder=""/></span>
                         <span>减速机厂家</span>
-                        <span><input v-model="info.deviceEleTecReducerFactory" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecReducerFactory" placeholder=""/></span>
                     </dd>
                     <dd class="gray">
                         <span>驱动方式</span>
-                        <span><input v-model="info.deviceEleTecDrivingMode" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecDrivingMode" placeholder=""/></span>
                         <span>工作制动器型号</span>
-                        <span><input v-model="info.deviceEleTecMainArresterModel" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecMainArresterModel" placeholder=""/></span>
                     </dd>
                     <dd class="white">
                         <span>附加制动器型号</span>
-                        <span><input v-model="info.deviceEleTecAdditionalArresterModel" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecAdditionalArresterModel" placeholder=""/></span>
                         <span>附加制动器工作方式</span>
-                        <span><input v-model="info.deviceEleTecAdditionalArresterMode" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecAdditionalArresterMode" placeholder=""/></span>
                     </dd>
                     <dd class="gray">
                         <span>变频器型号</span>
-                        <span><input v-model="info.deviceEleTecInverterModel" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecInverterModel" placeholder=""/></span>
                         <span>变频器功率</span>
-                        <span><input v-model="info.deviceEleTecInverterPower" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecInverterPower" placeholder=""/></span>
                     </dd>
                     <dd class="white">
                         <span>变频器工作形式</span>
-                        <span><input v-model="info.deviceEleTecInverterStyle" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecInverterStyle" placeholder=""/></span>
                         <span>扶手带型号</span>
-                        <span><input v-model="info.deviceEleTecHandrailModel" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecHandrailModel" placeholder=""/></span>
                     </dd>
                     <dd class="gray">
                         <span>扶手带长度</span>
-                        <span><input v-model="info.deviceEleTecHandrailLength" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecHandrailLength" placeholder=""/></span>
                         <span>梯级型号</span>
-                        <span><input v-model="info.deviceEleTecStepModel" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecStepModel" placeholder=""/></span>
                     </dd>
                     <dd class="white">
                         <span>梯级数（块）</span>
-                        <span><input v-model="info.deviceEleTecStepCounts" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecStepCounts" placeholder=""/></span>
                         <span>驱动链型号</span>
-                        <span><input v-model="info.deviceEleTecChainModel" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecChainModel" placeholder=""/></span>
                     </dd>
                     <dd class="gray">
                         <span>桁架分段</span>
-                        <span><input v-model="info.deviceEleTecSubsection" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecSubsection" placeholder=""/></span>
                         <span>输送能力（人/h）</span>
-                        <span><input v-model="info.deviceEleTecConveyingCapacity" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecConveyingCapacity" placeholder=""/></span>
                     </dd>
                     <dd class="white">
                         <span>产权单位</span>
-                        <span><input v-model="info.deviceEleTecOwnerCompany" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecOwnerCompany" placeholder=""/></span>
                         <span>维保合同编号</span>
-                        <span><input v-model="info.deviceEleTecContractCode" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecContractCode" placeholder=""/></span>
                     </dd>
                     <dd class="gray">
                         <span>大修年限</span>
-                        <span><input v-model="info.deviceEleTecOverhaulDate" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecOverhaulDate" placeholder=""/></span>
                         <span>上次大修时间</span>
-                        <span><input v-model="info.deviceEleTecOverhaulLastdate" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecOverhaulLastdate" placeholder=""/></span>
                     </dd>
                     <dd class="white">
                         <span>下头部是否有齿轮</span>
-                        <span><input v-model="info.deviceEleTecIsGear" placeholder="请输入"/></span>
+                        <span><input v-model="info.deviceEleTecIsGear" placeholder=""/></span>
                         <span>备注</span>
-                        <span><input v-model="info.remark" placeholder="请输入"/></span>
+                        <span><input v-model="info.remark" placeholder=""/></span>
                     </dd>
                 </dl>
             </div>
@@ -175,7 +176,8 @@
     export default {
         data() {
             return {
-                equId: '',
+                equId: '', //设备id
+                isShow: false,//true 是展示页面，非true是编辑页面
                 tabShow: 1,
                 info: {
                     deviceCompanyName: '',
@@ -233,6 +235,8 @@
         },
         created() {
             this.equId = this.$route.query.id;
+            this.isShow = this.$route.query.isShow;
+            console.log(this.isShow, 1111);
             this.getInfoFn();
         },
         methods: {
@@ -264,6 +268,20 @@
 </script>
 
 <style scoped lang="less">
+    .editCss {
+        .mask {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        input {
+            border: none;
+            background: none;
+        }
+    }
     .wholeWrap {
         padding: 0.14rem 0;
     }
@@ -311,6 +329,7 @@
             background: #d5d9dc;
             border-radius: 5px;
             padding-bottom: 0.08rem;
+            position: relative;
             dt {
                 background: #bcc2da;
                 height: 0.32rem;

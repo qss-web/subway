@@ -1,12 +1,15 @@
 <template>
     <div class="alarm-event">
-        <v-chart :id="id" :option="option" :styleObject="styleObject"></v-chart>
+        <v-chart v-if="lastMonth.length!=0" :id="id" :option="option" :styleObject="styleObject"></v-chart>
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
+                currentMonth: [],
+                lastMonth: [],
                 id: 'mineAlarmEvent',
                 styleObject: {
                     width: '100%',
@@ -68,12 +71,12 @@
                     },
                     series: [{
                         color: '#8dbac0',
-                        name: '上月',
-                        data: [4, 6, 8, 4, 4, 4, 6]
+                        name: '本月',
+                        data: []
                     }, {
                         color: '#d06c6a',
-                        name: '本月',
-                        data: [2, 2, 0, 2, 1, 5, 3]
+                        name: '上月',
+                        data: []
                     }],
                     // 数据提示框
                     tooltip: {
@@ -88,6 +91,28 @@
                 }
 
             };
+        },
+        created() {
+            this.getWarningEventsFn();
+        },
+        methods: {
+            ...mapActions(['_getInfo']),
+            getWarningEventsFn() {
+                this._getInfo({
+                    ops: {},
+                    api: 'warningEvents',
+                    callback: res => {
+                        res.current.forEach(item => {
+                            this.currentMonth.push(item[1]);
+                        });
+                        res.last.forEach(item => {
+                            this.lastMonth.push(item[1]);
+                        });
+                        this.option.series[1].data = this.lastMonth;
+                        this.option.series[0].data = this.currentMonth;
+                    }
+                });
+            }
         }
     };
 </script>

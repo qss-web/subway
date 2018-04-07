@@ -1,5 +1,5 @@
 <template>
-    <v-chart :id="id" :option="option" :styleObject="styleObject"></v-chart>
+    <v-chart :id="id" v-if="todayInspectionRate.length != 0" :option="option" :styleObject="styleObject"></v-chart>
 </template>
 
 <script>
@@ -12,6 +12,9 @@
                     width: 4.3 + 'rem',
                     height: 2.7 + 'rem'
                 },
+                todayInspectionRate: [],
+                nameShow: [],
+                valueShow: [],
                 option: {
                     chart: {
                         type: 'column', //指定图表的类型
@@ -28,7 +31,7 @@
                         title: {
                             text: null
                         },
-                        categories: ['自动扶梯', '风机', '站台门'],
+                        categories: [],
                         labels: {
                             style: {
                                 color: '#d4af33'
@@ -73,7 +76,7 @@
                             //指定数据列
                             name: '今日',
                             color: '#006699',
-                            data: [36, 20.5, 40] //数据
+                            data: [] //数据
                         }
                     ],
                     legend: {
@@ -116,7 +119,13 @@
                     ops: {},
                     api: 'todayAlarmTop',
                     callback: res => {
-                        console.log(res);
+                        this.todayInspectionRate = res;
+                        this.todayInspectionRate.forEach(item => {
+                            this.nameShow.push(item.name);
+                            this.valueShow.push(item.value);
+                        });
+                        this.option.xAxis.categories = this.nameShow;
+                        this.option.series[0].data = this.valueShow;
                     }
                 });
             }

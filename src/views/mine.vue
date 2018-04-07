@@ -88,6 +88,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -320,7 +321,19 @@
                 };
             }
         },
+        created() {
+            this.test();
+        },
         methods: {
+            ...mapActions(['_getList']),
+            test() {
+                this._getList({
+                    ops: { id: '443', "runhour": "8" },
+                    api: 'test13',
+                    callback: () => {
+                    }
+                });
+            },
             rowClassName({ rowIndex }) {
                 if(rowIndex % 2 == 1) {
                     return 'even';

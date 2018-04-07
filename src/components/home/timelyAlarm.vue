@@ -52,18 +52,6 @@
                 box-shadow: 1px 1px 1px #b3aeae inset;
                 min-height: 0.56rem;
                 &.status-1 {
-                    color: #a17c26;
-                    .light {
-                        width: 0.1rem;
-                        height: 0.1rem;
-                        display: block;
-                        background-color: #a17c26;
-                        border-radius: 50%;
-                        box-shadow: 0 0 10px 4px #fff;
-                        margin: 0 auto;
-                    }
-                }
-                &.status-2 {
                     color: #cc0000;
                     .light {
                         width: 0.1rem;
@@ -75,13 +63,49 @@
                         margin: 0 auto;
                     }
                 }
-                &.status-0 {
+                &.status-2 {
+                    color: #f9af00;
+                    .light {
+                        width: 0.1rem;
+                        height: 0.1rem;
+                        display: block;
+                        background-color: #f9af00;
+                        border-radius: 50%;
+                        box-shadow: 0 0 10px 4px #fff;
+                        margin: 0 auto;
+                    }
+                }
+                &.status-3 {
                     color: #adadad;
                     .light {
                         width: 0.1rem;
                         height: 0.1rem;
                         display: block;
                         background-color: #adadad;
+                        border-radius: 50%;
+                        box-shadow: 0 0 10px 4px #fff;
+                        margin: 0 auto;
+                    }
+                }
+                &.status-4 {
+                    color: #027b03;
+                    .light {
+                        width: 0.1rem;
+                        height: 0.1rem;
+                        display: block;
+                        background-color: #027b03;
+                        border-radius: 50%;
+                        box-shadow: 0 0 10px 4px #fff;
+                        margin: 0 auto;
+                    }
+                }
+                &.status-5 {
+                    color: #6e381f;
+                    .light {
+                        width: 0.1rem;
+                        height: 0.1rem;
+                        display: block;
+                        background-color: #6e381f;
                         border-radius: 50%;
                         box-shadow: 0 0 10px 4px #fff;
                         margin: 0 auto;

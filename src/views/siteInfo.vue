@@ -67,6 +67,10 @@
     export default {
         data() {
             return {
+                currentPage: 1, //当前页数
+                pageSize: 9, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
                 activeIndex: '',
                 alarmTable: {
                     label: [{
@@ -305,8 +309,13 @@
             },
             //获取事件信息
             getEventInfoFn() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
                 this._getList({
-                    ops: {},
+                    ops: ops,
                     api: 'eventInfo',
                     callback: res => {
                         this.alarmTable.list = res.rows;
@@ -315,8 +324,13 @@
             },
             //获取测点信息
             getPointStatusFn() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
                 this._getList({
-                    ops: {},
+                    ops: ops,
                     api: 'pointStatus',
                     callback: res => {
                         this.testTable.list = res.rows;

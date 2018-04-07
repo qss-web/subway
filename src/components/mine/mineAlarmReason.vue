@@ -1,13 +1,15 @@
 <template>
     <div class="alarm-reason">
-        <v-chart :id="id" :option="option" :styleObject="styleObject"></v-chart>
+        <v-chart v-if="pointData.length != 0" :id="id" :option="option" :styleObject="styleObject"></v-chart>
     </div>
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
+                pointData: [],//点
                 id: 'mineAlarmReason',
                 styleObject: {
                     width: '100%',
@@ -67,13 +69,13 @@
                             //指定数据列
                             name: 'warn',
                             color: 'yellow',
-                            data: [[800, 0.58], [1200, 0.48], [1350, 0.68], [1700, 0.8], [2000, 1.08]] //数据
+                            data: [] //数据
                         },
                         {
                             //指定数据列
                             name: 'error',
                             color: 'red',
-                            data: [[650, 0.48], [1000, 0.75], [1500, 0.88], [1700, 0.82], [2200, 0.75], [2350, 1]], //数据
+                            data: [], //数据
                             marker: {
                                 symbol: 'circle'
                             }
@@ -82,7 +84,7 @@
                             //指定数据列
                             name: 'success',
                             color: 'green',
-                            data: [[490, 0.6], [500, 1.2], [1200, 1], [1500, 0.2]], //数据
+                            data: [], //数据
                             marker: {
                                 symbol: 'circle'
                             }
@@ -110,6 +112,22 @@
                     }
                 }
             };
+        },
+        created() {
+            this.getFailureAnalysisFn();
+        },
+        methods: {
+            ...mapActions(['_getInfo']),
+            getFailureAnalysisFn() {
+                this._getInfo({
+                    ops: {},
+                    api: 'failureAnalysis',
+                    callback: res => {
+                        this.pointData = res[0];
+                        this.option.series[0].data = this.pointData.value;
+                    }
+                });
+            }
         }
     };
 </script>

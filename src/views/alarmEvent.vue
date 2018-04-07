@@ -2,10 +2,10 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData"></v-sub-search>
+                <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-chart :id="id" :option="option" :styleObject="styleObject"></v-chart>
+                <v-chart v-if="lastMonth.length!=0" :id="id" :option="option" :styleObject="styleObject"></v-chart>
             </div>
         </div>
         <v-goback></v-goback>
@@ -13,17 +13,18 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
-                currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
+                currentMonth: [],
+                lastMonth: [],
                 searchData: {
                     'options': [{
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'lines',
+                        'val': 'line',
                         'list': [{
                             value: '1',
                             label: '6号线'
@@ -32,26 +33,7 @@
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'stations',
-                        'list': [{
-                            value: '1',
-                            label: '金安桥站'
-                        }, {
-                            value: '2',
-                            label: '苹果园站'
-                        }, {
-                            value: '3',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '4',
-                            label: '西黄村站'
-                        }, {
-                            value: '5',
-                            label: '廖公庄站'
-                        }, {
-                            value: '6',
-                            label: '田村站'
-                        }]
+                        'val': 'station'
                     }, {
                         'status': 2,
                         'title': '设备系统',
@@ -100,7 +82,7 @@
                             text: null
                         },
                         type: 'category',
-                        // categories: ['自动扶梯', '风机', '站台门'],
+                        categories: [1, 2, 3, 4, 5, 6, 7],
                         labels: {
                             style: {
                                 color: '#474740',
@@ -140,12 +122,12 @@
                     },
                     series: [{
                         color: '#d06c6a',
-                        name: '本月',
-                        data: [100, 332, 450, 200, 150, 167, 110, 320, 210, 135, 509, 440]
+                        name: '上月',
+                        data: []
                     }, {
                         color: '#8dbac0',
-                        name: '上月',
-                        data: [30, 100, 26, 87, 44, 67, 11, 32, 110, 235, 369, 640]
+                        name: '本月',
+                        data: []
                     }],
                     legend: {
                         verticalAlign: 'top',
@@ -167,15 +149,30 @@
                 }
             };
         },
-        props: ['list', 'label', 'checked'],
+        created() {
+            this.getWarningEventsFn();
+        },
         methods: {
-            currentList(index) {
-                this.indexed = index;
+            ...mapActions(['_getInfo']),
+            getWarningEventsFn(req) {
+                this._getInfo({
+                    ops: req,
+                    api: 'warningEvents',
+                    callback: res => {
+                        res.current.forEach(item => {
+                            this.currentMonth.push(item[1]);
+                        });
+                        res.last.forEach(item => {
+                            this.lastMonth.push(item[1]);
+                        });
+                        this.option.series[1].data = this.lastMonth;
+                        this.option.series[0].data = this.currentMonth;
+                    }
+                });
             },
-            //改变当前页数
-            changePages(val) {
-                this.currentPage = val;
-                // this.list();
+            //获取筛选的值
+            filterBtn(req) {
+                this.getWarningEventsFn(req);
             }
         }
     };

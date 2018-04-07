@@ -9,7 +9,7 @@
                     <span v-if="item1.value">{{item[item1.value]}}</span>
                     <span v-if="item1.value == 'index'">{{index+1}}</span>
                     <span v-if="item1.btn">
-                        <a v-for="(subItem,index) in item1.btn" class="btn" v-on:click="goToNextPage(subItem.fn,item.id)" href="javascript:;">{{subItem.name}}</a>
+                        <a v-for="(subItem,index) in item1.btn" class="btn" v-on:click="goToNextPage(subItem.fn,item.id,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <select v-if="item1.select">
                         <option value="1">未设置</option>
@@ -23,6 +23,7 @@
     </div>
 </template>
 <script>
+    // import { mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -56,10 +57,11 @@
         },
         created() { },
         methods: {
-            goToNextPage(fn, id) {
+            goToNextPage(fn, id, item) {
                 this.receiveValue = {
                     'fn': fn,
-                    'id': id
+                    'id': id,
+                    'item': item
                 };
                 this.$emit('receive', this.receiveValue);
             }

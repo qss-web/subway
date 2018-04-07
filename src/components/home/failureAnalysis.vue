@@ -125,8 +125,7 @@
                     ops: {},
                     api: 'failureAnalysis',
                     callback: res => {
-                        this.pointData = res.rows[0];
-
+                        this.pointData = res[0];
                         this.option.series[0].data = this.pointData.value;
                     }
                 });

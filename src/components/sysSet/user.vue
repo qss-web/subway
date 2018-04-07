@@ -15,7 +15,7 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -119,11 +119,11 @@
                 }, {
                     'label': '所属工厂',
                     'width': 10,
-                    'value': 'num'
+                    'value': 'companyName'
                 }, {
                     'label': '所属装置',
                     'width': 8,
-                    'value': 'num'
+                    'value': 'stationName'
                 }, {
                     'label': '操作',
                     'width': 15,
@@ -137,6 +137,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_itemObj']),
             getUserList(req) {
                 const ops = {
                     'curPage': this.currentPage,
@@ -179,12 +180,19 @@
                 });
             },
             //编辑操作
-            editFn() {
-                // userDel;
-                // alert(3);
+            editFn(id) {
+                this._getList({
+                    ops: { 'id': id },
+                    api: 'userDetail',
+                    callback: res => {
+                        this._itemObj(res);
+                        this.isShowPop = true;
+                    }
+                });
             },
             //增加用户操作
             addUserFn(val) {
+                this._itemObj('');
                 this.isShowPop = val;
             },
             //弹出框保存数据

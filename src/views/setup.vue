@@ -11,7 +11,7 @@
                 <v-sub-search v-on:receive="btnShowPopFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
+                <v-search-list v-bind:other="otherInfo1" v-bind:label="info1" v-bind:list="equList" v-on:receive="clickFn"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{pageTotal}}</span>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -312,6 +312,11 @@
                     isCheck: false, //是否显示多选框
                     style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                 },
+                otherInfo1: {
+                    isCheck: false, //是否显示多选框
+                    style: 3,
+                    goToNextFn: 'goToEquDetail' //跳转方法设置字段
+                },
                 info1: [{
                     'label': '序号',
                     'width': 5,
@@ -419,7 +424,9 @@
                 equList3: []
             };
         },
-        props: ['list', 'label', 'checked'],
+        computed: {
+            ...mapState(['itemObj'])
+        },
         created() {
             this.infoListFn();
         },
@@ -450,6 +457,20 @@
             //关闭弹出框
             cancleFn(value) {
                 this.isShowPop = value;
+            },
+            clickFn(val) {
+                this[val]();
+            },
+            //点击列表进入设备详情页
+            goToEquDetail() {
+                this._getList({
+                    ops: { 'id': this.itemObj.id.toString() },
+                    api: 'infoDetail',
+                    callback: res => {
+                        this._equInfo(res);
+                        this.$router.push({ path: '/equInfo', query: { 'id': this.itemObj.id, 'isShow': true } });
+                    }
+                });
             },
             //关闭弹出框并保存数据
             saveFn(req) {

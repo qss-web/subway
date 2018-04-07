@@ -1,7 +1,7 @@
 <template>
-    <div class="popup-wrapper">
-        <div class="mask"></div>
-        <div class="popup-content">
+    <div class="popup-wrapper" style="border:1px solid red;">
+        <!-- <div class="mask" style="border:1px solid green"></div> -->
+        <div class="popup-content" style="border:1px solid blue;">
             <span>[减速箱地脚震动3Ha 辅游标 2017/10/7 14:48:42.651 1.08m/s2]</span>
             <span>[减速箱地脚震动3Ha 辅游标 2017/10/26 06:33:10.995 1.08m/s2]</span>
         </div>

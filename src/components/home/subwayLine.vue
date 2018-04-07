@@ -92,7 +92,7 @@
                     ops: {},
                     api: 'stationAlarmStatistical',
                     callback: res => {
-                        const data = res.rows;
+                        const data = res;
 
                         this.total = data.total; //车站预警
                         this.escalator = data.escalator;//扶梯预警
