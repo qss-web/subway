@@ -34,11 +34,7 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'line',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
+                        'val': 'line'
                     }, {
                         'status': 2,
                         'title': '车站',
@@ -48,14 +44,7 @@
                         'status': 2,
                         'title': '故障系统',
                         'placeholder': '请选择内容',
-                        'val': 'equSys',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
+                        'val': 'equSys'
                     }, {
                         'status': 1,
                         'title': '设备名称',
@@ -114,7 +103,6 @@
                 equList: []
             };
         },
-        props: ['list', 'label', 'checked'],
         created() {
             this.getBacklogFn();
         },

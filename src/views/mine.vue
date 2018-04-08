@@ -19,65 +19,60 @@
             </v-card-container>
             <div class="tabs-wrapper">
                 <div class="tabs flex">
-                    <button class="tab" :class="{active: activeIndex == 0}" @click="activeIndex = 0">今日预警信息</button>
-                    <button class="tab" :class="{active: activeIndex == 1}" @click="activeIndex = 1">当前设备故障</button>
-                    <button class="tab" :class="{active: activeIndex == 2}" @click="activeIndex = 2">今日巡检</button>
+                    <button class="tab" :class="{active: activeIndex == 0}" @click="tabFn(0)">今日预警信息</button>
+                    <button class="tab" :class="{active: activeIndex == 1}" @click="tabFn(1)">当前设备故障</button>
+                    <button class="tab" :class="{active: activeIndex == 2}" @click="tabFn(2)">今日巡检</button>
                 </div>
                 <div class="tables">
                     <div v-show="activeIndex == 0">
-                        <el-table :data="alarmInfo.row" style="width: 100%; background-color: #eff0f2;" stripe height="2.5rem" :row-class-name="rowClassName" header-row-class-name="header-row">
+                        <el-table :data="equList0" style="width: 100%; background-color: #eff0f2;" stripe height="2.5rem" :row-class-name="rowClassName" header-row-class-name="header-row">
                             <el-table-column prop="index" label="序号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="station" label="车站" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="device" label="设备名称" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="equName" label="设备名称" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="time" label="时间" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="desc" label="事件描述" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="status" label="状态" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="system" label="操作" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="alarmEvent" label="预警事件" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="statusValue" label="状态" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="system" label="操作" align="center" show-overflow-tooltip>
+                                <template scope="scope">
+                                    <span v-on:click="editBtn(scope.row.keyId)">【监测】</span>
+                                </template>
+                            </el-table-column>
                         </el-table>
                         <div class="moreShow">
                             <a href="javascript:;" v-on:click="goToMoreFn1">更多</a>
                         </div>
-                        <!-- <el-pagination :page-size="alarmInfo.page.offset" @current-change="alarmChangePage" class="pagination" layout="prev, slot, next" :total="alarmInfo.page.total" prev-text="上一页" next-text="下一页">
-                            <span>{{alarmInfo.page.current}}/{{Math.ceil(alarmInfo.page.total / alarmInfo.page.offset)}}</span>
-                        </el-pagination> -->
                     </div>
                     <div v-show="activeIndex == 1">
-                        <el-table :data="deviceInfo.row" width="100" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
+                        <el-table :data="equList1" width="100" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
                             <el-table-column prop="index" width="80" label="序号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="faultNo" width="150" label="故障单号" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="faultNum" width="150" label="故障单号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="line" width="120" label="线路" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="station" width="100" label="车站" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="deviceLocation" label="设备安装位置" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="deviceNo" width="110" label="设备编号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="deviceNo" width="110" label="设备名称" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="equPos" label="设备安装位置" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="equNum" width="110" label="设备编号" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="equName" width="110" label="设备名称" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="faultSys" width="110" label="故障系统" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="faultDesc" width="110" label="故障现象" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="faultDis" width="110" label="故障现象" align="center" show-overflow-tooltip></el-table-column>
                         </el-table>
                         <div class="moreShow">
                             <a href="javascript:;" v-on:click="goToMoreFn2">更多</a>
                         </div>
-                        <!-- <el-pagination :page-size="deviceInfo.page.offset" @current-change="deviceChangePage" class="pagination" layout="prev, slot, next" :total="deviceInfo.page.total" prev-text="上一页" next-text="下一页">
-                            <span>{{deviceInfo.page.current}}/{{Math.ceil(deviceInfo.page.total / deviceInfo.page.offset)}}</span>
-                        </el-pagination> -->
                     </div>
                     <div v-show="activeIndex == 2">
-                        <el-table :data="checkInfo.row" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
+                        <el-table :data="equList2" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
                             <el-table-column prop="index" label="序号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="type" label="类别" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="stationName" label="安装车站" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="deviceNo" label="设备编号" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="line" label="线路" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="station" label="安装车站" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="equNum" label="设备编号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="date" label="日期" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="arriveTime" label="到达时间" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="checkStatus" label="巡检状态" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="deviceStatus" label="设备状态" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="operator" label="执行人" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="status" label="巡检状态" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="equStatus" label="巡视巡检情况记录" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="name" label="执行人" align="center" show-overflow-tooltip></el-table-column>
                         </el-table>
                         <div class="moreShow">
                             <a href="javascript:;" v-on:click="goToMoreFn3">更多</a>
                         </div>
-                        <!-- <el-pagination :page-size="checkInfo.page.offset" @current-change="checkChangePage" class="pagination" layout="prev, slot, next" :total="checkInfo.page.total" prev-text="上一页" next-text="下一页">
-                            <span>{{checkInfo.page.current}}/{{Math.ceil(checkInfo.page.total / checkInfo.page.offset)}}</span>
-                        </el-pagination> -->
                     </div>
                 </div>
             </div>
@@ -92,262 +87,36 @@
     export default {
         data() {
             return {
+                equList0: [], //今日预警信息
+                equList1: [], //当前设备故障
+                equList2: [], //今日巡检
                 activeIndex: 0,
                 userinfoType: 1, // 0展示 1编辑
-                alarmTotal: {
-                    page: {
-                        current: 1,
-                        offset: 4,
-                        total: 7
-                    },
-                    row: [{
-                        index: '1',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日预警信息',
-                        status: '正常'
-                    }, {
-                        index: '2',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日预警信息',
-                        status: '正常'
-                    }, {
-                        index: '3',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日预警信息',
-                        status: '正常'
-                    }, {
-                        index: '4',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日预警信息',
-                        status: '正常'
-                    }, {
-                        index: '1',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日预警信息',
-                        status: '正常'
-                    }, {
-                        index: '2',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日预警信息',
-                        status: '正常'
-                    }, {
-                        index: '3',
-                        time: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        device: '风机',
-                        system: '无',
-                        desc: '今日预警信息',
-                        status: '正常'
-                    }]
-                },
-                deviceTotal: {
-                    page: {
-                        current: 1,
-                        offset: 4,
-                        total: 7
-                    },
-                    row: [{
-                        index: '1',
-                        faultNo: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        deviceLocation: '位置',
-                        deviceNo: 'A111',
-                        faultSys: '风机',
-                        faultDesc: '无法运行'
-                    }, {
-                        index: '2',
-                        faultNo: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        deviceLocation: '位置',
-                        deviceNo: 'A111',
-                        faultSys: '风机',
-                        faultDesc: '无法运行'
-                    }, {
-                        index: '3',
-                        faultNo: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        deviceLocation: '位置',
-                        deviceNo: 'A111',
-                        faultSys: '风机',
-                        faultDesc: '无法运行'
-                    }, {
-                        index: '4',
-                        faultNo: '2018-01-01',
-                        line: '6',
-                        station: '田村站',
-                        deviceLocation: '位置',
-                        deviceNo: 'A111',
-                        faultSys: '风机',
-                        faultDesc: '无法运行'
-                    }]
-                },
-                checkTotal: {
-                    page: {
-                        current: 1,
-                        offset: 4,
-                        total: 7
-                    },
-                    row: [{
-                        index: '1',
-                        type: '风机',
-                        stationName: '田村站',
-                        deviceNo: 'A111',
-                        date: '2018-01-01',
-                        arriveTime: '03:02',
-                        checkStatus: '正常',
-                        deviceStatus: '正常',
-                        operator: 'LINTAO'
-                    }, {
-                        index: '2',
-                        type: '风机',
-                        stationName: '田村站',
-                        deviceNo: 'A111',
-                        date: '2018-01-01',
-                        arriveTime: '03:02',
-                        checkStatus: '正常',
-                        deviceStatus: '正常',
-                        operator: 'LINTAO'
-                    }, {
-                        index: '3',
-                        type: '风机',
-                        stationName: '田村站',
-                        deviceNo: 'A111',
-                        date: '2018-01-01',
-                        arriveTime: '03:02',
-                        checkStatus: '正常',
-                        deviceStatus: '正常',
-                        operator: 'LINTAO'
-                    }, {
-                        index: '4',
-                        type: '风机',
-                        stationName: '田村站',
-                        deviceNo: 'A111',
-                        date: '2018-01-01',
-                        arriveTime: '03:02',
-                        checkStatus: '正常',
-                        deviceStatus: '正常',
-                        operator: 'LINTAO'
-                    }, {
-                        index: '1',
-                        type: '风机',
-                        stationName: '田村站',
-                        deviceNo: 'A111',
-                        date: '2018-01-01',
-                        arriveTime: '03:02',
-                        checkStatus: '正常',
-                        deviceStatus: '正常',
-                        operator: 'LINTAO'
-                    }, {
-                        index: '2',
-                        type: '风机',
-                        stationName: '田村站',
-                        deviceNo: 'A111',
-                        date: '2018-01-01',
-                        arriveTime: '03:02',
-                        checkStatus: '正常',
-                        deviceStatus: '正常',
-                        operator: 'LINTAO'
-                    }, {
-                        index: '3',
-                        type: '风机',
-                        stationName: '田村站',
-                        deviceNo: 'A111',
-                        date: '2018-01-01',
-                        arriveTime: '03:02',
-                        checkStatus: '正常',
-                        deviceStatus: '正常',
-                        operator: 'LINTAO'
-                    }]
-                }
+                currentPage: 1,
+                pageSize: 4
             };
         },
-        computed: {
-            alarmInfo() {
-                return {
-                    page: {
-                        current: this.alarmTotal.page.current,
-                        offset: this.alarmTotal.page.offset,
-                        total: this.alarmTotal.page.total
-                    },
-                    row: this.alarmTotal.row.slice((this.alarmTotal.page.current - 1) * this.alarmTotal.page.offset, this.alarmTotal.page.current * this.alarmTotal.page.offset)
-                };
-            },
-            deviceInfo() {
-                return {
-                    page: {
-                        current: this.deviceTotal.page.current,
-                        offset: this.deviceTotal.page.offset,
-                        total: this.deviceTotal.page.total
-                    },
-                    row: this.deviceTotal.row.slice((this.deviceTotal.page.current - 1) * this.deviceTotal.page.offset, this.deviceTotal.page.current * this.deviceTotal.page.offset)
-                };
-            },
-            checkInfo() {
-                return {
-                    page: {
-                        current: this.checkTotal.page.current,
-                        offset: this.checkTotal.page.offset,
-                        total: this.checkTotal.page.total
-                    },
-                    row: this.checkTotal.row.slice((this.checkTotal.page.current - 1) * this.checkTotal.page.offset, this.checkTotal.page.current * this.checkTotal.page.offset)
-                };
-            }
-        },
+        computed: {},
         created() {
-            this.test();
+            this.getTimelyAlarmListFn();
         },
         methods: {
             ...mapActions(['_getList']),
-            test() {
-                this._getList({
-                    ops: { id: '443', "runhour": "8" },
-                    api: 'test13',
-                    callback: () => {
-                    }
-                });
-            },
             rowClassName({ rowIndex }) {
                 if(rowIndex % 2 == 1) {
                     return 'even';
                 }
                 return '';
             },
-            alarmChangePage(page) {
-                this.alarmTotal.page.current = page;
-            },
-            deviceChangePage(page) {
-                this.deviceTotal.page.current = page;
-            },
-            checkChangePage(page) {
-                this.checkTotal.page.current = page;
+            tabFn(val) {
+                this.activeIndex = val;
+                if(val == '0') {
+                    this.getTimelyAlarmListFn();
+                } else if(val == '1') {
+                    this.getBacklogFn();
+                } else if(val == '2') {
+                    this.getCheckRatioListFn();
+                }
             },
             goToMoreFn1() {
                 this.$router.push('/alarmListDay');
@@ -357,6 +126,51 @@
             },
             goToMoreFn3() {
                 this.$router.push('/inspect');
+            },
+            getTimelyAlarmListFn() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                this._getList({
+                    ops: ops,
+                    api: 'timelyAlarmList',
+                    callback: res => {
+                        this.equList0 = res.rows;
+                    }
+                });
+            },
+            getBacklogFn() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                this._getList({
+                    ops: ops,
+                    api: 'backlogList',
+                    callback: res => {
+                        this.equList1 = res.rows;
+                    }
+                });
+            },
+            getCheckRatioListFn() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                this._getList({
+                    ops: ops,
+                    api: 'checkRatioList',
+                    callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.equList2 = res.rows;
+                    }
+                });
             }
         }
     };

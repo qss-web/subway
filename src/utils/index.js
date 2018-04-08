@@ -312,3 +312,9 @@ window.console.print = function(e) {
   custom.console.push(e);
   store._actions._custom[0](custom);
 };
+
+export function getDateFn() {
+  var myDate = new Date(); //获取系统当前时间
+
+  return myDate.getFullYear() + '-' + (myDate.getMonth() + 1);
+}

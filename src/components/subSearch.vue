@@ -30,9 +30,9 @@
                 </li>
                 <li v-if="item.status == 3">
                     <span>{{item.title}}：</span>
-                    <el-date-picker v-model="req[item.val1]" format="yyyy-MM-dd" type="date" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
+                    <el-date-picker v-model="req[item.val1]" format="yyyy-MM-dd" type="date" value-format="yyyy-MM-dd HH:mm:ss" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
                     <i>至</i>
-                    <el-date-picker v-model="req[item.val2]" type="date" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
+                    <el-date-picker v-model="req[item.val2]" format="yyyy-MM-dd" type="date" value-format="yyyy-MM-dd HH:mm:ss" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
                 </li>
                 <li v-if="item.status == 4">
                     <span>{{item.title}}：</span>
@@ -42,7 +42,7 @@
                 </li>
                 <li v-if="item.status == 5">
                     <span>{{item.title}}：</span>
-                    <el-date-picker v-model="req[item.val1]" type="month" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
+                    <el-date-picker v-model="req[item.val1]" format="yyyy-MM" type="month" value-format="yyyy-MM" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
                 </li>
             </ul>
         </div>

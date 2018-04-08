@@ -1,7 +1,7 @@
 <template>
     <div class="timeManagement">
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-on:receive="addFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
             <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
@@ -11,7 +11,7 @@
                 <span>{{currentPage}}/{{totalPage}}</span>
             </el-pagination>
         </div>
-        <v-pop-box v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
+        <v-pop-box v-on:getEquName="getEquNameFn" v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
     </div>
 </template>
 <script>
@@ -24,25 +24,13 @@
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 isShowPop: false,
+                getEquNameArr: [],//接口获取的设备名称
                 popData1: {
-                    'titleTotal': '编辑',
-                    'options': [{
-                        'status': 1,
-                        'title': '运行时间',
-                        'placeholder': '请输入累计运行时间',
-                        'val': 'runhour'
-                    }]
-                },
-                searchData: {
-                    'btnShow': {
-                        'add': true,
-                        'export': true,
-                        'delete': true
-                    },
+                    'titleTotal': '新增设备',
                     'options': [{
                         'status': 2,
                         'title': '线路',
-                        'placeholder': '请输入内容',
+                        'placeholder': '请选择内容',
                         'val': 'deviceInLineId',
                         'list': [{
                             value: '6号线西延线',
@@ -52,24 +40,91 @@
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'deviceInStationId'
+                        'val': 'deviceInStationId',
+                        'list': [{
+                            value: '金安桥站',
+                            label: '金安桥站'
+                        }, {
+                            value: '苹果园站',
+                            label: '苹果园站'
+                        }, {
+                            value: '苹果园南路站',
+                            label: '苹果园南路站'
+                        }, {
+                            value: '西黄村站',
+                            label: '西黄村站'
+                        }, {
+                            value: '廖公庄站',
+                            label: '廖公庄站'
+                        }, {
+                            value: '田村站',
+                            label: '田村站'
+                        }]
                     }, {
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
                         'val': 'deviceTypeCode',
                         'list': [{
-                            value: '1',
-                            label: '设备系统一'
+                            value: '0',
+                            label: '站台门'
                         }, {
-                            value: '2',
-                            label: '设备系统二'
+                            value: '7',
+                            label: '自动扶梯'
+                        }, {
+                            value: '8',
+                            label: '风机'
                         }]
+                    }, {
+                        'status': 2,
+                        'title': '设备名称',
+                        'placeholder': '请选择内容',
+                        'val': 'id',
+                        'list': []
+                    }, {
+                        'status': 5,
+                        'title': '时间',
+                        'placeholder': '请选择时间',
+                        'val': 'dateTime'
+                    }, {
+                        'status': 2,
+                        'title': '状态',
+                        'placeholder': '请选择状态',
+                        'val': 'status',
+                        'list': [{
+                            value: '1',
+                            label: '开启'
+                        }, {
+                            value: '0',
+                            label: '关闭'
+                        }]
+                    }]
+                },
+                searchData: {
+                    'btnShow': {
+                        'add': true,
+                        'export': true
+                    },
+                    'options': [{
+                        'status': 2,
+                        'title': '线路',
+                        'placeholder': '请输入内容',
+                        'val': 'line'
+                    }, {
+                        'status': 2,
+                        'title': '车站',
+                        'placeholder': '请选择内容',
+                        'val': 'station'
+                    }, {
+                        'status': 2,
+                        'title': '设备系统',
+                        'placeholder': '请选择内容',
+                        'val': 'equSys'
                     }, {
                         'status': 1,
                         'title': '设备名称',
                         'placeholder': '请输入内容',
-                        'val': 'deviceName'
+                        'val': 'equName'
                     }]
                 },
                 info1: [{
@@ -79,44 +134,43 @@
                 }, {
                     'label': '线路',
                     'width': 8,
-                    'value': 'deviceInLineName'
+                    'value': 'line'
                 }, {
                     'label': '所属车站',
                     'width': 8,
-                    'value': 'deviceInStationName'
+                    'value': 'stationName'
                 }, {
                     'label': '设备系统',
                     'width': 8,
-                    'value': 'deviceSys'
+                    'value': 'equSysName'
                 }, {
                     'label': '主要设备名称',
                     'width': 10,
-                    'value': 'deviceName'
+                    'value': 'equName'
                 }, {
                     'label': '设备安装位置',
-                    'width': 13,
-                    'value': 'devicePosition'
+                    'width': 10,
+                    'value': 'address'
                 }, {
                     'label': '设备编号',
-                    'width': 10,
-                    'value': 'deviceCode'
+                    'width': 8,
+                    'value': 'equNum'
                 }, {
                     'label': '设备当前状态',
                     'width': 7,
-                    'value': 'num'
+                    'value': 'statusValue'
                 }, {
                     'label': '状态变更时刻',
-                    'width': 8,
-                    'value': 'num'
+                    'width': 13,
+                    'value': 'changeTime'
                 }, {
                     'label': '累计运行时间（小时）',
-                    'width': 13,
-                    'value': 'runhour'
+                    'width': 11,
+                    'value': 'runTimeText'
                 }, {
                     'label': '操作',
-                    'width': 8,
-                    // 'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
-                    'btn': [{ 'delete': true, 'name': '编辑', 'fn': 'editFn' }]
+                    'width': 10,
+                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }]
                 }],
                 equList: []
             };
@@ -139,7 +193,7 @@
                 }
                 this._getList({
                     ops: ops,
-                    api: 'equRunTimeList',
+                    api: 'equRunList',
                     callback: res => {
                         this.equList = res.rows;
                         this.totalPage = res.total;
@@ -162,7 +216,7 @@
             saveFn(req) {
                 this._getInfo({
                     ops: req,
-                    api: 'equRunTimeUpdate',
+                    api: 'equRunAdd',
                     callback: () => {
                         this.$message.success('新增成功！');
                         this.isShowPop = false;
@@ -174,10 +228,40 @@
             btnFn(val) {
                 this[val.fn](val.id, val.item);
             },
-            //编辑操作
-            editFn(id, item) {
-                this._itemObj(item);
-                this.isShowPop = true;
+            //增加用户操作
+            addFn(val) {
+                this._itemObj('');
+                this.isShowPop = val;
+            },
+            //删除操作
+            deleteFn(id) {
+                this._getList({
+                    ops: { 'id': id },
+                    api: 'equRunDel',
+                    callback: () => {
+                        this.$message.success('删除成功！');
+                        this.getEquRunTimeListFn();
+                    }
+                });
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                if(req.deviceTypeCode && req.deviceInLineId && req.deviceInStationId) {
+                    this._getList({
+                        ops: req,
+                        api: 'selectlist2',
+                        callback: res => {
+                            res.forEach(item => {
+                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id });
+                            });
+                            this.popData1.options.forEach(item1 => {
+                                if(item1.val == 'id') {
+                                    item1.list = this.getEquNameArr;
+                                }
+                            });
+                        }
+                    });
+                }
             }
         }
     };

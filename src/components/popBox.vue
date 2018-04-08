@@ -29,6 +29,10 @@
                             <i>至</i>
                             <el-date-picker v-model="req[item.val2]" type="month" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
                         </li>
+                        <li v-if="item.status == 5">
+                            <span>{{item.title}}：</span>
+                            <el-date-picker v-model="req[item.val]" value-format="yyyy-MM-dd HH:mm:ss" type="date" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
+                        </li>
                     </ul>
                 </div>
                 <div class="btn">

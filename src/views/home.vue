@@ -29,7 +29,7 @@
                 currentPage: 1, //当前页数
                 pageSize: 6, //每页显示数量
                 timelyAlarm: [],
-                warningTotal: 0 //实时预警信息总数
+                warningTotal: '实时预警信息（0次）' //实时预警信息总数
             };
         },
         created() {

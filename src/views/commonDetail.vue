@@ -14,11 +14,11 @@
                     <ul class="flex">
                         <li>
                             <span>总运行时间</span>
-                            <span>{{detailInfo.yxzsj}}小时</span>
+                            <span v-if="rightValue01.length!=0">{{rightValue01[1].col3}}小时</span>
                         </li>
                         <li>
                             <span>故障维修次数</span>
-                            <span>{{detailInfo.gzwxcs}}次</span>
+                            <span v-if="rightValue02.length!=0">{{rightValue02[2].col3}}次</span>
                         </li>
                         <li>
                             <span>预警次数</span>
@@ -82,6 +82,8 @@
 
 <script>
     import { mapActions } from 'vuex';
+    import { getDateFn } from '../utils';
+
     export default {
         data() {
             return {
@@ -92,6 +94,7 @@
                 rightValue01: [],
                 rightValue02: [],
                 rightValue03: [],
+                currentDate: '2018-04',
                 searchData: {
                     'btnShow': {
                         'export': true
@@ -110,18 +113,6 @@
                         'title': '车站',
                         'placeholder': '请选择内容',
                         'val': 'stationId'
-                    }, {
-                        'status': 2,
-                        'title': '设备系统',
-                        'placeholder': '请选择内容',
-                        'val': 'deviceTypeId',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
                     }, {
                         'status': 5,
                         'title': '时间',
@@ -188,11 +179,7 @@
                             borderWidth: 0,
                             maxPointWidth: 20,
                             cursor: 'pointer',
-                            events: {
-                                click: function(event) {
-                                    console.log(event.point.name);
-                                }
-                            }
+                            events: {}
                         }
                     },
                     series: [{
@@ -263,7 +250,9 @@
                     plotOptions: {
                         series: {
                             borderWidth: 0,
-                            maxPointWidth: 20
+                            maxPointWidth: 20,
+                            cursor: 'pointer',
+                            events: {}
                         }
                     },
                     series: [{
@@ -334,7 +323,9 @@
                     plotOptions: {
                         series: {
                             borderWidth: 0,
-                            maxPointWidth: 20
+                            maxPointWidth: 20,
+                            cursor: 'pointer',
+                            events: {}
                         }
                     },
                     series: [{
@@ -360,9 +351,7 @@
             this.getCommonLeft01Fn();
             this.getCommonLeft02Fn();
             this.getCommonLeft03Fn();
-            this.getCommonRight01Fn();
-            this.getCommonRight02Fn();
-            this.getCommonRight03Fn();
+            this.currentDate = getDateFn();
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),
@@ -370,68 +359,97 @@
                 this.$router.go(-1);
             },
             getCommonDetailFn(req) {
+                const ops = {
+                    'selectDate': this.currentDate
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
                 this._getInfo({
-                    ops: req,
+                    ops: ops,
                     api: 'commonDetail',
                     callback: res => {
                         this.detailInfo = res;
+                        this.currentDate = res.selectDate;
                     }
                 });
             },
             getCommonLeft01Fn(req) {
+                const ops = {
+                    'selectDate': this.currentDate
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
                 this._getList({
-                    ops: req,
+                    ops: ops,
                     api: 'commonLeft01',
                     callback: res => {
-                        this.leftValue01 = res;
+                        this.leftValue01 = res.kkdArrayMap;
                         this.option01.series[0].data = this.leftValue01;
+                        this.rightValue01 = res.kkdmap[this.currentDate];
+                        var that = this;
+
+                        this.option01.plotOptions.series.events.click = function(event) {
+                            var date = event.point.name.replace('.', '-');
+
+                            that.rightValue01 = res.kkdmap[date];
+                            that.$set(that.rightValue01, res.kkdmap[date]);
+                        };
                     }
                 });
             },
             getCommonLeft02Fn(req) {
+                const ops = {
+                    'selectDate': this.currentDate
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
                 this._getList({
-                    ops: req,
+                    ops: ops,
                     api: 'commonLeft02',
                     callback: res => {
-                        this.leftValue02 = res;
+                        this.leftValue02 = res.kkdArrayMap;
                         this.option02.series[0].data = this.leftValue02;
+                        this.rightValue02 = res.kkdmap[this.currentDate];
+                        var that = this;
+
+                        this.option02.plotOptions.series.events.click = function(event) {
+                            var date = event.point.name.replace('.', '-');
+
+                            that.rightValue02 = res.kkdmap[date];
+                            that.$set(that.rightValue02, res.kkdmap[date]);
+                        };
                     }
                 });
             },
             getCommonLeft03Fn(req) {
+                const ops = {
+                    'selectDate': this.currentDate
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
                 this._getList({
-                    ops: req,
+                    ops: ops,
                     api: 'commonLeft03',
                     callback: res => {
-                        this.leftValue03 = res;
+                        this.leftValue03 = res.kkdArrayMap;
                         this.option03.series[0].data = this.leftValue03;
-                    }
-                });
-            },
-            getCommonRight01Fn(req) {
-                this._getList({
-                    ops: req,
-                    api: 'commonRight01',
-                    callback: res => {
-                        this.rightValue01 = res;
-                    }
-                });
-            },
-            getCommonRight02Fn(req) {
-                this._getList({
-                    ops: req,
-                    api: 'commonRight02',
-                    callback: res => {
-                        this.rightValue02 = res;
-                    }
-                });
-            },
-            getCommonRight03Fn(req) {
-                this._getList({
-                    ops: req,
-                    api: 'commonRight03',
-                    callback: res => {
-                        this.rightValue03 = res;
+                        this.rightValue03 = res.kkdmap[this.currentDate];
+                        var that = this;
+
+                        this.option03.plotOptions.series.events.click = function(event) {
+                            var date = event.point.name.replace('.', '-');
+
+                            that.rightValue03 = res.kkdmap[date];
+                            that.$set(that.rightValue02, res.kkdmap[date]);
+                        };
                     }
                 });
             },
@@ -441,9 +459,6 @@
                 this.getCommonLeft01Fn(req);
                 this.getCommonLeft02Fn(req);
                 this.getCommonLeft03Fn(req);
-                this.getCommonRight01Fn(req);
-                this.getCommonRight02Fn(req);
-                this.getCommonRight03Fn(req);
             }
         }
     };

@@ -1,11 +1,11 @@
 <template>
     <div class="wholeWrap">
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData"></v-sub-search>
+            <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="tab">
             <ul class="title">
-                <li v-bind:class="tabShow?'active':''">预警信息</li>
+                <li class="active">预警信息</li>
                 <dl class="notice flex">
                     <dd class="g-red">二级预警：3次</dd>
                     <dd class="g-light-orange">一级预警：2次</dd>
@@ -13,11 +13,10 @@
                     <dd class="g-orange">全部：7次</dd>
                 </dl>
             </ul>
-            <v-search-list v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data" v-bind:test="true"></v-search-list>
-            <v-search-list v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
+            <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data" v-bind:test="true"></v-search-list>
             <div class=" pagination ">
-                <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                    <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
+                <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                    <span>{{currentPage}}/{{totalPage}}</span>
                 </el-pagination>
             </div>
         </div>
@@ -26,66 +25,33 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
-                tabShow: true,
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
                 searchData: {
                     'btnShow': {
-                        'add': false,
-                        'export': true,
-                        'delete': false,
-                        'edit': false,
-                        'download': false,
-                        'import': false
+                        'export': true
                     },
                     'options': [{
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'lines',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
+                        'val': 'line'
                     }, {
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'stations',
-                        'list': [{
-                            value: '1',
-                            label: '金安桥站'
-                        }, {
-                            value: '2',
-                            label: '苹果园站'
-                        }, {
-                            value: '3',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '4',
-                            label: '西黄村站'
-                        }, {
-                            value: '5',
-                            label: '廖公庄站'
-                        }, {
-                            value: '6',
-                            label: '田村站'
-                        }]
+                        'val': 'station'
                     }, {
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'equSys',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
+                        'val': 'equSys'
                     }, {
                         'status': 1,
                         'title': '设备名称',
@@ -132,114 +98,45 @@
                 }, {
                     'label': '操作',
                     'width': 10,
-                    'value': 'operate'
+                    'btn': [{ 'monitor': true, 'name': '监测', 'fn': 'monitorFn' }]
 
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '1',
-                        statusValue: '二级预警',
-                        operate: '【监测】'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '1',
-                        statusValue: '二级预警',
-                        operate: '【监测】'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '1',
-                        statusValue: '二级预警',
-                        operate: '【监测】'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '2',
-                        statusValue: '一级预警',
-                        operate: '【监测】'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '2',
-                        statusValue: '一级预警',
-                        operate: '【监测】'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        station: '车站',
-                        alarmEvent: '预警事件',
-                        status: '3',
-                        statusValue: '断网',
-                        operate: '【监测】'
-                    }]
-                }
+                equList: []
             };
         },
-        props: ['list', 'label', 'checked'],
+        created() {
+            this.getTimelyAlarmListFn();
+        },
         methods: {
-            currentList(index) {
-                this.indexed = index;
-            },
+            ...mapActions(['_getList']),
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.list();
+                this.getTimelyAlarmListFn();
+            },
+            getTimelyAlarmListFn(req) {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
+                this._getList({
+                    ops: ops,
+                    api: 'timelyAlarmList',
+                    callback: res => {
+                        this.equList = res.rows;
+                        this.currentPage = res.page;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
+                    }
+                });
+            },
+            //获取筛选的值
+            filterBtn(req) {
+                this.getTimelyAlarmListFn(req);
             }
         }
     };

@@ -111,16 +111,27 @@ const api = {
   // 设备配置修改   POST
   equConfigUpdate: 'webapi/deviceconfig/update',
 
-  // 设备运行状态列表
-  equRunList: 'webapi/devicerun/list',
-  // 设备运行状态新增   POST
-  equRunAdd: 'webapi/devicerun/add',
-  // 设备运行状态删除   POST
-  equRunDel: 'webapi/devicerun/del',
-  // 设备运行时间列表
+  // 设备运行时间管理列表
   equRunTimeList: 'webapi/runtime/list',
-  // 设备运行时间修改   POST
+  // 设备运行时间管理修改   POST
   equRunTimeUpdate: 'webapi/runtime/update',
+
+  //   // 设备运行状态列表
+  //   equRunList: 'webapi/devicerun/list',
+  //   // 设备运行状态新增   POST
+  //   equRunAdd: 'webapi/devicerun/add',
+  //   // 设备运行状态删除   POST
+  //   equRunDel: 'webapi/devicerun/del',
+  // 设备运行状态删除
+  equRunDel: 'runStatus/del',
+  // 设备运行状态编辑
+  equRunEdit: 'runStatus/edit',
+  // 设备运行状态新增
+  equRunAdd: 'runStatus/add',
+  // 设备运行状态列表
+  equRunList: 'runStatus/list',
+  //根据线路，车站，设备系统获取设备名称//根据线路，车站，设备系统获取设备名称
+  selectlist2: 'webapi/device/selectlist2',
 
   // 菜单列表
   menuList: 'webapi/menu/list',
@@ -164,9 +175,6 @@ const api = {
   commonLeft01: 'webapi/quota/count/detail/col1',
   commonLeft02: 'webapi/quota/count/detail/col2',
   commonLeft03: 'webapi/quota/count/detail/col3',
-  commonRight01: 'webapi/quota/count/detail/list1',
-  commonRight02: 'webapi/quota/count/detail/list2',
-  commonRight03: 'webapi/quota/count/detail/list3',
   //折线图接口
   test8: 'webapi/device/zd/data',
   //故障设备详情获取

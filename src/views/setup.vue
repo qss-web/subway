@@ -198,13 +198,13 @@
                         'placeholder': '请选择内容',
                         'val': 'equSys',
                         'list': [{
-                            value: '1',
+                            value: '7',
                             label: '自动扶梯'
                         }, {
-                            value: '2',
+                            value: '0',
                             label: '站台门'
                         }, {
-                            value: '3',
+                            value: '8',
                             label: '风机'
                         }]
                     }, {

@@ -115,11 +115,6 @@
                 });
                 this.$emit('ids', this.checkedValue);
             },
-            // goToNext() {
-            //     if(this.other.isSheet) {
-            //         this.$emit('isPop', true);
-            //     }
-            // },
             goToNextPage(fn, item) {
                 this._itemObj(item);
                 this.$emit('receive', fn);
