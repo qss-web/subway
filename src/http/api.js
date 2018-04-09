@@ -180,7 +180,21 @@ const api = {
   //故障设备详情获取
   faultDetail: 'webapi/fault/Detail',
   //故障设备详情修改
-  faultUpdate: 'webapi/fault/add'
+  faultUpdate: 'webapi/fault/add',
+  //获取角色列表
+  getRoleList: 'webapi/auth/role/list',
+
+  //获取线路列表
+  getLines: 'webapi/getLineList',
+  //获取车站列表
+  getStation: 'webapi/getStationList',
+
+  //系统设置-系统列表
+  sysList: 'webapi/sysconfig/list',
+  //系统设置-系统增加
+  sysAdd: 'webapi/sysconfig/add',
+  //系统设置-系统删除
+  sysDel: 'webapi/sysconfig/del'
 };
 
 for (var k in api) {

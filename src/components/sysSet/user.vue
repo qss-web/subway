@@ -27,6 +27,16 @@
                 popData1: {
                     'titleTotal': '新增用户',
                     'options': [{
+                        'status': 2,
+                        'title': '线路',
+                        'placeholder': '请选择线路',
+                        'val': 'lineId'
+                    }, {
+                        'status': 2,
+                        'title': '车站',
+                        'placeholder': '请选择车站',
+                        'val': 'stationId'
+                    }, {
                         'status': 1,
                         'title': '用户名',
                         'placeholder': '请输入用户名',
@@ -42,10 +52,11 @@
                         'placeholder': '请输入真实姓名',
                         'val': 'name'
                     }, {
-                        'status': 1,
+                        'status': 2,
                         'title': '所属角色',
-                        'placeholder': '请输入所属角色',
-                        'val': 'roleName'
+                        'placeholder': '请选择所属角色',
+                        'val': 'roleId',
+                        'list': []
                     }, {
                         'status': 1,
                         'title': 'E-mail',
@@ -63,14 +74,14 @@
                         'val': 'companyName'
                     }, {
                         'status': 1,
-                        'title': '所属工厂',
-                        'placeholder': '请输入所属工厂',
-                        'val': 'factory'
+                        'title': '所属项目部',
+                        'placeholder': '请输入所属项目部',
+                        'val': 'projectDepartmentName'
                     }, {
                         'status': 1,
-                        'title': '所属装置',
-                        'placeholder': '请输入所属装置',
-                        'val': 'equ'
+                        'title': '所属维修部',
+                        'placeholder': '请输入所属维修部',
+                        'val': 'maintainDepartmentName'
                     }]
                 },
                 searchData: {
@@ -117,13 +128,13 @@
                     'width': 10,
                     'value': 'companyName'
                 }, {
-                    'label': '所属工厂',
+                    'label': '所属项目部',
                     'width': 10,
-                    'value': 'companyName'
+                    'value': 'projectDepartmentName'
                 }, {
-                    'label': '所属装置',
+                    'label': '所属维修部',
                     'width': 8,
-                    'value': 'stationName'
+                    'value': 'maintainDepartmentName'
                 }, {
                     'label': '操作',
                     'width': 15,
@@ -134,6 +145,7 @@
         },
         created() {
             this.getUserList();
+            this.getRoleListFn();
         },
         methods: {
             ...mapActions(['_getList']),
@@ -214,6 +226,19 @@
             //获取筛选的值
             filterBtn(req) {
                 this.getUserList(req);
+            },
+            getRoleListFn() {
+                this._getList({
+                    ops: {},
+                    api: 'getRoleList',
+                    callback: res => {
+                        this.popData1.options.forEach(item => {
+                            if(item.val == 'roleId') {
+                                item.list = res.rows;
+                            }
+                        });
+                    }
+                });
             }
         }
     };

@@ -4,11 +4,11 @@
             <h3>中间件设置</h3>
             <dl class="middleKey">
                 <dt class="clearfix">
-                    <a href="javascript:;">添加</a>
+                    <a href="javascript:;" v-on:click="addFn">添加</a>
                     <a href="javascript:;">重新启动Tomcat</a>
                 </dt>
                 <dd>
-                    <v-system-list v-bind:label="info1" v-bind:list="equList.data" v-on:receive="btnFn"></v-system-list>
+                    <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
                 </dd>
             </dl>
             <div class=" pagination ">
@@ -48,9 +48,11 @@
                 <a href="javascript:;">保存</a>
             </div>
         </div>
+        <v-pop-box v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -59,6 +61,45 @@
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 checkList: [],
+                isShowPop: false, //是否显示弹框
+                popData1: {
+                    'titleTotal': '添加',
+                    'options': [{
+                        'status': 1,
+                        'title': 'IP地址',
+                        'placeholder': '请输入IP地址',
+                        'val': 'ip'
+                    }, {
+                        'status': 1,
+                        'title': '端口',
+                        'placeholder': '请输入端口',
+                        'val': 'port'
+                    }, {
+                        'status': 2,
+                        'title': '类型',
+                        'placeholder': '请选择类型',
+                        'val': 'type',
+                        'list': [{
+                            value: '1',
+                            label: '在线'
+                        }, {
+                            value: '2',
+                            label: '离线'
+                        }]
+                    }, {
+                        'status': 2,
+                        'title': '连接方式',
+                        'placeholder': '请选择连接方式',
+                        'val': 'connectionMode',
+                        'list': [{
+                            value: '1',
+                            label: '旧连接'
+                        }, {
+                            value: '2',
+                            label: '新连接'
+                        }]
+                    }]
+                },
                 info1: [{
                     'label': '序号',
                     'width': 10,
@@ -66,7 +107,7 @@
                 }, {
                     'label': 'IP地址',
                     'width': 18,
-                    'value': 'ipAddress'
+                    'value': 'ip'
                 }, {
                     'label': '端口',
                     'width': 20,
@@ -78,74 +119,40 @@
                 }, {
                     'label': '连接方式',
                     'width': 20,
-                    'value': 'attendedMode'
+                    'value': 'connectionMode'
                 }, {
                     'label': '操作',
                     'width': 15,
                     'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }]
-                }
+                equList: []
             };
         },
+        created() {
+            this.getSysList();
+        },
         methods: {
+            ...mapActions(['_getList', '_getInfo']),
+            //显示弹出框
+            addFn() {
+                this.isShowPop = true;
+            },
             //子组件按钮
             btnFn(val) {
                 this[val.fn](val.id);
             },
             //删除操作
-            deleteFn() {
-                // alert(2);
+            deleteFn(id) {
+                this._getInfo({
+                    ops: {
+                        'ids': id.toString()
+                    },
+                    api: 'sysDel',
+                    callback: () => {
+                        this.$message.success('删除成功！');
+                        this.getSysList();
+                    }
+                });
             },
             //编辑操作
             editFn() {
@@ -154,7 +161,39 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.getUserList();
+                this.getSysList();
+            },
+            //弹出框保存数据
+            saveFn(req) {
+                this._getInfo({
+                    ops: req,
+                    api: 'sysAdd',
+                    callback: () => {
+                        this.$message.success('新增成功！');
+                        this.isShowPop = false;
+                        this.getSysList();
+                    }
+                });
+            },
+            //关闭弹出框
+            cancleFn(value) {
+                this.isShowPop = value;
+            },
+            getSysList() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                this._getList({
+                    ops: ops,
+                    api: 'sysList',
+                    callback: res => {
+                        this.equList = res.rows;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
+                    }
+                });
             }
         }
     };

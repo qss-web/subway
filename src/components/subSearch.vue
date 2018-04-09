@@ -58,29 +58,12 @@
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
                 req: {},
-                staionsList: [{
-                    value: '金安桥站',
-                    label: '金安桥站'
-                }, {
-                    value: '苹果园站',
-                    label: '苹果园站'
-                }, {
-                    value: '苹果园南路站',
-                    label: '苹果园南路站'
-                }, {
-                    value: '西黄村站',
-                    label: '西黄村站'
-                }, {
-                    value: '廖公庄站',
-                    label: '廖公庄站'
-                }, {
-                    value: '田村站',
-                    label: '田村站'
-                }],
+                staionsList: [],
                 sysList: [{
                     value: '0',
                     label: '站台门'
@@ -91,15 +74,18 @@
                     value: '8',
                     label: '风机'
                 }],
-                lineList: [{
-                    value: '6号线西延线',
-                    label: '6号线'
-                }],
-                testData: ''
+                lineList: []
             };
         },
         props: ['searchData'],
+        created() {
+            //获取车站列表
+            this.getStationsFn();
+            //获取线路列表
+            this.getLinesFn();
+        },
         methods: {
+            ...mapActions(['_getList']),
             onSubmit() {
 
             },
@@ -113,12 +99,27 @@
             //删除
             deleteBtn() {
                 this.$emit('delete');
+            },
+            //获取车站列表
+            getStationsFn() {
+                this._getList({
+                    ops: {},
+                    api: 'getStation',
+                    callback: res => {
+                        this.staionsList = res;
+                    }
+                });
+            },
+            //获取线路列表
+            getLinesFn() {
+                this._getList({
+                    ops: {},
+                    api: 'getLines',
+                    callback: res => {
+                        this.lineList = res;
+                    }
+                });
             }
-            // getSTime(val) {
-            //     this.testData = val;
-            //     console.log(this.testData);
-            //     // this.sTime = val;//这个sTime是在data中声明的，也就是v-model绑定的值
-            // }
         }
     };
 </script>

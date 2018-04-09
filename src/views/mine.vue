@@ -26,7 +26,7 @@
                 <div class="tables">
                     <div v-show="activeIndex == 0">
                         <el-table :data="equList0" style="width: 100%; background-color: #eff0f2;" stripe height="2.5rem" :row-class-name="rowClassName" header-row-class-name="header-row">
-                            <el-table-column prop="index" label="序号" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column type="index" width="50" label="序号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="station" label="车站" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="equName" label="设备名称" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="time" label="时间" align="center" show-overflow-tooltip></el-table-column>
@@ -44,7 +44,7 @@
                     </div>
                     <div v-show="activeIndex == 1">
                         <el-table :data="equList1" width="100" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
-                            <el-table-column prop="index" width="80" label="序号" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column type="index" width="50" label="序号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="faultNum" width="150" label="故障单号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="line" width="120" label="线路" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="station" width="100" label="车站" align="center" show-overflow-tooltip></el-table-column>
@@ -60,7 +60,7 @@
                     </div>
                     <div v-show="activeIndex == 2">
                         <el-table :data="equList2" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
-                            <el-table-column prop="index" label="序号" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column type="index" width="50" label="序号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="line" label="线路" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="station" label="安装车站" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="equNum" label="设备编号" align="center" show-overflow-tooltip></el-table-column>
