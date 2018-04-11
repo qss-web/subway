@@ -1,7 +1,7 @@
 <template>
     <div class="timeManagement">
         <div class="searchWrap">
-            <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-progress="uploadFn">
+            <el-upload class="upload-demo" :action="uploadUrl" :show-file-list="false" :on-progress="uploadFn" :on-success="successFn">
                 <button class="upload">上传</button>
                 <span v-if="isUpload.isShow" class="title">{{isUpload.title}}</span>
                 <span v-if="isUpload.isShow" class="progress">{{isUpload.progress}}</span>
@@ -9,7 +9,7 @@
             <!-- <v-sub-search v-bind:searchData="searchData"></v-sub-search> -->
         </div>
         <div class="middleKey">
-            <v-system-list v-bind:label="info1" v-bind:list="equList.data"></v-system-list>
+            <v-system-list v-bind:label="info1" v-bind:list="equList"></v-system-list>
         </div>
         <div class=" pagination ">
             <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
@@ -27,6 +27,7 @@
                 pageSize: 9, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
+                uploadUrl: '', //上传的地址
                 isUpload: {
                     isShow: false,
                     title: '',
@@ -37,101 +38,67 @@
                     'width': 10,
                     'value': 'index'
                 }, {
-                    'label': '名称',
+                    'label': '文件名',
                     'width': 30,
-                    'value': 'num'
+                    'value': 'fileName'
                 }, {
-                    'label': '类型',
+                    'label': '上传时间',
                     'width': 30,
-                    'value': 'num'
+                    'value': 'uploadTime'
                 }, {
-                    'label': '修改日期',
+                    'label': '版本号',
                     'width': 30,
-                    'value': 'num'
+                    'value': 'version'
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '测试',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }]
-                }
+                equList: []
             };
         },
         created() {
+            //this.uploadUrl = 'http://' + window.location.host + '/bjdt/common/upload';
+            this.uploadUrl = "http://bhxz.net:48092/bjdt/common/upload"
             this.getClientListFn();
         },
         methods: {
-            ...mapActions(['_getList']),
-            uploadFn(event, file, fileList) {
+            ...mapActions(['_getList', '_getInfo']),
+            uploadFn(event, file) {
                 this.isUpload.isShow = true;
                 this.isUpload.title = file.name;
                 this.isUpload.progress = parseInt(event.percent) + '%';
             },
-            getClientListFn() {
-                this._getList({
-                    ops: {},
-                    api: 'clientList',
+            successFn(res, file) {
+                this._getInfo({
+                    ops: {
+                        "fileName": file.name,
+                        "fileUrl": res.url,
+                        "uploadTime": "2018-04-11"
+                    },
+                    api: 'clientAdd',
                     callback: () => {
+                        this.getClientListFn();
+                        this.isUpload.isShow = false;
+                    }
 
+                })
+            },
+            getClientListFn() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+                this._getList({
+                    ops: ops,
+                    api: 'clientList',
+                    callback: res => {
+                        this.equList = res.rows;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
                     }
                 });
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.getUserList();
+                this.getClientListFn();
             }
         }
     };

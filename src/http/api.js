@@ -87,12 +87,15 @@ const api = {
   userDel: 'webapi/user/del',
   //查询用户信息
   userDetail: 'webapi/user/detail',
+
+  //上传客户端后回调
+  clientAdd: 'webapi/client/add',
   // 客户端列表
   clientList: 'webapi/client/list',
-  // 客户端上传   POST
-  clientUpload: 'webapi/client/upload',
-  // 客户端下载
-  clientDownload: 'webapi/client/download',
+  //   // 客户端上传   POST
+  //   clientUpload: 'webapi/client/upload',
+  //   // 客户端下载
+  //   clientDownload: 'webapi/client/download',
 
   // 角色列表
   roleList: 'webapi/role/list',
