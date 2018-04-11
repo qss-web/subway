@@ -51,6 +51,7 @@
                     api: 'mineUserInfo',
                     callback: res => {
                         this.userinfo = res;
+                        this.userinfo.imageUrl = 'http://' + window.location.host + res.imageUrl;
                     }
                 });
             }

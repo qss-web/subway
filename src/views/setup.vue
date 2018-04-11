@@ -76,35 +76,12 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'deviceInLineId',
-                        'list': [{
-                            value: '6号线西延线',
-                            label: '6号线'
-                        }]
+                        'val': 'deviceInLineId'
                     }, {
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'deviceInStationId',
-                        'list': [{
-                            value: '金安桥站',
-                            label: '金安桥站'
-                        }, {
-                            value: '苹果园站',
-                            label: '苹果园站'
-                        }, {
-                            value: '苹果园南路站',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '西黄村站',
-                            label: '西黄村站'
-                        }, {
-                            value: '廖公庄站',
-                            label: '廖公庄站'
-                        }, {
-                            value: '田村站',
-                            label: '田村站'
-                        }]
+                        'val': 'deviceInStationId'
                     }, {
                         'status': 2,
                         'title': '设备系统',
@@ -468,31 +445,47 @@
                     api: 'infoDetail',
                     callback: res => {
                         this._equInfo(res);
-                        this.$router.push({ path: '/equInfo', query: { 'id': this.itemObj.id, 'isShow': true } });
+                        if(this.itemObj.deviceTypeCode == 0 || this.itemObj.deviceTypeCode == 8) {
+                            this.$router.push({ path: '/equInfoOther', query: { 'id': this.itemObj.id, 'isShow': true } });
+                        } else {
+                            this.$router.push({ path: '/equInfo', query: { 'id': this.itemObj.id, 'isShow': true } });
+                        }
                     }
                 });
             },
             //关闭弹出框并保存数据
             saveFn(req) {
-                req.id = req.id.toString();
-                this._getList({
-                    ops: req,
-                    api: 'infoDetail',
-                    callback: res => {
-                        this.$message.success('新增成功！');
-                        this.isShowPop = true;
-                        this._equInfo(res);
-                        this.$router.push({ path: '/equInfo', query: { 'id': req.id } });
-                    }
-                });
+                if(req.id) {
+                    req.id = req.id.toString();
+                    this._getList({
+                        ops: req,
+                        api: 'infoDetail',
+                        callback: res => {
+                            this.$message.success('新增成功！');
+                            this.isShowPop = true;
+                            this._equInfo(res);
+                            //站台门和风机跳转的页面有列表
+                            if(res.deviceTypeCode == 0 || res.deviceTypeCode == 8) {
+                                this.$router.push({ path: '/equInfoOther', query: { 'id': req.id } });
+                            } else {
+                                this.$router.push({ path: '/equInfo', query: { 'id': req.id } });
+                            }
+                        }
+                    });
+                } else {
+                    this.$message.error('请选择设备名称！');
+                }
             },
             //获取设备名称
             getEquNameFn(req) {
+                debugger;
                 if(req.deviceTypeCode && req.deviceInLineId && req.deviceInStationId) {
+                    console.log('走进来了吗？');
                     this._getList({
                         ops: req,
                         api: 'selectlist',
                         callback: res => {
+                            this.getEquNameArr = [];
                             res.forEach(item => {
                                 this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id });
                             });

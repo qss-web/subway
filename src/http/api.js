@@ -3,8 +3,10 @@ const api = {
 
   //根据线路，车站，设备系统获取设备名称
   selectlist: 'webapi/device/selectlist',
-  //设备档案列表 GET
+  //设备信息列表 GET
   infoList: 'webapi/device/list',
+  //设备信息同步按钮
+  synBtnFn: 'webapi/device/syn',
   //设备档案详情 GET
   infoDetail: 'webapi/device/details',
   //修改设备
@@ -175,8 +177,8 @@ const api = {
   commonLeft01: 'webapi/quota/count/detail/col1',
   commonLeft02: 'webapi/quota/count/detail/col2',
   commonLeft03: 'webapi/quota/count/detail/col3',
-  //折线图接口
-  test8: 'webapi/device/zd/data',
+  //（预警信息）折线图接口
+  warnData: 'webapi/device/zd/data',
   //故障设备详情获取
   faultDetail: 'webapi/fault/Detail',
   //故障设备详情修改
@@ -202,7 +204,7 @@ for (var k in api) {
   } else if (process.env.NODE_ENV == 'development') {
     api[k] = '/bjdt/' + api[k];
   } else {
-    api[k] = 'https://platform-dev.qms888.com/' + api[k];
+    api[k] = 'http://' + window.location.host + '/bjdt/' + api[k];
   }
 }
 

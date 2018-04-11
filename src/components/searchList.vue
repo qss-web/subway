@@ -41,7 +41,7 @@
                     </span>
                     <span v-else v-bind:class="item.status?'font-color-' + item.status:''" v-on:click="goToNextPage(other.goToNextFn,item)">
                         {{item[item1.value]}}
-                        <i class="redDot" v-if="item1.isShowRed && item.type==0"></i>
+                        <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
                     </span>
                 </div>
             </dd>
@@ -159,13 +159,13 @@
         color: #f9af00 !important;
     }
     .font-color-3 {
-        color: #adadad !important;
+        color: #13c613 !important;
     }
     .font-color-4 {
-        color: #027b03 !important;
+        color: #0ed4eb !important;
     }
     .font-color-5 {
-        color: #6e381f !important;
+        color: #adadad !important;
     }
     .g-table-1 {
         width: 100%;

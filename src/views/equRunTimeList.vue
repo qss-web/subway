@@ -23,7 +23,7 @@
         data() {
             return {
                 currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
+                pageSize: 12, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 searchData: {
@@ -34,11 +34,7 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'line',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
+                        'val': 'line'
                     }, {
                         'status': 2,
                         'title': '车站',
@@ -81,15 +77,15 @@
                 }, {
                     'label': '线路',
                     'width': 10,
-                    'value': 'line'
+                    'value': 'lineName'
                 }, {
                     'label': '车站',
                     'width': 15,
-                    'value': 'station'
+                    'value': 'stationName'
                 }, {
                     'label': '设备系统',
                     'width': 10,
-                    'value': 'equSys'
+                    'value': 'equSysName'
                 }, {
                     'label': '设备编号',
                     'width': 15,

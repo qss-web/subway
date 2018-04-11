@@ -13,17 +13,17 @@
                         <li v-if="item.status == 2">
                             <span>{{item.title}}：</span>
                             <!-- 判断是不是车站的列表，如果是车站列表，数据直接在子组件请求 -->
-                            <el-select v-if="item.val == 'stationId' || item.val == 'deviceInStationId' || item.val == 'stationId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                            <el-select v-if="item.val == 'stationId' || item.val == 'deviceInStationId' || item.val == 'stationId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                                 <el-option v-for="itemSel in staionsList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
                             </el-select>
                             <!-- 判断是不是线路列表，如果是线路列表，数据直接在子组件请求 -->
-                            <el-select v-else-if="item.val == 'lineId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                            <el-select v-else-if="item.val == 'lineId' || item.val == 'deviceInLineId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                                 <el-option v-for="itemSel in lineList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
                             </el-select>
 
-                            <el-select v-else v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="test">
+                            <el-select v-else v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                                 <el-option v-for="itemSel in item.list" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
                             </el-select>
@@ -85,7 +85,7 @@
             onCancle() {
                 this.$emit('receive', false);
             },
-            test() {
+            changeOps() {
                 this.$emit('getEquName', this.req);
             },
             //获取车站列表

@@ -23,7 +23,7 @@
         data() {
             return {
                 currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
+                pageSize: 12, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 searchData: {

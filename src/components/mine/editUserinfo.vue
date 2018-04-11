@@ -1,7 +1,7 @@
 <template>
     <div class="userinfo">
         <div class="user-common flex">
-            <el-upload class="user-common-photo avatar-uploader" action="http://192.168.0.196:8080/bjdt/common/upload" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+            <el-upload style="height: 100%;" class="user-common-photo avatar-uploader" :action="uploadUrl" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                 <img v-if="userinfo.imageUrl" :src="userinfo.imageUrl" class="avatar">
                 <i v-else class="avatar-uploader-icon"></i>
             </el-upload>
@@ -70,17 +70,21 @@
                     email: '',
                     phone: '',
                     password: '',
-                    conPassword: ''
-                }
+                    conPassword: '',
+                    pic: ''
+                },
+                uploadUrl: ""
             };
         },
         created() {
+            this.uploadUrl = 'http://' + window.location.host + '/bjdt/common/upload';
             this.getUserInfo();
         },
         methods: {
             ...mapActions(['_getInfo']),
             handleAvatarSuccess(res, file) {
                 this.userinfo.imageUrl = URL.createObjectURL(file.raw);
+                this.repairInfo.pic = res.url;
             },
             beforeAvatarUpload(file) {
                 const isPic = (file.type === 'image/jpeg' || file.type === 'image/png');
@@ -112,6 +116,7 @@
                     api: 'mineUserInfo',
                     callback: res => {
                         this.userinfo = res;
+                        this.userinfo.imageUrl = 'http://' + window.location.host + res.imageUrl;
                     }
                 });
             }

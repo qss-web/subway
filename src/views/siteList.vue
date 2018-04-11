@@ -7,12 +7,12 @@
             <div class="tab">
                 <ul class="title">
                     <dl class="notice flex">
-                        <dd class="g-red">二级预警：4次</dd>
-                        <dd class="g-light-orange">一级预警：1次</dd>
-                        <dd class="g-green">运行：2次</dd>
-                        <dd class="g-brown">停机：2次</dd>
-                        <dd class="g-gray">断网：2次</dd>
-                        <dd class="g-orange">全部：11次</dd>
+                        <dd class="g-red">二级预警：{{equInfoCount[0]}}次</dd>
+                        <dd class="g-light-orange">一级预警：{{equInfoCount[1]}}次</dd>
+                        <dd class="g-green">运行：{{equInfoCount[2]}}次</dd>
+                        <dd class="g-gray">断网：{{equInfoCount[3]}}次</dd>
+                        <dd class="g-brown">停机：{{equInfoCount[4]}}次</dd>
+                        <dd class="g-orange">全部：{{equTotal}}次</dd>
                     </dl>
                 </ul>
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
@@ -33,9 +33,11 @@
         data() {
             return {
                 currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
+                pageSize: 11, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
+                equInfoCount: [], //设备信息
+                equTotal: 0, //设备信息全部
                 searchData: {
                     'btnShow': {
                         'export': true
@@ -362,6 +364,10 @@
                     callback: res => {
                         res.rows.forEach(item => {
                             item.isCheck = false;
+                        });
+                        this.equInfoCount = res.counts;
+                        res.counts.forEach(item => {
+                            this.equTotal += item;
                         });
                         this.equList = res.rows;
                         this.totalPage = res.total;

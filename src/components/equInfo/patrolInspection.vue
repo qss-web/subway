@@ -92,7 +92,7 @@
             ...mapActions(['_getList']),
             infoCheckFn() {
                 this._getList({
-                    ops: {},
+                    ops: { id: this.equId },
                     api: 'infoCheck',
                     callback: res => {
                         this.showValue = res;

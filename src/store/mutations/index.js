@@ -13,5 +13,14 @@ export default {
   //列表某一条值
   _itemObj(state, item) {
     state.itemObj = item;
+  },
+  //存储设备id和设备uuid
+  _deviceInfo(state, deviceInfo) {
+    setSen('deviceInfo', deviceInfo);
+    state.deviceInfo = deviceInfo;
+  },
+  //存储设备id和设备uuid
+  _warnChart(state, warnChart) {
+    state.warnChart = warnChart;
   }
 };

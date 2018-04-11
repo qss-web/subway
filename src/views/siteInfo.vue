@@ -2,21 +2,22 @@
     <div>
         <div>
             <div class="device-3d">
-                <v-tag name="triangle" status="error" x="2.1" y="2.6" @onclick="goToDevice(2)">1#站台门</v-tag>
-                <v-tag name="triangle" status="error" x="2.8" y="4" @onclick="goToDevice(2)">1#站台门</v-tag>
-                <v-tag name="triangle" status="error" x="2.9" y="4.82" @onclick="goToDevice(2)">2#站台门</v-tag>
-                <v-tag name="triangle" status="error" x="8.42" y="2.3" @onclick="goToDevice(2)">3#站台门</v-tag>
-                <v-tag name="triangle" status="error" x="3.63" y="2.11" @onclick="goToDevice(2)">A2站台门</v-tag>
-                <v-tag name="triangle" status="error" x="3.6" y="3.0" @onclick="goToDevice(2)">A3站台门</v-tag>
-                <v-tag name="triangle" status="error" x="5.5" y="3.2" @onclick="goToDevice(2)">4#站台门</v-tag>
-                <v-tag name="triangle" status="normal" x="3.43" y="2.68" @onclick="goToDevice(3)">A2扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="6.1" y="2.53" @onclick="goToDevice(3)">B1扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="5.33" y="2.36" @onclick="goToDevice(3)">B2扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="4.8" y="2.1" @onclick="goToDevice(3)">B3扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="2.2" y="3" @onclick="goToDevice(3)">B4扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="2.72" y="3.2" @onclick="goToDevice(3)">B5扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="7.3" y="1.5" @onclick="goToDevice(3)">C1扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="8.2" y="1.7" @onclick="goToDevice(3)">C2扶梯</v-tag>
+                <!-- <v-tag name="triangle" status="error" x="2.1" y="2.6" @onclick="goToDevice(2)">1#站台门</v-tag> -->
+                <!-- <v-tag name="triangle" status="error" x="2.8" y="4" @onclick="goToDevice(2)">1#站台门</v-tag> -->
+                <v-tag name="triangle" status="error" x="2.9" y="4.82" @onclick="goToDevice(2,'602','7b93ec3c0975ad43bbb431dba268123d')">2#站台门</v-tag>
+                <!-- <v-tag name="triangle" status="error" x="8.42" y="2.3" @onclick="goToDevice(2)">3#站台门</v-tag> -->
+                <!-- <v-tag name="triangle" status="error" x="3.63" y="2.11" @onclick="goToDevice(2)">A2站台门</v-tag> -->
+                <!-- <v-tag name="triangle" status="error" x="3.6" y="3.0" @onclick="goToDevice(2)">A3站台门</v-tag> -->
+                <v-tag name="triangle" status="error" x="5.5" y="3.2" @onclick="goToDevice(2,'602','7b93ec3c0975ad43bbb431dba268123d')">4#站台门</v-tag>
+                <!-- <v-tag name="triangle" status="normal" x="3.43" y="2.68" @onclick="goToDevice(3)">A2扶梯</v-tag> -->
+                <v-tag name="triangle" status="normal" x="5.8" y="2.53" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">B1扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="4.8" y="2.2" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">B2扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="4.2" y="1.8" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">B3扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="2.2" y="3" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">B4扶梯</v-tag>
+                <!-- <v-tag name="triangle" status="normal" x="2.72" y="3.2" @onclick="goToDevice(3)">B5扶梯</v-tag> -->
+                <v-tag name="triangle" status="normal" x="7.3" y="1.5" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">C1扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="8.2" y="1.7" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">C2扶梯</v-tag>
+                <v-tag name="triangle" status="normal" x="6.6" y="1" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">C3扶梯</v-tag>
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日车站健康监测完好率</button>
@@ -41,19 +42,19 @@
             <div class="fans flex">
                 <div class="fan flex">
                     <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name error" @click="goToDevice(1)">F01风机</button>
+                    <button class="fan-name error" @click="goToDevice(1,'603','34301c3bb7aa27c16ead4841a2f11512')">F01风机</button>
                 </div>
                 <div class="fan flex">
                     <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name warn" @click="goToDevice(1)">F02风机</button>
+                    <button class="fan-name warn" @click="goToDevice(1,'603','34301c3bb7aa27c16ead4841a2f11512')">F02风机</button>
                 </div>
                 <div class="fan flex">
                     <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name normal" @click="goToDevice(1)">F03风机</button>
+                    <button class="fan-name normal" @click="goToDevice(1,'603','34301c3bb7aa27c16ead4841a2f11512')">F03风机</button>
                 </div>
                 <div class="fan flex">
                     <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name error" @click="goToDevice(1)">F04风机</button>
+                    <button class="fan-name error" @click="goToDevice(1,'603','34301c3bb7aa27c16ead4841a2f11512')">F04风机</button>
                 </div>
             </div>
             <v-train :select="true" @click="alert(2)"></v-train>
@@ -63,14 +64,12 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
                 currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
-                totalPage: 0,//总页数
-                pageNumber: 0,//总条目数
+                pageSize: 8, //每页显示数量
                 activeIndex: '',
                 alarmTable: {
                     label: [{
@@ -263,11 +262,12 @@
         created() {
             this.getAvailabilityFn();
             this.getEventInfoFn();
-            this.getPointStatusFn();
         },
         methods: {
             ...mapActions(['_getList']),
-            goToDevice(deviceType) {
+            ...mapMutations(['_deviceInfo']),
+            goToDevice(deviceType, deviceId, deviceUuid) {
+                this._deviceInfo({ 'deviceId': deviceId, 'deviceUuid': deviceUuid });
                 if(deviceType == 1) {
                     this.$router.push('faninfo');
                 } else if(deviceType == 2) {
@@ -278,7 +278,7 @@
             },
             getAvailabilityFn() {
                 this._getList({
-                    ops: {},
+                    ops: { id: '田村站' },
                     api: 'availability',
                     callback: res => {
                         this.ringInfo1.value = res.ft;
@@ -291,9 +291,9 @@
             tabListFn(value) {
                 this.activeIndex = value;
                 if(value) {
-                    this.getEventInfoFn();
-                } else {
                     this.getPointStatusFn();
+                } else {
+                    this.getEventInfoFn();
                 }
             },
             btnFn(val) {
@@ -301,17 +301,18 @@
             },
             //工单点击事件
             goToOrderFn() {
-                this.$router.push('/backlog');
+                this.$router.push('backlog');
             },
             //更多事件 点击事件
             goToMoreFn() {
-                this.$router.push('/alarmListDay');
+                this.$router.push('alarmListDay');
             },
             //获取事件信息
             getEventInfoFn() {
                 const ops = {
                     'curPage': this.currentPage,
-                    'pageSize': this.pageSize
+                    'pageSize': this.pageSize,
+                    'stationId': '田村站'
                 };
 
                 this._getList({
@@ -326,7 +327,8 @@
             getPointStatusFn() {
                 const ops = {
                     'curPage': this.currentPage,
-                    'pageSize': this.pageSize
+                    'pageSize': this.pageSize,
+                    'stationId': '田村站'
                 };
 
                 this._getList({

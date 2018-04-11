@@ -7,42 +7,6 @@
             <v-table-small :title="['综合排名','线路','车站','状态']" :list="failureCount" :widths="[20,30,30,20]"></v-table-small>
         </div>
     </div>
-
-    <!-- {
-                    sequence: 1,
-                    name: '6号线',
-                    station: '金安桥站',
-                    state: '优'
-                },
-                {
-                    sequence: 2,
-                    name: '6号线',
-                    station: '苹果园站',
-                    state: '良'
-                },
-                {
-                    sequence: 3,
-                    name: '6号线',
-                    station: '苹果园南路站',
-                    state: '良'
-                }, {
-                    sequence: 4,
-                    name: '6号线',
-                    station: '西黄村站',
-                    state: '优'
-                },
-                {
-                    sequence: 5,
-                    name: '6号线',
-                    station: '廖公庄站',
-                    state: '良'
-                },
-                {
-                    sequence: 6,
-                    name: '6号线',
-                    station: '田村站',
-                    state: '良'
-                } -->
 </template>
 
 <script>
@@ -50,45 +14,11 @@
     export default {
         data() {
             return {
-                failureCount: [{
-                    sequence: 1,
-                    name: '6号线',
-                    station: '金安桥站',
-                    state: '优'
-                },
-                {
-                    sequence: 2,
-                    name: '6号线',
-                    station: '苹果园站',
-                    state: '良'
-                },
-                {
-                    sequence: 3,
-                    name: '6号线',
-                    station: '苹果园南路站',
-                    state: '良'
-                }, {
-                    sequence: 4,
-                    name: '6号线',
-                    station: '西黄村站',
-                    state: '优'
-                },
-                {
-                    sequence: 5,
-                    name: '6号线',
-                    station: '廖公庄站',
-                    state: '良'
-                },
-                {
-                    sequence: 6,
-                    name: '6号线',
-                    station: '田村站',
-                    state: '良'
-                }]
+                failureCount: []
             };
         },
         created() {
-            // this.getListFn();
+            this.getListFn();
         },
         methods: {
             ...mapActions(['_getList']),
@@ -105,7 +35,14 @@
                     ops: ops,
                     api: 'stationList',
                     callback: res => {
-                        this.failureCount = res;
+                        res.forEach(item => {
+                            this.failureCount.push({
+                                sequence: item.rank,
+                                name: item.line,
+                                station: item.station,
+                                state: item.state
+                            });
+                        });
                     }
                 });
             }

@@ -8,14 +8,16 @@
                 <li v-on:click="tabShowFn(true)" v-bind:class="tabShow?'active':''">实时预警信息</li>
                 <li v-on:click="tabShowFn(false)" v-bind:class="tabShow?'':'active'">以往历史事件</li>
                 <dl class="notice flex">
-                    <dd class="g-red">二级预警：3次</dd>
-                    <dd class="g-light-orange">一级预警：2次</dd>
-                    <dd class="g-gray">断网：2次</dd>
-                    <dd class="g-orange">全部：7次</dd>
+                    <dd class="g-red">二级预警：{{equInfoCount[0]}}次</dd>
+                    <dd class="g-light-orange">一级预警：{{equInfoCount[1]}}次</dd>
+                    <dd class="g-green">运行：{{equInfoCount[2]}}次</dd>
+                    <dd class="g-gray">断网：{{equInfoCount[3]}}次</dd>
+                    <dd class="g-brown">停机：{{equInfoCount[4]}}次</dd>
+                    <dd class="g-orange">全部：{{equTotal}}次</dd>
                 </dl>
             </ul>
             <v-search-list v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
-            <v-search-list v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList01"></v-search-list>
+            <v-search-list v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList01" v-on:receive="btnFn"></v-search-list>
             <div class=" pagination ">
                 <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}}/{{totalPage}}</span>
@@ -33,9 +35,11 @@
             return {
                 tabShow: true,
                 currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
+                pageSize: 10, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
+                equInfoCount: [], //设备信息
+                equTotal: 0, //设备信息全部
                 searchData: {
                     'btnShow': {
                         'export': true
@@ -122,7 +126,7 @@
                 // this.list();
             },
             monitorFn() {
-                alert(3);
+                this.$router.push('monitor');
             },
             //子组件按钮
             btnFn(val) {
@@ -141,6 +145,10 @@
                     ops: ops,
                     api: 'timelyAlarmList',
                     callback: res => {
+                        this.equInfoCount = res.counts;
+                        res.counts.forEach(item => {
+                            this.equTotal += item;
+                        });
                         this.equList = res.rows;
                         this.currentPage = res.page;
                         this.totalPage = res.total;
@@ -161,6 +169,10 @@
                     ops: ops,
                     api: 'alarmListHistory',
                     callback: res => {
+                        this.equInfoCount = res.counts;
+                        res.counts.forEach(item => {
+                            this.equTotal += item;
+                        });
                         this.equList01 = res.rows;
                         this.currentPage = res.page;
                         this.totalPage = res.total;

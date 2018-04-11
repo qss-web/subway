@@ -234,9 +234,8 @@
             ...mapState(['equInfo'])
         },
         created() {
-            this.equId = this.$route.query.id;
+            this.equId = this.$route.query.id.toString();
             this.isShow = this.$route.query.isShow;
-            console.log(this.isShow, 1111);
             this.getInfoFn();
         },
         methods: {

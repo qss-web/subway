@@ -3,7 +3,7 @@
         <div>
             <div class="button-group flex">
                 <button class="btn-name">**风机</button>
-                <button class="btn-alarm" @click="isShowPopup = true">预警</button>
+                <button class="btn-alarm" @click="warnChartFn">预警</button>
             </div>
             <div class="alarm-reason">
                 <div class="alarm-reason-title">预警原因</div>
@@ -12,7 +12,10 @@
                     <li>2、廖公庄站B端风道LGZ-FT-D-4数据中断</li>
                 </ul>
             </div>
-            <div class="device-3d" v-on:click="goInfoFn"></div>
+            <div class="device-3d" v-on:click="goInfoFn">
+                <v-tag name="fan" type="1" status="normal" x="5.4" y="-0.5">震动监测值Y</v-tag>
+                <v-tag name="fan" type="2" status="normal" x="8.4" y="2.8">震动监测值X</v-tag>
+            </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日设备健康监测指标</button>
                 <button class="device-healthy-monitor" v-on:click="monitorFn">监测</button>
@@ -24,8 +27,8 @@
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
-                            <button class="tab" :class="{active: !activeIndex}" @click="activeIndex = 0">事件信息</button>
-                            <button class="tab" :class="{active: activeIndex}" @click="activeIndex = 1">测点状态</button>
+                            <button class="tab" :class="{active: !activeIndex}" @click="tabListFn(0)">事件信息</button>
+                            <button class="tab" :class="{active: activeIndex}" @click="tabListFn(1)">测点状态</button>
                         </div>
                         <div class="tables">
                             <v-search-list v-show="!activeIndex" :other="alarmTable.other" :label="alarmTable.label" :list="alarmTable.list"></v-search-list>
@@ -38,17 +41,18 @@
         </div>
         <v-goback></v-goback>
         <el-dialog :visible.sync="isShowPopup">
-            <img style="width: 100%; height: 110px;" src="~assets/other/test.png" />
-            <!-- <v-alarm-popup></v-alarm-popup> -->
+            <v-alarm-popup></v-alarm-popup>
         </el-dialog>
     </div>
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapState, mapMutations } from 'vuex';
     export default {
         data() {
             return {
+                currentPage: 1, //当前页数
+                pageSize: 8, //每页显示数量
                 isShowPopup: false,
                 showValue: {
                     'yxsj': '',
@@ -108,36 +112,7 @@
                         'value': 'statusValue',
                         'status': 'status'
                     }],
-                    list: [{
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        eventDesc: '预警事件',
-                        status: '1',
-                        statusValue: '状态'
-                    },
-                    {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        eventDesc: '预警事件',
-                        status: '2',
-                        statusValue: '状态'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        eventDesc: '预警事件',
-                        status: '3',
-                        statusValue: '状态'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        time: '时间',
-                        eventDesc: '预警事件',
-                        status: '3',
-                        statusValue: '状态'
-                    }],
+                    list: [],
                     other: {
                         style: 5,
                         isSubShowColor: true
@@ -185,43 +160,44 @@
                         'width': 12,
                         'value': 'alarmType'
                     }],
-                    list: [{
-                        num: '序号',
-                        equName: '设备名称',
-                        testName: '测点名称',
-                        currentValue: '当前值',
-                        highLimit: '高限',
-                        highestLimit: '高高限',
-                        lowLimit: '下限',
-                        lowestLimit: '下下限',
-                        alarmWay: '预警方式',
-                        alarmType: '预警类型',
-                        updateTime: '更新时间'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        testName: '测点名称',
-                        currentValue: '当前值',
-                        highLimit: '高限',
-                        highestLimit: '高高限',
-                        lowLimit: '下限',
-                        lowestLimit: '下下限',
-                        alarmWay: '预警方式',
-                        alarmType: '预警类型',
-                        updateTime: '更新时间'
-                    }, {
-                        num: '序号',
-                        equName: '设备名称',
-                        testName: '测点名称',
-                        currentValue: '当前值',
-                        highLimit: '高限',
-                        highestLimit: '高高限',
-                        lowLimit: '下限',
-                        lowestLimit: '下下限',
-                        alarmWay: '预警方式',
-                        alarmType: '预警类型',
-                        updateTime: '更新时间'
-                    }],
+                    list: [],
+                    // list: [{
+                    //     num: '序号',
+                    //     equName: '设备名称',
+                    //     testName: '测点名称',
+                    //     currentValue: '当前值',
+                    //     highLimit: '高限',
+                    //     highestLimit: '高高限',
+                    //     lowLimit: '下限',
+                    //     lowestLimit: '下下限',
+                    //     alarmWay: '预警方式',
+                    //     alarmType: '预警类型',
+                    //     updateTime: '更新时间'
+                    // }, {
+                    //     num: '序号',
+                    //     equName: '设备名称',
+                    //     testName: '测点名称',
+                    //     currentValue: '当前值',
+                    //     highLimit: '高限',
+                    //     highestLimit: '高高限',
+                    //     lowLimit: '下限',
+                    //     lowestLimit: '下下限',
+                    //     alarmWay: '预警方式',
+                    //     alarmType: '预警类型',
+                    //     updateTime: '更新时间'
+                    // }, {
+                    //     num: '序号',
+                    //     equName: '设备名称',
+                    //     testName: '测点名称',
+                    //     currentValue: '当前值',
+                    //     highLimit: '高限',
+                    //     highestLimit: '高高限',
+                    //     lowLimit: '下限',
+                    //     lowestLimit: '下下限',
+                    //     alarmWay: '预警方式',
+                    //     alarmType: '预警类型',
+                    //     updateTime: '更新时间'
+                    // }],
                     other: {
                         style: 5
                     }
@@ -230,30 +206,91 @@
         },
         created() {
             this.getEquRuninfoFn();
+            this.getEventInfoFn();
+        },
+        computed: {
+            ...mapState(['deviceInfo'])
         },
         methods: {
-            ...mapActions(['_getInfo']),
-            gotoFan() {
-                this.$router.push('faninfo');
-            },
+            ...mapActions(['_getInfo', '_getList']),
+            ...mapMutations(['_equInfo', '_warnChart']),
             goInfoFn() {
-                this.$router.push('equInfo');
+                this._getList({
+                    ops: { 'id': this.deviceInfo.deviceId.toString() },
+                    api: 'infoDetail',
+                    callback: res => {
+                        this._equInfo(res);
+                        this.$router.push({ path: '/equInfoOther', query: { 'id': this.deviceInfo.deviceId, 'isShow': true } });
+                    }
+                });
             },
             monitorFn() {
-                this.$router.push({ path: '/monitorPage', query: { key: "fan" } });
+                this.$router.push({ path: 'monitor' });
             },
             getEquRuninfoFn() {
                 this._getInfo({
                     ops: {
-                        "deviceInLineId": "6号线西延线",  //线路
-                        "deviceInStationId": "苹果园站",  //站点
-                        "deviceId": "8"  //设备id
+                        // "deviceInLineId": "6号线西延线",  //线路
+                        // "deviceInStationId": "苹果园站",  //站点
+                        "deviceId": this.deviceInfo.deviceId  //设备id
                     },
                     api: 'equRuninfo',
                     callback: res => {
                         this.showValue.yxsj = res.yxsj;
                         this.showValue.yjsj = res.yjsj;
                         this.ringInfo.value = res.jkzs;
+                    }
+                });
+            },
+            //切换选项卡
+            tabListFn(value) {
+                this.activeIndex = value;
+                if(value) {
+                    this.getPointStatusFn();
+                } else {
+                    this.getEventInfoFn();
+                }
+            },
+            //获取事件信息
+            getEventInfoFn() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize,
+                    'deviceUuid': this.deviceInfo.deviceUuid
+                };
+
+                this._getList({
+                    ops: ops,
+                    api: 'eventInfo',
+                    callback: res => {
+                        this.alarmTable.list = res.rows;
+                    }
+                });
+            },
+            //获取测点信息
+            getPointStatusFn() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize,
+                    'deviceUuid': this.deviceInfo.deviceUuid
+                };
+
+                this._getList({
+                    ops: ops,
+                    api: 'pointStatus',
+                    callback: res => {
+                        this.testTable.list = res.rows;
+                    }
+                });
+            },
+            //预警信息
+            warnChartFn() {
+                this._getList({
+                    ops: {},
+                    api: 'warnData',
+                    callback: res => {
+                        this._warnChart(res);
+                        this.isShowPopup = true;
                     }
                 });
             }

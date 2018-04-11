@@ -171,6 +171,9 @@
                         this.equList2 = res.rows;
                     }
                 });
+            },
+            editBtn() {
+                this.$router.push({ path: 'monitor' });
             }
         }
     };

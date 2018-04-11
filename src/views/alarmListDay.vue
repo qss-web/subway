@@ -13,7 +13,7 @@
                     <dd class="g-orange">全部：7次</dd>
                 </dl>
             </ul>
-            <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data" v-bind:test="true"></v-search-list>
+            <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
             <div class=" pagination ">
                 <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}}/{{totalPage}}</span>
@@ -137,6 +137,13 @@
             //获取筛选的值
             filterBtn(req) {
                 this.getTimelyAlarmListFn(req);
+            },
+            //子组件按钮
+            btnFn(val) {
+                this[val]();
+            },
+            monitorFn() {
+                this.$router.push('monitor');
             }
         }
     };

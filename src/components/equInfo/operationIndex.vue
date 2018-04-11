@@ -96,7 +96,7 @@
             };
         },
         created() {
-            this.equId = this.$route.query.id;
+            this.equId = this.$route.query.id.toString();
             this.infoRunFn();
             this.infoRunListFn();
         },
@@ -104,7 +104,7 @@
             ...mapActions(['_getInfo']),
             infoRunFn() {
                 this._getInfo({
-                    ops: {},
+                    ops: { id: this.equId },
                     api: 'infoRun',
                     callback: res => {
                         this.runInfo = res;

@@ -7,9 +7,16 @@
         <img v-if="type == 1" class="line1" src="~assets/siteInfo/icon_join_line1.png" />
         <img v-if="type == 2" class="line2" src="~assets/siteInfo/icon_join_line2.png" />
         <img v-if="type == 3" class="line3" src="~assets/siteInfo/icon_join_line3.png" />
+        <img v-if="type == 4" class="line4" src="~assets/siteInfo/icon_join_line4.png" />
+        <img v-if="type == 5" class="line5" src="~assets/siteInfo/icon_join_line5.png" />
     </button>
     <button v-else-if="name == 'number'" class="tag number" :class="status" :style="{left: x + 'rem', top: y + 'rem'}">
         {{numbers[number - 1]}}
+    </button>
+    <button v-else-if="name == 'fan'" class="tag fan" :class="status" :style="{left: x + 'rem', top: y + 'rem'}">
+        <slot></slot>
+        <img v-if="type == 1" class="fan1" src="~assets/siteInfo/icon_join_fan2.png" />
+        <img v-if="type == 2" class="fan2" src="~assets/siteInfo/icon_join_fan3.png" />
     </button>
 </template>
 
@@ -80,7 +87,7 @@
                 }
                 &.line2 {
                     width: 0.12rem;
-                    height: 0.94rem;
+                    height: 1.4rem;
                     bottom: 100%;
                     left: 50%;
                     margin-left: -0.06rem;
@@ -92,6 +99,40 @@
                     top: 50%;
                     margin-top: -0.06rem;
                 }
+                &.line4 {
+                    width: 0.75rem;
+                    height: 0.75rem;
+                    right: 50%;
+                    bottom: 100%;
+                }
+                &.line5 {
+                    width: 0.62rem;
+                    height: 1rem;
+                    right: 50%;
+                    bottom: 100%;
+                }
+            }
+        }
+        &.fan {
+            border-radius: 0.08rem;
+            box-shadow: 0 0.02rem 0.08rem 0.01rem #000;
+            img {
+                position: absolute;
+                z-index: 1;
+                &.fan1 {
+                    width: 0.11rem;
+                    height: 2.8rem;
+                    top: 100%;
+                    // left: 50%;
+                }
+                &.fan2 {
+                    width: 1.9rem;
+                    height: 0.12rem;
+                    bottom: 30%;
+                    right: 100%;
+                    // bottom: 100%;
+                    // left: 50%;
+                }
             }
         }
         &.error {
@@ -101,9 +142,9 @@
             }
         }
         &.warn {
-            background-color: #e1d904;
+            background-color: #f9af00;
             &:after {
-                border-top: 0.1rem solid #e1d904;
+                border-top: 0.1rem solid #f9af00;
             }
         }
         &.normal {

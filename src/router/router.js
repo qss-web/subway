@@ -123,6 +123,11 @@ const router = [
         component: resolve => require(['@/views/equInfo'], resolve)
       },
       {
+        name: 'equInfoOther',
+        path: 'equInfoOther',
+        component: resolve => require(['@/views/equInfoOther'], resolve)
+      },
+      {
         name: 'monitor',
         path: 'monitor',
         component: resolve => require(['@/views/monitor'], resolve)
