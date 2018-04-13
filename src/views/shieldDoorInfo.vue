@@ -17,78 +17,10 @@
                 <li v-on:click="isUp = false" v-bind:class="{active:isUp==false}">下行</li>
             </ul>
             <div class="device-3d" v-on:click="goInfoFn" v-if="isUp">
-                <v-tag name="number" status="error" x="0.85" y="0.05" :number="1"></v-tag>
-                <v-tag name="number" x="1.85" y="0.05" :number="2"></v-tag>
-                <v-tag name="number" status="error" x="2.85" y="0.05" :number="3"></v-tag>
-                <v-tag name="number" x="3.85" y="0.05" :number="4"></v-tag>
-                <v-tag name="number" status="error" x="4.85" y="0.05" :number="5"></v-tag>
-                <v-tag name="number" x="5.85" y="0.05" :number="6"></v-tag>
-                <v-tag name="number" status="error" x="6.85" y="0.05" :number="7"></v-tag>
-                <v-tag name="number" x="7.85" y="0.05" :number="8"></v-tag>
-
-                <v-tag name="number" x="0.85" y="1.28" :number="9"></v-tag>
-                <v-tag name="number" x="1.85" y="1.28" :number="10"></v-tag>
-                <v-tag name="number" x="2.85" y="1.28" :number="11"></v-tag>
-                <v-tag name="number" x="3.85" y="1.28" :number="12"></v-tag>
-                <v-tag name="number" x="4.85" y="1.28" :number="13"></v-tag>
-                <v-tag name="number" x="5.85" y="1.28" :number="14"></v-tag>
-                <v-tag name="number" x="6.85" y="1.28" :number="15"></v-tag>
-                <v-tag name="number" x="7.85" y="1.28" :number="16"></v-tag>
-
-                <v-tag name="number" status="error" x="0.85" y="2.55" :number="17"></v-tag>
-                <v-tag name="number" status="error" x="1.85" y="2.55" :number="18"></v-tag>
-                <v-tag name="number" status="error" x="2.85" y="2.55" :number="19"></v-tag>
-                <v-tag name="number" status="error" x="3.85" y="2.55" :number="20"></v-tag>
-                <v-tag name="number" status="error" x="4.85" y="2.55" :number="21"></v-tag>
-                <v-tag name="number" status="error" x="5.85" y="2.55" :number="22"></v-tag>
-                <v-tag name="number" status="error" x="6.85" y="2.55" :number="23"></v-tag>
-                <v-tag name="number" status="error" x="7.85" y="2.55" :number="24"></v-tag>
-
-                <v-tag name="number" x="0.85" y="3.76" :number="25"></v-tag>
-                <v-tag name="number" x="1.85" y="3.76" :number="26"></v-tag>
-                <v-tag name="number" x="2.85" y="3.76" :number="27"></v-tag>
-                <v-tag name="number" x="3.85" y="3.76" :number="28"></v-tag>
-                <v-tag name="number" x="4.85" y="3.76" :number="29"></v-tag>
-                <v-tag name="number" x="5.85" y="3.76" :number="30"></v-tag>
-                <v-tag name="number" x="6.85" y="3.76" :number="31"></v-tag>
-                <v-tag name="number" x="7.85" y="3.76" :number="32"></v-tag>
+                <v-tag v-for="(item, index) in doorUpInfo" name="number" :status="item.status" :x="item.x" :y="item.y" :number="item.name"></v-tag>
             </div>
             <div class="device-3d" v-on:click="goInfoFn" v-if="!isUp">
-                <v-tag name="number" x="0.85" y="0.05" :number="1"></v-tag>
-                <v-tag name="number" x="1.85" y="0.05" :number="2"></v-tag>
-                <v-tag name="number" x="2.85" y="0.05" :number="3"></v-tag>
-                <v-tag name="number" status="error" x="3.85" y="0.05" :number="4"></v-tag>
-                <v-tag name="number" x="4.85" y="0.05" :number="5"></v-tag>
-                <v-tag name="number" x="5.85" y="0.05" :number="6"></v-tag>
-                <v-tag name="number" x="6.85" y="0.05" :number="7"></v-tag>
-                <v-tag name="number" status="error" x="7.85" y="0.05" :number="8"></v-tag>
-
-                <v-tag name="number" x="0.85" y="1.28" :number="9"></v-tag>
-                <v-tag name="number" x="1.85" y="1.28" :number="10"></v-tag>
-                <v-tag name="number" x="2.85" y="1.28" :number="11"></v-tag>
-                <v-tag name="number" status="error" x="3.85" y="1.28" :number="12"></v-tag>
-                <v-tag name="number" x="4.85" y="1.28" :number="13"></v-tag>
-                <v-tag name="number" x="5.85" y="1.28" :number="14"></v-tag>
-                <v-tag name="number" status="error" x="6.85" y="1.28" :number="15"></v-tag>
-                <v-tag name="number" x="7.85" y="1.28" :number="16"></v-tag>
-
-                <v-tag name="number" x="0.85" y="2.55" :number="17"></v-tag>
-                <v-tag name="number" x="1.85" y="2.55" :number="18"></v-tag>
-                <v-tag name="number" x="2.85" y="2.55" :number="19"></v-tag>
-                <v-tag name="number" x="3.85" y="2.55" :number="20"></v-tag>
-                <v-tag name="number" x="4.85" y="2.55" :number="21"></v-tag>
-                <v-tag name="number" x="5.85" y="2.55" :number="22"></v-tag>
-                <v-tag name="number" x="6.85" y="2.55" :number="23"></v-tag>
-                <v-tag name="number" status="error" x="7.85" y="2.55" :number="24"></v-tag>
-
-                <v-tag name="number" x="0.85" y="3.76" :number="25"></v-tag>
-                <v-tag name="number" x="1.85" y="3.76" :number="26"></v-tag>
-                <v-tag name="number" x="2.85" y="3.76" :number="27"></v-tag>
-                <v-tag name="number" x="3.85" y="3.76" :number="28"></v-tag>
-                <v-tag name="number" status="error" x="4.85" y="3.76" :number="29"></v-tag>
-                <v-tag name="number" x="5.85" y="3.76" :number="30"></v-tag>
-                <v-tag name="number" status="error" x="6.85" y="3.76" :number="31"></v-tag>
-                <v-tag name="number" x="7.85" y="3.76" :number="32"></v-tag>
+                <v-tag v-for="(item, index) in doorDownInfo" name="number" :status="item.status" :x="item.x" :y="item.y" :number="item.name"></v-tag>
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日设备健康监测指标</button>
@@ -125,8 +57,392 @@
     export default {
         data() {
             return {
-                currentPage: 1, //当前页数
-                pageSize: 8, //每页显示数量
+                doorUpInfo: [{
+                    fixedId: '1',
+                    status: "1",
+                    name: '1',
+                    x: '0.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '2',
+                    status: "1",
+                    name: '2',
+                    x: '1.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '3',
+                    status: "1",
+                    name: '3',
+                    x: '2.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '4',
+                    status: "1",
+                    name: '4',
+                    x: '3.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '5',
+                    status: "1",
+                    name: '5',
+                    x: '4.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '6',
+                    status: "1",
+                    name: '6',
+                    x: '5.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '7',
+                    status: "4",
+                    name: '7',
+                    x: '6.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '8',
+                    status: "1",
+                    name: '8',
+                    x: '7.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '9',
+                    status: "1",
+                    name: '9',
+                    x: '0.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '10',
+                    status: "1",
+                    name: '10',
+                    x: '1.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '11',
+                    status: "1",
+                    name: '11',
+                    x: '2.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '12',
+                    status: "5",
+                    name: '12',
+                    x: '3.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '13',
+                    status: "1",
+                    name: '13',
+                    x: '4.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '14',
+                    status: "1",
+                    name: '14',
+                    x: '5.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '15',
+                    status: "1",
+                    name: '15',
+                    x: '6.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '16',
+                    status: "1",
+                    name: '16',
+                    x: '7.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '17',
+                    status: "2",
+                    name: '17',
+                    x: '0.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '18',
+                    status: "1",
+                    name: '18',
+                    x: '1.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '19',
+                    status: "1",
+                    name: '19',
+                    x: '2.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '20',
+                    status: "3",
+                    name: '20',
+                    x: '3.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '21',
+                    status: "1",
+                    name: '21',
+                    x: '4.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '22',
+                    status: "1",
+                    name: '22',
+                    x: '5.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '23',
+                    status: "1",
+                    name: '23',
+                    x: '6.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '24',
+                    status: "1",
+                    name: '24',
+                    x: '7.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '25',
+                    status: "1",
+                    name: '25',
+                    x: '0.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '26',
+                    status: "2",
+                    name: '26',
+                    x: '1.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '27',
+                    status: "4",
+                    name: '27',
+                    x: '2.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '28',
+                    status: "1",
+                    name: '28',
+                    x: '3.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '29',
+                    status: "1",
+                    name: '29',
+                    x: '4.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '30',
+                    status: "1",
+                    name: '30',
+                    x: '5.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '31',
+                    status: "5",
+                    name: '29',
+                    x: '6.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '32',
+                    status: "1",
+                    name: '30',
+                    x: '7.85',
+                    y: '3.76'
+                }],
+                doorDownInfo: [{
+                    fixedId: '1',
+                    status: "2",
+                    name: '1',
+                    x: '0.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '2',
+                    status: "1",
+                    name: '2',
+                    x: '1.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '3',
+                    status: "1",
+                    name: '3',
+                    x: '2.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '4',
+                    status: "1",
+                    name: '5',
+                    x: '3.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '5',
+                    status: "1",
+                    name: '5',
+                    x: '4.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '6',
+                    status: "1",
+                    name: '6',
+                    x: '5.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '7',
+                    status: "4",
+                    name: '7',
+                    x: '6.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '8',
+                    status: "1",
+                    name: '8',
+                    x: '7.85',
+                    y: '0.05'
+                }, {
+                    fixedId: '9',
+                    status: "1",
+                    name: '9',
+                    x: '0.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '10',
+                    status: "1",
+                    name: '10',
+                    x: '1.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '11',
+                    status: "1",
+                    name: '11',
+                    x: '2.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '12',
+                    status: "5",
+                    name: '12',
+                    x: '3.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '13',
+                    status: "1",
+                    name: '13',
+                    x: '4.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '14',
+                    status: "1",
+                    name: '14',
+                    x: '5.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '15',
+                    status: "1",
+                    name: '15',
+                    x: '6.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '16',
+                    status: "1",
+                    name: '16',
+                    x: '7.85',
+                    y: '1.28'
+                }, {
+                    fixedId: '17',
+                    status: "2",
+                    name: '17',
+                    x: '0.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '18',
+                    status: "1",
+                    name: '18',
+                    x: '1.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '19',
+                    status: "1",
+                    name: '19',
+                    x: '2.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '20',
+                    status: "3",
+                    name: '20',
+                    x: '3.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '21',
+                    status: "1",
+                    name: '21',
+                    x: '4.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '22',
+                    status: "1",
+                    name: '22',
+                    x: '5.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '23',
+                    status: "1",
+                    name: '23',
+                    x: '6.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '24',
+                    status: "1",
+                    name: '24',
+                    x: '7.85',
+                    y: '2.55'
+                }, {
+                    fixedId: '25',
+                    status: "1",
+                    name: '25',
+                    x: '0.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '26',
+                    status: "1",
+                    name: '26',
+                    x: '1.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '27',
+                    status: "1",
+                    name: '27',
+                    x: '2.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '28',
+                    status: "1",
+                    name: '28',
+                    x: '3.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '29',
+                    status: "1",
+                    name: '29',
+                    x: '4.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '30',
+                    status: "1",
+                    name: '30',
+                    x: '5.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '31',
+                    status: "1",
+                    name: '29',
+                    x: '6.85',
+                    y: '3.76'
+                }, {
+                    fixedId: '32',
+                    status: "1",
+                    name: '30',
+                    x: '7.85',
+                    y: '3.76'
+                }],
                 isShowPopup: false,
                 showValue: {
                     'yxsj': '',

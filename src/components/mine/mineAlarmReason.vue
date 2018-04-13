@@ -68,13 +68,13 @@
                         {
                             //指定数据列
                             name: 'warn',
-                            color: 'yellow',
+                            color: 'red',
                             data: [] //数据
                         },
                         {
                             //指定数据列
                             name: 'error',
-                            color: 'red',
+                            color: 'yellow',
                             data: [], //数据
                             marker: {
                                 symbol: 'circle'

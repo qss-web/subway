@@ -2,22 +2,7 @@
     <div>
         <div>
             <div class="device-3d">
-                <!-- <v-tag name="triangle" status="error" x="2.1" y="2.6" @onclick="goToDevice(2)">1#站台门</v-tag> -->
-                <!-- <v-tag name="triangle" status="error" x="2.8" y="4" @onclick="goToDevice(2)">1#站台门</v-tag> -->
-                <v-tag name="triangle" status="error" x="2.9" y="4.82" @onclick="goToDevice(2,'602','7b93ec3c0975ad43bbb431dba268123d')">2#站台门</v-tag>
-                <!-- <v-tag name="triangle" status="error" x="8.42" y="2.3" @onclick="goToDevice(2)">3#站台门</v-tag> -->
-                <!-- <v-tag name="triangle" status="error" x="3.63" y="2.11" @onclick="goToDevice(2)">A2站台门</v-tag> -->
-                <!-- <v-tag name="triangle" status="error" x="3.6" y="3.0" @onclick="goToDevice(2)">A3站台门</v-tag> -->
-                <v-tag name="triangle" status="error" x="5.5" y="3.2" @onclick="goToDevice(2,'602','7b93ec3c0975ad43bbb431dba268123d')">4#站台门</v-tag>
-                <!-- <v-tag name="triangle" status="normal" x="3.43" y="2.68" @onclick="goToDevice(3)">A2扶梯</v-tag> -->
-                <v-tag name="triangle" status="normal" x="5.8" y="2.53" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">B1扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="4.8" y="2.2" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">B2扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="4.2" y="1.8" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">B3扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="2.2" y="3" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">B4扶梯</v-tag>
-                <!-- <v-tag name="triangle" status="normal" x="2.72" y="3.2" @onclick="goToDevice(3)">B5扶梯</v-tag> -->
-                <v-tag name="triangle" status="normal" x="7.3" y="1.5" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">C1扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="8.2" y="1.7" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">C2扶梯</v-tag>
-                <v-tag name="triangle" status="normal" x="6.6" y="1" @onclick="goToDevice(3,'334','a97cb605136d5bf01e9bcf428ef6c484')">C3扶梯</v-tag>
+                <v-tag v-for="(item, index) in stationInfo" name="triangle" v-bind:status="item.status" v-bind:x="item.x" v-bind:y="item.y" @onclick="goToDevice(item.type,item.deviceId,item.deviceUuid)">{{item.name}}</v-tag>
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日车站健康监测完好率</button>
@@ -40,24 +25,12 @@
                 </div>
             </div>
             <div class="fans flex">
-                <div class="fan flex">
+                <div class="fan flex" v-for="(item,index) in fanInfo">
                     <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name error" @click="goToDevice(1,'603','34301c3bb7aa27c16ead4841a2f11512')">F01风机</button>
-                </div>
-                <div class="fan flex">
-                    <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name warn" @click="goToDevice(1,'603','34301c3bb7aa27c16ead4841a2f11512')">F02风机</button>
-                </div>
-                <div class="fan flex">
-                    <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name normal" @click="goToDevice(1,'603','34301c3bb7aa27c16ead4841a2f11512')">F03风机</button>
-                </div>
-                <div class="fan flex">
-                    <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name error" @click="goToDevice(1,'603','34301c3bb7aa27c16ead4841a2f11512')">F04风机</button>
+                    <button class="fan-name" v-bind:class="stationStatus[item.status-1]" @click="goToDevice(item.type,item.deviceId,item.deviceUuid)">{{item.name}}</button>
                 </div>
             </div>
-            <v-train :select="true" @click="alert(2)"></v-train>
+            <v-train :select="true"></v-train>
         </div>
         <v-goback></v-goback>
     </div>
@@ -68,8 +41,6 @@
     export default {
         data() {
             return {
-                currentPage: 1, //当前页数
-                pageSize: 8, //每页显示数量
                 activeIndex: '',
                 alarmTable: {
                     label: [{
@@ -192,76 +163,117 @@
                     },
                     id: 'health3'
                 },
-                label: [{
-                    'label': '序号',
-                    'width': 10,
-                    'value': 'index'
+                //车站状态
+                stationStatus: ['bg-error', 'bg-warn', 'bg-normal', 'bg-stop', 'bg-offline'],
+                //请求车站设备状态给后台传的参数
+                uuidStr: '',
+                //扶梯和站台门的信息 type==2站台门   type==3 扶梯
+                stationInfo: [{
+                    type: 2,
+                    deviceUuid: '7b93ec3c0975ad43bbb431dba268123d',
+                    deviceId: '602',
+                    x: '2.9',
+                    y: '4.82',
+                    status: "2",
+                    name: '2#站台门'
                 }, {
-                    'label': '设备名称',
-                    'width': 15,
-                    'value': 'equName'
+                    type: 2,
+                    deviceUuid: '7b93ec3c0975ad43bbb431dba268123d',
+                    deviceId: '602',
+                    x: '5.5',
+                    y: '3.2',
+                    status: "1",
+                    name: '4#站台门'
                 }, {
-                    'label': '时间',
-                    'width': 13,
-                    'value': 'time'
+                    type: 3,
+                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
+                    deviceId: '334',
+                    x: '5.8',
+                    y: '2.53',
+                    status: "3",
+                    name: 'B1扶梯'
                 }, {
-                    'label': '事件描述',
-                    'width': 18,
-                    'value': 'eventDesc'
+                    type: 3,
+                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
+                    deviceId: '334',
+                    x: '4.8',
+                    y: '2.2',
+                    status: "4",
+                    name: 'B2扶梯'
                 }, {
-                    'label': '当前状态',
-                    'width': 10,
-                    'value': 'statusValue',
-                    'status': 'status'
+                    type: 3,
+                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
+                    deviceId: '334',
+                    x: '4.2',
+                    y: '1.8',
+                    status: "5",
+                    name: 'B3扶梯'
                 }, {
-                    'label': '操作',
-                    'width': 15,
-                    'value': 'operate'
+                    type: 3,
+                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
+                    deviceId: '334',
+                    x: '2.2',
+                    y: '3',
+                    status: "1",
+                    name: 'B4扶梯'
+                }, {
+                    type: 3,
+                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
+                    deviceId: '334',
+                    x: '7.3',
+                    y: '1.5',
+                    status: "4",
+                    name: 'C1扶梯'
+                }, {
+                    type: 3,
+                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
+                    deviceId: '334',
+                    x: '8.2',
+                    y: '1.7',
+                    status: "3",
+                    name: 'C2扶梯'
+                }, {
+                    type: 3,
+                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
+                    deviceId: '334',
+                    x: '6.6',
+                    y: '1',
+                    status: "2",
+                    name: 'C3扶梯'
                 }],
-                list: [{
-                    num: '序号',
-                    equName: '设备名称',
-                    time: '时间',
-                    eventDesc: '预警事件',
-                    status: '1',
-                    operate: '操作',
-                    statusValue: '状态'
-                },
-                {
-                    num: '序号',
-                    equName: '设备名称',
-                    time: '时间',
-                    eventDesc: '预警事件',
-                    status: '2',
-                    operate: '操作',
-                    statusValue: '状态'
+                //风机的信息 type==1风机
+                fanInfo: [{
+                    type: 1,
+                    deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
+                    deviceId: '603',
+                    status: "1",
+                    name: 'F01风机'
                 }, {
-                    num: '序号',
-                    equName: '设备名称',
-                    time: '时间',
-                    eventDesc: '预警事件',
-                    status: '1',
-                    operate: '操作',
-                    statusValue: '状态'
+                    type: 1,
+                    deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
+                    deviceId: '603',
+                    status: "3",
+                    name: 'F02风机'
                 }, {
-                    num: '序号',
-                    equName: '设备名称',
-                    time: '时间',
-                    eventDesc: '预警事件',
-                    status: '2',
-                    operate: '操作',
-                    statusValue: '状态'
-                }],
-                other: {
-                    style: 4,
-                    isSubShowColor: true
-                },
-                equValue: {} //图标的值
+                    type: 1,
+                    deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
+                    deviceId: '603',
+                    status: "2",
+                    name: 'F03风机'
+                }, {
+                    type: 1,
+                    deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
+                    deviceId: '603',
+                    status: "5",
+                    name: 'F04风机'
+                }]
             };
         },
         created() {
             this.getAvailabilityFn();
             this.getEventInfoFn();
+            this.getStatusFn();
+            // this.test2();
         },
         methods: {
             ...mapActions(['_getList']),
@@ -269,16 +281,19 @@
             goToDevice(deviceType, deviceId, deviceUuid) {
                 this._deviceInfo({ 'deviceId': deviceId, 'deviceUuid': deviceUuid });
                 if(deviceType == 1) {
+                    //风机
                     this.$router.push('faninfo');
                 } else if(deviceType == 2) {
+                    //站台门
                     this.$router.push('shielddoorinfo');
                 } else {
+                    //扶梯
                     this.$router.push('escalatorinfo');
                 }
             },
             getAvailabilityFn() {
                 this._getList({
-                    ops: { id: '田村站' },
+                    ops: { id: '苹果园站' },
                     api: 'availability',
                     callback: res => {
                         this.ringInfo1.value = res.ft;
@@ -312,7 +327,7 @@
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize,
-                    'stationId': '田村站'
+                    'stationId': '苹果园站'
                 };
 
                 this._getList({
@@ -328,7 +343,7 @@
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize,
-                    'stationId': '田村站'
+                    'stationId': '苹果园站'
                 };
 
                 this._getList({
@@ -336,6 +351,37 @@
                     api: 'pointStatus',
                     callback: res => {
                         this.testTable.list = res.rows;
+                    }
+                });
+            },
+            //获取车站设备uuid
+            getStatusFn() {
+                let uuid01 = '';
+                let uuid02 = "";
+
+                this.stationInfo.forEach(item => {
+                    uuid01 += item.deviceUuid + ',';
+                });
+                this.fanInfo.forEach(item => {
+                    uuid02 += item.deviceUuid + ',';
+                });
+                this.uuidStr = "7b93ec3c0975ad43bbb431dba268123d,34301c3bb7aa27c16ead4841a2f11512,a97cb605136d5bf01e9bcf428ef6c484";
+                // this.uuidStr = (uuid01 + uuid02).substr(0, (uuid01 + uuid02).length - 1);
+                this.getStationsStatusFn();
+            },
+            getStationsStatusFn() {
+                const ops = {
+                    deviceUuids: this.uuidStr,
+                    id: '苹果园站'
+                };
+
+                this._getList({
+                    ops: ops,
+                    api: 'equimentOfStation',
+                    callback: res => {
+                        res.forEach(item => {
+                            console.log(item.uuid);
+                        });
                     }
                 });
             }
@@ -443,15 +489,15 @@
                 box-shadow: 0 0 0.1rem 0.01rem #000;
                 width: 0.94rem;
                 height: 0.45rem;
-                &.error {
-                    background-color: #ff0000;
-                }
-                &.warn {
-                    background-color: #f9af00;
-                }
-                &.normal {
-                    background-color: #13c613;
-                }
+                // &.error {
+                //     background-color: #ff0000;
+                // }
+                // &.warn {
+                //     background-color: #f9af00;
+                // }
+                // &.normal {
+                //     background-color: #13c613;
+                // }
             }
         }
     }

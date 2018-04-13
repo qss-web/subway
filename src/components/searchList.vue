@@ -20,7 +20,7 @@
                     <span v-else-if="item1.btn" class="btn">
                         <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
-                    <span v-else v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''" v-on:click="goToNextPage(other.goToNextFn,item)">
+                    <span v-else v-bind:class="item1.status == 'status' ?listStatus[item.status-1]:''" v-on:click="goToNextPage(other.goToNextFn,item)">
                         {{item[item1.value]}}
                     </span>
                 </div>
@@ -39,7 +39,7 @@
                     <span v-else-if="item1.btn" class="btn">
                         <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
-                    <span v-else v-bind:class="item.status?'font-color-' + item.status:''" v-on:click="goToNextPage(other.goToNextFn,item)">
+                    <span v-else v-bind:class="item.status?listStatus[item.status-1] :''" v-on:click="goToNextPage(other.goToNextFn,item)">
                         {{item[item1.value]}}
                         <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
                     </span>
@@ -56,7 +56,9 @@
                 isAllCkeck: false,
                 numLength: 0,
                 listCheck: [],
-                checkedValue: ''
+                checkedValue: '',
+                //车站状态
+                listStatus: ['error', 'warn', 'normal', 'stop', 'offline']
             };
         },
         props: ['list', 'label', 'other'],
@@ -109,7 +111,9 @@
                 }
                 this.checkedValue = '';
                 this.listShow.forEach(item => {
-                    if(item.isCheck) {
+                    if(item.isCheck && item.deviceId) {
+                        this.checkedValue += item.deviceId + ',';
+                    } else if(item.isCheck) {
                         this.checkedValue += item.id + ',';
                     }
                 });
@@ -123,9 +127,6 @@
     };
 </script>
 <style lang="less" scoped>
-    // .font-color-default {
-    //     color: #1c1e2a !important;
-    // }
     div span {
         display: block;
         width: 100% !important;
@@ -151,21 +152,6 @@
     }
     .activeHand {
         cursor: pointer;
-    }
-    .font-color-1 {
-        color: #cc0000 !important;
-    }
-    .font-color-2 {
-        color: #f9af00 !important;
-    }
-    .font-color-3 {
-        color: #13c613 !important;
-    }
-    .font-color-4 {
-        color: #0ed4eb !important;
-    }
-    .font-color-5 {
-        color: #adadad !important;
     }
     .g-table-1 {
         width: 100%;
@@ -262,7 +248,7 @@
                     height: 0.56rem;
                     line-height: 0.56rem;
                     font-size: 0.2rem;
-                    color: #ffa600;
+                    color: #fff;
                 }
                 span:first-child {
                     width: 4%;

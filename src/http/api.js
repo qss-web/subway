@@ -186,8 +186,19 @@ const api = {
   faultDetail: 'webapi/fault/Detail',
   //故障设备详情修改
   faultUpdate: 'webapi/fault/add',
+
   //获取角色列表
   getRoleList: 'webapi/auth/role/list',
+  //获取手机列表
+  getMobileList: 'webapi/auth/mobile/list',
+  //获取设备列表
+  getDeviceList: 'webapi/auth/inside/device/list',
+  //获取弹框设备列表
+  getDevicePopList: 'webapi/auth/outside/device/list',
+  //设备授权
+  addDeviceInfo: 'webapi/auth/device',
+  //已授权接口删除
+  delDeviceInfo: 'webapi/unauth/device',
 
   //获取线路列表
   getLines: 'webapi/getLineList',
@@ -199,7 +210,12 @@ const api = {
   //系统设置-系统增加
   sysAdd: 'webapi/sysconfig/add',
   //系统设置-系统删除
-  sysDel: 'webapi/sysconfig/del'
+  sysDel: 'webapi/sysconfig/del',
+
+  //车站级
+  equimentOfStation: 'monitor/equimentOfStation',
+  //设备级
+  pointOfEquiment: 'monitor/pointOfEquiment'
 };
 
 for (var k in api) {

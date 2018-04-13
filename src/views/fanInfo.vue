@@ -13,8 +13,7 @@
                 </ul>
             </div>
             <div class="device-3d" v-on:click="goInfoFn">
-                <v-tag name="fan" type="1" status="normal" x="5.4" y="-0.5">震动监测值Y</v-tag>
-                <v-tag name="fan" type="2" status="normal" x="8.4" y="2.8">震动监测值X</v-tag>
+                <v-tag v-for="(item, index) in fanInfo" name="fan" :type="item.type" :status="item.status" :x="item.x" :y="item.y">{{item.name}}</v-tag>
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日设备健康监测指标</button>
@@ -161,52 +160,34 @@
                         'value': 'alarmType'
                     }],
                     list: [],
-                    // list: [{
-                    //     num: '序号',
-                    //     equName: '设备名称',
-                    //     testName: '测点名称',
-                    //     currentValue: '当前值',
-                    //     highLimit: '高限',
-                    //     highestLimit: '高高限',
-                    //     lowLimit: '下限',
-                    //     lowestLimit: '下下限',
-                    //     alarmWay: '预警方式',
-                    //     alarmType: '预警类型',
-                    //     updateTime: '更新时间'
-                    // }, {
-                    //     num: '序号',
-                    //     equName: '设备名称',
-                    //     testName: '测点名称',
-                    //     currentValue: '当前值',
-                    //     highLimit: '高限',
-                    //     highestLimit: '高高限',
-                    //     lowLimit: '下限',
-                    //     lowestLimit: '下下限',
-                    //     alarmWay: '预警方式',
-                    //     alarmType: '预警类型',
-                    //     updateTime: '更新时间'
-                    // }, {
-                    //     num: '序号',
-                    //     equName: '设备名称',
-                    //     testName: '测点名称',
-                    //     currentValue: '当前值',
-                    //     highLimit: '高限',
-                    //     highestLimit: '高高限',
-                    //     lowLimit: '下限',
-                    //     lowestLimit: '下下限',
-                    //     alarmWay: '预警方式',
-                    //     alarmType: '预警类型',
-                    //     updateTime: '更新时间'
-                    // }],
                     other: {
                         style: 5
                     }
-                }
+                },
+                //请求风机设备状态给后台传的参数
+                fixedIds: '',
+                //风机的信息
+                fanInfo: [{
+                    fixedId: '震动监测值Y',
+                    status: "1",
+                    name: '震动监测值Y',
+                    x: '5.4',
+                    y: '-0.5',
+                    type: 1
+                }, {
+                    fixedId: '震动监测值X',
+                    status: "3",
+                    name: '震动监测值X',
+                    x: '8.4',
+                    y: '2.8',
+                    type: 2
+                }]
             };
         },
         created() {
             this.getEquRuninfoFn();
             this.getEventInfoFn();
+            this.getStatusFn();
         },
         computed: {
             ...mapState(['deviceInfo'])
@@ -291,6 +272,29 @@
                     callback: res => {
                         this._warnChart(res);
                         this.isShowPopup = true;
+                    }
+                });
+            },
+            //获取车站设备fixedIds
+            getStatusFn() {
+
+                this.fanInfo.forEach(item => {
+                    this.fixedIds += item.fixedId + ',';
+                });
+                this.fixedIds = this.fixedIds.substr(0, this.fixedIds.length - 1);
+                this.getEquStatusFn();
+            },
+            getEquStatusFn() {
+                const ops = {
+                    sectionIndex: this.fixedIds, //"振动监测值X",
+                    deviceUuid: this.deviceInfo.deviceUuid//'34301c3bb7aa27c16ead4841a2f11512'
+                };
+
+                this._getList({
+                    ops: ops,
+                    api: 'pointOfEquiment',
+                    callback: res => {
+                        console.log(res, '设备级别的信息');
                     }
                 });
             }

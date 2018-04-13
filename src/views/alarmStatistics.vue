@@ -7,11 +7,11 @@
             <div class="tab">
                 <ul class="title">
                     <dl class="notice flex">
-                        <dd class="g-red">二级预警：{{equInfoCount[0]}}次</dd>
-                        <dd class="g-light-orange">一级预警：{{equInfoCount[1]}}次</dd>
-                        <dd class="g-green">运行：{{equInfoCount[2]}}次</dd>
-                        <dd class="g-gray">断网：{{equInfoCount[3]}}次</dd>
-                        <dd class="g-brown">停机：{{equInfoCount[4]}}次</dd>
+                        <dd class="error">二级预警：{{equInfoCount[0]}}次</dd>
+                        <dd class="warn">一级预警：{{equInfoCount[1]}}次</dd>
+                        <dd class="normal">运行：{{equInfoCount[2]}}次</dd>
+                        <dd class="offline">断网：{{equInfoCount[3]}}次</dd>
+                        <dd class="stop">停机：{{equInfoCount[4]}}次</dd>
                         <dd class="g-orange">全部：{{equTotal}}次</dd>
                     </dl>
                 </ul>
@@ -60,14 +60,7 @@
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'equSys',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
+                        'val': 'equSys'
                     }, {
                         'status': 1,
                         'title': '设备名称',

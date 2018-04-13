@@ -1,8 +1,8 @@
 <template>
-    <button v-if="name == 'triangle'" class="tag triangle" :class="status" :style="{left: x + 'rem', top: y + 'rem'}" @click="goToDevice">
+    <button v-if="name == 'triangle'" class="tag triangle" :class="stationStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}" @click="goToDevice">
         <slot></slot>
     </button>
-    <button v-else-if="name == 'line'" class="tag line" :class="status" :style="{left: x + 'rem', top: y + 'rem'}">
+    <button v-else-if="name == 'line'" class="tag line" :class="stationStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}">
         <slot></slot>
         <img v-if="type == 1" class="line1" src="~assets/siteInfo/icon_join_line1.png" />
         <img v-if="type == 2" class="line2" src="~assets/siteInfo/icon_join_line2.png" />
@@ -10,10 +10,10 @@
         <img v-if="type == 4" class="line4" src="~assets/siteInfo/icon_join_line4.png" />
         <img v-if="type == 5" class="line5" src="~assets/siteInfo/icon_join_line5.png" />
     </button>
-    <button v-else-if="name == 'number'" class="tag number" :class="status" :style="{left: x + 'rem', top: y + 'rem'}">
+    <button v-else-if="name == 'number'" class="tag number" :class="doorStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}">
         {{numbers[number - 1]}}
     </button>
-    <button v-else-if="name == 'fan'" class="tag fan" :class="status" :style="{left: x + 'rem', top: y + 'rem'}">
+    <button v-else-if="name == 'fan'" class="tag fan" :class="stationStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}">
         <slot></slot>
         <img v-if="type == 1" class="fan1" src="~assets/siteInfo/icon_join_fan2.png" />
         <img v-if="type == 2" class="fan2" src="~assets/siteInfo/icon_join_fan3.png" />
@@ -25,7 +25,9 @@
         props: ['name', 'type', 'status', 'x', 'y', 'number'],
         data() {
             return {
-                numbers: '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿'
+                numbers: '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿',
+                stationStatus: ['bg-error', 'bg-warn', 'bg-normal', 'bg-stop', 'bg-offline'],
+                doorStatus: ['opacity-error', 'opacity-warn', 'opacity-normal', 'opacity-stop', 'opacity-offline']
             };
         },
         methods: {
@@ -65,7 +67,7 @@
                 position: absolute;
                 border-left: 0.12rem solid transparent;
                 border-right: 0.39rem solid transparent;
-                border-top: 0.1rem solid transparent;
+                // border-top: 0.1rem solid transparent;
                 top: 100%;
                 transform: rotate(154deg);
                 transform-origin: 0 0;
@@ -135,24 +137,6 @@
                 }
             }
         }
-        &.error {
-            background-color: #ff0000;
-            &:after {
-                border-top: 0.1rem solid #ff0000;
-            }
-        }
-        &.warn {
-            background-color: #f9af00;
-            &:after {
-                border-top: 0.1rem solid #f9af00;
-            }
-        }
-        &.normal {
-            background-color: #009900;
-            &:after {
-                border-top: 0.1rem solid #009900;
-            }
-        }
         &.number {
             background-color: transparent;
             padding: 0;
@@ -162,10 +146,10 @@
             font-size: 0.18rem;
             line-height: 0.16rem;
             padding-left: 0.01rem;
-            &.error {
-                box-shadow: 0 0 0.2rem 0.2rem #d10b0b;
-                background-color: rgba(255, 5, 5, 0.8);
-            }
+            // &.error {
+            //     box-shadow: 0 0 0.2rem 0.2rem #d10b0b;
+            //     background-color: rgba(255, 5, 5, 0.8);
+            // }
         }
     }
 </style>

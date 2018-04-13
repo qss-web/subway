@@ -58,7 +58,7 @@
     export default {
         data() {
             return {
-                tabShow: 1,
+                tabShow: 3,
                 currentPage: 1, //当前页数
                 pageSize: 12, //每页显示数量
                 pageTotal: 0,//总页数
@@ -134,17 +134,10 @@
                         'val': 'deviceInStationId',
                         'list': []
                     }, {
-                        'status': 2,
+                        'status': 1,
                         'title': '设备编号',
-                        'placeholder': '请选择内容',
-                        'val': 'deviceCode',
-                        'list': [{
-                            value: '1',
-                            label: '设备编号一'
-                        }, {
-                            value: '2',
-                            label: '设备编号二'
-                        }]
+                        'placeholder': '请输入内容',
+                        'val': 'deviceCode'
                     }, {
                         'status': 2,
                         'title': '设备类型',
@@ -480,7 +473,6 @@
             getEquNameFn(req) {
                 debugger;
                 if(req.deviceTypeCode && req.deviceInLineId && req.deviceInStationId) {
-                    console.log('走进来了吗？');
                     this._getList({
                         ops: req,
                         api: 'selectlist',

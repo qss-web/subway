@@ -5,15 +5,15 @@
                 <img src="~assets/home/icon_line6.png" />
                 <div class="infos flex">
                     <label>车站预警</label>
-                    <span class="light error"></span>
+                    <span class="light bg-error"></span>
                     <span class="name">二级预警 {{total[0]}}座</span>
-                    <span class="light warn"></span>
+                    <span class="light bg-warn"></span>
                     <span class="name">一级预警 {{total[1]}}座</span>
-                    <span class="light normal"></span>
+                    <span class="light bg-normal"></span>
                     <span class="name">正常 {{total[2]}}座</span>
-                    <span class="light offline"></span>
+                    <span class="light bg-offline"></span>
                     <span class="name">断网 {{total[3]}}座</span>
-                    <span class="light stop"></span>
+                    <span class="light bg-stop"></span>
                     <span class="name">停机 {{total[4]}}座</span>
                 </div>
             </div>
@@ -23,24 +23,24 @@
                     <span>二级预警 <span class="error">{{escalator[0]}}</span> 部</span>
                     <span>一级预警 <span class="warn">{{escalator[1]}}</span> 部</span>
                     <span>正常 <span class="normal">{{escalator[2]}}</span> 部</span>
-                    <span>断网 <span class="g-gray">{{escalator[3]}}</span> 部</span>
-                    <span>停机 <span class="g-brown">{{escalator[4]}}</span> 部</span>
+                    <span>断网 <span class="offline">{{escalator[3]}}</span> 部</span>
+                    <span>停机 <span class="stop">{{escalator[4]}}</span> 部</span>
                 </div>
                 <div class="infos flex">
                     <img src="~assets/home/icon_fan.png" />
                     <span>二级预警 <span class="error">{{fan[0]}}</span> 台</span>
                     <span>一级预警 <span class="warn">{{fan[1]}}</span> 台</span>
                     <span>正常 <span class="normal">{{fan[2]}}</span> 台</span>
-                    <span>断网 <span class="g-gray">{{fan[3]}}</span> 台</span>
-                    <span>停机 <span class="g-brown">{{fan[4]}}</span> 台</span>
+                    <span>断网 <span class="offline">{{fan[3]}}</span> 台</span>
+                    <span>停机 <span class="stop">{{fan[4]}}</span> 台</span>
                 </div>
                 <div class="infos flex">
                     <img src="~assets/home/icon_door.png" />
                     <span>二级预警 <span class="error">{{door[0]}}</span> 组</span>
                     <span>一级预警 <span class="warn">{{door[1]}}</span> 组</span>
                     <span>正常 <span class="normal">{{door[2]}}</span> 组</span>
-                    <span>断网 <span class="g-gray">{{door[3]}}</span> 组</span>
-                    <span>停机 <span class="g-brown">{{door[4]}}</span> 组</span>
+                    <span>断网 <span class="offline">{{door[3]}}</span> 组</span>
+                    <span>停机 <span class="stop">{{door[4]}}</span> 组</span>
                 </div>
             </div>
         </div>
@@ -119,26 +119,11 @@
                 .light {
                     width: 0.12rem;
                     height: 0.12rem;
-                    background-color: #cc0000;
+                    // background-color: #cc0000;
                     border-radius: 50%;
                     box-shadow: 0 0 10px 4px #fff;
                     margin-right: 0.1rem;
                     margin-left: 0.3rem;
-                    &.error {
-                        background-color: red;
-                    }
-                    &.warn {
-                        background-color: #f9af00;
-                    }
-                    &.normal {
-                        background-color: #00ff00;
-                    }
-                    &.offline {
-                        background-color: #54596e;
-                    }
-                    &.stop {
-                        background-color: #0ed4eb;
-                    }
                 }
                 .infos {
                     border-radius: 0.5rem;

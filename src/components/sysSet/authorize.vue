@@ -1,18 +1,18 @@
 <template>
     <div>
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData"></v-sub-search>
+            <v-sub-search v-bind:searchData="searchData" v-on:receive="btnShowPopFn" v-on:filter="fifterBtnFn"></v-sub-search>
         </div>
         <div class="system clearfix">
             <dl class="left leftTab">
                 <dt>
-                    <span v-on:click="isRole = true" v-bind:class="{active:isRole==true}">角色</span>
-                    <span v-on:click="isRole = false" v-bind:class="{active:isRole==false}">手机</span>
+                    <span v-on:click="isRoleFn(true)" v-bind:class="{active:isRole==true}">角色</span>
+                    <span v-on:click="isRoleFn(false)" v-bind:class="{active:isRole==false}">手机</span>
                 </dt>
                 <dd v-if="isRole">
                     <ul>
-                        <li v-bind:class="{ active: roleIndex == index }" v-for="(item, index) in roleList" v-on:click="roleFn(index)">
-                            <span>{{item.value}}</span>
+                        <li v-bind:class="{ active: roleIndex == index }" v-for="(item, index) in roleList" v-on:click="roleFn(index,item.value)">
+                            <span>{{item.label}}</span>
                             <span class="icon">
                                 <i class="el-icon-check"></i>
                             </span>
@@ -21,8 +21,8 @@
                 </dd>
                 <dd v-else>
                     <ul>
-                        <li v-bind:class="{ active: telIndex == index }" v-for="(item, index) in telList" v-on:click="telFn(index)">
-                            <span>{{item.value}}</span>
+                        <li v-bind:class="{ active: telIndex == index }" v-for="(item, index) in telList" v-on:click="telFn(index,item.id)">
+                            <span>{{item.mobileName}}</span>
                             <span class="icon">
                                 <i class="el-icon-check"></i>
                             </span>
@@ -32,7 +32,7 @@
             </dl>
             <div class="right">
                 <div class="middleKey">
-                    <v-system-list v-bind:label="info1" v-bind:list="equList.data" v-on:receive="btnFn"></v-system-list>
+                    <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
                 </div>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
@@ -41,40 +41,37 @@
                 </div>
             </div>
         </div>
+        <v-pop-table v-if="isShowPop" v-bind:info="chooseInfo" v-on:receive="closeFn" v-on:success="closeRefreshFn"></v-pop-table>
     </div>
 </template>
 <script>
+    // webapi/auth/inside/device/list
+    // {"type":"1","id":"1",deviceName:"","curPage":"1","pageSize":"10"}
+    // type 1、角色  2、手机
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
+                isShowPop: false, //是否展示增加的弹出框
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 isRole: true, //选项卡
-                roleIndex: 1,
-                roleList: [{
-                    key: 1,
-                    value: '角色一'
-                }, {
-                    key: 2,
-                    value: '角色二'
-                }],
-                telIndex: 1,
-                telList: [{
-                    key: 1,
-                    value: '12345678909'
-                }, {
-                    key: 2,
-                    value: '12345678909'
-                }],
+                roleIndex: 0,
+                roleList: [],
+                telIndex: 0,
+                telList: [],
+                roleTelType: 1,//  type 1、角色  2、手机
+                roleTelId: '', //角色或者手机的id
+                chooseInfo: {},
                 searchData: {
                     'btnShow': {
                         'add': true
                     },
                     'options': [{
                         'status': 1,
-                        'title': '用户名',
+                        'title': '设备名称',
                         'placeholder': '请输入内容',
                         'val': 'lines'
                     }]
@@ -84,109 +81,152 @@
                     'width': 10,
                     'value': 'index'
                 }, {
-                    'label': 'IP地址',
+                    'label': '车站',
                     'width': 18,
-                    'value': 'ipAddress'
+                    'value': 'deviceInStationName'
                 }, {
-                    'label': '端口',
+                    'label': '线路',
                     'width': 20,
-                    'value': 'port'
+                    'value': 'deviceInLineName'
                 }, {
-                    'label': '类型',
+                    'label': '设备系统',
                     'width': 13,
-                    'value': 'type'
+                    'value': 'deviceSys'
                 }, {
-                    'label': '连接方式',
+                    'label': '设备名称',
                     'width': 20,
-                    'value': 'attendedMode'
+                    'value': 'deviceName'
                 }, {
                     'label': '操作',
                     'width': 15,
-                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
+                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }]
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }, {
-                        num: '序号',
-                        ipAddress: '192.168.1.23',
-                        port: '8000',
-                        type: 'A类',
-                        attendedMode: '连接方式'
-                    }]
-                }
+                equList: []
             };
         },
+        created() {
+            this.getRoleListFn();
+        },
         methods: {
+            ...mapActions(['_getList']),
+            //获取角色列表
+            getRoleListFn() {
+                const ops = {};
+
+                this._getList({
+                    ops: ops,
+                    api: 'getRoleList',
+                    callback: res => {
+                        this.roleList = res.rows;
+                        if(res.rows.length != 0) {
+                            this.roleTelId = res.rows[0].value;
+                            this.roleTelType = '1';
+                            this.getDeviceListFn();
+                        }
+
+                    }
+                });
+            },
+            //获取手机列表
+            getMobileListFn() {
+                const ops = {};
+
+                this._getList({
+                    ops: ops,
+                    api: 'getMobileList',
+                    callback: res => {
+                        this.telList = res.rows;
+                        if(res.rows.length != 0) {
+                            this.roleTelId = res.rows[0].id;
+                            this.roleTelType = '2';
+                            this.getDeviceListFn();
+                        }
+                    }
+                });
+            },
+            //选项卡
+            isRoleFn(val) {
+                this.isRole = val;
+                if(val) {
+                    this.getRoleListFn();
+                } else {
+                    this.getMobileListFn();
+                }
+            },
+            //获取列表
+            getDeviceListFn(req) {
+                const ops = {
+                    type: this.roleTelType,
+                    id: this.roleTelId,
+                    curPage: this.currentPage,
+                    pageSize: this.pageSize
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
+                this._getList({
+                    ops: ops,
+                    api: 'getDeviceList',
+                    callback: res => {
+                        this.equList = res.rows;
+                    }
+                });
+            },
             //子组件按钮
             btnFn(val) {
-                this[val]();
+                this[val.fn](val.item);
             },
             //删除操作
-            deleteFn() {
-                // alert(2);
+            deleteFn(item) {
+                const ops = {
+                    type: this.roleTelType,
+                    id: this.roleTelId,
+                    ids: item.deviceId
+                };
+
+                this._getList({
+                    ops: ops,
+                    api: 'delDeviceInfo',
+                    callback: () => {
+                        this.$message.success('删除成功!');
+                        this.getDeviceListFn();
+                    }
+                });
             },
-            //编辑操作
-            editFn() {
-                // alert(3);
-            },
-            roleFn(index) {
+            roleFn(index, id) {
+                this.roleTelId = id;
                 this.roleIndex = index;
+                this.getDeviceListFn();
             },
-            telFn(index) {
+            telFn(index, id) {
+                this.roleTelId = id;
                 this.telIndex = index;
+                this.getDeviceListFn();
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.getUserList();
+                this.getDeviceListFn();
+            },
+            //搜索的传值
+            fifterBtnFn(req) {
+                this.getDeviceListFn(req);
+            },
+            //增加的弹出框
+            btnShowPopFn(val) {
+                this.chooseInfo.type = this.roleTelType;
+                this.chooseInfo.id = this.roleTelId;
+                this.isShowPop = val;
+            },
+            //关闭弹出框
+            closeFn(val) {
+                this.isShowPop = val;
+            },
+            //关闭弹框并刷新
+            closeRefreshFn(val) {
+                this.isShowPop = val;
+                this.getDeviceListFn();
             }
         }
     };
@@ -239,8 +279,8 @@
                 ul {
                     padding: 0.1rem 0.2rem;
                     li {
-                        height: 0.36rem;
-                        line-height: 0.36rem;
+                        height: 0.42rem;
+                        line-height: 0.42rem;
                         color: #2f4554;
                         font-size: 0.18rem;
                         text-indent: 1em;

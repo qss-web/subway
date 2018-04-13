@@ -27,7 +27,7 @@
         data() {
             return {
                 currentPage: 1, //当前页数
-                pageSize: 6, //每页显示数量
+                pageSize: 4, //每页显示数量
                 timelyAlarm: [],
                 warningTotal: '实时预警信息（0次）' //实时预警信息总数
             };

@@ -8,11 +8,11 @@
                 <li v-on:click="tabShowFn(true)" v-bind:class="tabShow?'active':''">实时预警信息</li>
                 <li v-on:click="tabShowFn(false)" v-bind:class="tabShow?'':'active'">以往历史事件</li>
                 <dl class="notice flex">
-                    <dd class="g-red">二级预警：{{equInfoCount[0]}}次</dd>
-                    <dd class="g-light-orange">一级预警：{{equInfoCount[1]}}次</dd>
-                    <dd class="g-green">运行：{{equInfoCount[2]}}次</dd>
-                    <dd class="g-gray">断网：{{equInfoCount[3]}}次</dd>
-                    <dd class="g-brown">停机：{{equInfoCount[4]}}次</dd>
+                    <dd class="error">二级预警：{{equInfoCount[0]}}次</dd>
+                    <dd class="warn">一级预警：{{equInfoCount[1]}}次</dd>
+                    <dd class="normal">运行：{{equInfoCount[2]}}次</dd>
+                    <dd class="offline">断网：{{equInfoCount[3]}}次</dd>
+                    <dd class="stop">停机：{{equInfoCount[4]}}次</dd>
                     <dd class="g-orange">全部：{{equTotal}}次</dd>
                 </dl>
             </ul>

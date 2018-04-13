@@ -55,7 +55,7 @@
         },
         created() {
             //this.uploadUrl = 'http://' + window.location.host + '/bjdt/common/upload';
-            this.uploadUrl = "http://bhxz.net:48092/bjdt/common/upload"
+            this.uploadUrl = "http://bhxz.net:48092/bjdt/common/upload";
             this.getClientListFn();
         },
         methods: {
@@ -78,13 +78,14 @@
                         this.isUpload.isShow = false;
                     }
 
-                })
+                });
             },
             getClientListFn() {
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+
                 this._getList({
                     ops: ops,
                     api: 'clientList',

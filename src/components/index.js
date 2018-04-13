@@ -50,6 +50,7 @@ import timeManagement from './sysSet/timeManagement'; //运行时间管理
 import menu from './sysSet/menu'; //菜单管理
 import maintenanceSheet from './maintenanceSheet'; //报修单
 import popBox from './popBox'; //增加编辑等弹出框
+import popTable from './popTable'; //增加table表格类的弹框，目测此项目只有这一个
 
 export default {
   header,
@@ -103,5 +104,6 @@ export default {
   equ,
   maintenanceSheet,
   menu,
-  popBox
+  popBox,
+  popTable
 };

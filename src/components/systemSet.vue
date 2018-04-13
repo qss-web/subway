@@ -30,7 +30,7 @@
     export default {
         data() {
             return {
-                indexed: 1
+                indexed: 4
             };
         },
         props: [''],

@@ -7,10 +7,12 @@
             <ul class="title">
                 <li class="active">预警信息</li>
                 <dl class="notice flex">
-                    <dd class="g-red">二级预警：3次</dd>
-                    <dd class="g-light-orange">一级预警：2次</dd>
-                    <dd class="g-gray">断网：2次</dd>
-                    <dd class="g-orange">全部：7次</dd>
+                    <dd class="error">二级预警：{{equInfoCount[0]}}次</dd>
+                    <dd class="warn">一级预警：{{equInfoCount[1]}}次</dd>
+                    <dd class="normal">运行：{{equInfoCount[2]}}次</dd>
+                    <dd class="offline">断网：{{equInfoCount[3]}}次</dd>
+                    <dd class="stop">停机：{{equInfoCount[4]}}次</dd>
+                    <dd class="g-orange">全部：{{equTotal}}次</dd>
                 </dl>
             </ul>
             <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
@@ -33,6 +35,8 @@
                 pageSize: 9, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
+                equInfoCount: [], //设备信息
+                equTotal: 0, //设备信息全部
                 searchData: {
                     'btnShow': {
                         'export': true
@@ -127,8 +131,14 @@
                     ops: ops,
                     api: 'timelyAlarmList',
                     callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.equInfoCount = res.counts;
+                        res.counts.forEach(item => {
+                            this.equTotal += item;
+                        });
                         this.equList = res.rows;
-                        this.currentPage = res.page;
                         this.totalPage = res.total;
                         this.pageNumber = res.records;
                     }

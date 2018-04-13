@@ -2,25 +2,18 @@
     <div>
         <div>
             <div class="button-group flex">
-                <button class="btn-name">A-1</button>
-                <button class="btn-name">上行</button>
-                <button class="btn-alarm" @click="warnChartFn">预警</button>
+                <button class="btn-name">{{alarmOtherInfos.deviceName}}</button>
+                <button class="btn-name">{{alarmOtherInfos.deviceType}}</button>
+                <button class="btn-alarm" @click="warnChartFn" v-bind:class="colorStatus[alarmOtherInfos.deviceStatus-1]">{{statusShow[alarmOtherInfos.deviceStatus-1]}}</button>
             </div>
             <div class="alarm-reason">
                 <div class="alarm-reason-title">预警原因</div>
                 <ul class="alarm-reason-body">
-                    <li>1、苹果园南路站 A出入口下段PGN-FT-A-1 扶手带断裂</li>
-                    <li>2、廖公庄站B端风道LGZ-FT-D-4数据中断</li>
+                    <li v-for="item in alarmInfos">{{item}}</li>
                 </ul>
             </div>
             <div class="device-3d" v-on:click="goInfoFn">
-                <v-tag name="line" type="1" status="warn" x="1.8" y="1.4">右扶手带</v-tag>
-                <v-tag name="line" type="1" status="normal" x="2" y="2.5">左扶手带</v-tag>
-                <v-tag name="line" type="1" status="error" x="1" y="3.5">梯级链涨紧轮</v-tag>
-                <v-tag name="line" type="3" status="warn" x="8.6" y="1.4">主驱动轮</v-tag>
-                <v-tag name="line" type="4" status="normal" x="8.5" y="2.6">电梯振动</v-tag>
-                <v-tag name="line" type="5" status="error" x="8.3" y="3">齿轮箱振动</v-tag>
-                <v-tag name="line" type="2" status="error" x="7.7" y="3.4">地脚振动</v-tag>
+                <v-tag v-for="(item,index) in escalatorInfo" name="line" :type="item.type" :status="item.status" :x="item.x" :y="item.y">{{item.name}}</v-tag>
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日设备健康监测指标</button>
@@ -57,8 +50,15 @@
     export default {
         data() {
             return {
-                currentPage: 1, //当前页数
-                pageSize: 8, //每页显示数量
+                //预警信息
+                alarmInfos: [],
+                statusShow: ['二级预警', '一级预警', '运行', '断网', '停机'],
+                colorStatus: ['bg-error', 'bg-warn', 'bg-normal', 'bg-stop', 'bg-offline'],
+                alarmOtherInfos: {
+                    deviceName: '',
+                    deviceStatus: '',
+                    deviceType: ''
+                },
                 showValue: {
                     'yxsj': '',
                     'yjsj': ''
@@ -172,12 +172,66 @@
                         style: 5,
                         isSubShowColor: true
                     }
-                }
+                },
+                //请求风机设备状态给后台传的参数
+                fixedIds: '',
+                //风机的信息
+                escalatorInfo: [{
+                    fixedId: '右扶手带',
+                    status: "1",
+                    name: '右扶手带',
+                    x: '1.8',
+                    y: '1.4',
+                    type: 1
+                }, {
+                    fixedId: '左扶手带',
+                    status: "3",
+                    name: '左扶手带',
+                    x: '2',
+                    y: '2.5',
+                    type: 1
+                }, {
+                    fixedId: '梯级链涨紧轮',
+                    status: "4",
+                    name: '梯级链涨紧轮',
+                    x: '1',
+                    y: '3.5',
+                    type: 1
+                }, {
+                    fixedId: '主驱动轮',
+                    status: "5",
+                    name: '主驱动轮',
+                    x: '8.6',
+                    y: '1.4',
+                    type: 3
+                }, {
+                    fixedId: '电梯振动',
+                    status: "2",
+                    name: '电梯振动',
+                    x: '8.5',
+                    y: '2.6',
+                    type: 4
+                }, {
+                    fixedId: '齿轮箱振动',
+                    status: "3",
+                    name: '齿轮箱振动',
+                    x: '8.3',
+                    y: '3',
+                    type: 5
+                }, {
+                    fixedId: '地脚振动',
+                    status: "4",
+                    name: '地脚振动',
+                    x: '7.7',
+                    y: '3.4',
+                    type: 2
+                }]
             };
         },
         created() {
             this.getEquRuninfoFn();
             this.getEventInfoFn();
+            this.getStatusFn();
         },
         computed: {
             ...mapState(['deviceInfo'])
@@ -264,6 +318,40 @@
                         this.isShowPopup = true;
                     }
                 });
+            },
+            //获取车站设备fixedIds
+            getStatusFn() {
+
+                this.escalatorInfo.forEach(item => {
+                    this.fixedIds += item.fixedId + ',';
+                });
+                this.fixedIds = this.fixedIds.substr(0, this.fixedIds.length - 1);
+                this.getEquStatusFn();
+            },
+            getEquStatusFn() {
+                const ops = {
+                    sectionIndex: this.fixedIds, //"振动监测值X",
+                    deviceUuid: this.deviceInfo.deviceUuid//'34301c3bb7aa27c16ead4841a2f11512'
+                };
+
+                this._getList({
+                    ops: ops,
+                    api: 'pointOfEquiment',
+                    callback: res => {
+                        res.sections.forEach(item => {
+                            this.escalatorInfo.filter(item1 => {
+                                if(item.sectionIndex == item1.fixedId) {
+                                    item1.status = item.status;
+                                }
+                            });
+                        });
+                        //预警信息
+                        this.alarmInfos = res.alarmInfos;
+                        this.alarmOtherInfos.deviceName = res.deviceName;
+                        this.alarmOtherInfos.deviceStatus = res.deviceStatus;
+                        this.alarmOtherInfos.deviceType = res.deviceType;
+                    }
+                });
             }
         }
     };
@@ -287,7 +375,6 @@
             color: #fff;
             border-radius: 0.12rem;
             font-size: 0.24rem;
-            background-color: #fa0000;
             padding: 0.08rem 0.2rem;
             box-shadow: 0 1px 0.1rem 0.01rem #fff;
         }
