@@ -27,8 +27,11 @@
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-ring-diagram id="runIndex1" v-if="showValue.yxsj" title="运行时间" :time="showValue.yxsj+'小时'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
+                        <span v-if="!showValue.yxsj">暂无数据</span>
                         <v-monthly-reliability v-if="ringInfo.value" v-bind:ringInfo="ringInfo"></v-monthly-reliability>
+                        <span v-if="!ringInfo.value">暂无数据</span>
                         <v-ring-diagram id="runIndex2" v-if="showValue.yjsj" title="预警事件" :time="showValue.yjsj+'次'" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
+                        <span v-if="!showValue.yjsj">暂无数据</span>
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -830,6 +833,9 @@
                 height: 2.68rem;
                 justify-content: space-around;
                 padding: 0 0.3rem;
+                span {
+                    color: #fff;
+                }
             }
             .healthy-table {
                 width: 100%;

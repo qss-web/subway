@@ -130,6 +130,9 @@
     div span {
         display: block;
         width: 100% !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .redDot {
         display: inline-block;

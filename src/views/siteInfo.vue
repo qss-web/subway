@@ -9,8 +9,11 @@
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-monthly-reliability v-if="ringInfo1.value" v-bind:ringInfo="ringInfo1"></v-monthly-reliability>
+                        <span v-if="!ringInfo1.value">暂无数据</span>
                         <v-monthly-reliability v-if="ringInfo2.value" v-bind:ringInfo="ringInfo2"></v-monthly-reliability>
+                        <span v-if="!ringInfo2.value">暂无数据</span>
                         <v-monthly-reliability v-if="ringInfo3.value" v-bind:ringInfo="ringInfo3"></v-monthly-reliability>
+                        <span v-if="!ringInfo3.value">暂无数据</span>
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -441,6 +444,9 @@
                 height: 2.68rem;
                 justify-content: space-around;
                 padding: 0 0.3rem;
+                span {
+                    color: #fff;
+                }
             }
             .healthy-table {
                 width: 100%;
