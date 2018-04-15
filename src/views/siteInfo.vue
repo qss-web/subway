@@ -41,6 +41,8 @@
     export default {
         data() {
             return {
+                currentPage: 1, //当前页数
+                pageSize: 8, //每页显示数量
                 activeIndex: '',
                 alarmTable: {
                     label: [{
@@ -87,7 +89,7 @@
                     }, {
                         'label': '测点名称',
                         'width': 9,
-                        'value': 'testName'
+                        'value': 'detectName'
                     }, {
                         'label': '当前值',
                         'width': 9,
@@ -95,11 +97,11 @@
                     }, {
                         'label': '高限',
                         'width': 9,
-                        'value': 'highLimit'
+                        'value': 'hLimit'
                     }, {
                         'label': '高高限',
                         'width': 9,
-                        'value': 'highestLimit'
+                        'value': 'hhighLimit'
                     }, {
                         'label': '测点状态',
                         'width': 9,
@@ -108,7 +110,7 @@
                     }, {
                         'label': '时间',
                         'width': 10,
-                        'value': 'updateTime'
+                        'value': 'time'
                     }, {
                         'label': '预警原因',
                         'width': 18,
@@ -174,16 +176,16 @@
                     deviceId: '602',
                     x: '2.9',
                     y: '4.82',
-                    status: "2",
-                    name: '2#站台门'
+                    status: "",
+                    name: 'PGYPBM501'
                 }, {
                     type: 2,
                     deviceUuid: '7b93ec3c0975ad43bbb431dba268123d',
                     deviceId: '602',
                     x: '5.5',
                     y: '3.2',
-                    status: "1",
-                    name: '4#站台门'
+                    status: "",
+                    name: 'PGYPBM501'
                 }, {
                     type: 3,
                     deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
@@ -191,7 +193,7 @@
                     x: '5.8',
                     y: '2.53',
                     status: "3",
-                    name: 'B1扶梯'
+                    name: '22-2'
                 }, {
                     type: 3,
                     deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
@@ -199,7 +201,7 @@
                     x: '4.8',
                     y: '2.2',
                     status: "4",
-                    name: 'B2扶梯'
+                    name: '22-2'
                 }, {
                     type: 3,
                     deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
@@ -207,7 +209,7 @@
                     x: '4.2',
                     y: '1.8',
                     status: "5",
-                    name: 'B3扶梯'
+                    name: '22-2'
                 }, {
                     type: 3,
                     deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
@@ -215,7 +217,7 @@
                     x: '2.2',
                     y: '3',
                     status: "1",
-                    name: 'B4扶梯'
+                    name: '22-2'
                 }, {
                     type: 3,
                     deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
@@ -223,7 +225,7 @@
                     x: '7.3',
                     y: '1.5',
                     status: "4",
-                    name: 'C1扶梯'
+                    name: '22-2'
                 }, {
                     type: 3,
                     deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
@@ -231,7 +233,7 @@
                     x: '8.2',
                     y: '1.7',
                     status: "3",
-                    name: 'C2扶梯'
+                    name: '22-2'
                 }, {
                     type: 3,
                     deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
@@ -239,7 +241,7 @@
                     x: '6.6',
                     y: '1',
                     status: "2",
-                    name: 'C3扶梯'
+                    name: '22-2'
                 }],
                 //风机的信息 type==1风机
                 fanInfo: [{
@@ -247,25 +249,25 @@
                     deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
                     deviceId: '603',
                     status: "1",
-                    name: 'F01风机'
+                    name: 'PGYFJ601'
                 }, {
                     type: 1,
                     deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
                     deviceId: '603',
                     status: "3",
-                    name: 'F02风机'
+                    name: 'PGYFJ601'
                 }, {
                     type: 1,
                     deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
                     deviceId: '603',
                     status: "2",
-                    name: 'F03风机'
+                    name: 'PGYFJ601'
                 }, {
                     type: 1,
                     deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
                     deviceId: '603',
                     status: "5",
-                    name: 'F04风机'
+                    name: 'PGYFJ601'
                 }]
             };
         },
@@ -365,14 +367,12 @@
                 this.fanInfo.forEach(item => {
                     uuid02 += item.deviceUuid + ',';
                 });
-                this.uuidStr = "7b93ec3c0975ad43bbb431dba268123d,34301c3bb7aa27c16ead4841a2f11512,a97cb605136d5bf01e9bcf428ef6c484";
-                // this.uuidStr = (uuid01 + uuid02).substr(0, (uuid01 + uuid02).length - 1);
+                this.uuidStr = (uuid01 + uuid02).substr(0, (uuid01 + uuid02).length - 1);
                 this.getStationsStatusFn();
             },
             getStationsStatusFn() {
                 const ops = {
-                    deviceUuids: this.uuidStr,
-                    id: '苹果园站'
+                    deviceUuids: this.uuidStr
                 };
 
                 this._getList({
@@ -380,7 +380,16 @@
                     api: 'equimentOfStation',
                     callback: res => {
                         res.forEach(item => {
-                            console.log(item.uuid);
+                            this.stationInfo.filter(item1 => {
+                                if(item.uuid == item1.deviceUuid) {
+                                    item1.status = item.status;
+                                }
+                            });
+                            this.fanInfo.filter(item1 => {
+                                if(item.uuid == item1.deviceUuid) {
+                                    item1.status = item.status;
+                                }
+                            });
                         });
                     }
                 });

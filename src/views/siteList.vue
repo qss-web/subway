@@ -7,12 +7,12 @@
             <div class="tab">
                 <ul class="title">
                     <dl class="notice flex">
-                        <dd class="error">二级预警：{{equInfoCount[0]}}次</dd>
-                        <dd class="warn">一级预警：{{equInfoCount[1]}}次</dd>
-                        <dd class="normal">运行：{{equInfoCount[2]}}次</dd>
-                        <dd class="offline">断网：{{equInfoCount[3]}}次</dd>
-                        <dd class="stop">停机：{{equInfoCount[4]}}次</dd>
-                        <dd class="g-orange">全部：{{equTotal}}次</dd>
+                        <dd class="error">二级预警：{{equInfoCount[0]}}台</dd>
+                        <dd class="warn">一级预警：{{equInfoCount[1]}}台</dd>
+                        <dd class="normal">运行：{{equInfoCount[2]}}台</dd>
+                        <dd class="offline">断网：{{equInfoCount[3]}}台</dd>
+                        <dd class="stop">停机：{{equInfoCount[4]}}台</dd>
+                        <dd class="g-orange">全部：{{equTotal}}台</dd>
                     </dl>
                 </ul>
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>

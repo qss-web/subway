@@ -54,8 +54,9 @@
             };
         },
         created() {
-            //this.uploadUrl = 'http://' + window.location.host + '/bjdt/common/upload';
-            this.uploadUrl = "http://bhxz.net:48092/bjdt/common/upload";
+            this.uploadUrl = 'http://' + window.location.host + '/bjdt/common/upload';
+            // this.uploadUrl = "http://bhxz.net:48092/bjdt/common/upload";
+            // this.uploadUrl = "http://192.168.0.159:8080/bjdt/common/upload";
             this.getClientListFn();
         },
         methods: {

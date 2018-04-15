@@ -15,7 +15,7 @@
                 },
                 option: {
                     chart: {
-                        type: 'area', //指定图表的类型
+                        type: 'spline', //指定图表的类型
                         backgroundColor: '#e5e8f7', //背景色
                         margin: [100, 100, 80, 100]
                     },
@@ -30,14 +30,15 @@
                             text: null
                         },
                         type: 'category',
-                        categories: [1, 2, 3, 4, 5, 6, 7],
+                        categories: ['哈哈', '嘿嘿', 3, 4, 5, 6, 7],
                         labels: {
-                            style: {
-                                color: '#474740',
-                                fontSize: '0.2rem'
-                            },
-                            align: 'center', //标签居中对齐
-                            y: 30
+                            // style: {
+                            //     color: '#474740',
+                            //     fontSize: '0.2rem'
+                            // },
+                            // align: 'center', //标签居中对齐
+                            // y: 30
+                            enabled: false
                         },
                         lineWidth: 0, //轴线宽度
                         tickWidth: 0, //刻度线宽度

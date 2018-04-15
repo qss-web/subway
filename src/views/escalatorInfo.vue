@@ -50,6 +50,8 @@
     export default {
         data() {
             return {
+                currentPage: 1, //当前页数
+                pageSize: 8, //每页显示数量
                 //预警信息
                 alarmInfos: [],
                 statusShow: ['二级预警', '一级预警', '运行', '断网', '停机'],
@@ -128,7 +130,7 @@
                     label: [{
                         'label': '序号',
                         'width': 9,
-                        'value': 'num'
+                        'value': 'index'
                     }, {
                         'label': '设备名称',
                         'width': 9,
@@ -136,7 +138,7 @@
                     }, {
                         'label': '测点名称',
                         'width': 9,
-                        'value': 'testName'
+                        'value': 'detectName'
                     }, {
                         'label': '当前值',
                         'width': 9,
@@ -144,11 +146,11 @@
                     }, {
                         'label': '高限',
                         'width': 9,
-                        'value': 'highLimit'
+                        'value': 'hLimit'
                     }, {
                         'label': '高高限',
                         'width': 9,
-                        'value': 'highestLimit'
+                        'value': 'hhighLimit'
                     }, {
                         'label': '测点状态',
                         'width': 9,
@@ -157,7 +159,7 @@
                     }, {
                         'label': '更新时间',
                         'width': 10,
-                        'value': 'updateTime'
+                        'value': 'time'
                     }, {
                         'label': '预警原因',
                         'width': 18,

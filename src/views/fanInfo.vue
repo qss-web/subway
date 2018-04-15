@@ -2,14 +2,13 @@
     <div>
         <div>
             <div class="button-group flex">
-                <button class="btn-name">**风机</button>
-                <button class="btn-alarm" @click="warnChartFn">预警</button>
+                <button class="btn-name">{{alarmOtherInfos.deviceName}}</button>
+                <button class="btn-alarm" @click="warnChartFn" v-bind:class="colorStatus[alarmOtherInfos.deviceStatus-1]">{{statusShow[alarmOtherInfos.deviceStatus-1]}}</button>
             </div>
             <div class="alarm-reason">
                 <div class="alarm-reason-title">预警原因</div>
                 <ul class="alarm-reason-body">
-                    <li>1、苹果园南路站 A出入口下段PGN-FT-A-1 扶手带断裂</li>
-                    <li>2、廖公庄站B端风道LGZ-FT-D-4数据中断</li>
+                    <li v-for="(item,index) in alarmInfos">{{index}}、{{item}}</li>
                 </ul>
             </div>
             <div class="device-3d" v-on:click="goInfoFn">
@@ -50,6 +49,13 @@
     export default {
         data() {
             return {
+                alarmInfos: [],
+                alarmOtherInfos: {
+                    deviceName: '',
+                    deviceStatus: ''
+                },
+                statusShow: ['二级预警', '一级预警', '运行', '断网', '停机'],
+                colorStatus: ['bg-error', 'bg-warn', 'bg-normal', 'bg-stop', 'bg-offline'],
                 currentPage: 1, //当前页数
                 pageSize: 8, //每页显示数量
                 isShowPopup: false,
@@ -121,7 +127,7 @@
                     label: [{
                         'label': '序号',
                         'width': 5,
-                        'value': 'num'
+                        'value': 'index'
                     }, {
                         'label': '设备名称',
                         'width': 10,
@@ -129,7 +135,7 @@
                     }, {
                         'label': '测点名称',
                         'width': 10,
-                        'value': 'testName'
+                        'value': 'detectName'
                     }, {
                         'label': '当前值',
                         'width': 10,
@@ -137,19 +143,20 @@
                     }, {
                         'label': '高限',
                         'width': 10,
-                        'value': 'highLimit'
+                        'value': 'hLimit'
                     }, {
                         'label': '高高限',
                         'width': 10,
-                        'value': 'highestLimit'
+                        'value': 'hhighLimit'
                     }, {
                         'label': '测点状态',
                         'width': 10,
-                        'value': 'alarmWay'
+                        'value': 'statusValue',
+                        'status': 'status'
                     }, {
                         'label': '更新时间',
                         'width': 12,
-                        'value': 'updateTime'
+                        'value': 'time'
                     }, {
                         'label': '报警原因',
                         'width': 11,
@@ -161,7 +168,8 @@
                     }],
                     list: [],
                     other: {
-                        style: 5
+                        style: 5,
+                        isSubShowColor: true
                     }
                 },
                 //请求风机设备状态给后台传的参数
@@ -294,7 +302,17 @@
                     ops: ops,
                     api: 'pointOfEquiment',
                     callback: res => {
-                        console.log(res, '设备级别的信息');
+                        res.sections.forEach(item => {
+                            this.fanInfo.filter(item1 => {
+                                if(item.sectionIndex == item1.fixedId) {
+                                    item1.status = item.status;
+                                }
+                            });
+                        });
+                        //预警信息
+                        this.alarmInfos = res.alarmInfos;
+                        this.alarmOtherInfos.deviceName = res.deviceName;
+                        this.alarmOtherInfos.deviceStatus = res.deviceStatus;
                     }
                 });
             }
@@ -305,7 +323,7 @@
 <style lang="less" scoped>
     .button-group {
         position: absolute;
-        left: 1.2rem;
+        left: 0.6rem;
         top: 0.6rem;
         .btn-name {
             color: #fff;
@@ -319,7 +337,6 @@
             color: #fff;
             border-radius: 0.12rem;
             font-size: 0.24rem;
-            background-color: #fa0000;
             padding: 0.08rem 0.4rem;
             box-shadow: 0 1px 0.1rem 0.01rem #fff;
         }
