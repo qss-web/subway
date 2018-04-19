@@ -16,10 +16,16 @@
                 <span class="text">今日故障待办事项</span>
                 <span class="line"></span>
             </div>
-            <div class="chart flex" v-on:click="goBacklog">
-                <v-failure-count title="自动扶梯" :count="failure.escalator"></v-failure-count>
-                <v-failure-count title="风机" :count="failure.fan"></v-failure-count>
-                <v-failure-count title="站台门" :count="failure.door"></v-failure-count>
+            <div class="chart flex">
+                <div v-on:click="goBacklog(7)">
+                    <v-failure-count title="自动扶梯" :count="failure.escalator"></v-failure-count>
+                </div>
+                <div v-on:click="goBacklog(8)">
+                    <v-failure-count title="风机" :count="failure.fan"></v-failure-count>
+                </div>
+                <div v-on:click="goBacklog(0)">
+                    <v-failure-count title="站台门" :count="failure.door"></v-failure-count>
+                </div>
             </div>
         </div>
     </div>
@@ -50,8 +56,8 @@
             goRunList() {
                 this.$router.push('equRunTimeList');
             },
-            goBacklog() {
-                this.$router.push('backlog');
+            goBacklog(key) {
+                this.$router.push({ path: 'backlog', query: { 'equKey': key } });
             },
             //今日故障待办事项
             getBacklogCountFn() {
@@ -60,6 +66,9 @@
                     api: 'backlogCount',
                     callback: res => {
                         this.failure = res;
+                        setTimeout(() => {
+                            this.getBacklogCountFn();
+                        }, 2000);
                     }
                 });
             },

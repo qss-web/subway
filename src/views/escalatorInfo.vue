@@ -2,14 +2,14 @@
     <div>
         <div>
             <div class="button-group flex">
-                <button class="btn-name">{{alarmOtherInfos.deviceName}}</button>
+                <button class="btn-name" style="margin-left: 0;">{{alarmOtherInfos.deviceName}}</button>
                 <button class="btn-name">{{alarmOtherInfos.deviceType}}</button>
                 <button class="btn-alarm" @click="warnChartFn" v-bind:class="colorStatus[alarmOtherInfos.deviceStatus-1]">{{statusShow[alarmOtherInfos.deviceStatus-1]}}</button>
             </div>
             <div class="alarm-reason">
                 <div class="alarm-reason-title">预警原因</div>
                 <ul class="alarm-reason-body">
-                    <li v-for="item in alarmInfos">{{item}}</li>
+                    <li v-for="(item,index) in alarmInfos">{{index+1}}、{{item}}</li>
                 </ul>
             </div>
             <div class="device-3d" v-on:click="goInfoFn">
@@ -372,7 +372,7 @@
             border-radius: 0.12rem;
             font-size: 0.3rem;
             background-color: #373f5b;
-            padding: 0.08rem 0.4rem;
+            padding: 0.08rem 0.2rem;
             margin-left: 0.2rem;
         }
         .btn-alarm {

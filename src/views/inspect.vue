@@ -2,7 +2,7 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn" v-on:delete="deleteBtn"></v-sub-search>
+                <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn" v-on:delete="deleteBtn"></v-sub-search>
             </div>
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:ids="deleteValue"></v-search-list>
@@ -17,7 +17,8 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
+    import { formatDate } from '../utils';
     export default {
         data() {
             return {
@@ -35,11 +36,7 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'line',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
+                        'val': 'line'
                     }, {
                         'status': 2,
                         'title': '车站',
@@ -49,16 +46,9 @@
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'equSys',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
+                        'val': 'equSys'
                     }, {
-                        'status': 2,
+                        'status': 6,
                         'title': '设备名称',
                         'placeholder': '请输入内容',
                         'val': 'equName'
@@ -68,11 +58,11 @@
                         'placeholder': '请选择内容',
                         'val': 'equStatus',
                         'list': [{
-                            value: '1',
-                            label: '状态一'
+                            value: '0',
+                            label: '未巡检'
                         }, {
-                            value: '2',
-                            label: '状态二'
+                            value: '1',
+                            label: '已巡检'
                         }]
                     }, {
                         'status': 3,
@@ -81,7 +71,16 @@
                         'placeholderE': '选择结束日期',
                         'val1': 'startTime',
                         'val2': 'endTime'
-                    }]
+                    }],
+                    defaultReq: {
+                        line: '6号线西延线',
+                        station: '',
+                        equSys: '',
+                        equName: '',
+                        equStatus: '',
+                        startTime: formatDate('', 2) + '00:00:00',
+                        endTime: formatDate('', 3)
+                    }
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
@@ -125,7 +124,9 @@
                     'width': 10,
                     'value': 'name'
                 }],
-                equList: []
+                equList: [],
+                getEquNameArr: [],
+                isReq: {}
             };
         },
         props: ['list', 'label', 'checked'],
@@ -134,13 +135,14 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_equNameList']),
             currentList(index) {
                 this.indexed = index;
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getCheckRatioListFn();
+                this.getCheckRatioListFn(this.isReq);
             },
             getCheckRatioListFn(req) {
                 const ops = {
@@ -166,6 +168,7 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
                 this.getCheckRatioListFn(req);
             },
             //删除接口
@@ -185,6 +188,22 @@
             },
             deleteValue(id) {
                 this.ids = id.substr(0, id.length - 1);
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                if(req.line && req.station && req.equSys) {
+                    this._getList({
+                        ops: req,
+                        api: 'selectlist2',
+                        callback: res => {
+                            this.getEquNameArr = [];
+                            res.forEach(item => {
+                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                            });
+                            this._equNameList(this.getEquNameArr);
+                        }
+                    });
+                }
             }
         }
     };

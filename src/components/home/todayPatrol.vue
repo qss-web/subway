@@ -46,6 +46,7 @@
                         title: {
                             text: null //指定y轴的标题
                         },
+                        // categories: [],
                         gridLineColor: '#2f4554',
                         labels: {
                             style: {
@@ -114,6 +115,9 @@
                         });
                         this.option.xAxis.categories = this.nameShow;
                         this.option.series[0].data = this.valueShow;
+                        setTimeout(() => {
+                            this.getBacklogCountFn();
+                        }, 60000);
                     }
                 });
             }

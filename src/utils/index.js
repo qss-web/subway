@@ -169,38 +169,38 @@ export function browser() {
   return os;
 }
 
-//格式化日期
-Date.prototype.format = function(fmt) {
-  let o = {
-    'M+': this.getMonth() + 1, //月份
-    'd+': this.getDate(), //日
-    'h+': this.getHours(), //小时
-    'm+': this.getMinutes(), //分
-    's+': this.getSeconds(), //秒
-    'q+': Math.floor((this.getMonth() + 3) / 3), //季度
-    S: this.getMilliseconds() //毫秒
-  };
+// //格式化日期
+// Date.prototype.format = function(fmt) {
+//   let o = {
+//     'M+': this.getMonth() + 1, //月份
+//     'd+': this.getDate(), //日
+//     'h+': this.getHours(), //小时
+//     'm+': this.getMinutes(), //分
+//     's+': this.getSeconds(), //秒
+//     'q+': Math.floor((this.getMonth() + 3) / 3), //季度
+//     S: this.getMilliseconds() //毫秒
+//   };
 
-  if (/(y+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, String(this.getFullYear()).substr(4 - RegExp.$1.length));
-  }
-  for (let k in o) {
-    if (new RegExp('(' + k + ')').test(fmt)) {
-      fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(String(o[k]).length));
-    }
-  }
-  return fmt;
-};
+//   if (/(y+)/.test(fmt)) {
+//     fmt = fmt.replace(RegExp.$1, String(this.getFullYear()).substr(4 - RegExp.$1.length));
+//   }
+//   for (let k in o) {
+//     if (new RegExp('(' + k + ')').test(fmt)) {
+//       fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(String(o[k]).length));
+//     }
+//   }
+//   return fmt;
+// };
 
-//格式化日期
-export function formatDate(nS, format) {
-  //日期格式化
-  if (!nS) {
-    return '';
-  }
-  format = format || 'yyyy-MM-dd hh:mm:ss';
-  return new Date(nS).format(format);
-}
+// //格式化日期
+// export function formatDate(nS, format) {
+//   //日期格式化
+//   if (!nS) {
+//     return '';
+//   }
+//   format = format || 'yyyy-MM-dd hh:mm:ss';
+//   return new Date(nS).format(format);
+// }
 
 //验证手机号码
 export function checkPhone(phone) {
@@ -313,8 +313,34 @@ window.console.print = function(e) {
   store._actions._custom[0](custom);
 };
 
-export function getDateFn() {
-  var myDate = new Date(); //获取系统当前时间
+export function formatDate(time, type) {
+  let format = '';
+  let data = '';
 
-  return myDate.getFullYear() + '-' + (myDate.getMonth() + 1);
+  if (time) {
+    data = new Date(parseInt(time));
+  } else {
+    data = new Date();
+  }
+
+  var o = {
+    'M+': data.getMonth() + 1, //月份
+    'd+': data.getDate(), //日
+    'h+': data.getHours(), //小时
+    'm+': data.getMinutes(), //分
+    's+': data.getSeconds() //秒
+  };
+
+  format = type == 1 ? 'hh:mm:ss' : type == 2 ? 'yyyy-MM-dd' : type == 3 ? 'yyyy-MM-dd hh:mm:ss' : type == 4 ? 'yyyy-MM' : type == 5 ? 'MM' : type == 6 ? 'yyyy' : 'yyyy-MM-dd hh:mm';
+
+  if (/(y+)/.test(format)) {
+    format = format.replace(RegExp.$1, (data.getFullYear() + '').substr(4 - RegExp.$1.length));
+  }
+
+  for (var k in o) {
+    if (new RegExp('(' + k + ')').test(format)) {
+      format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
+    }
+  }
+  return format;
 }

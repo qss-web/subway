@@ -49,6 +49,9 @@
                     callback: res => {
                         this.timelyAlarm = res.list;
                         this.warningTotal = "实时预警信息（" + res.records + "次）";
+                        setTimeout(() => {
+                            this.getTimelyAlarmTopFn();
+                        }, 2000);
                     }
                 });
             }

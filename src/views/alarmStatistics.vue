@@ -2,17 +2,17 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+                <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
                 <ul class="title">
                     <dl class="notice flex">
-                        <dd class="error">二级预警：{{equInfoCount[0]}}次</dd>
-                        <dd class="warn">一级预警：{{equInfoCount[1]}}次</dd>
-                        <dd class="normal">运行：{{equInfoCount[2]}}次</dd>
-                        <dd class="offline">断网：{{equInfoCount[3]}}次</dd>
-                        <dd class="stop">停机：{{equInfoCount[4]}}次</dd>
-                        <dd class="g-orange">全部：{{equTotal}}次</dd>
+                        <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
+                        <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
+                        <dd class="normal" v-on:click="statusFilter('3')">运行：{{equInfoCount[2]}}次</dd>
+                        <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}次</dd>
+                        <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}次</dd>
+                        <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                     </dl>
                 </ul>
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
@@ -29,6 +29,7 @@
 
 <script>
     import { mapActions } from 'vuex';
+    import { formatDate } from '../utils';
     export default {
         data() {
             return {
@@ -73,7 +74,15 @@
                         'placeholderE': '选择结束日期',
                         'val1': 'startTime',
                         'val2': 'endTime'
-                    }]
+                    }],
+                    defaultReq: {
+                        line: '6号线西延线',
+                        station: '',
+                        equSys: '',
+                        equName: '',
+                        startTime: formatDate('', 3),
+                        endTime: formatDate('', 3)
+                    }
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
@@ -109,11 +118,21 @@
                     'width': 10,
                     'btn': [{ 'monitor': true, 'name': '监测', 'fn': 'monitorFn' }]
                 }],
-                equList: []
+                equList: [],
+                alarmVal: '',//预警状态
+                isReq: {},
+                getEquNameArr: [],
+                equKey: ''
             };
         },
         created() {
-            this.getTodayAlarmFn();
+            this.equKey = this.$route.query.equKey;
+            if(this.equKey || this.equKey == 0) {
+                this.getTodayAlarmFn('', '', this.equKey);
+            } else {
+                this.getTodayAlarmFn();
+            }
+
         },
         methods: {
             ...mapActions(['_getList']),
@@ -123,7 +142,7 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getTodayAlarmFn();
+                this.getTodayAlarmFn(this.isReq, this.alarmVal, this.equKey);
             },
             //列表子组件按钮
             btnFn(val) {
@@ -133,15 +152,24 @@
             monitorFn() {
                 this.$router.push('monitor');
             },
-            getTodayAlarmFn(req) {
+            getTodayAlarmFn(req, val, key) {
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
 
+                if(key) {
+                    Object.assign(ops, { 'equSys': key });
+                }
+
                 if(req) {
                     Object.assign(ops, req);
                 }
+
+                if(val) {
+                    Object.assign(ops, { 'status': val });
+                }
+
                 this._getList({
                     ops: ops,
                     api: 'todayAlarm',
@@ -149,6 +177,7 @@
                         res.rows.forEach(item => {
                             item.isCheck = false;
                         });
+                        this.equTotal = 0;
                         this.equInfoCount = res.counts;
                         res.counts.forEach(item => {
                             this.equTotal += item;
@@ -161,7 +190,30 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
                 this.getTodayAlarmFn(req);
+            },
+            //二级筛选
+            statusFilter(val) {
+                this.alarmVal = val;
+                this.getTodayAlarmFn(this.isReq, val);
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                if(req.line && req.station && req.equSys) {
+                    this._getList({
+                        ops: req,
+                        api: 'selectlist2',
+                        callback: res => {
+                            this.getEquNameArr = [];
+                            res.forEach(item => {
+                                // { 'label': '全部', 'value': '' },
+                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                            });
+                            this._equNameList(this.getEquNameArr);
+                        }
+                    });
+                }
             }
         }
     };
@@ -205,6 +257,7 @@
                     margin-left: 0.26rem;
                     height: 0.52rem;
                     line-height: 0.52rem;
+                    cursor: pointer;
                 }
             }
         }
@@ -214,6 +267,9 @@
             background: #45484f;
             border: 1px solid #587386;
             border-top: none;
+            span {
+                color: #fff;
+            }
         }
     }
 </style>

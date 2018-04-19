@@ -34,20 +34,16 @@
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'equSys',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
+                        'val': 'equSys'
                     }, {
                         'status': 1,
-                        'title': '设备名称',
+                        'title': '故障名称',
                         'placeholder': '请输入内容',
-                        'val': 'equName'
-                    }]
+                        'val': 'faultName'
+                    }],
+                    defaultReq: {
+                        equSys: ''
+                    }
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框

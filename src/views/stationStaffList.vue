@@ -15,6 +15,7 @@
 
 <script>
     import { mapActions } from 'vuex';
+    import { formatDate } from '../utils';
     export default {
         data() {
             return {
@@ -29,47 +30,76 @@
                         'val': 'station'
                     }, {
                         'status': 2,
+                        'title': '年',
+                        'placeholder': '请选择内容',
+                        'val': 'year',
+                        'list': [{
+                            value: '2018',
+                            label: '2018'
+                        }, {
+                            value: '2019',
+                            label: '2019'
+                        }, {
+                            value: '2020',
+                            label: '2020'
+                        }, {
+                            value: '2021',
+                            label: '2021'
+                        }, {
+                            value: '2022',
+                            label: '2022'
+                        }, {
+                            value: '2023',
+                            label: '2023'
+                        }]
+                    }, {
+                        'status': 2,
                         'title': '月份',
                         'placeholder': '请选择内容',
                         'val': 'month',
                         'list': [{
-                            value: '1',
-                            label: '一月'
+                            value: '01',
+                            label: '01'
                         }, {
-                            value: '2',
-                            label: '二月'
+                            value: '02',
+                            label: '02'
                         }, {
-                            value: '3',
-                            label: '三月'
+                            value: '03',
+                            label: '03'
                         }, {
-                            value: '4',
-                            label: '四月'
+                            value: '04',
+                            label: '04'
                         }, {
-                            value: '5',
-                            label: '五月'
+                            value: '05',
+                            label: '05'
                         }, {
-                            value: '6',
-                            label: '六月'
+                            value: '06',
+                            label: '06'
                         }, {
-                            value: '7',
-                            label: '七月'
+                            value: '07',
+                            label: '07'
                         }, {
-                            value: '8',
-                            label: '八月'
+                            value: '08',
+                            label: '08'
                         }, {
-                            value: '9',
-                            label: '九月'
+                            value: '09',
+                            label: '09'
                         }, {
                             value: '10',
-                            label: '十月'
+                            label: '10'
                         }, {
                             value: '11',
-                            label: '十一月'
+                            label: '11'
                         }, {
                             value: '12',
-                            label: '十二月'
+                            label: '12'
                         }]
-                    }]
+                    }],
+                    defaultReq: {
+                        station: '',
+                        month: formatDate('', 5),
+                        year: formatDate('', 6)
+                    }
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框

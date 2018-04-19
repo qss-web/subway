@@ -2,17 +2,17 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+                <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
                 <ul class="title">
                     <dl class="notice flex">
-                        <dd class="error">二级预警：{{equInfoCount[0]}}台</dd>
-                        <dd class="warn">一级预警：{{equInfoCount[1]}}台</dd>
-                        <dd class="normal">运行：{{equInfoCount[2]}}台</dd>
-                        <dd class="offline">断网：{{equInfoCount[3]}}台</dd>
-                        <dd class="stop">停机：{{equInfoCount[4]}}台</dd>
-                        <dd class="g-orange">全部：{{equTotal}}台</dd>
+                        <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}台</dd>
+                        <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}台</dd>
+                        <dd class="normal" v-on:click="statusFilter('3')">运行：{{equInfoCount[2]}}台</dd>
+                        <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}台</dd>
+                        <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}台</dd>
+                        <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}台</dd>
                     </dl>
                 </ul>
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -46,53 +46,29 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'line',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
+                        'val': 'line'
                     }, {
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'station',
-                        'list': [{
-                            value: '1',
-                            label: '金安桥站'
-                        }, {
-                            value: '2',
-                            label: '苹果园站'
-                        }, {
-                            value: '3',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '4',
-                            label: '西黄村站'
-                        }, {
-                            value: '5',
-                            label: '廖公庄站'
-                        }, {
-                            value: '6',
-                            label: '田村站'
-                        }]
-                    }, {
-                        'status': 1,
-                        'title': '设备名称',
-                        'placeholder': '请输入内容',
-                        'val': 'equName'
+                        'val': 'station'
                     }, {
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'equSort',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
-                    }]
+                        'val': 'equSys'
+                    }, {
+                        'status': 6,
+                        'title': '设备名称',
+                        'placeholder': '请输入内容',
+                        'val': 'equName'
+                    }],
+                    defaultReq: {
+                        line: '6号线西延线',
+                        station: '',
+                        equSys: '',
+                        equName: ''
+                    }
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
@@ -156,7 +132,10 @@
                     'width': 9,
                     'value': 'repairAdvice'
                 }],
-                equList: []
+                equList: [],
+                getEquNameArr: [],
+                isReq: {},
+                alarmVal: ''//预警状态
             };
         },
         created() {
@@ -164,15 +143,16 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_equNameList']),
             currentList(index) {
                 this.indexed = index;
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getPointTimelyStatusFn();
+                this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
             },
-            getPointTimelyStatusFn(req) {
+            getPointTimelyStatusFn(req, val) {
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
@@ -180,6 +160,10 @@
 
                 if(req) {
                     Object.assign(ops, req);
+                }
+
+                if(val) {
+                    Object.assign(ops, { 'status': val });
                 }
                 this._getList({
                     ops: ops,
@@ -189,6 +173,7 @@
                             item.isCheck = false;
                         });
                         this.equInfoCount = res.counts;
+                        this.equTotal = 0;
                         res.counts.forEach(item => {
                             this.equTotal += item;
                         });
@@ -200,7 +185,30 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
                 this.getPointTimelyStatusFn(req);
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                if(req.line && req.station && req.equSys) {
+                    this._getList({
+                        ops: req,
+                        api: 'selectlist2',
+                        callback: res => {
+                            this.getEquNameArr = [];
+                            res.forEach(item => {
+                                // { 'label': '全部', 'value': '' },
+                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                            });
+                            this._equNameList(this.getEquNameArr);
+                        }
+                    });
+                }
+            },
+            //二级筛选
+            statusFilter(val) {
+                this.alarmVal = val;
+                this.getPointTimelyStatusFn(this.isReq, val);
             }
         }
     };
@@ -244,6 +252,7 @@
                     margin-left: 0.26rem;
                     height: 0.52rem;
                     line-height: 0.52rem;
+                    cursor: pointer;
                 }
             }
         }
@@ -253,6 +262,9 @@
             background: #45484f;
             border: 1px solid #587386;
             border-top: none;
+            span {
+                color: #fff;
+            }
         }
     }
 </style>

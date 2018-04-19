@@ -5,7 +5,9 @@ import { getLoc, getSen } from '../../utils';
  * @equInfo 设备信息
  * @itemObj 列表某一条值
  * @deviceInfo  设备id和uuid
- * @预警折线图数据  warnChart
+ * @warnChart 预警折线图数据
+ * @stationId  车站id
+ * @equNameList 设备名称列表
  *
  */
 
@@ -16,5 +18,7 @@ export default {
   equInfo: getSen('equInfo') || '',
   itemObj: '',
   deviceInfo: getSen('deviceInfo') || {},
-  warnChart: []
+  warnChart: [],
+  stationId: getSen('stationId') || '',
+  equNameList: []
 };

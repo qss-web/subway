@@ -15,7 +15,7 @@
         background: url('~assets/login/login_header_bg.png') no-repeat;
         background-size: 100% 100%;
         text-align: center;
-        z-index: 10001;
+        z-index: 1001;
         .logo {
             position: absolute;
             left: 1.44rem;

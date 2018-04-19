@@ -20,6 +20,7 @@
 </template>
 <script>
     import { mapActions } from 'vuex';
+    import { formatDate } from '../../utils';
     export default {
         data() {
             return {
@@ -71,7 +72,7 @@
                     ops: {
                         "fileName": file.name,
                         "fileUrl": res.url,
-                        "uploadTime": "2018-04-11"
+                        "uploadTime": formatDate('', '2')
                     },
                     api: 'clientAdd',
                     callback: () => {

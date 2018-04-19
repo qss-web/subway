@@ -21,7 +21,8 @@
                         <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <span v-else v-bind:class="item1.status == 'status' ?listStatus[item.status-1]:''" v-on:click="goToNextPage(other.goToNextFn,item)">
-                        {{item[item1.value]}}
+                        <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">{{item[item1.value]}}</a>
+                        <i class="hoverShow">{{item[item1.value]}}</i>
                     </span>
                 </div>
             </dd>
@@ -40,7 +41,8 @@
                         <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <span v-else v-bind:class="item.status?listStatus[item.status-1] :''" v-on:click="goToNextPage(other.goToNextFn,item)">
-                        {{item[item1.value]}}
+                        <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">{{item[item1.value]}}</a>
+                        <i class="hoverShow">{{item[item1.value]}}</i>
                         <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
                     </span>
                 </div>
@@ -130,9 +132,26 @@
     div span {
         display: block;
         width: 100% !important;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        position: relative;
+        cursor: pointer;
+
+        i.hoverShow {
+            display: none;
+            font-style: normal;
+            position: absolute;
+            bottom: 0.4rem;
+            left: 0;
+            line-height: 0.2rem;
+            background: rgba(255, 255, 255, 0.5);
+            color: #000;
+            border-radius: 5px;
+            padding: 0 0.1rem;
+        }
+    }
+    div span:hover {
+        i.hoverShow {
+            display: block;
+        }
     }
     .redDot {
         display: inline-block;
@@ -145,9 +164,15 @@
     }
     .btn {
         a {
+            min-width: 0.28rem;
+            height: 0.28rem;
+            line-height: 0.28rem;
+            display: inline-block;
+            background: #7c8298;
             color: #fff;
-            text-decoration: underline;
-            margin-right: 0.2rem;
+            font-size: 0.16rem;
+            margin-right: 0.1rem;
+            padding: 0 0.2rem;
         }
         a:last-child {
             margin-right: 0;

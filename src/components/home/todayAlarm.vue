@@ -62,7 +62,14 @@
                     plotOptions: {
                         series: {
                             borderWidth: 0,
-                            maxPointWidth: 26
+                            maxPointWidth: 26,
+                            dataLabels: {
+                                align: 'center',
+                                enabled: true,
+                                color: '#fff'
+                            },
+                            cursor: 'pointer',
+                            events: {}
                         }
                     },
                     series: [
@@ -126,6 +133,23 @@
                         });
                         this.option.xAxis.categories = this.nameShow;
                         this.option.series[0].data = this.valueShow;
+                        var _this = this;
+
+                        this.option.plotOptions.series.events.click = function(event) {
+                            if(event.point.index == 0) {
+                                //自动扶梯
+                                _this.$router.push({ path: 'alarmStatistics', query: { 'equKey': '7' } });
+                            } else if(event.point.index == 1) {
+                                //风机
+                                _this.$router.push({ path: 'alarmStatistics', query: { 'equKey': '8' } });
+                            } else {
+                                //站台门
+                                _this.$router.push({ path: 'alarmStatistics', query: { 'equKey': '0' } });
+                            }
+                        };
+                        setTimeout(() => {
+                            this.getTodayAlarmTopFn();
+                        }, 2000);
                     }
                 });
             }

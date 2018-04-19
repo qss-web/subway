@@ -82,7 +82,7 @@
 
 <script>
     import { mapActions } from 'vuex';
-    import { getDateFn } from '../utils';
+    import { formatDate } from '../utils';
 
     export default {
         data() {
@@ -94,7 +94,7 @@
                 rightValue01: [],
                 rightValue02: [],
                 rightValue03: [],
-                currentDate: '2018-04',
+                currentDate: formatDate('', '4'),
                 searchData: {
                     'btnShow': {
                         'export': true
@@ -351,7 +351,6 @@
             this.getCommonLeft01Fn();
             this.getCommonLeft02Fn();
             this.getCommonLeft03Fn();
-            this.currentDate = getDateFn();
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),

@@ -45,12 +45,12 @@
             </div>
         </div>
         <div class="map">
-            <v-flashing x="0.94" y="3.17" v-bind:status="station[0].status"></v-flashing>
-            <v-flashing x="1.83" y="2.86" v-bind:status="station[1].status"></v-flashing>
-            <v-flashing x="3.16" y="2.39" v-bind:status="station[2].status"></v-flashing>
-            <v-flashing x="4.73" y="2.47" v-bind:status="station[3].status"></v-flashing>
-            <v-flashing x="6.71" y="2.78" v-bind:status="station[4].status"></v-flashing>
-            <v-flashing x="8.58" y="2.51" v-bind:status="station[5].status"></v-flashing>
+            <v-flashing x="0.94" y="3.17" v-if="station.length!=0" :status="station[0]"></v-flashing>
+            <v-flashing x="1.83" y="2.86" v-if="station.length!=0" :status="station[1]"></v-flashing>
+            <v-flashing x="3.16" y="2.39" v-if="station.length!=0" :status="station[2]"></v-flashing>
+            <v-flashing x="4.73" y="2.47" v-if="station.length!=0" :status="station[3]"></v-flashing>
+            <v-flashing x="6.71" y="2.78" v-if="station.length!=0" :status="station[4]"></v-flashing>
+            <v-flashing x="8.58" y="2.51" v-if="station.length!=0" :status="station[5]"></v-flashing>
             <div class="button-group flex">
                 <div class="button-wrapper">
                     <button class="btn" v-on:click="goStateFn">设备实时状态</button>
@@ -99,6 +99,9 @@
                         this.fan = data.fan;//风机预警
                         this.door = data.door;//站台门预警
                         this.station = data.station; //车站
+                        setTimeout(() => {
+                            this.getStationAlarmStatisticalFn();
+                        }, 2000);
                     }
                 });
             }
@@ -150,15 +153,6 @@
                         width: 0.16rem;
                         height: 0.16rem;
                     }
-                }
-                .error {
-                    color: red;
-                }
-                .warn {
-                    color: #f9af00;
-                }
-                .normal {
-                    color: #00ff00;
                 }
             }
         }

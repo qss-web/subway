@@ -9,30 +9,34 @@
                 <li v-if="item.status == 2">
                     <span>{{item.title}}：</span>
                     <!-- 判断是不是车站的列表，如果是车站列表，数据直接在子组件请求 -->
-                    <el-select v-if="item.val == 'station' || item.val == 'deviceInStationId' || item.val == 'stationId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                    <el-select v-if="item.val == 'station' || item.val == 'deviceInStationId' || item.val == 'stationId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                        <el-option key="" label="全部" value="">
+                        </el-option>
                         <el-option v-for="itemSel in staionsList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
                     <!-- 判断是不是设备系统的列表，如果是设备系统列表，数据直接在子组件请求 -->
-                    <el-select v-else-if="item.val == 'equSys'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                    <el-select v-else-if="item.val == 'equSys'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                         <el-option v-for="itemSel in sysList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
                     <!-- 判断是不是线路列表，如果是线路列表，数据直接在子组件请求 -->
-                    <el-select v-else-if="item.val == 'line'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                    <el-select v-else-if="item.val == 'line'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                        <el-option key="" label="全部" value=""></el-option>
                         <el-option v-for="itemSel in lineList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
                     <el-select v-else v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
+                        <el-option key="" label="全部" value=""></el-option>
                         <el-option v-for="itemSel in item.list" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
                 </li>
                 <li v-if="item.status == 3">
                     <span>{{item.title}}：</span>
-                    <el-date-picker v-model="req[item.val1]" format="yyyy-MM-dd" type="date" value-format="yyyy-MM-dd HH:mm:ss" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
+                    <el-date-picker v-model="req[item.val1]" format="yyyy-MM-dd HH:mm:ss" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
                     <i>至</i>
-                    <el-date-picker v-model="req[item.val2]" format="yyyy-MM-dd" type="date" value-format="yyyy-MM-dd HH:mm:ss" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
+                    <el-date-picker v-model="req[item.val2]" format="yyyy-MM-dd HH:mm:ss" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
                 </li>
                 <li v-if="item.status == 4">
                     <span>{{item.title}}：</span>
@@ -43,6 +47,14 @@
                 <li v-if="item.status == 5">
                     <span>{{item.title}}：</span>
                     <el-date-picker v-model="req[item.val1]" format="yyyy-MM" type="month" value-format="yyyy-MM" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
+                </li>
+                <li v-if="item.status == 6">
+                    <span>{{item.title}}：</span>
+                    <el-select filterable remote :remote-method="remoteMethod" :loading="loading" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                        <el-option key="" label="全部" value=""></el-option>
+                        <el-option v-for="itemSel in optionsShow" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                        </el-option>
+                    </el-select>
                 </li>
             </ul>
         </div>
@@ -58,13 +70,18 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapState } from 'vuex';
     export default {
         data() {
             return {
-                req: {},
+                req: {
+
+                },
                 staionsList: [],
                 sysList: [{
+                    value: '',
+                    label: '全部'
+                }, {
                     value: '0',
                     label: '站台门'
                 }, {
@@ -74,11 +91,27 @@
                     value: '8',
                     label: '风机'
                 }],
-                lineList: []
+                lineList: [],
+                loading: false,
+                getEquNameList: [],
+                optionsShow: []
             };
+        },
+        computed: {
+            ...mapState(['equNameList'])
+        },
+        watch: {
+            equNameList() {
+                this.getEquNameList = JSON.parse(JSON.stringify(this.equNameList));
+                this.optionsShow = JSON.parse(JSON.stringify(this.equNameList));
+            }
         },
         props: ['searchData'],
         created() {
+            //设置默认值
+            if(this.searchData.defaultReq) {
+                this.req = this.searchData.defaultReq;
+            }
             //获取车站列表
             this.getStationsFn();
             //获取线路列表
@@ -119,22 +152,38 @@
                         this.lineList = res;
                     }
                 });
+            },
+            changeOps() {
+                this.$emit('getEquName', this.req);
+            },
+            remoteMethod(query) {
+                if(query !== '') {
+                    this.loading = true;
+                    setTimeout(() => {
+                        this.loading = false;
+                        this.optionsShow = this.getEquNameList.filter(item => {
+                            return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
+                        });
+                    }, 200);
+                } else {
+                    this.optionsShow = [];
+                }
             }
         }
     };
 </script>
 <style lang="less" scoped>
     .el-input--mini {
-        width: 1.4rem;
+        width: 1.2rem;
         background: none;
     }
     .el-select--mini {
-        width: 1.4rem;
+        width: 1.2rem;
         background: none;
     }
     .el-date-editor.el-input,
     .el-date-editor.el-input__inner {
-        width: 1.4rem;
+        width: 2rem;
         vertical-align: top;
     }
     .searchWidth {

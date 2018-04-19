@@ -2,10 +2,10 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+                <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -14,11 +14,13 @@
             </div>
         </div>
         <v-goback></v-goback>
+        <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn"></v-maintenance-sheet>
     </div>
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
+    import { formatDate } from '../utils';
     export default {
         data() {
             return {
@@ -28,7 +30,8 @@
                 pageNumber: 0,//总条目数
                 searchData: {
                     'btnShow': {
-                        'export': true
+                        'export': true,
+                        'delete': true
                     },
                     'options': [{
                         'status': 2,
@@ -42,14 +45,19 @@
                         'val': 'station'
                     }, {
                         'status': 2,
-                        'title': '故障系统',
+                        'title': '设备系统',
                         'placeholder': '请选择内容',
                         'val': 'equSys'
                     }, {
-                        'status': 1,
+                        'status': 6,
                         'title': '设备名称',
                         'placeholder': '请输入内容',
                         'val': 'equName'
+                    }, {
+                        'status': 1,
+                        'title': '故障系统',
+                        'placeholder': '请输入内容',
+                        'val': 'faultSys'
                     }, {
                         'status': 3,
                         'title': '时间',
@@ -57,7 +65,16 @@
                         'placeholderE': '选择结束日期',
                         'val1': 'startTime',
                         'val2': 'endTime'
-                    }]
+                    }],
+                    defaultReq: {
+                        line: '6号线西延线',
+                        station: '',
+                        equSys: '',
+                        equName: '',
+                        faultSys: '',
+                        startTime: formatDate('', 2) + ' 00:00:00',
+                        endTime: formatDate('', 3)
+                    }
                 },
                 otherInfo: {
                     isCheck: false, //是否显示多选框
@@ -69,7 +86,7 @@
                     'value': 'index'
                 }, {
                     'label': '故障单号',
-                    'width': 12,
+                    'width': 10,
                     'value': 'faultNum'
                 }, {
                     'label': '线路',
@@ -97,30 +114,48 @@
                     'value': 'faultSys'
                 }, {
                     'label': '故障现象',
-                    'width': 15,
+                    'width': 10,
                     'value': 'faultDis'
+                }, {
+                    'label': '操作',
+                    'width': 7,
+                    'btn': [{ 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
-                equList: []
+                equList: [],
+                isPop: false,
+                getEquNameArr: [],
+                isReq: {},
+                equKey: ''
             };
         },
         created() {
-            this.getBacklogFn();
+            this.equKey = this.$route.query.equKey;
+            if(this.equKey || this.equKey == 0) {
+                this.getBacklogFn('', this.equKey);
+            } else {
+                this.getBacklogFn();
+            }
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_equNameList']),
             currentList(index) {
                 this.indexed = index;
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getBacklogFn();
+                this.getBacklogFn(this.isReq, this.equKey);
             },
-            getBacklogFn(req) {
+            getBacklogFn(req, key) {
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+
+                if(key) {
+                    Object.assign(ops, { 'equSys': key });
+                }
 
                 if(req) {
                     Object.assign(ops, req);
@@ -137,7 +172,36 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
                 this.getBacklogFn(req);
+            },
+            //子组件按钮
+            btnFn(val) {
+                this[val]();
+            },
+            //编辑
+            editFn() {
+                this.isPop = true;
+            },
+            isPopFn(value) {
+                this.isPop = value;
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                if(req.line && req.station && req.equSys) {
+                    this._getList({
+                        ops: req,
+                        api: 'selectlist2',
+                        callback: res => {
+                            this.getEquNameArr = [];
+                            res.forEach(item => {
+                                // { 'label': '全部', 'value': '' },
+                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                            });
+                            this._equNameList(this.getEquNameArr);
+                        }
+                    });
+                }
             }
         }
     };

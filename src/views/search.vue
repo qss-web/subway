@@ -28,19 +28,19 @@
                 <img v-if="indexed==5" src="../assets/search/sort05_orange.png" />
             </dd>
         </dl>
-        <v-search-list v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list"></v-search-list>
-        <v-search-list v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="list"></v-search-list>
-        <v-search-list v-if="indexed==3" v-on:receive="clickFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list"></v-search-list>
+        <v-search-list class="minHeight" v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list"></v-search-list>
+        <v-search-list class="minHeight" v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="list"></v-search-list>
+        <v-search-list class="minHeight" v-if="indexed==3" v-on:receive="clickFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list"></v-search-list>
         <div class="showPic" v-if="indexed==4">
             <img class="border-bg" src="../assets/other/footer-border.png" />
-            <ul class="flex">
+            <ul class="flex minHeight">
                 <li v-for="(item, index) in picList">
                     <img v-bind:src="item.url" />
                     <p>{{item.name}}</p>
                 </li>
             </ul>
         </div>
-        <div class="others" v-if="indexed==5">
+        <div class="others" v-if="indexed==5" style=" min-height: 5.3rem;">
             <ul class="title">
                 <li v-on:click="otherFn(true)" v-bind:class="{active:subOther==true}">巡视巡检</li>
                 <li v-on:click="otherFn(false)" v-bind:class="{active:subOther==false}">故障库</li>
@@ -48,9 +48,34 @@
             <v-search-list v-if="subOther " v-bind:label="equLabe5 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
             <v-search-list v-if="!subOther " v-bind:label="equLabe4 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
         </div>
-        <div v-bind:class="indexed==5? 'pagination5': 'pagination' ">
-            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
-                <span>{{currentPage}}/{{totalPage}}</span>
+        <div v-if="indexed == 1" class="pagination">
+            <el-pagination :page-size=" pageSize01 " @current-change="changePages01" layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage01}}/{{totalPage01}}</span>
+            </el-pagination>
+        </div>
+        <div v-if="indexed == 2" class="pagination">
+            <el-pagination :page-size=" pageSize02 " @current-change="changePages02" layout="prev, slot, next " :total="pageNumber02" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage02}}/{{totalPage02}}</span>
+            </el-pagination>
+        </div>
+        <div v-if="indexed == 3" class="pagination">
+            <el-pagination :page-size=" pageSize03 " @current-change="changePages03" layout="prev, slot, next " :total="pageNumber03" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage03}}/{{totalPage03}}</span>
+            </el-pagination>
+        </div>
+        <div v-if="indexed == 4" class="pagination5">
+            <el-pagination :page-size=" pageSize04 " @current-change="changePages04" layout="prev, slot, next " :total="pageNumber04" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage04}}/{{totalPage04}}</span>
+            </el-pagination>
+        </div>
+        <div v-if="indexed == 5 && subOther" class="pagination">
+            <el-pagination :page-size=" pageSize05 " @current-change="changePages05" layout="prev, slot, next " :total="pageNumber05" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage05}}/{{totalPage05}}</span>
+            </el-pagination>
+        </div>
+        <div v-if="indexed == 5 && !subOther" class="pagination">
+            <el-pagination :page-size=" pageSize06 " @current-change="changePages06" layout="prev, slot, next " :total="pageNumber06" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage06}}/{{totalPage06}}</span>
             </el-pagination>
         </div>
         <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn"></v-maintenance-sheet>
@@ -66,10 +91,35 @@
                 list: [],
                 isPop: false,
                 indexed: 1,
-                currentPage: 1, //当前页数
-                pageSize: 8, //每页显示数量
-                pageNumber: 0, //总条数
-                totalPage: 1, //总页数
+                currentPage01: 1, //当前页数
+                pageSize01: 8, //每页显示数量
+                pageNumber01: 0, //总条数
+                totalPage01: 1, //总页数
+
+                currentPage02: 1, //当前页数
+                pageSize02: 8, //每页显示数量
+                pageNumber02: 0, //总条数
+                totalPage02: 1, //总页数
+
+                currentPage03: 1, //当前页数
+                pageSize03: 8, //每页显示数量
+                pageNumber03: 0, //总条数
+                totalPage03: 1, //总页数
+
+                currentPage04: 1, //当前页数
+                pageSize04: 5, //每页显示数量
+                pageNumber04: 0, //总条数
+                totalPage04: 1, //总页数
+
+                currentPage05: 1, //当前页数
+                pageSize05: 8, //每页显示数量
+                pageNumber05: 0, //总条数
+                totalPage05: 1, //总页数
+
+                currentPage06: 1, //当前页数
+                pageSize06: 8, //每页显示数量
+                pageNumber06: 0, //总条数
+                totalPage06: 1, //总页数
                 otherInfo: {
                     isCheck: true, //是否显示多选框
                     style: 1 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
@@ -285,8 +335,6 @@
             },
             currentList(index) {
                 this.indexed = index;
-                this.currentPage = 1;
-                this.totalPage = 1;
                 if(this.queryInfo) {
                     this['queryFn' + index](this.queryInfo);
                 }
@@ -303,7 +351,37 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this['queryFn' + this.indexed]();
+                this['queryFn' + this.indexed](this.queryInfo);
+            },
+            //改变当前页数-设备档案
+            changePages01(val) {
+                this.currentPage01 = val;
+                this.queryFn1(this.queryInfo);
+            },
+            //改变当前页数-预警信息
+            changePages02(val) {
+                this.currentPage02 = val;
+                this.queryFn2(this.queryInfo);
+            },
+            //改变当前页数-故障报修单
+            changePages03(val) {
+                this.currentPage03 = val;
+                this.queryFn3(this.queryInfo);
+            },
+            //改变当前页数-图片
+            changePages04(val) {
+                this.currentPage04 = val;
+                this.queryFn4(this.queryInfo);
+            },
+            //改变当前页数-其它-巡视巡检
+            changePages05(val) {
+                this.currentPage05 = val;
+                this.queryFn5(this.queryInfo);
+            },
+            //改变当前页数-图片-故障库
+            changePages06(val) {
+                this.currentPage06 = val;
+                this.queryFaultlibraryFn(this.queryInfo);
             },
             isPopFn(value) {
                 this.isPop = value;
@@ -317,10 +395,11 @@
                     }
                 });
             },
+            //设备档案
             queryFn1(value) {
                 const ops = {
-                    curPage: this.currentPage,
-                    pageSize: this.pageSize
+                    curPage: this.currentPage01,
+                    pageSize: this.pageSize01
                 };
 
                 if(value) {
@@ -335,16 +414,16 @@
                             item.isCheck = false;
                         });
                         this.list = res.rows;
-                        this.totalPage = res.total;
-                        this.pageNumber = res.records;
+                        this.totalPage01 = res.total;
+                        this.pageNumber01 = res.records;
                     }
                 });
             },
             //预警信息
             queryFn2(value) {
                 const ops = {
-                    curPage: this.currentPage,
-                    pageSize: this.pageSize
+                    curPage: this.currentPage02,
+                    pageSize: this.pageSize02
                 };
 
                 if(value) {
@@ -359,16 +438,16 @@
                             item.isCheck = false;
                         });
                         this.list = res.rows;
-                        this.totalPage = res.total;
-                        this.pageNumber = res.records;
+                        this.totalPage02 = res.total;
+                        this.pageNumber02 = res.records;
                     }
                 });
             },
             //故障报修
             queryFn3(value) {
                 const ops = {
-                    curPage: this.currentPage,
-                    pageSize: this.pageSize
+                    curPage: this.currentPage03,
+                    pageSize: this.pageSize03
                 };
 
                 if(value) {
@@ -383,17 +462,16 @@
                             item.isCheck = false;
                         });
                         this.list = res.rows;
-                        this.totalPage = res.total;
-                        this.pageNumber = res.records;
+                        this.totalPage03 = res.total;
+                        this.pageNumber03 = res.records;
                     }
                 });
             },
             //图片
             queryFn4(value) {
-                this.pageSize = 5;
                 const ops = {
-                    curPage: this.currentPage,
-                    pageSize: this.pageSize
+                    curPage: this.currentPage04,
+                    pageSize: this.pageSize04
                 };
 
                 if(value) {
@@ -405,16 +483,16 @@
                     api: 'queryPic',
                     callback: res => {
                         this.picList = res.rows;
-                        this.totalPage = res.total;
-                        this.pageNumber = res.records;
+                        this.totalPage04 = res.total;
+                        this.pageNumber04 = res.records;
                     }
                 });
             },
             //其他--巡视巡检
             queryFn5(value) {
                 const ops = {
-                    curPage: this.currentPage,
-                    pageSize: this.pageSize
+                    curPage: this.currentPage05,
+                    pageSize: this.pageSize05
                 };
 
                 if(value) {
@@ -429,16 +507,16 @@
                             item.isCheck = false;
                         });
                         this.list = res.rows;
-                        this.totalPage = res.total;
-                        this.pageNumber = res.records;
+                        this.totalPage05 = res.total;
+                        this.pageNumber05 = res.records;
                     }
                 });
             },
             //其他--故障库
             queryFaultlibraryFn(value) {
                 const ops = {
-                    curPage: this.currentPage,
-                    pageSize: this.pageSize
+                    curPage: this.currentPage06,
+                    pageSize: this.pageSize06
                 };
 
                 if(value) {
@@ -453,8 +531,8 @@
                             item.isCheck = false;
                         });
                         this.list = res.rows;
-                        this.totalPage = res.total;
-                        this.pageNumber = res.records;
+                        this.totalPage06 = res.total;
+                        this.pageNumber06 = res.records;
                     }
                 });
             }
@@ -463,6 +541,9 @@
 </script>
 
 <style scoped lang="less">
+    .minHeight {
+        min-height: 4.88rem;
+    }
     .showPic {
         position: relative;
         .border-bg {

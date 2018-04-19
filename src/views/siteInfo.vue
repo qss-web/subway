@@ -40,7 +40,7 @@
 </template>
 
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -274,11 +274,19 @@
                 }]
             };
         },
+        computed: {
+            ...mapState(['stationId'])
+        },
+        watch: {
+            stationId() {
+                this.getAvailabilityFn();
+                this.getEventInfoFn();
+            }
+        },
         created() {
             this.getAvailabilityFn();
             this.getEventInfoFn();
             this.getStatusFn();
-            // this.test2();
         },
         methods: {
             ...mapActions(['_getList']),
@@ -298,7 +306,7 @@
             },
             getAvailabilityFn() {
                 this._getList({
-                    ops: { id: '苹果园站' },
+                    ops: { id: this.stationId },
                     api: 'availability',
                     callback: res => {
                         this.ringInfo1.value = res.ft;
@@ -332,7 +340,7 @@
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize,
-                    'stationId': '苹果园站'
+                    'stationId': this.stationId
                 };
 
                 this._getList({
@@ -348,7 +356,7 @@
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize,
-                    'stationId': '苹果园站'
+                    'stationId': this.stationId
                 };
 
                 this._getList({

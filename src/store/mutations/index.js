@@ -19,8 +19,18 @@ export default {
     setSen('deviceInfo', deviceInfo);
     state.deviceInfo = deviceInfo;
   },
-  //存储设备id和设备uuid
+  //存储预警信息
   _warnChart(state, warnChart) {
     state.warnChart = warnChart;
+  },
+  //存储车站id
+  _stationId(state, stationId) {
+    setSen('stationId', stationId);
+    state.stationId = stationId;
+  },
+  //存储设备名称列表
+  _equNameList(state, equNameList) {
+    setSen('equNameList', equNameList);
+    state.equNameList = equNameList;
   }
 };

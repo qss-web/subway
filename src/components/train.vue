@@ -2,16 +2,11 @@
     <div class="train-list flex">
         <div class="train-body flex">
             <span class="train-name">6号线<br />Line6</span>
-            <span v-if="!select" class="el-dropdown-link">田村站</span>
-            <el-dropdown v-else class="station-select" placement="top-start">
-                <span class="el-dropdown-link">田村站</span>
+            <span v-if="!select" class="el-dropdown-link">{{currentStation}}</span>
+            <el-dropdown v-else class="station-select" placement="top-start" @command="tabCommand">
+                <span class="el-dropdown-link">{{currentStation}}</span>
                 <el-dropdown-menu class="station-list" slot="dropdown">
-                    <el-dropdown-item><img src="~assets/siteInfo/icon_subway_mini.png" /> 站名一</el-dropdown-item>
-                    <el-dropdown-item><img src="~assets/siteInfo/icon_subway_mini.png" /> 站名二</el-dropdown-item>
-                    <el-dropdown-item><img src="~assets/siteInfo/icon_subway_mini.png" /> 站名三</el-dropdown-item>
-                    <el-dropdown-item><img src="~assets/siteInfo/icon_subway_mini.png" /> 站名四</el-dropdown-item>
-                    <el-dropdown-item><img src="~assets/siteInfo/icon_subway_mini.png" /> 站名五</el-dropdown-item>
-                    <el-dropdown-item><img src="~assets/siteInfo/icon_subway_mini.png" /> 站名六</el-dropdown-item>
+                    <el-dropdown-item v-for="(item,index) in staionsList" :command="item"><img src="~assets/siteInfo/icon_subway_mini.png" /> {{item.label}}</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
@@ -21,8 +16,44 @@
 
 
 <script>
+    import { mapActions, mapMutations, mapState } from 'vuex';
     export default {
-        props: ['select']
+        data() {
+            return {
+                staionsList: [],
+                currentStation: '' //当前显示的站名字
+            };
+        },
+        props: ['select'],
+        computed: {
+            ...mapState(['stationId'])
+        },
+        created() {
+            this.getStationsFn();
+        },
+        methods: {
+            ...mapActions(['_getList']),
+            ...mapMutations(['_stationId']),
+            //获取车站列表
+            getStationsFn() {
+                this._getList({
+                    ops: {},
+                    api: 'getStation',
+                    callback: res => {
+                        this.staionsList = res;
+                        res.filter(item => {
+                            if(item.value == this.stationId) {
+                                this.currentStation = item.label;
+                            }
+                        });
+                    }
+                });
+            },
+            tabCommand(item) {
+                this.currentStation = item.label;
+                this._stationId(item.value);
+            }
+        }
     };
 </script>
 

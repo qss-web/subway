@@ -58,7 +58,7 @@
     export default {
         data() {
             return {
-                tabShow: 3,
+                tabShow: 1,
                 currentPage: 1, //当前页数
                 pageSize: 12, //每页显示数量
                 pageTotal: 0,//总页数
@@ -471,7 +471,6 @@
             },
             //获取设备名称
             getEquNameFn(req) {
-                debugger;
                 if(req.deviceTypeCode && req.deviceInLineId && req.deviceInStationId) {
                     this._getList({
                         ops: req,

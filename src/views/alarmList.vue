@@ -1,26 +1,31 @@
 <template>
     <div class="wholeWrap">
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="tab">
             <ul class="title">
                 <li v-on:click="tabShowFn(true)" v-bind:class="tabShow?'active':''">实时预警信息</li>
                 <li v-on:click="tabShowFn(false)" v-bind:class="tabShow?'':'active'">以往历史事件</li>
                 <dl class="notice flex">
-                    <dd class="error">二级预警：{{equInfoCount[0]}}次</dd>
-                    <dd class="warn">一级预警：{{equInfoCount[1]}}次</dd>
-                    <dd class="normal">运行：{{equInfoCount[2]}}次</dd>
-                    <dd class="offline">断网：{{equInfoCount[3]}}次</dd>
-                    <dd class="stop">停机：{{equInfoCount[4]}}次</dd>
-                    <dd class="g-orange">全部：{{equTotal}}次</dd>
+                    <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
+                    <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
+                    <!-- <dd class="normal">运行：{{equInfoCount[2]}}次</dd> -->
+                    <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[2]}}次</dd>
+                    <!-- <dd class="stop">停机：{{equInfoCount[4]}}次</dd> -->
+                    <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                 </dl>
             </ul>
             <v-search-list v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
             <v-search-list v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList01" v-on:receive="btnFn"></v-search-list>
-            <div class=" pagination ">
+            <div class=" pagination " v-if="tabShow">
                 <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
-                    <span>{{currentPage}}/{{totalPage}}</span>
+                    <span>{{currentPage}} / {{totalPage}}</span>
+                </el-pagination>
+            </div>
+            <div class=" pagination " v-if="!tabShow">
+                <el-pagination :page-size=" pageSize01 " @current-change="changePages01 " layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
+                    <span>{{currentPage01}} / {{totalPage01}}</span>
                 </el-pagination>
             </div>
         </div>
@@ -29,7 +34,8 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
+    import { formatDate } from '../utils';
     export default {
         data() {
             return {
@@ -38,8 +44,14 @@
                 pageSize: 10, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
+
+                currentPage01: 1, //当前页数
+                pageSize01: 10, //每页显示数量
+                totalPage01: 0,//总页数
+                pageNumber01: 0,//总条目数
                 equInfoCount: [], //设备信息
                 equTotal: 0, //设备信息全部
+                getEquNameArr: [],//接口获取的设备名称
                 searchData: {
                     'btnShow': {
                         'export': true
@@ -60,9 +72,9 @@
                         'placeholder': '请选择内容',
                         'val': 'equSys'
                     }, {
-                        'status': 1,
+                        'status': 6,
                         'title': '设备名称',
-                        'placeholder': '请输入内容',
+                        'placeholder': '请选择内容',
                         'val': 'equName'
                     }, {
                         'status': 3,
@@ -71,7 +83,15 @@
                         'placeholderE': '选择结束日期',
                         'val1': 'startTime',
                         'val2': 'endTime'
-                    }]
+                    }],
+                    defaultReq: {
+                        line: '6号线西延线',
+                        station: '',
+                        equSys: '',
+                        equName: '',
+                        startTime: formatDate('', 2) + ' 00:00:00',
+                        endTime: formatDate('', 3)
+                    }
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
@@ -109,7 +129,9 @@
 
                 }],
                 equList: [],
-                equList01: []
+                equList01: [],
+                alarmVal: '', //预警状态
+                isReq: {}
             };
         },
         created() {
@@ -117,13 +139,19 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_equNameList']),
             currentList(index) {
                 this.indexed = index;
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.list();
+                this.getTimelyAlarmListFn(this.isReq, this.alarmVal);
+            },
+            //改变当前页数
+            changePages01(val) {
+                this.currentPage01 = val;
+                this.getAlarmListHistoryFn(this.isReq, this.alarmVal);
             },
             monitorFn() {
                 this.$router.push('monitor');
@@ -132,7 +160,7 @@
             btnFn(val) {
                 this[val]();
             },
-            getTimelyAlarmListFn(req) {
+            getTimelyAlarmListFn(req, val) {
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
@@ -141,12 +169,19 @@
                 if(req) {
                     Object.assign(ops, req);
                 }
+
+                if(val) {
+                    Object.assign(ops, { 'status': val });
+                }
                 this._getList({
                     ops: ops,
                     api: 'timelyAlarmList',
                     callback: res => {
+                        res.counts.splice(2, 1);
+                        res.counts.pop();
                         this.equInfoCount = res.counts;
-                        res.counts.forEach(item => {
+                        this.equTotal = 0;
+                        this.equInfoCount.forEach(item => {
                             this.equTotal += item;
                         });
                         this.equList = res.rows;
@@ -156,27 +191,33 @@
                     }
                 });
             },
-            getAlarmListHistoryFn(req) {
+            getAlarmListHistoryFn(req, val) {
                 const ops = {
-                    'curPage': this.currentPage,
-                    'pageSize': this.pageSize
+                    'curPage': this.currentPage01,
+                    'pageSize': this.pageSize01
                 };
 
                 if(req) {
                     Object.assign(ops, req);
                 }
+
+                if(val) {
+                    Object.assign(ops, { 'status': val });
+                }
                 this._getList({
                     ops: ops,
                     api: 'alarmListHistory',
                     callback: res => {
+                        res.counts.splice(2, 1);
+                        res.counts.pop();
                         this.equInfoCount = res.counts;
                         res.counts.forEach(item => {
                             this.equTotal += item;
                         });
                         this.equList01 = res.rows;
-                        this.currentPage = res.page;
-                        this.totalPage = res.total;
-                        this.pageNumber = res.records;
+                        this.currentPage01 = res.page;
+                        this.totalPage01 = res.total;
+                        this.pageNumber01 = res.records;
                     }
                 });
             },
@@ -184,16 +225,46 @@
                 this.tabShow = b;
                 //b==true  实时预警信息
                 //b==false 以往历史事件
-                this.currentPage = 1;
                 if(b) {
-                    this.getTimelyAlarmListFn();
+                    this.getTimelyAlarmListFn(this.isReq);
                 } else {
-                    this.getAlarmListHistoryFn();
+                    this.getAlarmListHistoryFn(this.isReq);
                 }
             },
             //获取筛选的值
             filterBtn(req) {
-                this.getTimelyAlarmListFn(req);
+                this.isReq = req;
+                if(this.tabShow) {
+                    this.getTimelyAlarmListFn(req);
+                } else {
+                    this.getAlarmListHistoryFn(req);
+                }
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                if(req.line && req.station && req.equSys) {
+                    this._getList({
+                        ops: req,
+                        api: 'selectlist2',
+                        callback: res => {
+                            this.getEquNameArr = [];
+                            res.forEach(item => {
+                                // { 'label': '全部', 'value': '' },
+                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                            });
+                            this._equNameList(this.getEquNameArr);
+                        }
+                    });
+                }
+            },
+            //二级筛选
+            statusFilter(val) {
+                this.alarmVal = val;
+                if(this.tabShow) {
+                    this.getTimelyAlarmListFn(this.isReq, val);
+                } else {
+                    this.getAlarmListHistoryFn(this.isReq, val);
+                }
             }
         }
     };
@@ -249,6 +320,9 @@
             text-align: center;
             padding: 0.14rem 0;
             background: #3c3f46;
+            span {
+                color: #fff !important;
+            }
         }
     }
 </style>
