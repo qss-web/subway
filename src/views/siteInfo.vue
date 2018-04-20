@@ -50,19 +50,19 @@
                 alarmTable: {
                     label: [{
                         'label': '序号',
-                        'width': 20,
+                        'width': 10,
                         'value': 'index'
                     }, {
                         'label': '设备名称',
-                        'width': 25,
+                        'width': 20,
                         'value': 'equName'
                     }, {
                         'label': '时间',
-                        'width': 20,
+                        'width': 30,
                         'value': 'time'
                     }, {
                         'label': '事件描述',
-                        'width': 20,
+                        'width': 25,
                         'value': 'eventDesc'
                     }, {
                         'label': '当前状态',
@@ -77,7 +77,8 @@
                     list: [],
                     other: {
                         style: 5,
-                        isSubShowColor: true
+                        isSubShowColor: true,
+                        btnCss: true
                     }
                 },
                 testTable: {
@@ -126,7 +127,8 @@
                     list: [],
                     other: {
                         style: 5,
-                        isSubShowColor: true
+                        isSubShowColor: true,
+                        btnCss: true
                     }
                 },
                 ringInfo1: {
@@ -410,6 +412,11 @@
 </script>
 
 <style lang="less" scoped>
+    .btn {
+        a {
+            background: none !important;
+        }
+    }
     .device-3d {
         position: absolute;
         left: -0.1rem;

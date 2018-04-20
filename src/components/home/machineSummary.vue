@@ -42,10 +42,14 @@
                 },
                 escalator: {}, //扶梯
                 fan: {}, //风机
-                door: {} //站台门
+                door: {}, //站台门
+                timeOut: ''
             };
         },
         created() {
+            if(this.timeOut) {
+                clearTimeout(this.timeOut);
+            }
             //当月设备运行时间
             this.getMonthRunningTimeFn();
             //今日故障待办事项
@@ -66,7 +70,7 @@
                     api: 'backlogCount',
                     callback: res => {
                         this.failure = res;
-                        setTimeout(() => {
+                        this.timeOut = setTimeout(() => {
                             this.getBacklogCountFn();
                         }, 2000);
                     }

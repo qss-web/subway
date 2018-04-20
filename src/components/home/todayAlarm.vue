@@ -113,10 +113,14 @@
                             }
                         }]
                     }
-                }
+                },
+                timeOut: ''
             };
         },
         created() {
+            if(this.timeOut) {
+                clearTimeout(this.timeOut);
+            }
             this.getTodayAlarmTopFn();
         },
         methods: {
@@ -147,7 +151,7 @@
                                 _this.$router.push({ path: 'alarmStatistics', query: { 'equKey': '0' } });
                             }
                         };
-                        setTimeout(() => {
+                        this.timeOut = setTimeout(() => {
                             this.getTodayAlarmTopFn();
                         }, 2000);
                     }

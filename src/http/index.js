@@ -88,13 +88,13 @@ const xhr = ({ method = 'post', ur, options = {} }) => {
     m = false;
   let load = { close: () => {} };
 
-  setTimeout(() => {
-    !m &&
-      (load = Loading.service({
-        fullscreen: true,
-        text: '拼命加载中...'
-      }));
-  }, 500);
+  //   setTimeout(() => {
+  //     !m &&
+  //       (load = Loading.service({
+  //         fullscreen: true,
+  //         text: '拼命加载中...'
+  //       }));
+  //   }, 500);
 
   let ops = {};
 

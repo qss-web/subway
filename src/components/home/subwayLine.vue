@@ -71,10 +71,14 @@
                 escalator: [],//扶梯预警
                 fan: [],//风机预警
                 door: [],//站台门预警
-                station: [] //车站
+                station: [], //车站
+                timeOut: ''
             };
         },
         created() {
+            if(this.timeOut) {
+                clearTimeout(this.timeOut);
+            }
             this.getStationAlarmStatisticalFn();
         },
         methods: {
@@ -99,7 +103,7 @@
                         this.fan = data.fan;//风机预警
                         this.door = data.door;//站台门预警
                         this.station = data.station; //车站
-                        setTimeout(() => {
+                        this.timeOut = setTimeout(() => {
                             this.getStationAlarmStatisticalFn();
                         }, 2000);
                     }

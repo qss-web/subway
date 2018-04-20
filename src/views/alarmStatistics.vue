@@ -80,7 +80,7 @@
                         station: '',
                         equSys: '',
                         equName: '',
-                        startTime: formatDate('', 3),
+                        startTime: formatDate('', 2) + ' 00:00:00',
                         endTime: formatDate('', 3)
                     }
                 },

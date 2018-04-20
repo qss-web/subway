@@ -29,10 +29,14 @@
                 currentPage: 1, //当前页数
                 pageSize: 4, //每页显示数量
                 timelyAlarm: [],
-                warningTotal: '实时预警信息（0次）' //实时预警信息总数
+                warningTotal: '实时预警信息（0次）', //实时预警信息总数
+                timeOut: ''
             };
         },
         created() {
+            if(this.timeOut) {
+                clearTimeout(this.timeOut);
+            }
             this.getTimelyAlarmTopFn();
         },
         methods: {
@@ -49,7 +53,7 @@
                     callback: res => {
                         this.timelyAlarm = res.list;
                         this.warningTotal = "实时预警信息（" + res.records + "次）";
-                        setTimeout(() => {
+                        this.timeOut = setTimeout(() => {
                             this.getTimelyAlarmTopFn();
                         }, 2000);
                     }

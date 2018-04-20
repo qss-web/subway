@@ -95,10 +95,14 @@
                             }
                         }]
                     }
-                }
+                },
+                timeOut: ''
             };
         },
         created() {
+            if(this.timeOut) {
+                clearTimeout(this.timeOut);
+            }
             this.getBacklogCountFn();
         },
         methods: {
@@ -115,7 +119,7 @@
                         });
                         this.option.xAxis.categories = this.nameShow;
                         this.option.series[0].data = this.valueShow;
-                        setTimeout(() => {
+                        this.timeOut = setTimeout(() => {
                             this.getBacklogCountFn();
                         }, 60000);
                     }

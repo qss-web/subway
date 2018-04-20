@@ -17,7 +17,7 @@
                     <span v-if="item1.value == 'index'" v-on:click="goToNextPage(other.goToNextFn,item)">
                         {{index+1}}
                     </span>
-                    <span v-else-if="item1.btn" class="btn">
+                    <span v-else-if="item1.btn" v-bind:class="other.btnCss?'btnCss':'btn'">
                         <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <span v-else v-bind:class="item1.status == 'status' ?listStatus[item.status-1]:''" v-on:click="goToNextPage(other.goToNextFn,item)">
@@ -173,6 +173,18 @@
             font-size: 0.16rem;
             margin-right: 0.1rem;
             padding: 0 0.2rem;
+        }
+        a:last-child {
+            margin-right: 0;
+        }
+    }
+    .btnCss {
+        a {
+            display: inline-block;
+            color: #fff;
+            font-size: 0.16rem;
+            margin-right: 0.1rem;
+            text-decoration: underline;
         }
         a:last-child {
             margin-right: 0;
