@@ -48,11 +48,14 @@
                             text: null //指定y轴的标题
                         },
                         gridLineColor: '#7281a3',
+                        // labels: {
+                        //     style: {
+                        //         color: '#d4af33'
+                        //     },
+                        //     align: 'center' //标签居中对齐
+                        // },
                         labels: {
-                            style: {
-                                color: '#d4af33'
-                            },
-                            align: 'center' //标签居中对齐
+                            enabled: false
                         },
                         lineColor: '#7281a3',
                         lineWidth: 1,

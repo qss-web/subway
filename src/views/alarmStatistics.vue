@@ -81,7 +81,7 @@
                         equSys: '',
                         equName: '',
                         startTime: formatDate('', 2) + ' 00:00:00',
-                        endTime: formatDate('', 3)
+                        endTime: formatDate('', 2) + ' 23:59:59'
                     }
                 },
                 otherInfo: {
@@ -107,7 +107,7 @@
                 }, {
                     'label': '预警事件',
                     'width': 35,
-                    'value': 'event'
+                    'value': 'alarmEvent'
                 }, {
                     'label': '状态',
                     'width': 10,
@@ -128,11 +128,9 @@
         created() {
             this.equKey = this.$route.query.equKey;
             if(this.equKey || this.equKey == 0) {
-                this.getTodayAlarmFn('', '', this.equKey);
-            } else {
-                this.getTodayAlarmFn();
+                this.searchData.defaultReq.equSys = this.equKey;
             }
-
+            this.getTodayAlarmFn(this.searchData.defaultReq);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -142,7 +140,11 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getTodayAlarmFn(this.isReq, this.alarmVal, this.equKey);
+                if(JSON.stringify(this.isReq) != "{}") {
+                    this.getTodayAlarmFn(this.isReq, this.alarmVal);
+                } else {
+                    this.getTodayAlarmFn(this.searchData.defaultReq, this.alarmVal);
+                }
             },
             //列表子组件按钮
             btnFn(val) {
@@ -152,15 +154,11 @@
             monitorFn() {
                 this.$router.push('monitor');
             },
-            getTodayAlarmFn(req, val, key) {
+            getTodayAlarmFn(req, val) {
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
-
-                if(key) {
-                    Object.assign(ops, { 'equSys': key });
-                }
 
                 if(req) {
                     Object.assign(ops, req);
@@ -191,12 +189,18 @@
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
+                this.currentPage = 1;
                 this.getTodayAlarmFn(req);
             },
             //二级筛选
             statusFilter(val) {
                 this.alarmVal = val;
-                this.getTodayAlarmFn(this.isReq, val);
+                this.currentPage = 1;
+                if(JSON.stringify(this.isReq) != "{}") {
+                    this.getTodayAlarmFn(this.isReq, this.alarmVal);
+                } else {
+                    this.getTodayAlarmFn(this.searchData.defaultReq, this.alarmVal);
+                }
             },
             //获取设备名称
             getEquNameFn(req) {

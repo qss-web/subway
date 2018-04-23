@@ -1,8 +1,8 @@
 <template>
-    <button v-if="name == 'triangle'" class="tag triangle" :class="stationStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}" @click="goToDevice">
+    <button v-if="name == 'triangle'" class="tag triangle" :class="stationStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}" @click="goToDevice(status)">
         <slot></slot>
     </button>
-    <button v-else-if="name == 'line'" class="tag line" :class="stationStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}">
+    <button v-else-if="name == 'line'" v-on:click="escalatorFilterFn" class="tag line" :class="stationStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}">
         <slot></slot>
         <img v-if="type == 1" class="line1" src="~assets/siteInfo/icon_join_line1.png" />
         <img v-if="type == 2" class="line2" src="~assets/siteInfo/icon_join_line2.png" />
@@ -10,10 +10,10 @@
         <img v-if="type == 4" class="line4" src="~assets/siteInfo/icon_join_line4.png" />
         <img v-if="type == 5" class="line5" src="~assets/siteInfo/icon_join_line5.png" />
     </button>
-    <button v-else-if="name == 'number'" class="tag number" :class="doorStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}">
+    <button v-else-if="name == 'number'" v-on:click="doorFilterFn" class="tag number" :class="doorStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}">
         {{numbers[number - 1]}}
     </button>
-    <button v-else-if="name == 'fan'" class="tag fan" :class="stationStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}">
+    <button v-on:click="fanFilterFn" v-else-if="name == 'fan'" class="tag fan" :class="stationStatus[status-1]" :style="{left: x + 'rem', top: y + 'rem'}">
         <slot></slot>
         <img v-if="type == 1" class="fan1" src="~assets/siteInfo/icon_join_fan2.png" />
         <img v-if="type == 2" class="fan2" src="~assets/siteInfo/icon_join_fan3.png" />
@@ -26,12 +26,23 @@
         data() {
             return {
                 numbers: '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿',
-                stationStatus: ['bg-error', 'bg-warn', 'bg-normal', 'bg-stop', 'bg-offline'],
+                stationStatus: ['bg-error', 'bg-warn', 'bg-normal', 'bg-stop', 'bg-offline', 'bg-black'],
                 doorStatus: ['opacity-error', 'opacity-warn', 'opacity-normal', 'opacity-stop', 'opacity-offline']
             };
         },
         methods: {
-            goToDevice() {
+            goToDevice(status) {
+                if(status != '6') {
+                    this.$emit('onclick');
+                }
+            },
+            fanFilterFn() {
+                this.$emit('onclick');
+            },
+            escalatorFilterFn() {
+                this.$emit('onclick');
+            },
+            doorFilterFn() {
                 this.$emit('onclick');
             }
         }

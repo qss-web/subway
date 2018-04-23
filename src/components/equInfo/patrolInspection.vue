@@ -3,15 +3,24 @@
         <div class="flex" style=" padding-top: 0.39rem;">
             <div class="showChart">
                 <v-ring-diagram id="runIndex1" v-if="showValue.xjnum" title="巡视巡检条数" :time="showValue.xjnum+'条'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
+                <p v-else>
+                    暂无数据
+                </p>
             </div>
             <div class="showChart">
                 <v-ring-diagram id="runIndex2" v-if="showValue.zcnum" title="正常条数" :time="showValue.zcnum+'条'" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
+                <p v-else>
+                    暂无数据
+                </p>
             </div>
             <div class="showChart">
                 <v-ring-diagram id="runIndex3" v-if="showValue.gznum" title="故障条数" :time="showValue.gznum+'条'" :showData="test3" :size="size" :setStyle="style"></v-ring-diagram>
+                <p v-else>
+                    暂无数据
+                </p>
             </div>
         </div>
-        <v-search-list :other="otherInfo" :label="info1" :list="equList"></v-search-list>
+        <v-search-list style="min-height: 5.62rem" :other="otherInfo" :label="info1" :list="equList"></v-search-list>
     </div>
 </template>
 
@@ -118,6 +127,10 @@
     .showChart {
         flex: 1;
         padding-bottom: 0.28rem;
+        p {
+            min-height: 2.03rem;
+            line-height: 2.03rem;
+        }
     }
 </style>
 

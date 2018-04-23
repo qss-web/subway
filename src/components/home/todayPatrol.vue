@@ -49,10 +49,11 @@
                         // categories: [],
                         gridLineColor: '#2f4554',
                         labels: {
-                            style: {
-                                color: '#fff'
-                            },
-                            align: 'center' //标签居中对齐
+                            // style: {
+                            //     color: '#fff'
+                            // },
+                            // align: 'center' //标签居中对齐
+                            enabled: false
                         },
                         lineColor: '#2f4554',
                         lineWidth: 1,
@@ -64,6 +65,15 @@
                         bar: {
                             borderWidth: 0,
                             maxPointWidth: 30
+                        },
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y:.1f}%',
+                                color: '#fff',
+                                fontWeight: 'normal'
+                            }
                         }
                     },
                     series: [

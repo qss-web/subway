@@ -28,7 +28,7 @@
                 <img v-if="indexed==5" src="../assets/search/sort05_orange.png" />
             </dd>
         </dl>
-        <v-search-list class="minHeight" v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list"></v-search-list>
+        <v-search-list class="minHeight" v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list" v-on:receive="clickFn"></v-search-list>
         <v-search-list class="minHeight" v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="list"></v-search-list>
         <v-search-list class="minHeight" v-if="indexed==3" v-on:receive="clickFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list"></v-search-list>
         <div class="showPic" v-if="indexed==4">
@@ -84,7 +84,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapState, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -317,9 +317,13 @@
                 queryInfo: ''
             };
         },
+        computed: {
+            ...mapState(['itemObj'])
+        },
         created() { },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
+            ...mapMutations(['_equInfo']),
             fifterBtn(value) {
                 if(value) {
                     this.queryInfo = value;
@@ -332,6 +336,21 @@
             },
             goToFaultSheet() {
                 this.isPop = true;
+            },
+            //点击列表进入设备详情页
+            goToEquDetail() {
+                this._getList({
+                    ops: { 'id': this.itemObj.id.toString() },
+                    api: 'infoDetail',
+                    callback: res => {
+                        this._equInfo(res);
+                        if(this.itemObj.deviceTypeCode == 0 || this.itemObj.deviceTypeCode == 8) {
+                            this.$router.push({ path: '/equInfoOther', query: { 'id': this.itemObj.id, 'isShow': true } });
+                        } else {
+                            this.$router.push({ path: '/equInfo', query: { 'id': this.itemObj.id, 'isShow': true } });
+                        }
+                    }
+                });
             },
             currentList(index) {
                 this.indexed = index;

@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router';
 import routes from './router';
 import { getLoc, getSen } from '../utils';
+import store from '../store';
 
 const router = new VueRouter({
   mode: 'hash',
@@ -11,6 +12,14 @@ const router = new VueRouter({
 // 路由拦截
 router.beforeEach(function(to, from, next) {
   const userInfo = getLoc('userInfo') || getSen('userInfo') || '';
+
+  if (to.path != '/index') {
+    // console.log(store);
+    // console.log(window.newVue, 'newVue');
+    // clearTimeout();
+    // console.log(this.$store.state.timeout);
+    // console.log(to.path, 3);
+  }
 
   if (!userInfo.token && to.path != '/login') {
     return next({ path: '/login' });

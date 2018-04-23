@@ -8,7 +8,7 @@
         </ul>
         <div class="equWrap" v-if="tabShow==1">
             <div class="searchWrap">
-                <v-sub-search v-on:receive="btnShowPopFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData"></v-sub-search>
+                <v-sub-search v-on:receive="btnShowPopFn" v-on:getEquName="getEquNameFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData"></v-sub-search>
             </div>
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo1" v-bind:label="info1" v-bind:list="equList" v-on:receive="clickFn"></v-search-list>
@@ -26,7 +26,7 @@
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info2" v-bind:list="equList.data"></v-search-list>
                 <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
+                    <el-pagination :page-size=" pageSize " @current-change="changePages2 " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{pageTotal}}</span>
                     </el-pagination>
                 </div>
@@ -122,38 +122,29 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'deviceInLineId',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
+                        'val': 'deviceInLineId'
                     }, {
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'deviceInStationId',
-                        'list': []
-                    }, {
-                        'status': 1,
-                        'title': '设备编号',
-                        'placeholder': '请输入内容',
-                        'val': 'deviceCode'
+                        'val': 'deviceInStationId'
                     }, {
                         'status': 2,
                         'title': '设备类型',
                         'placeholder': '请选择内容',
-                        'val': 'deviceTypeCode',
-                        'list': [{
-                            value: '1',
-                            label: '自动扶梯'
-                        }, {
-                            value: '2',
-                            label: '站台门'
-                        }, {
-                            value: '3',
-                            label: '风机'
-                        }]
-                    }]
+                        'val': 'deviceTypeCode'
+                    }, {
+                        'status': 6,
+                        'title': '设备编号',
+                        'placeholder': '请输入内容',
+                        'val': 'deviceCode'
+                    }],
+                    defaultReq: {
+                        deviceInLineId: '6号线西延线',
+                        deviceInStationId: '',
+                        deviceTypeCode: '',
+                        deviceCode: ''
+                    }
                 },
                 searchData01: {
                     'btnShow': {
@@ -276,7 +267,12 @@
                             value: '12',
                             label: '十二月'
                         }]
-                    }]
+                    }],
+                    defaultReq: {
+                        username: '',
+                        stationId: '',
+                        month: ''
+                    }
                 },
                 otherInfo: {
                     isCheck: false, //是否显示多选框
@@ -391,30 +387,42 @@
                     'value': 'faultNum'
                 }],
                 equList: [],
-                equList3: []
+                equList3: [],
+                isReq1: {}, //是否点击过筛选，如果点击过，筛选的值
+                isReq4: {} //是否点击过筛选，如果点击过，筛选的值
             };
         },
         computed: {
             ...mapState(['itemObj'])
         },
         created() {
-            this.infoListFn();
+            this.infoListFn(this.searchData.defaultReq);
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_equInfo']),
+            ...mapMutations(['_equInfo', '_equNameList']),
             currentList(index) {
                 this.tabShow = index;
                 if(index == 1) {
-                    this.infoListFn();
+                    this.currentPage = 1;
+                    if(JSON.stringify(this.isReq1) != "{}") {
+                        this.infoListFn(this.isReq1);
+                    } else {
+                        this.infoListFn(this.searchData.defaultReq);
+                    }
                 } else if(index == 4) {
+                    this.currentPage3 = 1;
                     this.staffStatisticsFn();
                 }
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.infoListFn();
+                if(JSON.stringify(this.isReq1) != "{}") {
+                    this.infoListFn(this.isReq1);
+                } else {
+                    this.infoListFn(this.searchData.defaultReq);
+                }
             },
             //改变当前页数
             changePages3(val) {
@@ -480,6 +488,7 @@
                             res.forEach(item => {
                                 this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id });
                             });
+                            this._equNameList(this.getEquNameArr);
                             this.popData1.options.forEach(item1 => {
                                 if(item1.val == 'id') {
                                     item1.list = this.getEquNameArr;
@@ -504,7 +513,6 @@
                     api: 'infoList',
                     callback: res => {
                         this.equList = res.rows;
-                        this.currentPage = res.page;
                         this.pageTotal = res.total;
                         this.pageNumber = res.records;
                     }
@@ -513,16 +521,21 @@
             //搜索的传值
             fifterBtnFn(req) {
                 if(this.tabShow == 1) {
+                    alert('这里弹出来的是几');
+                    this.isReq1 = req;
+                    this.currentPage = 1;
                     this.infoListFn(req);
                 } else if(this.tabShow == 4) {
+                    this.isReq4 = req;
+                    this.currentPage3 = 1;
                     this.staffStatisticsFn(req);
                 }
             },
             //人员情况统计
             staffStatisticsFn(req) {
                 const ops = {
-                    curPage: this.currentPage,
-                    pageSize: this.pageSize
+                    curPage: this.currentPage3,
+                    pageSize: this.pageSize3
                 };
 
                 if(req) {
@@ -533,7 +546,6 @@
                     api: 'staffStatistics',
                     callback: res => {
                         this.equList3 = res.rows;
-                        this.currentPage3 = res.page;
                         this.pageTotal3 = res.total;
                         this.pageNumber3 = res.records;
                     }

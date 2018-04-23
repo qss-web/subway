@@ -78,8 +78,8 @@
                         equSys: '',
                         equName: '',
                         equStatus: '',
-                        startTime: formatDate('', 2) + '00:00:00',
-                        endTime: formatDate('', 3)
+                        startTime: formatDate('', 2) + ' 00:00:00',
+                        endTime: formatDate('', 2) + ' 23:59:59'
                     }
                 },
                 otherInfo: {
@@ -131,7 +131,7 @@
         },
         props: ['list', 'label', 'checked'],
         created() {
-            this.getCheckRatioListFn();
+            this.getCheckRatioListFn(this.searchData.defaultReq);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -142,7 +142,11 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getCheckRatioListFn(this.isReq);
+                if(JSON.stringify(this.isReq) != "{}") {
+                    this.getCheckRatioListFn(this.isReq);
+                } else {
+                    this.getCheckRatioListFn(this.searchData.defaultReq);
+                }
             },
             getCheckRatioListFn(req) {
                 const ops = {
@@ -169,6 +173,7 @@
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
+                this.currentPage = 1;
                 this.getCheckRatioListFn(req);
             },
             //删除接口

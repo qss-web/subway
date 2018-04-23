@@ -139,7 +139,7 @@
             };
         },
         created() {
-            this.getPointTimelyStatusFn();
+            this.getPointTimelyStatusFn(this.searchData.defaultReq);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -150,7 +150,12 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                if(JSON.stringify(this.isReq) != "{}") {
+                    this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                } else {
+                    this.getPointTimelyStatusFn(this.searchData.defaultReq, this.alarmVal);
+                }
+
             },
             getPointTimelyStatusFn(req, val) {
                 const ops = {
@@ -186,6 +191,7 @@
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
+                this.currentPage = 1;
                 this.getPointTimelyStatusFn(req);
             },
             //获取设备名称
@@ -208,7 +214,12 @@
             //二级筛选
             statusFilter(val) {
                 this.alarmVal = val;
-                this.getPointTimelyStatusFn(this.isReq, val);
+                this.currentPage = 1;
+                if(JSON.stringify(this.isReq) != "{}") {
+                    this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                } else {
+                    this.getPointTimelyStatusFn(this.searchData.defaultReq, this.alarmVal);
+                }
             }
         }
     };

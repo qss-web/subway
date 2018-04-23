@@ -3,15 +3,24 @@
         <div class="flex">
             <div class="showChart">
                 <v-pie-chart id="test1" v-bind:chartData="test1"></v-pie-chart>
+                <!-- <p v-else>
+                    暂无数据
+                </p> -->
             </div>
             <div class="showChart">
                 <v-pie-chart id="test2" v-bind:chartData="test2"></v-pie-chart>
+                <!-- <p v-else>
+                    暂无数据
+                </p> -->
             </div>
             <div class="showChart">
                 <v-pie-chart id="test3" v-bind:chartData="test3"></v-pie-chart>
+                <!-- <p v-else>
+                    暂无数据
+                </p> -->
             </div>
         </div>
-        <v-search-list :other="otherInfo" :label="info1" :list="equList"></v-search-list>
+        <v-search-list style="min-height: 5.76rem;" :other="otherInfo" :label="info1" :list="equList"></v-search-list>
     </div>
 </template>
 

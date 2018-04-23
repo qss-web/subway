@@ -90,7 +90,7 @@
                         equSys: '',
                         equName: '',
                         startTime: formatDate('', 2) + ' 00:00:00',
-                        endTime: formatDate('', 3)
+                        endTime: formatDate('', 2) + ' 23:59:59'
                     }
                 },
                 otherInfo: {
@@ -177,6 +177,9 @@
                     ops: ops,
                     api: 'timelyAlarmList',
                     callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
                         res.counts.splice(2, 1);
                         res.counts.pop();
                         this.equInfoCount = res.counts;
@@ -208,6 +211,9 @@
                     ops: ops,
                     api: 'alarmListHistory',
                     callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
                         res.counts.splice(2, 1);
                         res.counts.pop();
                         this.equInfoCount = res.counts;
@@ -249,7 +255,6 @@
                         callback: res => {
                             this.getEquNameArr = [];
                             res.forEach(item => {
-                                // { 'label': '全部', 'value': '' },
                                 this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
                             });
                             this._equNameList(this.getEquNameArr);

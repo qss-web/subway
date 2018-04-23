@@ -34,7 +34,7 @@
                             <el-table-column prop="statusValue" label="状态" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="system" label="操作" align="center" show-overflow-tooltip>
                                 <template scope="scope">
-                                    <span v-on:click="editBtn(scope.row.keyId)">【监测】</span>
+                                    <span style="cursor: pointer" v-on:click="editBtn(scope.row.keyId)">【监测】</span>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -102,6 +102,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_itemObj']),
             rowClassName({ rowIndex }) {
                 if(rowIndex % 2 == 1) {
                     return 'even';
@@ -119,6 +120,7 @@
                 }
             },
             goToMoreFn1() {
+                this._itemObj('');
                 this.$router.push('/alarmListDay');
             },
             goToMoreFn2() {

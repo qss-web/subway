@@ -12,6 +12,7 @@ export default {
   },
   //列表某一条值
   _itemObj(state, item) {
+    setSen('itemObj', item);
     state.itemObj = item;
   },
   //存储设备id和设备uuid

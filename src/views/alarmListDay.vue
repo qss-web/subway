@@ -1,18 +1,18 @@
 <template>
     <div class="wholeWrap">
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="tab">
             <ul class="title">
                 <li class="active">预警信息</li>
                 <dl class="notice flex">
-                    <dd class="error">二级预警：{{equInfoCount[0]}}次</dd>
-                    <dd class="warn">一级预警：{{equInfoCount[1]}}次</dd>
-                    <dd class="normal">运行：{{equInfoCount[2]}}次</dd>
-                    <dd class="offline">断网：{{equInfoCount[3]}}次</dd>
-                    <dd class="stop">停机：{{equInfoCount[4]}}次</dd>
-                    <dd class="g-orange">全部：{{equTotal}}次</dd>
+                    <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
+                    <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
+                    <!-- <dd class="normal">运行：{{equInfoCount[2]}}次</dd> -->
+                    <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}次</dd>
+                    <!-- <dd class="stop">停机：{{equInfoCount[4]}}次</dd> -->
+                    <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                 </dl>
             </ul>
             <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
@@ -27,7 +27,8 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
+    import { formatDate } from '../utils';
     export default {
         data() {
             return {
@@ -57,7 +58,7 @@
                         'placeholder': '请选择内容',
                         'val': 'equSys'
                     }, {
-                        'status': 1,
+                        'status': 6,
                         'title': '设备名称',
                         'placeholder': '请输入内容',
                         'val': 'equName'
@@ -68,7 +69,15 @@
                         'placeholderE': '选择结束日期',
                         'val1': 'startTime',
                         'val2': 'endTime'
-                    }]
+                    }],
+                    defaultReq: {
+                        line: '6号线西延线',
+                        station: '',
+                        equSys: '',
+                        equName: '',
+                        startTime: formatDate('', 2) + ' 00:00:00',
+                        endTime: formatDate('', 3)
+                    }
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
@@ -105,20 +114,33 @@
                     'btn': [{ 'monitor': true, 'name': '监测', 'fn': 'monitorFn' }]
 
                 }],
-                equList: []
+                equList: [],
+                alarmVal: '',
+                isReq: {},
+                getEquNameArr: []
             };
         },
+        computed: {
+            ...mapState(['itemObj'])
+        },
         created() {
-            this.getTimelyAlarmListFn();
+            // if(this.itemObj.equuid) {
+            // }
+            this.getTimelyAlarmListFn(this.searchData.defaultReq);
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_equNameList']),
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getTimelyAlarmListFn();
+                if(JSON.stringify(this.isReq) != "{}") {
+                    this.getTimelyAlarmListFn(this.isReq, this.alarmVal);
+                } else {
+                    this.getTimelyAlarmListFn(this.searchData.defaultReq, this.alarmVal);
+                }
             },
-            getTimelyAlarmListFn(req) {
+            getTimelyAlarmListFn(req, val) {
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
@@ -127,13 +149,20 @@
                 if(req) {
                     Object.assign(ops, req);
                 }
+
+                if(val) {
+                    Object.assign(ops, { 'status': val });
+                }
                 this._getList({
                     ops: ops,
                     api: 'timelyAlarmList',
                     callback: res => {
+                        res.counts.splice(2, 1);
+                        res.counts.pop();
                         res.rows.forEach(item => {
                             item.isCheck = false;
                         });
+                        this.equTotal = 0;
                         this.equInfoCount = res.counts;
                         res.counts.forEach(item => {
                             this.equTotal += item;
@@ -146,6 +175,8 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
+                this.currentPage = 1;
                 this.getTimelyAlarmListFn(req);
             },
             //子组件按钮
@@ -154,6 +185,33 @@
             },
             monitorFn() {
                 this.$router.push('monitor');
+            },
+            //二级筛选
+            statusFilter(val) {
+                this.alarmVal = val;
+                ths.currentPage = 1;
+                if(JSON.stringify(this.isReq) != "{}") {
+                    this.getTimelyAlarmListFn(this.isReq, this.alarmVal);
+                } else {
+                    this.getTimelyAlarmListFn(this.searchData.defaultReq, this.alarmVal);
+                }
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                if(req.line && req.station && req.equSys) {
+                    this._getList({
+                        ops: req,
+                        api: 'selectlist2',
+                        callback: res => {
+                            this.getEquNameArr = [];
+                            res.forEach(item => {
+                                // { 'label': '全部', 'value': '' },
+                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                            });
+                            this._equNameList(this.getEquNameArr);
+                        }
+                    });
+                }
             }
         }
     };
@@ -201,6 +259,7 @@
                     margin-left: 0.26rem;
                     height: 0.48rem;
                     line-height: 0.5rem;
+                    cursor: pointer;
                 }
             }
         }
@@ -208,6 +267,9 @@
             text-align: center;
             padding: 0.14rem 0;
             background: #3c3f46;
+            span {
+                color: #fff;
+            }
         }
     }
 </style>

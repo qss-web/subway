@@ -36,7 +36,10 @@
                         }
                     },
                     tooltip: {
-                        enabled: false
+                        formatter: function() {
+                            return '<b>' + _this.title + '</b><br/>' +
+                                this.y + '/' + _this.max;
+                        }
                     },
                     yAxis: {
                         lineWidth: 0,

@@ -122,7 +122,7 @@
                     }, {
                         'label': '检维修建议',
                         'width': 18,
-                        'value': 'suggest'
+                        'value': 'repairAdvice'
                     }],
                     list: [],
                     other: {
@@ -171,7 +171,7 @@
                     id: 'health3'
                 },
                 //车站状态
-                stationStatus: ['bg-error', 'bg-warn', 'bg-normal', 'bg-stop', 'bg-offline'],
+                stationStatus: ['bg-error', 'bg-warn', 'bg-normal', 'bg-stop', 'bg-offline', 'bg-black'],
                 //请求车站设备状态给后台传的参数
                 uuidStr: '',
                 //扶梯和站台门的信息 type==2站台门   type==3 扶梯
@@ -193,60 +193,60 @@
                     name: 'PGYPBM501'
                 }, {
                     type: 3,
-                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
-                    deviceId: '334',
+                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceId: '1030',
                     x: '5.8',
                     y: '2.53',
                     status: "3",
-                    name: '22-2'
+                    name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
-                    deviceId: '334',
+                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceId: '1030',
                     x: '4.8',
                     y: '2.2',
                     status: "4",
-                    name: '22-2'
+                    name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
-                    deviceId: '334',
+                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceId: '1030',
                     x: '4.2',
                     y: '1.8',
                     status: "5",
-                    name: '22-2'
+                    name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
-                    deviceId: '334',
+                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceId: '1030',
                     x: '2.2',
                     y: '3',
                     status: "1",
-                    name: '22-2'
+                    name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
-                    deviceId: '334',
+                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceId: '1030',
                     x: '7.3',
                     y: '1.5',
                     status: "4",
-                    name: '22-2'
+                    name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
-                    deviceId: '334',
+                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceId: '1030',
                     x: '8.2',
                     y: '1.7',
                     status: "3",
-                    name: '22-2'
+                    name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: 'a97cb605136d5bf01e9bcf428ef6c484',
-                    deviceId: '334',
+                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceId: '1030',
                     x: '6.6',
                     y: '1',
                     status: "2",
-                    name: '22-2'
+                    name: 'PGY501自动扶梯'
                 }],
                 //风机的信息 type==1风机
                 fanInfo: [{
@@ -393,6 +393,9 @@
                     api: 'equimentOfStation',
                     callback: res => {
                         res.forEach(item => {
+                            if(item.status == '-1') {
+                                item.status = '6';
+                            }
                             this.stationInfo.filter(item1 => {
                                 if(item.uuid == item1.deviceUuid) {
                                     item1.status = item.status;

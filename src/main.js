@@ -22,11 +22,11 @@ Object.keys(components).forEach(key => {
   // 首字母大写
   var name = key.replace(/(\w)/, v => v.toUpperCase());
 
-  //使用标签时前缀需要加 g- 以示区别
+  //使用标签时前缀需要加 v- 以示区别
   Vue.component(`v${name}`, components[key]);
 });
 
-new Vue({
+window.newVue = new Vue({
   store,
   router,
   render: h => h(App)

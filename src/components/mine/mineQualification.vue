@@ -2,17 +2,20 @@
     <div class="qualification">
         <img class="axis" src="~assets/mine/icon_axis.png" />
         <div class="chart">
-            <div class="circle low">
-                <span class="item" style="left:1rem;top:0.1rem;">F01</span>
-                <span class="item" style="left:1.5rem;top:0.4rem;">F01</span>
-                <span class="item" style="left:1.8rem;top:0.8rem;">F01</span>
+            <div class="circle low" style="border:1px solid red">
                 <div class="circle middle">
-                    <span class="item" style="left:1rem;top:0.1rem;">F01</span>
-                    <span class="item" style="left:1.2rem;top:1rem;">F01</span>
                     <div class="circle high">
-                        <span class="item" style="left:0.5rem;top:0.2rem;">F01</span>
                     </div>
                 </div>
+                <!--低-->
+                <span class="item01" style="left:1.7rem;bottom:1.8rem">F01</span>
+                <span class="item02" style="left:1.5rem;bottom:0.4rem;">F02</span>
+                <span class="item03" style="left:1.8rem;bottom:0.8rem;">F03</span>
+                <!--中-->
+                <span class="item01" style="left:1rem;bottom:0.5rem;">F04</span>
+                <span class="item02" style="left:1.2rem;bottom:1rem;">F05</span>
+                <!--高-->
+                <span class="item01" style="left:0.5rem;bottom:1.2rem;">F06</span>
             </div>
         </div>
         <ul class="legend">
@@ -27,7 +30,6 @@
     export default {
         data() {
             return {
-
             };
         },
         created() {
@@ -94,18 +96,49 @@
                 background-color: #9f0f18;
                 z-index: 3;
             }
-            .item {
+            .item01 {
                 font-size: 0.12rem;
                 position: absolute;
+                z-index: 5;
                 &:before {
                     content: '';
-                    width: 0.05rem;
-                    height: 0.05rem;
+                    width: 0.06rem;
+                    height: 0.06rem;
                     background: #000;
                     display: inline-block;
                     vertical-align: middle;
                     border-radius: 50%;
                     margin-right: 0.02rem;
+                }
+            }
+            .item02 {
+                font-size: 0.12rem;
+                position: absolute;
+                z-index: 5;
+                &:before {
+                    content: '';
+                    width: 0.06rem;
+                    height: 0.06rem;
+                    background: #000;
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-right: 0.02rem;
+                }
+            }
+            .item03 {
+                font-size: 0.12rem;
+                position: absolute;
+                z-index: 5;
+                &:before {
+                    content: '';
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-right: 0.02rem;
+                    width: 0;
+                    height: 0;
+                    border-left: 0.04rem solid transparent;
+                    border-right: 0.04rem solid transparent;
+                    border-bottom: 0.07rem solid #000;
                 }
             }
         }

@@ -12,8 +12,8 @@
                     <li v-for="(item,index) in alarmInfos">{{index+1}}、{{item}}</li>
                 </ul>
             </div>
-            <div class="device-3d" v-on:click="goInfoFn">
-                <v-tag v-for="(item,index) in escalatorInfo" name="line" :type="item.type" :status="item.status" :x="item.x" :y="item.y">{{item.name}}</v-tag>
+            <div class="device-3d">
+                <v-tag v-on:onclick="escalatorFilterFn(item.fixedId)" v-for="(item,index) in escalatorInfo" name="line" :type="item.type" :status="item.status" :x="item.x" :y="item.y">{{item.name}}</v-tag>
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日设备健康监测指标</button>
@@ -170,7 +170,7 @@
                     }, {
                         'label': '检维修建议',
                         'width': 18,
-                        'value': 'suggest'
+                        'value': 'repairAdvice'
                     }],
                     list: [],
                     other: {
@@ -243,17 +243,7 @@
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),
-            ...mapMutations(['_equInfo', '_warnChart']),
-            goInfoFn() {
-                this._getList({
-                    ops: { 'id': this.deviceInfo.deviceId.toString() },
-                    api: 'infoDetail',
-                    callback: res => {
-                        this._equInfo(res);
-                        this.$router.push({ path: '/equInfo', query: { 'id': this.deviceInfo.deviceId, 'isShow': true } });
-                    }
-                });
-            },
+            ...mapMutations(['_warnChart']),
             monitorFn() {
                 this.$router.push({ path: 'monitor' });
             },
@@ -297,13 +287,22 @@
                     }
                 });
             },
+            //部位点击筛选测点状态列表
+            escalatorFilterFn(item) {
+                this.activeIndex = 1;
+                this.getPointStatusFn(item);
+            },
             //获取测点信息
-            getPointStatusFn() {
+            getPointStatusFn(item) {
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize,
                     'deviceUuid': this.deviceInfo.deviceUuid
                 };
+
+                if(item) {
+                    Object.assign(ops, { 'sectionName': item });
+                }
 
                 this._getList({
                     ops: ops,
@@ -365,7 +364,7 @@
 <style lang="less" scoped>
     .button-group {
         position: absolute;
-        left: 0.6rem;
+        left: 0.2rem;
         top: 0.6rem;
         .btn-name {
             color: #fff;
@@ -386,12 +385,12 @@
     }
 
     .alarm-reason {
-        width: 4.68rem;
+        width: 3.68rem;
         background-color: #6d7389;
         color: #fff;
         font-size: 0.16rem;
         position: absolute;
-        left: 5.2rem;
+        left: 5.8rem;
         top: 0.26rem;
         &-title {
             background-color: #64697f;

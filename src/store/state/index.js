@@ -16,7 +16,7 @@ const userInfo = getLoc('userInfo') || '';
 export default {
   userInfo: userInfo,
   equInfo: getSen('equInfo') || '',
-  itemObj: '',
+  itemObj: getSen('itemObj') || '',
   deviceInfo: getSen('deviceInfo') || {},
   warnChart: [],
   stationId: getSen('stationId') || '',

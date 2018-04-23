@@ -81,14 +81,6 @@
                             },
                             groupPadding: 0.08,
                             dataLabels: { //数据项文本
-                                enabled: true,
-                                align: 'center',
-                                borderWidth: 0,
-                                useHTML: true,
-                                style: {
-                                    fontSize: '0.18rem'
-                                },
-                                format: '{y}条'
                             }
                         }
                     },
@@ -115,12 +107,26 @@
                     id: 'mineTodolist1',
                     option: {
                         ...this.option,
+                        plotOptions: {
+                            column: {
+                                dataLabels: {
+                                    format: '{y}条',
+                                    enabled: true,
+                                    align: 'center',
+                                    borderWidth: 0,
+                                    useHTML: true,
+                                    style: {
+                                        fontSize: '0.18rem'
+                                    }
+                                }
+                            }
+                        },
                         title: {
                             ...this.option.title,
                             text: `<div class="chart-title today-alarm">
                                     <span>今日预警信息</span><br />
                                     <span class="count">`+ this.backlogInfo.warnInfo.total + `</span>
-                                    <span class="unit">台</span>
+                                    <span class="unit">条</span>
                                 </div>` // 指定图表标题
                         },
                         series: [
@@ -181,6 +187,20 @@
                     id: 'mineTodolist2',
                     option: {
                         ...this.option,
+                        plotOptions: {
+                            column: {
+                                dataLabels: {
+                                    format: '{y}台',
+                                    enabled: true,
+                                    align: 'center',
+                                    borderWidth: 0,
+                                    useHTML: true,
+                                    style: {
+                                        fontSize: '0.18rem'
+                                    }
+                                }
+                            }
+                        },
                         title: {
                             ...this.option.title,
                             text: `<div class="chart-title device-failure">
@@ -238,7 +258,7 @@
                         tooltip: {
                             ...this.option.tooltip,
                             headerFormat: '当前设备故障<br />',
-                            pointFormat: '{point.name}{point.y}条'
+                            pointFormat: '{point.name}{point.y}台'
                         }
                     }
                 };
@@ -248,6 +268,20 @@
                     id: 'mineTodolist3',
                     option: {
                         ...this.option,
+                        plotOptions: {
+                            column: {
+                                dataLabels: {
+                                    format: '{y}%',
+                                    enabled: true,
+                                    align: 'center',
+                                    borderWidth: 0,
+                                    useHTML: true,
+                                    style: {
+                                        fontSize: '0.18rem'
+                                    }
+                                }
+                            }
+                        },
                         title: {
                             ...this.option.title,
                             text: `<div class="chart-title today-patrol">
@@ -304,7 +338,7 @@
                         tooltip: {
                             ...this.option.tooltip,
                             headerFormat: '今日巡检比例<br />',
-                            pointFormat: '{point.name}{point.y}条'
+                            pointFormat: '{point.name}{point.y}%'
                         }
                     }
                 };

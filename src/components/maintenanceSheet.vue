@@ -66,14 +66,19 @@
                 </dl>
                 <dl class="sign flex">
                     <dd>更换零配件情况（维修人员填写）：
-                        <input type="radio" name="radio1" value="是" /> 是 &nbsp;&nbsp;
-                        <input type="radio" name="radio1" value="否" /> 否
+                        <input type="radio" v-model="info.isReplacePart" value="1" /> 是 &nbsp;&nbsp;
+                        <input type="radio" v-model="info.isReplacePart" value="0" /> 否
                     </dd>
                 </dl>
                 <dl class="sign flex">
                     <dd>修复时间：<input type="text" value="" v-model="info.repairTime" /></dd>
                     <dd>维修人员签字：<input type="text" value="" v-model="info.repairUserName" /></dd>
-                    <dd>修复确认签字：<input type="text" value="" v-model="info.confirmUserName" /></dd>
+                    <dd class="showPic">修复确认签字：
+                        <a href="javascript:;">
+                            图片
+                            <div><img v-bind:src="info.confirmUserName" /></div>
+                        </a>
+                    </dd>
                 </dl>
                 <dl class="textareaShow">
                     <dt>备注：</dt>
@@ -100,7 +105,8 @@
     export default {
         data() {
             return {
-                info: {}
+                info: {},
+                bigPicShow: ''
             };
         },
         created() {
@@ -137,6 +143,9 @@
     };
 </script>
 <style lang="less" scoped>
+    textarea {
+        resize: none;
+    }
     .layer {
         position: fixed;
         top: 0;
@@ -212,6 +221,33 @@
                     text-indent: 1em;
                     input[type='text'] {
                         width: 1.8rem;
+                    }
+                }
+                dd.showPic {
+                    position: relative;
+                    a {
+                        color: blue;
+                        text-decoration: underline;
+                        div {
+                            display: none;
+                            position: absolute;
+                            right: 0.2rem;
+                            bottom: 0.4rem;
+                            z-index: 99;
+                            width: 180px;
+                            height: 233px;
+                            background: #fff;
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                float: left;
+                            }
+                        }
+                    }
+                    a:hover {
+                        div {
+                            display: block;
+                        }
                     }
                 }
             }

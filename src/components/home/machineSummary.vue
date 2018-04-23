@@ -5,7 +5,7 @@
                 <span class="text">当月设备运行时间</span>
                 <span class="line"></span>
             </div>
-            <div class="chart flex" v-on:click="goRunList">
+            <div class="chart flex currentChart" v-on:click="goRunList">
                 <v-running-time v-if="escalator.max" id="running1" title="自动扶梯" :max="escalator.max" :current="escalator.current"></v-running-time>
                 <v-running-time v-if="fan.max" id="running2" title="风机" :max="fan.max" :current="fan.current"></v-running-time>
                 <v-running-time v-if="door.max" id="running3" title="站台门" :max="door.max" :current="door.current"></v-running-time>
@@ -145,7 +145,11 @@
         justify-content: space-around;
         cursor: pointer;
     }
-
+    .line1 {
+        .chart {
+            min-height: 1.22rem;
+        }
+    }
     .line2 {
         padding-top: 0.2rem;
     }

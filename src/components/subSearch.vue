@@ -16,12 +16,12 @@
                         </el-option>
                     </el-select>
                     <!-- 判断是不是设备系统的列表，如果是设备系统列表，数据直接在子组件请求 -->
-                    <el-select v-else-if="item.val == 'equSys'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                    <el-select v-else-if="item.val == 'equSys' || item.val=='deviceTypeCode'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                         <el-option v-for="itemSel in sysList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
                     <!-- 判断是不是线路列表，如果是线路列表，数据直接在子组件请求 -->
-                    <el-select v-else-if="item.val == 'line'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                    <el-select v-else-if="item.val == 'line' || item.val == 'deviceInLineId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                         <el-option key="" label="全部" value=""></el-option>
                         <el-option v-for="itemSel in lineList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>

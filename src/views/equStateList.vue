@@ -15,7 +15,7 @@
                         <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}台</dd>
                     </dl>
                 </ul>
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -112,6 +112,10 @@
                     'width': 10,
                     'value': 'statusValue',
                     'status': 'status'
+                }, {
+                    'label': '操作',
+                    'width': 10,
+                    'btn': [{ 'monitor': true, 'name': '监测', 'fn': 'monitorFn' }]
                 }],
                 equList: [],
                 isReq: {},
@@ -119,7 +123,7 @@
             };
         },
         created() {
-            this.getEqTimelyStatusFn();
+            this.getEqTimelyStatusFn(this.searchData.defaultReq);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -130,7 +134,11 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
+                if(JSON.stringify(this.isReq) != "{}") {
+                    this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
+                } else {
+                    this.getEqTimelyStatusFn(this.searchData.defaultReq, this.alarmVal);
+                }
             },
             getEqTimelyStatusFn(req, val) {
                 const ops = {
@@ -166,6 +174,7 @@
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
+                this.currentPage = 1;
                 this.getEqTimelyStatusFn(req);
             },
             //获取设备名称
@@ -188,7 +197,19 @@
             //二级筛选
             statusFilter(val) {
                 this.alarmVal = val;
-                this.getEqTimelyStatusFn(this.isReq, val);
+                this.currentPage = 1;
+                if(JSON.stringify(this.isReq) != "{}") {
+                    this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
+                } else {
+                    this.getEqTimelyStatusFn(this.searchData.defaultReq, this.alarmVal);
+                }
+            },
+            monitorFn() {
+                this.$router.push('monitor');
+            },
+            //子组件按钮
+            btnFn(val) {
+                this[val]();
             }
         }
     };

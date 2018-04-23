@@ -41,9 +41,11 @@
                         <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <span v-else v-bind:class="item.status?listStatus[item.status-1] :''" v-on:click="goToNextPage(other.goToNextFn,item)">
-                        <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">{{item[item1.value]}}</a>
-                        <i class="hoverShow">{{item[item1.value]}}</i>
-                        <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
+                        <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
+                            {{item[item1.value]}}
+                            <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
+                        </a>
+                        <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
                     </span>
                 </div>
             </dd>
@@ -142,10 +144,12 @@
             bottom: 0.4rem;
             left: 0;
             line-height: 0.2rem;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.8);
             color: #000;
-            border-radius: 5px;
-            padding: 0 0.1rem;
+            border-radius: 4px;
+            padding: 0.05rem 0.1rem;
+            border: 1px solid #e1e1e1;
+            box-shadow: 1px 1px 2px #ccc;
         }
     }
     div span:hover {

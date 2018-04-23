@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     import { formatDate } from '../utils';
     export default {
         data() {
@@ -73,7 +73,7 @@
                         equName: '',
                         faultSys: '',
                         startTime: formatDate('', 2) + ' 00:00:00',
-                        endTime: formatDate('', 3)
+                        endTime: formatDate('', 2) + ' 23:59:59'
                     }
                 },
                 otherInfo: {
@@ -128,12 +128,19 @@
                 equKey: ''
             };
         },
+        computed: {
+            ...mapState(['itemObj'])
+        },
         created() {
             this.equKey = this.$route.query.equKey;
+
             if(this.equKey || this.equKey == 0) {
-                this.getBacklogFn('', this.equKey);
+                this.searchData.defaultReq.equSys = this.equKey;
+                this.getBacklogFn(this.searchData.defaultReq);
+            } else if(this.itemObj.equuid) {
+                this.getBacklogFn(this.searchData.defaultReq);
             } else {
-                this.getBacklogFn();
+                this.getBacklogFn(this.searchData.defaultReq);
             }
         },
         methods: {
@@ -145,17 +152,17 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getBacklogFn(this.isReq, this.equKey);
+                if(JSON.stringify(this.isReq) != "{}") {
+                    this.getBacklogFn(this.isReq);
+                } else {
+                    this.getBacklogFn(this.searchData.defaultReq);
+                }
             },
-            getBacklogFn(req, key) {
+            getBacklogFn(req) {
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
-
-                if(key) {
-                    Object.assign(ops, { 'equSys': key });
-                }
 
                 if(req) {
                     Object.assign(ops, req);
@@ -173,6 +180,7 @@
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
+                this.currentPage = 1;
                 this.getBacklogFn(req);
             },
             //子组件按钮
@@ -195,7 +203,6 @@
                         callback: res => {
                             this.getEquNameArr = [];
                             res.forEach(item => {
-                                // { 'label': '全部', 'value': '' },
                                 this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
                             });
                             this._equNameList(this.getEquNameArr);
