@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mask"></div>
-        <div class="popContent" style="border:1px solid red">
+        <div class="popContent">
             <h3>{{popData.titleTotal}}</h3>
             <div class="content">
                 <div class="subContent clearfix">

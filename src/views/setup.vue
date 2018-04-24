@@ -86,23 +86,12 @@
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'deviceTypeCode',
-                        'list': [{
-                            value: '0',
-                            label: '站台门'
-                        }, {
-                            value: '7',
-                            label: '自动扶梯'
-                        }, {
-                            value: '8',
-                            label: '风机'
-                        }]
+                        'val': 'deviceTypeCode'
                     }, {
-                        'status': 2,
+                        'status': 6,
                         'title': '设备名称',
                         'placeholder': '请选择内容',
                         'val': 'id',
-                        'list': []
                     }, {
                         'status': 1,
                         'title': '位置',
@@ -480,11 +469,6 @@
                                 this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id });
                             });
                             this._equNameList(this.getEquNameArr);
-                            this.popData1.options.forEach(item1 => {
-                                if(item1.val == 'id') {
-                                    item1.list = this.getEquNameArr;
-                                }
-                            });
                         }
                     });
                 }
