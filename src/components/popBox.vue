@@ -57,6 +57,13 @@
                                 </el-option>
                             </el-select>
                         </li>
+                        <li v-if="item.status == 7" class="popBox">
+                            <span>{{item.title}}：</span>
+                            <div style="line-height: 0.42rem">
+                                <el-radio v-model="popReq[item.val]" label="1">是</el-radio>
+                                <el-radio v-model="popReq[item.val]" label="0">否</el-radio>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div class="btn">
@@ -206,7 +213,7 @@
                             font-size: 0.2rem;
                             height: 0.46rem;
                             line-height: 0.46rem;
-                            width: 1.2rem;
+                            width: 1.4rem;
                         }
                     }
                 }

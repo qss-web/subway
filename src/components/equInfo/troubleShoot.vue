@@ -111,17 +111,29 @@
         },
         created() {
             this.equId = this.$route.query.id;
-            //this.infoFaultFn();
+            this.getPie1Fn();
+            this.getPie2Fn();
             this.infoFaultListFn();
         },
         methods: {
             ...mapActions(['_getList']),
-            infoFaultFn() {
+            getPie1Fn() {
                 this._getList({
                     ops: {},
-                    api: 'infoFault',
-                    callback: () => {
-
+                    api: 'getPie1',
+                    callback: res => {
+                        console.log(res);
+                    }
+                });
+            },
+            getPie2Fn() {
+                this._getList({
+                    ops: {
+                        'id': this.equId
+                    },
+                    api: 'getPie2',
+                    callback: res => {
+                        console.log(res);
                     }
                 });
             },

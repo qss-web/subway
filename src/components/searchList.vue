@@ -43,9 +43,14 @@
                     <span v-else v-bind:class="item.status?listStatus[item.status-1] :''" v-on:click="goToNextPage(other.goToNextFn,item)">
                         <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
                             {{item[item1.value]}}
-                            <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
+                            <i class="redDot" v-if="item1.isShowRed && item.type==1">
+                            </i>
                         </a>
                         <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
+                        
+                        <ul class="hoverShow" v-if="item1.isShowRed && item.type==1">
+                            <li v-for="(itemList,index) in item.gzlist">{{itemList}}</li>
+                        </ul>
                     </span>
                 </div>
             </dd>
@@ -153,9 +158,32 @@
             border: 1px solid #e1e1e1;
             box-shadow: 1px 1px 2px #ccc;
         }
+        ul.hoverShow {
+            display: none;
+            font-style: normal;
+            position: absolute;
+            width: 3rem;
+            bottom: 0.4rem;
+            left: 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 4px;
+            padding: 0.05rem 0.1rem;
+            border: 1px solid #e1e1e1;
+            box-shadow: 1px 1px 2px #ccc;
+            li {
+                font-weight: normal;
+                line-height: 0.26rem;
+                color: #000;
+                font-size: 0.16rem;
+                text-align: left;
+            }
+        }
     }
     div span:hover {
         i.hoverShow {
+            display: block;
+        }
+        ul.hoverShow {
             display: block;
         }
     }
@@ -167,11 +195,19 @@
         border-radius: 100%;
         box-shadow: 0px 0px 8px 2px red;
         margin-left: 0.1rem;
+        position: relative;
+        .list {
+            position: fixed;
+            width: 3rem;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            border: 1px solid red;
+        }
     }
     .btn {
         a {
             min-width: 0.28rem;
-            height: 0.28rem;
             line-height: 0.28rem;
             display: inline-block;
             background: #7c8298;
@@ -212,7 +248,6 @@
             color: #fff;
             background: url('../assets/search/sub_title_bg.png') repeat-x;
             font-size: 0.2rem;
-            height: 0.39rem;
             line-height: 0.38rem;
             font-weight: bold;
             li {
@@ -237,7 +272,6 @@
                     margin-top: 0.16rem;
                 }
                 span {
-                    height: 0.56rem;
                     line-height: 0.56rem;
                     font-size: 0.18rem;
                     color: #fff;
@@ -266,7 +300,6 @@
             color: #0e0e0e;
             background: #d7d9db;
             font-size: 0.2rem;
-            height: 0.52rem;
             line-height: 0.52rem;
             font-weight: bold;
             li {
@@ -291,7 +324,6 @@
                     margin-top: 0.16rem;
                 }
                 span {
-                    height: 0.56rem;
                     line-height: 0.56rem;
                     font-size: 0.2rem;
                     color: #fff;
@@ -322,7 +354,6 @@
             color: #1c1e2a;
             background: #c5cbe3;
             font-size: 0.2rem;
-            height: 0.52rem;
             line-height: 0.52rem;
             font-weight: bold;
             li {
@@ -347,7 +378,6 @@
                     margin-top: 0.14rem;
                 }
                 span {
-                    height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.2rem;
                     color: #2f4554;
@@ -374,7 +404,6 @@
             color: #1c1e2a;
             background: #c5cbe3;
             font-size: 0.16rem;
-            height: 0.4rem;
             line-height: 0.4rem;
             font-weight: bold;
             li {
@@ -400,7 +429,6 @@
                     margin-top: 0.14rem;
                 }
                 span {
-                    height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.16rem;
                     color: #fff;
@@ -424,7 +452,6 @@
             color: #fff;
             background: url('../assets/other/sub_title_bg.png') repeat-x;
             font-size: 0.16rem;
-            height: 0.39rem;
             line-height: 0.38rem;
             margin: 0 0.04rem;
             font-weight: bold;
@@ -451,7 +478,6 @@
                     margin-top: 0.14rem;
                 }
                 span {
-                    height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.16rem;
                     color: #fff;
@@ -472,7 +498,6 @@
             color: #1c1e2a;
             background: #c5cbe3;
             font-size: 0.2rem;
-            height: 0.52rem;
             line-height: 0.52rem;
             font-weight: bold;
             li {
@@ -497,7 +522,6 @@
                     margin-top: 0.14rem;
                 }
                 span {
-                    height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.2rem;
                     color: #2f4554;
@@ -524,7 +548,6 @@
             color: #1c1e2a;
             background: #e5e8f7;
             font-size: 0.2rem;
-            height: 0.52rem;
             line-height: 0.52rem;
             font-weight: bold;
             li {
@@ -549,7 +572,6 @@
                     margin-top: 0.14rem;
                 }
                 span {
-                    height: 0.52rem;
                     line-height: 0.52rem;
                     font-size: 0.2rem;
                     color: #2f4554;
@@ -576,7 +598,6 @@
             color: #2f4554;
             background: #e4e8f7;
             font-size: 0.18rem;
-            height: 0.36rem;
             line-height: 0.36rem;
             font-weight: bold;
             li {
@@ -602,7 +623,6 @@
                 }
                 span {
                     font-size: 0.18rem;
-                    height: 0.36rem;
                     line-height: 0.36rem;
                     color: #2f4554;
                 }
@@ -628,7 +648,6 @@
             color: #2f4554;
             background: #bcc2da;
             font-size: 0.16rem;
-            height: 0.36rem;
             line-height: 0.36rem;
             font-weight: bold;
             li {
@@ -654,7 +673,6 @@
                 }
                 span {
                     font-size: 0.16rem;
-                    height: 0.36rem;
                     line-height: 0.36rem;
                     color: #2f4554;
                 }

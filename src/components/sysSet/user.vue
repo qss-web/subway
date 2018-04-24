@@ -82,6 +82,10 @@
                         'title': '所属维修部',
                         'placeholder': '请输入所属维修部',
                         'val': 'maintainDepartmentName'
+                    }, {
+                        'status': 7,
+                        'title': '显示系统设置',
+                        'val': 'remark'
                     }]
                 },
                 searchData: {

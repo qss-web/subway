@@ -53,7 +53,7 @@
 </template>
 <script>
     import { mapActions } from 'vuex';
-    import { mapMutations } from '../../../../../others/pupu/node_modules/_vuex@2.4.1@vuex';
+    import { mapMutations } from 'vuex';
     export default {
         data() {
             return {

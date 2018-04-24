@@ -215,7 +215,12 @@ const api = {
   //车站级
   equimentOfStation: 'monitor/equimentOfStation',
   //设备级
-  pointOfEquiment: 'monitor/pointOfEquiment'
+  pointOfEquiment: 'monitor/pointOfEquiment',
+
+  //故障统计饼图1
+  getPie1: 'webapi/device/details/fault/count/pie1',
+  //故障统计饼图2
+  getPie2: 'webapi/device/details/fault/count/pie2 '
 };
 
 for (var k in api) {

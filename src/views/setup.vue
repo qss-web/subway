@@ -3,7 +3,7 @@
         <ul class="tabTitle">
             <li v-on:click="currentList(1)" v-bind:class="tabShow==1?'active':''">设备信息</li>
             <li v-on:click="currentList(2)" v-bind:class="tabShow==2?'active':''">故障库</li>
-            <li v-on:click="currentList(3)" v-bind:class="tabShow==3?'active':''">系统设置</li>
+            <li v-if="userInfo.isShow==1" v-on:click="currentList(3)" v-bind:class="tabShow==3?'active':''">系统设置</li>
             <li v-on:click="currentList(4)" v-bind:class="tabShow==4?'active':''">人员情况统计</li>
         </ul>
         <div class="equWrap" v-if="tabShow==1">
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <div class="equWrap" v-if="tabShow==3">
+        <div class="equWrap" v-if="tabShow==3 && userInfo.isShow==1">
             <v-system-set></v-system-set>
         </div>
         <div class="equWrap" v-if="tabShow==4">
@@ -91,7 +91,7 @@
                         'status': 6,
                         'title': '设备名称',
                         'placeholder': '请选择内容',
-                        'val': 'id',
+                        'val': 'id'
                     }, {
                         'status': 1,
                         'title': '位置',
@@ -382,7 +382,7 @@
             };
         },
         computed: {
-            ...mapState(['itemObj'])
+            ...mapState(['itemObj', 'userInfo'])
         },
         created() {
             this.isReq1 = JSON.parse(JSON.stringify(this.searchData.defaultReq));
