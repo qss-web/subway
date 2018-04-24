@@ -53,6 +53,7 @@
 </template>
 <script>
     import { mapActions } from 'vuex';
+    import { mapMutations } from '../../../../../others/pupu/node_modules/_vuex@2.4.1@vuex';
     export default {
         data() {
             return {
@@ -133,8 +134,10 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
+            ...mapMutations(['_itemObj']),
             //显示弹出框
             addFn() {
+                this._itemObj('');
                 this.isShowPop = true;
             },
             //子组件按钮

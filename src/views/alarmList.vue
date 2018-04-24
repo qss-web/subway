@@ -135,7 +135,8 @@
             };
         },
         created() {
-            this.getTimelyAlarmListFn();
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.getTimelyAlarmListFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),

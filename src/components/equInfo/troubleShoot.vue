@@ -32,11 +32,11 @@
                 equId: '',//设备id
                 test1: [{
                     name: '故障维修',
-                    data: [{ name: '驱动电机', color: '#c23531', y: 29.9 },
-                    { name: '齿轮箱', color: '#2f4554', y: 70 },
-                    { name: '主驱动轮', color: '#61a0a8', y: 45 },
-                    { name: '从驱动轮', color: '#d48265', y: 69 },
-                    { name: '扶手带', color: '#749f83', y: 19 }]
+                    data: [{ name: '驱动电机', y: 29.9 },
+                    { name: '齿轮箱', y: 70 },
+                    { name: '主驱动轮', y: 45 },
+                    { name: '从驱动轮', y: 69 },
+                    { name: '扶手带', y: 19 }]
                 }],
                 test2: [{
                     name: '故障维修',

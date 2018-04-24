@@ -133,15 +133,13 @@
         },
         created() {
             this.equKey = this.$route.query.equKey;
-
             if(this.equKey || this.equKey == 0) {
                 this.searchData.defaultReq.equSys = this.equKey;
-                this.getBacklogFn(this.searchData.defaultReq);
             } else if(this.itemObj.equuid) {
-                this.getBacklogFn(this.searchData.defaultReq);
-            } else {
-                this.getBacklogFn(this.searchData.defaultReq);
+
             }
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.getBacklogFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -152,11 +150,7 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                if(JSON.stringify(this.isReq) != "{}") {
-                    this.getBacklogFn(this.isReq);
-                } else {
-                    this.getBacklogFn(this.searchData.defaultReq);
-                }
+                this.getBacklogFn(this.isReq);
             },
             getBacklogFn(req) {
                 const ops = {
@@ -180,7 +174,6 @@
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
-                this.currentPage = 1;
                 this.getBacklogFn(req);
             },
             //子组件按钮

@@ -1,7 +1,7 @@
 <template>
     <div class="timeManagement">
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
             <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
@@ -34,41 +34,26 @@
                     }]
                 },
                 searchData: {
-                    'btnShow': {
-                        'add': false,
-                        'export': false,
-                        'delete': false,
-                        'edit': false,
-                        'download': false,
-                        'import': false,
-                        'save': true
-                    },
                     'options': [{
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请输入内容',
-                        'val': 'lines',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
+                        'val': 'deviceInLineId'
                     }, {
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'station'
+                        'val': 'deviceInStationId'
                     }, {
                         'status': 2,
-                        'title': '设备',
+                        'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'equ',
-                        'list': [{
-                            value: '1',
-                            label: '设备一'
-                        }, {
-                            value: '2',
-                            label: '设备二'
-                        }]
+                        'val': 'deviceTypeCode'
+                    }, {
+                        'status': 6,
+                        'title': '设备名称',
+                        'placeholder': '请选择内容',
+                        'val': 'deviceName'
                     }]
                 },
                 info1: [{
@@ -117,7 +102,9 @@
                     // 'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                     'btn': [{ 'delete': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
-                equList: []
+                equList: [],
+                getEquNameArr: [],
+                isReq: {}
             };
         },
         created() {
@@ -125,7 +112,7 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
-            ...mapMutations(['_itemObj']),
+            ...mapMutations(['_itemObj', '_equNameList']),
             //获取列表
             getEquRunTimeListFn(req) {
                 const ops = {
@@ -134,6 +121,7 @@
                 };
 
                 if(req) {
+                    req.deviceName = req.deviceName.toString();
                     Object.assign(ops, req);
                 }
                 this._getList({
@@ -149,10 +137,11 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getEquRunTimeListFn();
+                this.getEquRunTimeListFn(this.isReq);
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
                 this.getEquRunTimeListFn(req);
             },
             cancleFn() {
@@ -177,6 +166,22 @@
             editFn(id, item) {
                 this._itemObj(item);
                 this.isShowPop = true;
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                if(req.deviceInLineId && req.deviceInStationId && req.deviceTypeCode) {
+                    this._getList({
+                        ops: req,
+                        api: 'selectlist',
+                        callback: res => {
+                            this.getEquNameArr = [];
+                            res.forEach(item => {
+                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id });
+                            });
+                            this._equNameList(this.getEquNameArr);
+                        }
+                    });
+                }
             }
         }
     };

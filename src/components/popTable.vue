@@ -117,6 +117,9 @@
                     ops: ops,
                     api: 'getDevicePopList',
                     callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
                         this.equList = res.rows;
 
                         this.totalPage = res.total;

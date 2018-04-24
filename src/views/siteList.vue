@@ -139,7 +139,8 @@
             };
         },
         created() {
-            this.getPointTimelyStatusFn(this.searchData.defaultReq);
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.getPointTimelyStatusFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -150,12 +151,7 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                if(JSON.stringify(this.isReq) != "{}") {
-                    this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
-                } else {
-                    this.getPointTimelyStatusFn(this.searchData.defaultReq, this.alarmVal);
-                }
-
+                this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
             },
             getPointTimelyStatusFn(req, val) {
                 const ops = {
@@ -191,7 +187,6 @@
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
-                this.currentPage = 1;
                 this.getPointTimelyStatusFn(req);
             },
             //获取设备名称
@@ -203,7 +198,6 @@
                         callback: res => {
                             this.getEquNameArr = [];
                             res.forEach(item => {
-                                // { 'label': '全部', 'value': '' },
                                 this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
                             });
                             this._equNameList(this.getEquNameArr);
@@ -214,12 +208,7 @@
             //二级筛选
             statusFilter(val) {
                 this.alarmVal = val;
-                this.currentPage = 1;
-                if(JSON.stringify(this.isReq) != "{}") {
-                    this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
-                } else {
-                    this.getPointTimelyStatusFn(this.searchData.defaultReq, this.alarmVal);
-                }
+                this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
             }
         }
     };

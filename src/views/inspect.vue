@@ -131,22 +131,16 @@
         },
         props: ['list', 'label', 'checked'],
         created() {
-            this.getCheckRatioListFn(this.searchData.defaultReq);
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.getCheckRatioListFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_equNameList']),
-            currentList(index) {
-                this.indexed = index;
-            },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                if(JSON.stringify(this.isReq) != "{}") {
-                    this.getCheckRatioListFn(this.isReq);
-                } else {
-                    this.getCheckRatioListFn(this.searchData.defaultReq);
-                }
+                this.getCheckRatioListFn(this.isReq);
             },
             getCheckRatioListFn(req) {
                 const ops = {
@@ -173,7 +167,6 @@
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
-                this.currentPage = 1;
                 this.getCheckRatioListFn(req);
             },
             //删除接口

@@ -396,7 +396,8 @@
             ...mapState(['itemObj'])
         },
         created() {
-            this.infoListFn(this.searchData.defaultReq);
+            this.isReq1 = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.infoListFn(this.isReq1);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -404,25 +405,15 @@
             currentList(index) {
                 this.tabShow = index;
                 if(index == 1) {
-                    this.currentPage = 1;
-                    if(JSON.stringify(this.isReq1) != "{}") {
-                        this.infoListFn(this.isReq1);
-                    } else {
-                        this.infoListFn(this.searchData.defaultReq);
-                    }
+                    this.infoListFn(this.isReq1);
                 } else if(index == 4) {
-                    this.currentPage3 = 1;
                     this.staffStatisticsFn();
                 }
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                if(JSON.stringify(this.isReq1) != "{}") {
-                    this.infoListFn(this.isReq1);
-                } else {
-                    this.infoListFn(this.searchData.defaultReq);
-                }
+                this.infoListFn(this.isReq1);
             },
             //改变当前页数
             changePages3(val) {
@@ -521,13 +512,10 @@
             //搜索的传值
             fifterBtnFn(req) {
                 if(this.tabShow == 1) {
-                    alert('这里弹出来的是几');
                     this.isReq1 = req;
-                    this.currentPage = 1;
                     this.infoListFn(req);
                 } else if(this.tabShow == 4) {
                     this.isReq4 = req;
-                    this.currentPage3 = 1;
                     this.staffStatisticsFn(req);
                 }
             },

@@ -140,7 +140,8 @@
                     'width': 15,
                     'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
-                equList: []
+                equList: [],
+                isReq: {}
             };
         },
         created() {
@@ -172,7 +173,7 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getUserList();
+                this.getUserList(this.isReq);
             },
             //子组件按钮
             btnFn(val) {
@@ -225,6 +226,7 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
                 this.getUserList(req);
             },
             getRoleListFn() {

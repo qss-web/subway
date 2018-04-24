@@ -2,7 +2,7 @@
     <div class="train-list flex">
         <div class="train-body flex">
             <span class="train-name">6号线<br />Line6</span>
-            <span v-if="!select" class="el-dropdown-link">{{currentStation}}</span>
+            <span v-if="!select" style="cursor: pointer" class="el-dropdown-link" v-on:click="goStationFn">{{currentStation}}</span>
             <el-dropdown v-else class="station-select" placement="top-start" @command="tabCommand">
                 <span class="el-dropdown-link">{{currentStation}}</span>
                 <el-dropdown-menu class="station-list" slot="dropdown">
@@ -52,6 +52,9 @@
             tabCommand(item) {
                 this.currentStation = item.label;
                 this._stationId(item.value);
+            },
+            goStationFn() {
+                this.$router.push('/siteInfo');
             }
         }
     };

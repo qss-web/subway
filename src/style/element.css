@@ -12,7 +12,15 @@
 }
 
 /* 覆盖下拉框 */
-
+.popBox .el-input--mini .el-input__inner {
+  color: #2f4554 !important;
+}
+.popBox .el-select--mini .el-input__inner {
+  color: #2f4554 !important;
+}
+.popBox .el-date-editor .el-input__inner {
+  color: #2f4554 !important;
+}
 .el-select--mini .el-input__inner {
   background: none !important;
   font-size: 0.2rem !important;

@@ -63,7 +63,7 @@
                         'placeholder': '请选择内容',
                         'val': 'equSys'
                     }, {
-                        'status': 1,
+                        'status': 6,
                         'title': '设备名称',
                         'placeholder': '请输入内容',
                         'val': 'equName'
@@ -130,7 +130,8 @@
             if(this.equKey || this.equKey == 0) {
                 this.searchData.defaultReq.equSys = this.equKey;
             }
-            this.getTodayAlarmFn(this.searchData.defaultReq);
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.getTodayAlarmFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -140,11 +141,7 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                if(JSON.stringify(this.isReq) != "{}") {
-                    this.getTodayAlarmFn(this.isReq, this.alarmVal);
-                } else {
-                    this.getTodayAlarmFn(this.searchData.defaultReq, this.alarmVal);
-                }
+                this.getTodayAlarmFn(this.isReq, this.alarmVal);
             },
             //列表子组件按钮
             btnFn(val) {
@@ -189,18 +186,13 @@
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
-                this.currentPage = 1;
                 this.getTodayAlarmFn(req);
             },
             //二级筛选
             statusFilter(val) {
                 this.alarmVal = val;
                 this.currentPage = 1;
-                if(JSON.stringify(this.isReq) != "{}") {
-                    this.getTodayAlarmFn(this.isReq, this.alarmVal);
-                } else {
-                    this.getTodayAlarmFn(this.searchData.defaultReq, this.alarmVal);
-                }
+                this.getTodayAlarmFn(this.isReq, this.alarmVal);
             },
             //获取设备名称
             getEquNameFn(req) {
@@ -211,7 +203,6 @@
                         callback: res => {
                             this.getEquNameArr = [];
                             res.forEach(item => {
-                                // { 'label': '全部', 'value': '' },
                                 this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
                             });
                             this._equNameList(this.getEquNameArr);

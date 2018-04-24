@@ -84,8 +84,12 @@
                     'width': 5,
                     'value': 'index'
                 }, {
+                    'label': '所属公司',
+                    'width': 12,
+                    'value': 'company'
+                }, {
                     'label': '线路',
-                    'width': 20,
+                    'width': 13,
                     'value': 'line'
                 }, {
                     'label': '车站',
@@ -97,7 +101,7 @@
                     'value': 'equSys'
                 }, {
                     'label': '位置',
-                    'width': 20,
+                    'width': 15,
                     'value': 'address'
                 }, {
                     'label': '设备编号',
@@ -123,22 +127,16 @@
             };
         },
         created() {
-            this.getEqTimelyStatusFn(this.searchData.defaultReq);
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.getEqTimelyStatusFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_equNameList']),
-            currentList(index) {
-                this.indexed = index;
-            },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                if(JSON.stringify(this.isReq) != "{}") {
-                    this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
-                } else {
-                    this.getEqTimelyStatusFn(this.searchData.defaultReq, this.alarmVal);
-                }
+                this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
             },
             getEqTimelyStatusFn(req, val) {
                 const ops = {
@@ -174,7 +172,6 @@
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
-                this.currentPage = 1;
                 this.getEqTimelyStatusFn(req);
             },
             //获取设备名称
@@ -186,7 +183,6 @@
                         callback: res => {
                             this.getEquNameArr = [];
                             res.forEach(item => {
-                                // { 'label': '全部', 'value': '' },
                                 this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
                             });
                             this._equNameList(this.getEquNameArr);
@@ -197,12 +193,7 @@
             //二级筛选
             statusFilter(val) {
                 this.alarmVal = val;
-                this.currentPage = 1;
-                if(JSON.stringify(this.isReq) != "{}") {
-                    this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
-                } else {
-                    this.getEqTimelyStatusFn(this.searchData.defaultReq, this.alarmVal);
-                }
+                this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
             },
             monitorFn() {
                 this.$router.push('monitor');

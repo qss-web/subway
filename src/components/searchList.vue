@@ -94,7 +94,9 @@
                 this.isAllCkeck = !this.isAllCkeck;
                 this.checkedValue = '';
                 this.listShow.forEach(item => {
-                    if(item.isCheck) {
+                    if(item.isCheck && item.deviceId) {
+                        this.checkedValue += item.deviceId + ',';
+                    } else if(item.isCheck) {
                         this.checkedValue += item.id + ',';
                     }
                 });

@@ -111,7 +111,8 @@
             };
         },
         created() {
-            this.getMonthRunningTimeListFn(this.searchData.defaultReq);
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.getMonthRunningTimeListFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -122,11 +123,7 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                if(JSON.stringify(this.isReq) != "{}") {
-                    this.getMonthRunningTimeListFn(this.isReq);
-                } else {
-                    this.getMonthRunningTimeListFn(this.searchData.defaultReq);
-                }
+                this.getMonthRunningTimeListFn(this.isReq);
             },
             getMonthRunningTimeListFn(req) {
                 const ops = {
@@ -153,7 +150,6 @@
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
-                this.currentPage = 1;
                 this.getMonthRunningTimeListFn(req);
             },
             //获取设备名称

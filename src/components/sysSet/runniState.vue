@@ -31,56 +31,22 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'deviceInLineId',
-                        'list': [{
-                            value: '6号线西延线',
-                            label: '6号线'
-                        }]
+                        'val': 'deviceInLineId'
                     }, {
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'deviceInStationId',
-                        'list': [{
-                            value: '金安桥站',
-                            label: '金安桥站'
-                        }, {
-                            value: '苹果园站',
-                            label: '苹果园站'
-                        }, {
-                            value: '苹果园南路站',
-                            label: '苹果园南路站'
-                        }, {
-                            value: '西黄村站',
-                            label: '西黄村站'
-                        }, {
-                            value: '廖公庄站',
-                            label: '廖公庄站'
-                        }, {
-                            value: '田村站',
-                            label: '田村站'
-                        }]
+                        'val': 'deviceInStationId'
                     }, {
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'deviceTypeCode',
-                        'list': [{
-                            value: '0',
-                            label: '站台门'
-                        }, {
-                            value: '7',
-                            label: '自动扶梯'
-                        }, {
-                            value: '8',
-                            label: '风机'
-                        }]
+                        'val': 'deviceTypeCode'
                     }, {
-                        'status': 2,
+                        'status': 6,
                         'title': '设备名称',
                         'placeholder': '请选择内容',
                         'val': 'id',
-                        'list': []
                     }, {
                         'status': 5,
                         'title': '时间',
@@ -134,7 +100,7 @@
                 }, {
                     'label': '线路',
                     'width': 8,
-                    'value': 'line'
+                    'value': 'lineName'
                 }, {
                     'label': '所属车站',
                     'width': 8,
@@ -180,7 +146,7 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
-            ...mapMutations(['_itemObj']),
+            ...mapMutations(['_itemObj', '_equNameList']),
             //获取列表
             getEquRunTimeListFn(req) {
                 const ops = {
@@ -214,6 +180,7 @@
                 this.isShowPop = false;
             },
             saveFn(req) {
+                req.id = req.id.toString();
                 this._getInfo({
                     ops: req,
                     api: 'equRunAdd',
@@ -251,14 +218,11 @@
                         ops: req,
                         api: 'selectlist2',
                         callback: res => {
+                            this.getEquNameArr = [];
                             res.forEach(item => {
-                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id });
+                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
                             });
-                            this.popData1.options.forEach(item1 => {
-                                if(item1.val == 'id') {
-                                    item1.list = this.getEquNameArr;
-                                }
-                            });
+                            this._equNameList(this.getEquNameArr);
                         }
                     });
                 }

@@ -73,7 +73,7 @@
                         'status': 1,
                         'title': '设备名称',
                         'placeholder': '请输入内容',
-                        'val': 'lines'
+                        'val': 'deviceName'
                     }]
                 },
                 info1: [{
@@ -101,7 +101,8 @@
                     'width': 15,
                     'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }]
                 }],
-                equList: []
+                equList: [],
+                isReq: {}
             };
         },
         created() {
@@ -121,7 +122,7 @@
                         if(res.rows.length != 0) {
                             this.roleTelId = res.rows[0].value;
                             this.roleTelType = '1';
-                            this.getDeviceListFn();
+                            this.getDeviceListFn(this.isReq);
                         }
 
                     }
@@ -139,7 +140,7 @@
                         if(res.rows.length != 0) {
                             this.roleTelId = res.rows[0].id;
                             this.roleTelType = '2';
-                            this.getDeviceListFn();
+                            this.getDeviceListFn(this.isReq);
                         }
                     }
                 });
@@ -148,9 +149,9 @@
             isRoleFn(val) {
                 this.isRole = val;
                 if(val) {
-                    this.getRoleListFn();
+                    this.getRoleListFn(this.isReq);
                 } else {
-                    this.getMobileListFn();
+                    this.getMobileListFn(this.isReq);
                 }
             },
             //获取列表
@@ -170,6 +171,8 @@
                     api: 'getDeviceList',
                     callback: res => {
                         this.equList = res.rows;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
                     }
                 });
             },
@@ -190,27 +193,28 @@
                     api: 'delDeviceInfo',
                     callback: () => {
                         this.$message.success('删除成功!');
-                        this.getDeviceListFn();
+                        this.getDeviceListFn(this.isReq);
                     }
                 });
             },
             roleFn(index, id) {
                 this.roleTelId = id;
                 this.roleIndex = index;
-                this.getDeviceListFn();
+                this.getDeviceListFn(this.isReq);
             },
             telFn(index, id) {
                 this.roleTelId = id;
                 this.telIndex = index;
-                this.getDeviceListFn();
+                this.getDeviceListFn(this.isReq);
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getDeviceListFn();
+                this.getDeviceListFn(this.isReq);
             },
             //搜索的传值
             fifterBtnFn(req) {
+                this.isReq = req;
                 this.getDeviceListFn(req);
             },
             //增加的弹出框

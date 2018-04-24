@@ -1,48 +1,61 @@
 <template>
     <div>
         <div class="mask"></div>
-        <div class="popContent">
+        <div class="popContent" style="border:1px solid red">
             <h3>{{popData.titleTotal}}</h3>
             <div class="content">
                 <div class="subContent clearfix">
                     <ul v-for="(item,index) in popData.options" :key="index">
-                        <li v-if="item.status == 1">
+                        <li v-if="item.status == 1" class="popBox">
                             <span>{{item.title}}：</span>
-                            <el-input v-model="req[item.val]" size="mini" v-bind:placeholder="item.placeholder"></el-input>
+                            <el-input v-model="popReq[item.val]" size="mini" v-bind:placeholder="item.placeholder"></el-input>
                         </li>
                         <li v-if="item.status == 2">
                             <span>{{item.title}}：</span>
                             <!-- 判断是不是车站的列表，如果是车站列表，数据直接在子组件请求 -->
-                            <el-select v-if="item.val == 'stationId' || item.val == 'deviceInStationId' || item.val == 'stationId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                            <el-select class="popBox" v-if="item.val == 'stationId' || item.val == 'deviceInStationId' || item.val == 'stationId'" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                                 <el-option v-for="itemSel in staionsList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
                             </el-select>
                             <!-- 判断是不是线路列表，如果是线路列表，数据直接在子组件请求 -->
-                            <el-select v-else-if="item.val == 'lineId' || item.val == 'deviceInLineId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                            <el-select class="popBox" v-else-if="item.val == 'lineId' || item.val == 'deviceInLineId'" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                                 <el-option v-for="itemSel in lineList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
                             </el-select>
+                            <!-- 判断是不是设备系统的列表，如果是设备系统列表，数据直接在子组件请求 -->
+                            <el-select class="popBox" v-else-if="item.val == 'equSys' || item.val=='deviceTypeCode'" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                                <el-option v-for="itemSel in sysList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                                </el-option>
+                            </el-select>
 
-                            <el-select v-else v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                            <el-select class="popBox" v-else v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                                 <el-option v-for="itemSel in item.list" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
                             </el-select>
                         </li>
-                        <li v-if="item.status == 3">
+                        <li v-if="item.status == 3" class="popBox">
                             <span>{{item.title}}：</span>
-                            <el-date-picker v-model="req[item.val1]" type="date" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
+                            <el-date-picker v-model="popReq[item.val1]" type="date" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
                             <i>至</i>
-                            <el-date-picker v-model="req[item.val2]" type="date" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
+                            <el-date-picker v-model="popReq[item.val2]" type="date" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
                         </li>
-                        <li v-if="item.status == 4">
+                        <li v-if="item.status == 4" class="popBox">
                             <span>{{item.title}}：</span>
-                            <el-date-picker v-model="req[item.val1]" type="month" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
+                            <el-date-picker v-model="popReq[item.val1]" type="month" v-bind:placeholder="item.placeholderS" size="mini"></el-date-picker>
                             <i>至</i>
-                            <el-date-picker v-model="req[item.val2]" type="month" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
+                            <el-date-picker v-model="popReq[item.val2]" type="month" v-bind:placeholder="item.placeholderE" size="mini"></el-date-picker>
                         </li>
-                        <li v-if="item.status == 5">
+                        <li v-if="item.status == 5" class="popBox">
                             <span>{{item.title}}：</span>
-                            <el-date-picker v-model="req[item.val]" value-format="yyyy-MM-dd HH:mm:ss" type="date" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
+                            <el-date-picker v-model="popReq[item.val]" value-format="yyyy-MM-dd HH:mm:ss" type="date" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
+                        </li>
+                        <li v-if="item.status == 6" class="popBox">
+                            <span>{{item.title}}：</span>
+                            <el-select filterable remote :remote-method="remoteMethod" :loading="loading" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                                <el-option key="" label="全部" value=""></el-option>
+                                <el-option v-for="itemSel in optionsShow" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                                </el-option>
+                            </el-select>
                         </li>
                     </ul>
                 </div>
@@ -59,18 +72,40 @@
     export default {
         data() {
             return {
-                req: {},
+                popReq: {},
                 staionsList: [],
-                lineList: []
+                lineList: [],
+                sysList: [{
+                    value: '',
+                    label: '全部'
+                }, {
+                    value: '0',
+                    label: '站台门'
+                }, {
+                    value: '7',
+                    label: '自动扶梯'
+                }, {
+                    value: '8',
+                    label: '风机'
+                }],
+                loading: false,
+                getEquNameList: [],
+                optionsShow: []
             };
         },
         props: ['popData'],
         computed: {
-            ...mapState(['itemObj'])
+            ...mapState(['itemObj', 'equNameList'])
+        },
+        watch: {
+            equNameList() {
+                this.getEquNameList = JSON.parse(JSON.stringify(this.equNameList));
+                this.optionsShow = JSON.parse(JSON.stringify(this.equNameList));
+            }
         },
         created() {
             if(this.itemObj) {
-                this.req = JSON.parse(JSON.stringify(this.itemObj));
+                this.popReq = JSON.parse(JSON.stringify(this.itemObj));
             }
             //获取车站列表
             this.getStationsFn();
@@ -80,13 +115,13 @@
         methods: {
             ...mapActions(['_getList']),
             onSubmit() {
-                this.$emit('save', this.req);
+                this.$emit('save', this.popReq);
             },
             onCancle() {
                 this.$emit('receive', false);
             },
             changeOps() {
-                this.$emit('getEquName', this.req);
+                this.$emit('getEquName', this.popReq);
             },
             //获取车站列表
             getStationsFn() {
@@ -107,6 +142,19 @@
                         this.lineList = res;
                     }
                 });
+            },
+            remoteMethod(query) {
+                if(query !== '') {
+                    this.loading = true;
+                    setTimeout(() => {
+                        this.loading = false;
+                        this.optionsShow = this.getEquNameList.filter(item => {
+                            return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
+                        });
+                    }, 200);
+                } else {
+                    this.optionsShow = [];
+                }
             }
         }
     };
@@ -124,7 +172,7 @@
     .popContent {
         position: fixed;
         background: #fff;
-        width: 8rem;
+        width: 8.6rem;
         left: 0;
         right: 0;
         top: 2rem;
@@ -158,7 +206,7 @@
                             font-size: 0.2rem;
                             height: 0.46rem;
                             line-height: 0.46rem;
-                            width: 1rem;
+                            width: 1.2rem;
                         }
                     }
                 }
@@ -205,10 +253,5 @@
         width: 2.4rem;
         vertical-align: top;
         border-radius: 5px;
-    }
-</style>
-<style>
-    .el-input__inner {
-        color: #2f4553 !important;
     }
 </style>

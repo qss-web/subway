@@ -4,7 +4,7 @@
             <div class="button-group flex">
                 <button class="btn-name" style="margin-left: 0;">{{alarmOtherInfos.deviceName}}</button>
                 <button class="btn-name">{{alarmOtherInfos.deviceType}}</button>
-                <button class="btn-alarm" @click="warnChartFn" v-bind:class="colorStatus[alarmOtherInfos.deviceStatus-1]">{{statusShow[alarmOtherInfos.deviceStatus-1]}}</button>
+                <button class="btn-alarm" v-bind:class="colorStatus[alarmOtherInfos.deviceStatus-1]">{{statusShow[alarmOtherInfos.deviceStatus-1]}}</button>
             </div>
             <div class="alarm-reason">
                 <div class="alarm-reason-title">预警原因</div>
@@ -33,7 +33,7 @@
                             <button class="tab" :class="{active: activeIndex}" @click="tabListFn(1)">测点状态</button>
                         </div>
                         <div class="tables">
-                            <v-search-list v-show="!activeIndex" :other="alarmTable.other" :label="alarmTable.label" :list="alarmTable.list"></v-search-list>
+                            <v-search-list v-on:receive="warnChartFn" v-show="!activeIndex" :other="alarmTable.other" :label="alarmTable.label" :list="alarmTable.list"></v-search-list>
                             <v-search-list v-show="activeIndex" :other="testTable.other" :label="testTable.label" :list="testTable.list"></v-search-list>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
             <v-train></v-train>
         </div>
         <v-goback></v-goback>
-        <el-dialog :visible.sync="isShowPopup">
+        <el-dialog :visible.sync="isShowPopup" width="90%">
             <v-alarm-popup></v-alarm-popup>
         </el-dialog>
     </div>
@@ -108,7 +108,8 @@
                     }, {
                         'label': '设备名称',
                         'width': 25,
-                        'value': 'equName'
+                        'value': 'equName',
+                        'clickFn': true
                     }, {
                         'label': '时间',
                         'width': 20,
@@ -239,7 +240,7 @@
             this.getStatusFn();
         },
         computed: {
-            ...mapState(['deviceInfo'])
+            ...mapState(['deviceInfo', 'itemObj'])
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),
@@ -314,6 +315,7 @@
             },
             //预警信息
             warnChartFn() {
+                console.log(this.itemObj)
                 this._getList({
                     ops: {},
                     api: 'warnData',
