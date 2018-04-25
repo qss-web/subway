@@ -21,8 +21,30 @@
                             <button class="tab" :class="{active: activeIndex}" @click="tabListFn(1)">测点状态</button>
                         </div>
                         <div class="tables">
-                            <v-search-list v-show="!activeIndex" :other="alarmTable.other" :label="alarmTable.label" :list="alarmTable.list" v-on:receive="btnFn"></v-search-list>
-                            <v-search-list v-show="activeIndex" :other="testTable.other" :label="testTable.label" :list="testTable.list"></v-search-list>
+                            <div v-show="!activeIndex">
+                                <v-search-list :other="alarmTable.other" :label="alarmTable.label" :list="alarmTable.list" v-on:receive="btnFn"></v-search-list>
+                                <div class=" pagination ">
+                                    <el-pagination :page-size=" pageSize01 " @current-change="changePages01 " layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
+                                        <span>{{currentPage01}}/{{totalPage01}}</span>
+                                    </el-pagination>
+                                </div>
+                            </div>
+                            <div v-show="activeIndex">
+                                <dl class="notice flex">
+                                    <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
+                                    <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
+                                    <dd class="normal" v-on:click="statusFilter('3')">运行：{{equInfoCount[2]}}次</dd>
+                                    <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}次</dd>
+                                    <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}次</dd>
+                                    <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
+                                </dl>
+                                <v-search-list :other="testTable.other" :label="testTable.label" :list="testTable.list"></v-search-list>
+                                <div class=" pagination ">
+                                    <el-pagination :page-size=" pageSize02 " @current-change="changePages02 " layout="prev, slot, next " :total="pageNumber02" prev-text="上一页 " next-text="下一页 ">
+                                        <span>{{currentPage02}}/{{totalPage02}}</span>
+                                    </el-pagination>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -44,8 +66,14 @@
     export default {
         data() {
             return {
-                currentPage: 1, //当前页数
-                pageSize: 8, //每页显示数量
+                currentPage01: 1, //当前页数
+                pageSize01: 7, //每页显示数量
+                totalPage01: 0,//总页数
+                pageNumber01: 0,//总条目数
+                currentPage02: 1, //当前页数
+                pageSize02: 6, //每页显示数量
+                totalPage02: 0,//总页数
+                pageNumber02: 0,//总条目数
                 activeIndex: '',
                 alarmTable: {
                     label: [{
@@ -273,7 +301,10 @@
                     deviceId: '603',
                     status: "5",
                     name: 'PGYFJ601'
-                }]
+                }],
+                alarmVal: '',
+                equInfoCount: [], //设备信息
+                equTotal: 0 //设备信息全部
             };
         },
         computed: {
@@ -337,11 +368,16 @@
             goToMoreFn() {
                 this.$router.push('alarmListDay');
             },
+            //事件信息翻页
+            changePages01(val) {
+                this.currentPage01 = val;
+                this.getEventInfoFn();
+            },
             //获取事件信息
             getEventInfoFn() {
                 const ops = {
-                    'curPage': this.currentPage,
-                    'pageSize': this.pageSize,
+                    'curPage': this.currentPage01,
+                    'pageSize': this.pageSize01,
                     'stationId': this.stationId
                 };
 
@@ -350,22 +386,45 @@
                     api: 'eventInfo',
                     callback: res => {
                         this.alarmTable.list = res.rows;
+                        this.totalPage01 = res.total;//总页数
+                        this.pageNumber01 = res.records;//总条目数
                     }
                 });
             },
+            //测点信息翻页
+            changePages02(val) {
+                this.currentPage02 = val;
+                this.getPointStatusFn(this.alarmVal);
+            },
+            //二级筛选
+            statusFilter(val) {
+                this.alarmVal = val;
+                this.getPointStatusFn(this.alarmVal);
+            },
             //获取测点信息
-            getPointStatusFn() {
+            getPointStatusFn(req) {
                 const ops = {
-                    'curPage': this.currentPage,
-                    'pageSize': this.pageSize,
+                    'curPage': this.currentPage02,
+                    'pageSize': this.pageSize02,
                     'stationId': this.stationId
                 };
+
+                if(req) {
+                    Object.assign(ops, { 'status': req });
+                }
 
                 this._getList({
                     ops: ops,
                     api: 'pointStatus',
                     callback: res => {
+                        this.equTotal = 0;
+                        this.equInfoCount = res.counts;
+                        this.equInfoCount.forEach(item => {
+                            this.equTotal += item;
+                        });
                         this.testTable.list = res.rows;
+                        this.totalPage02 = res.total;//总页数
+                        this.pageNumber02 = res.records;//总条目数
                     }
                 });
             },
@@ -532,6 +591,26 @@
                 //     background-color: #13c613;
                 // }
             }
+        }
+    }
+    .pagination {
+        margin-top: -0.12rem;
+        text-align: center;
+        span {
+            color: #fff;
+        }
+    }
+    .notice {
+        margin-bottom: -0.2rem;
+        margin: 0 0.2rem -0.2rem 0.2rem;
+        dd {
+            flex: auto;
+            font-size: 0.2rem;
+            margin-left: 0.26rem;
+            height: 0.54rem;
+            line-height: 0.54rem;
+            cursor: pointer;
+            font-size: 0.16rem;
         }
     }
 </style>

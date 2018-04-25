@@ -46,7 +46,7 @@
                         'status': 6,
                         'title': '设备名称',
                         'placeholder': '请选择内容',
-                        'val': 'id',
+                        'val': 'equuid'
                     }, {
                         'status': 5,
                         'title': '时间',
@@ -180,7 +180,7 @@
                 this.isShowPop = false;
             },
             saveFn(req) {
-                req.id = req.id.toString();
+                // req.id = req.equuid.toString();
                 this._getInfo({
                     ops: req,
                     api: 'equRunAdd',

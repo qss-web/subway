@@ -6,11 +6,19 @@
         <div class="tab">
             <ul class="title">
                 <li class="active">预警信息</li>
-                <dl class="notice flex">
+                <dl v-if="itemObj.equuid" class="notice flex">
+                    <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
+                    <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
+                    <dd class="normal" v-on:click="statusFilter('3')">运行：{{equInfoCount[2]}}次</dd>
+                    <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}次</dd>
+                    <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}次</dd>
+                    <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
+                </dl>
+                <dl v-else class="notice flex">
                     <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
                     <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
                     <!-- <dd class="normal">运行：{{equInfoCount[2]}}次</dd> -->
-                    <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}次</dd>
+                    <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[2]}}次</dd>
                     <!-- <dd class="stop">停机：{{equInfoCount[4]}}次</dd> -->
                     <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                 </dl>
@@ -124,9 +132,14 @@
             ...mapState(['itemObj'])
         },
         created() {
-            // if(this.itemObj.equuid) {
-            // }
-            this.getTimelyAlarmListFn(this.searchData.defaultReq);
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            if(this.itemObj.equuid) {
+                this.isReq.equName = this.itemObj.equuid;
+                this.getHaveTimelyAlarmListFn(this.isReq);
+            } else {
+                this.getTimelyAlarmListFn(this.isReq);
+            }
+
         },
         methods: {
             ...mapActions(['_getList']),
@@ -134,10 +147,10 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                if(JSON.stringify(this.isReq) != "{}") {
-                    this.getTimelyAlarmListFn(this.isReq, this.alarmVal);
+                if(this.itemObj.equuid) {
+                    this.getHaveTimelyAlarmListFn(this.isReq, this.alarmVal);
                 } else {
-                    this.getTimelyAlarmListFn(this.searchData.defaultReq, this.alarmVal);
+                    this.getTimelyAlarmListFn(this.isReq, this.alarmVal);
                 }
             },
             getTimelyAlarmListFn(req, val) {
@@ -173,11 +186,45 @@
                     }
                 });
             },
+            getHaveTimelyAlarmListFn(req, val) {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
+
+                if(val) {
+                    Object.assign(ops, { 'status': val });
+                }
+                this._getList({
+                    ops: ops,
+                    api: 'timelyAlarmStatus',
+                    callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.equTotal = 0;
+                        this.equInfoCount = res.counts;
+                        res.counts.forEach(item => {
+                            this.equTotal += item;
+                        });
+                        this.equList = res.rows;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
+                    }
+                });
+            },
             //获取筛选的值
             filterBtn(req) {
                 this.isReq = req;
-                this.currentPage = 1;
-                this.getTimelyAlarmListFn(req);
+                if(this.itemObj.equuid) {
+                    this.getHaveTimelyAlarmListFn(req);
+                } else {
+                    this.getTimelyAlarmListFn(req);
+                }
             },
             //子组件按钮
             btnFn(val) {
@@ -189,11 +236,10 @@
             //二级筛选
             statusFilter(val) {
                 this.alarmVal = val;
-                ths.currentPage = 1;
-                if(JSON.stringify(this.isReq) != "{}") {
-                    this.getTimelyAlarmListFn(this.isReq, this.alarmVal);
+                if(this.itemObj.equuid) {
+                    this.getHaveTimelyAlarmListFn(this.isReq, this.alarmVal);
                 } else {
-                    this.getTimelyAlarmListFn(this.searchData.defaultReq, this.alarmVal);
+                    this.getTimelyAlarmListFn(this.isReq, this.alarmVal);
                 }
             },
             //获取设备名称
@@ -205,7 +251,6 @@
                         callback: res => {
                             this.getEquNameArr = [];
                             res.forEach(item => {
-                                // { 'label': '全部', 'value': '' },
                                 this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
                             });
                             this._equNameList(this.getEquNameArr);

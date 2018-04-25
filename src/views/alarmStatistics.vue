@@ -191,7 +191,6 @@
             //二级筛选
             statusFilter(val) {
                 this.alarmVal = val;
-                this.currentPage = 1;
                 this.getTodayAlarmFn(this.isReq, this.alarmVal);
             },
             //获取设备名称

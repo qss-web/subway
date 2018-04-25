@@ -135,10 +135,11 @@
             this.equKey = this.$route.query.equKey;
             if(this.equKey || this.equKey == 0) {
                 this.searchData.defaultReq.equSys = this.equKey;
-            } else if(this.itemObj.equuid) {
-
             }
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            if(this.itemObj.equuid) {
+                this.isReq.equName = this.itemObj.equuid;
+            }
             this.getBacklogFn(this.isReq);
         },
         methods: {

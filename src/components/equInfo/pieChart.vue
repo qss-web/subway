@@ -10,7 +10,7 @@
         data() {
             return {
                 styleObject: {
-                    width: '3rem',
+                    width: '4rem',
                     height: '2rem'
                 },
                 option: {
@@ -32,14 +32,14 @@
                     legend: {
                         layout: 'vertical',
                         floating: true,
-                        align: 'left',
+                        align: 'right',
                         verticalAlign: 'top',
                         squareSymbol: false,
                         symbolWidth: 24,
                         symbolHeight: 12,
                         symbolRadius: 4,
-                        x: 122,
-                        y: 15,
+                        x: 0,
+                        y: 0,
                         symbolPadding: 3,
                         itemStyle: {
                             color: '#0f263c',

@@ -2,20 +2,17 @@
     <div class="qualification">
         <img class="axis" src="~assets/mine/icon_axis.png" />
         <div class="chart">
-            <div class="circle low" style="border:1px solid red">
+            <div class="circle low">
                 <div class="circle middle">
                     <div class="circle high">
                     </div>
                 </div>
                 <!--低-->
-                <span class="item01" style="left:1.7rem;bottom:1.8rem">F01</span>
-                <span class="item02" style="left:1.5rem;bottom:0.4rem;">F02</span>
-                <span class="item03" style="left:1.8rem;bottom:0.8rem;">F03</span>
+                <span v-for="(item, index) in codes.low" v-bind:class="'item'+item.type" v-bind:style="'left:'+(item.x/100)+'rem;bottom:'+(item.y/100)+'rem'">{{item.name}}</span>
                 <!--中-->
-                <span class="item01" style="left:1rem;bottom:0.5rem;">F04</span>
-                <span class="item02" style="left:1.2rem;bottom:1rem;">F05</span>
+                <span v-for="(item, index) in codes.nor" v-bind:class="'item'+item.type" v-bind:style="'left:'+(item.x/100)+'rem;bottom:'+(item.y/100)+'rem'">{{item.name}}</span>
                 <!--高-->
-                <span class="item01" style="left:0.5rem;bottom:1.2rem;">F06</span>
+                <span v-for="(item, index) in codes.high" v-bind:class="'item'+item.type" v-bind:style="'left:'+(item.x/100)+'rem;bottom:'+(item.y/100)+'rem'">{{item.name}}</span>
             </div>
         </div>
         <ul class="legend">
@@ -30,6 +27,7 @@
     export default {
         data() {
             return {
+                codes: {}
             };
         },
         created() {
@@ -42,6 +40,17 @@
                     ops: {},
                     api: 'mineRate',
                     callback: () => {
+                        this.codes = {
+                            "nor": [
+                                { name: 'F04', type: 0, x: 100, y: 50 },
+                                { name: 'F05', type: 0, x: 120, y: 100 }],
+                            "high": [
+                                { name: 'F06', type: 7, x: 50, y: 120 }],
+                            "low": [
+                                { name: 'F01', type: 7, x: 170, y: 180 },
+                                { name: 'F02', type: 0, x: 150, y: 40 },
+                                { name: 'F03', type: 8, x: 180, y: 80 }]
+                        };
                     }
                 });
             }
@@ -96,7 +105,7 @@
                 background-color: #9f0f18;
                 z-index: 3;
             }
-            .item01 {
+            .item0 {
                 font-size: 0.12rem;
                 position: absolute;
                 z-index: 5;
@@ -111,7 +120,7 @@
                     margin-right: 0.02rem;
                 }
             }
-            .item02 {
+            .item7 {
                 font-size: 0.12rem;
                 position: absolute;
                 z-index: 5;
@@ -125,7 +134,7 @@
                     margin-right: 0.02rem;
                 }
             }
-            .item03 {
+            .item8 {
                 font-size: 0.12rem;
                 position: absolute;
                 z-index: 5;

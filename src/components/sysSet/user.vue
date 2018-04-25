@@ -85,7 +85,7 @@
                     }, {
                         'status': 7,
                         'title': '显示系统设置',
-                        'val': 'remark'
+                        'val': 'messageFlag'
                     }]
                 },
                 searchData: {

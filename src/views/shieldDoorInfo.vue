@@ -39,8 +39,22 @@
                             <button class="tab" :class="{active: activeIndex}" @click="tabListFn(1)">测点状态</button>
                         </div>
                         <div class="tables">
-                            <v-search-list v-on:receive="warnChartFn" v-show=" !activeIndex " :other="alarmTable.other " :label="alarmTable.label " :list="alarmTable.list "></v-search-list>
-                            <v-search-list v-show="activeIndex " :other="testTable.other " :label="testTable.label " :list="testTable.list "></v-search-list>
+                            <div v-show="!activeIndex">
+                                <v-search-list :other="alarmTable.other " :label="alarmTable.label " :list="alarmTable.list "></v-search-list>
+                                <div class=" pagination ">
+                                    <el-pagination :page-size=" pageSize01 " @current-change="changePages01 " layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
+                                        <span>{{currentPage01}}/{{totalPage01}}</span>
+                                    </el-pagination>
+                                </div>
+                            </div>
+                            <div v-show="activeIndex">
+                                <v-search-list v-on:receive="warnChartFn" :other="testTable.other " :label="testTable.label " :list="testTable.list "></v-search-list>
+                                <div class=" pagination ">
+                                    <el-pagination :page-size=" pageSize02 " @current-change="changePages02 " layout="prev, slot, next " :total="pageNumber02" prev-text="上一页 " next-text="下一页 ">
+                                        <span>{{currentPage02}}/{{totalPage02}}</span>
+                                    </el-pagination>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -59,8 +73,14 @@
     export default {
         data() {
             return {
-                currentPage: 1, //当前页数
-                pageSize: 8, //每页显示数量
+                currentPage01: 1, //当前页数
+                pageSize01: 7, //每页显示数量
+                totalPage01: 0,//总页数
+                pageNumber01: 0,//总条目数
+                currentPage02: 1, //当前页数
+                pageSize02: 7, //每页显示数量
+                totalPage02: 0,//总页数
+                pageNumber02: 0,//总条目数
                 fixedIdStr: '',
                 alarmInfos: [],
                 alarmOtherInfos: {
@@ -610,11 +630,16 @@
                     this.getEventInfoFn();
                 }
             },
+            //事件信息翻页
+            changePages01(val) {
+                this.currentPage01 = val;
+                this.getEventInfoFn();
+            },
             //获取事件信息
             getEventInfoFn() {
                 const ops = {
-                    'curPage': this.currentPage,
-                    'pageSize': this.pageSize,
+                    'curPage': this.currentPage01,
+                    'pageSize': this.pageSize01,
                     'deviceUuid': this.deviceInfo.deviceUuid
                 };
 
@@ -623,6 +648,8 @@
                     api: 'eventInfo',
                     callback: res => {
                         this.alarmTable.list = res.rows;
+                        this.totalPage01 = res.total;//总页数
+                        this.pageNumber01 = res.records;//总条目数
                     }
                 });
             },
@@ -631,11 +658,16 @@
                 this.activeIndex = 1;
                 this.getPointStatusFn(item);
             },
+            //测点信息翻页
+            changePages02(val) {
+                this.currentPage02 = val;
+                this.getPointStatusFn();
+            },
             //获取测点信息
             getPointStatusFn(item) {
                 const ops = {
-                    'curPage': this.currentPage,
-                    'pageSize': this.pageSize,
+                    'curPage': this.currentPage02,
+                    'pageSize': this.pageSize02,
                     'deviceUuid': this.deviceInfo.deviceUuid
                 };
 
@@ -648,14 +680,17 @@
                     api: 'pointStatus',
                     callback: res => {
                         this.testTable.list = res.rows;
+                        this.totalPage02 = res.total;//总页数
+                        this.pageNumber02 = res.records;//总条目数
                     }
                 });
             },
             //预警信息
             warnChartFn() {
-                console.log(this.itemObj)
                 this._getList({
-                    ops: {},
+                    ops: {
+                        'pointUuid': 'ca663ccdb90728a49daba918b172ebee' //this.itemObj.equuid
+                    },
                     api: 'warnData',
                     callback: res => {
                         this._warnChart(res);
@@ -902,6 +937,13 @@
                     background-color: #36ff00;
                 }
             }
+        }
+    }
+    .pagination {
+        margin-top: -0.12rem;
+        text-align: center;
+        span {
+            color: #fff;
         }
     }
 </style>

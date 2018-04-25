@@ -1,6 +1,6 @@
 <template>
     <div class="popup-wrapper">
-        <v-chart :id="id" :option="option" :styleObject="styleObject"></v-chart>
+        <v-chart v-if="this.test.length != 0" :id="id" :option="option" :styleObject="styleObject"></v-chart>
     </div>
 </template>
 <script>
@@ -71,7 +71,7 @@
                     },
                     series: [{
                         color: '#d06c6a',
-                        data: [10, 12, 12, 13, 14, 51, 61]
+                        data: []
                     }],
                     legend: {
                         enabled: false
@@ -83,14 +83,18 @@
                             fontWeight: 'normal'
                         }
                     }
-                }
+                },
+                test: []
             };
         },
         computed: {
             ...mapState(['warnChart'])
         },
         created() {
-            this.option.series[0].data = this.warnChart;
+            this.warnChart.forEach(item => {
+                this.test.push(parseFloat(item.value));
+            });
+            this.option.series[0].data = this.test;
         }
     };
 </script>

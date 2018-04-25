@@ -36,7 +36,6 @@ import patrolInspection from './equInfo/patrolInspection'; //巡视巡检
 import troubleShoot from './equInfo/troubleShoot'; //故障维修
 import ringDiagram from './equInfo/ringDiagram'; //环形图
 import pieChart from './equInfo/pieChart'; //饼形图
-import systemSet from './systemSet'; //系统设置
 import systemList from './systemList'; //系统设置的列表
 import system from './sysSet/system'; //系统
 import user from './sysSet/user'; //用户
@@ -51,6 +50,10 @@ import menu from './sysSet/menu'; //菜单管理
 import maintenanceSheet from './maintenanceSheet'; //报修单
 import popBox from './popBox'; //增加编辑等弹出框
 import popTable from './popTable'; //增加table表格类的弹框，目测此项目只有这一个
+import equMsg from './setup/equMsg'; //设备信息
+import faultLibrary from './setup/faultLibrary'; //故障库
+import systemSet from './setup/systemSet'; //系统设置
+import statisticians from './setup/statisticians'; //人员情况统计
 
 export default {
   header,
@@ -105,5 +108,8 @@ export default {
   maintenanceSheet,
   menu,
   popBox,
-  popTable
+  popTable,
+  equMsg,
+  faultLibrary,
+  statisticians
 };

@@ -151,6 +151,7 @@ const api = {
   timelyAlarmTop: 'monitor/timelyAlarmTop',
   //实时预警信息列表----实时预警信息
   timelyAlarmList: 'monitor/timelyAlarms',
+  timelyAlarmStatus: 'monitor/timelyStatus',
   //实时预警信息列表----以往历史事件
   alarmListHistory: 'monitor/timelyAlarmList',
   // 今日报警统计
@@ -220,7 +221,11 @@ const api = {
   //故障统计饼图1
   getPie1: 'webapi/device/details/fault/count/pie1',
   //故障统计饼图2
-  getPie2: 'webapi/device/details/fault/count/pie2 '
+  getPie2: 'webapi/device/details/fault/count/pie2 ',
+
+  //导出
+  exportApi: 'webapi/export/excel',
+  importApi: 'webapi/import/excel'
 };
 
 for (var k in api) {

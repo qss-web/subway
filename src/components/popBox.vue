@@ -113,6 +113,9 @@
         created() {
             if(this.itemObj) {
                 this.popReq = JSON.parse(JSON.stringify(this.itemObj));
+                if(this.popReq.messageFlag || this.popReq.messageFlag == 0) {
+                    this.popReq.messageFlag = this.popReq.messageFlag.toString();
+                }
             }
             //获取车站列表
             this.getStationsFn();

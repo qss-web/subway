@@ -59,6 +59,13 @@
             </ul>
         </div>
         <a class="exportBtn" href="javascript:;" v-on:click="filterBtn">查询</a>
+        <!-- <div class="exportBtn" v-for="(item,index) in searchData.btnShow">
+            <el-upload v-if="item.fn == 'importFn'" class="upload-demo" action="http://192.168.0.195:8080/bjdt/webapi/import/excel" :show-file-list="false">
+                <el-button size="small" type="primary">{{item.title}}</el-button>
+            </el-upload>
+            <a v-else href="javascript:;" v-on:click="btnFn(item.fn)">{{item.title}}</a>
+        </div> -->
+        <!-- <a class="exportBtn" href="javascript:;" v-on:click="btnFn(item.fn)" v-for="(item,index) in searchData.btnShow">{{item.title}}</a> -->
         <a v-if="searchData.btnShow && searchData.btnShow.export" class="exportBtn" href="javascript:;">导出</a>
         <a v-if="searchData.btnShow && searchData.btnShow.add" v-on:click="testPop" class="exportBtn" href="javascript:;">增加</a>
         <a v-if="searchData.btnShow && searchData.btnShow.delete" v-on:click="deleteBtn" class="exportBtn" href="javascript:;">删除</a>
@@ -94,7 +101,8 @@
                 lineList: [],
                 loading: false,
                 getEquNameList: [],
-                optionsShow: []
+                optionsShow: [],
+                importValue: ''
             };
         },
         computed: {
@@ -119,8 +127,8 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            onSubmit() {
-
+            btnFn(val) {
+                this.$emit('receiveBtnFn', val);
             },
             testPop() {
                 this.$emit('receive', true);
@@ -143,6 +151,15 @@
                     }
                 });
             },
+            // test() {
+            //     this._getList({
+            //         ops: { type: 1 },
+            //         api: 'importApi',
+            //         callback: res => {
+            //             console.log(res);
+            //         }
+            //     });
+            // },
             //获取线路列表
             getLinesFn() {
                 this._getList({
@@ -228,5 +245,11 @@
         margin-top: 0.04rem;
         box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.3);
         text-decoration: none;
+        a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            color: #fff;
+        }
     }
 </style>

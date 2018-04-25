@@ -36,7 +36,7 @@ export default {
 
     htp({ ur: data.api, options: data.ops, method: method }).then(
       res => {
-        const s = { userId: res.id.toString(), token: res.token, isShow: res.messageFlag };
+        const s = { userId: res.id.toString(), token: res.token, isLimitShow: res.messageFlag };
 
         commit('_userInfo', s);
         data.callback();

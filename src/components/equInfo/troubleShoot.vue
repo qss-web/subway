@@ -2,22 +2,16 @@
     <div class="txt-center">
         <div class="flex">
             <div class="showChart">
-                <v-pie-chart id="test1" v-bind:chartData="test1"></v-pie-chart>
-                <!-- <p v-else>
+                <v-pie-chart id="test1" v-if="test1.data" v-bind:chartData="test1"></v-pie-chart>
+                <p v-else>
                     暂无数据
-                </p> -->
+                </p>
             </div>
             <div class="showChart">
-                <v-pie-chart id="test2" v-bind:chartData="test2"></v-pie-chart>
-                <!-- <p v-else>
+                <v-pie-chart id="test2" v-if="test2.data" v-bind:chartData="test2"></v-pie-chart>
+                <p v-else>
                     暂无数据
-                </p> -->
-            </div>
-            <div class="showChart">
-                <v-pie-chart id="test3" v-bind:chartData="test3"></v-pie-chart>
-                <!-- <p v-else>
-                    暂无数据
-                </p> -->
+                </p>
             </div>
         </div>
         <v-search-list style="min-height: 5.76rem;" :other="otherInfo" :label="info1" :list="equList"></v-search-list>
@@ -32,26 +26,11 @@
                 equId: '',//设备id
                 test1: [{
                     name: '故障维修',
-                    data: [{ name: '驱动电机', y: 29.9 },
-                    { name: '齿轮箱', y: 70 },
-                    { name: '主驱动轮', y: 45 },
-                    { name: '从驱动轮', y: 69 },
-                    { name: '扶手带', y: 19 }]
+                    data: []
                 }],
                 test2: [{
                     name: '故障维修',
-                    data: [{ name: '轴承滚动体', color: '#c23531', y: 29.9 },
-                    { name: '轴承保持架', color: '#2f4554', y: 70 },
-                    { name: '轴承跑套', color: '#61a0a8', y: 45 },
-                    { name: '轴承润滑不良', color: '#d48265', y: 69 },
-                    { name: '减速箱断齿', color: '#91c7ae', y: 19 },
-                    { name: '减速箱磨损', color: '#749f83', y: 19 }]
-                }],
-                test3: [{
-                    name: '故障维修',
-                    data: [{ name: '巡检', color: '#c23531', y: 29.9 },
-                    { name: '综控', color: '#2f4554', y: 70 },
-                    { name: '预警', color: '#61a0a8', y: 45 }]
+                    data: []
                 }],
                 otherInfo: {
                     isCheck: false, //是否显示多选框
@@ -122,7 +101,8 @@
                     ops: {},
                     api: 'getPie1',
                     callback: res => {
-                        console.log(res);
+                        this.test1.data = res;
+
                     }
                 });
             },
@@ -133,7 +113,7 @@
                     },
                     api: 'getPie2',
                     callback: res => {
-                        console.log(res);
+                        this.test2.data = res;
                     }
                 });
             },
@@ -157,6 +137,9 @@
     .showChart {
         padding: 0.28rem 0;
         flex: 1;
+        p {
+            line-height: 2rem;
+        }
     }
 </style>
 

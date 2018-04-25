@@ -63,19 +63,23 @@
                         scatter: {
                             marker: {
                                 radius: 6
+                            },
+                            tooltip: {
+                                headerFormat: '<b>{series.name}</b><br>',
+                                pointFormat: '{point.code}<br>x：{point.x}<br>y：{point.y}'
                             }
                         }
                     },
                     series: [
                         {
                             //指定数据列
-                            name: 'error',
+                            name: '站台门',
                             color: 'red',
                             data: [] //数据
                         },
                         {
                             //指定数据列
-                            name: 'warn',
+                            name: '自动扶梯',
                             color: 'yellow',
                             data: [], //数据
                             marker: {
@@ -84,7 +88,7 @@
                         },
                         {
                             //指定数据列
-                            name: 'success',
+                            name: '风机',
                             color: 'green',
                             data: [], //数据
                             marker: {
@@ -125,8 +129,21 @@
                     ops: {},
                     api: 'failureAnalysis',
                     callback: res => {
-                        this.pointData = res[0];
-                        this.option.series[0].data = this.pointData.value;
+                        this.pointData = res;
+                        res.forEach(item => {
+                            if(item.type == 0) {
+                                //站台门
+                                this.option.series[0].data = item.value;
+
+                            } else if(item.type == 7) {
+                                //自动扶梯
+                                this.option.series[1].data = item.value;
+
+                            } else {
+                                //8 = 风机
+                                this.option.series[2].data = item.value;
+                            }
+                        });
                     }
                 });
             }

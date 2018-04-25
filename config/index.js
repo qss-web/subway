@@ -45,7 +45,7 @@ module.exports = {
         // target: 'http://47.94.165.211:80',
         // target: 'http://192.168.0.138:8080',
         target: 'http://bhxz.net:48092',
-        // target: 'http://192.168.0.159:8080',
+        // target: 'http://192.168.0.195:8080',
         changeOrigin: true,
         pathRewrite: {
           '^/proxy': ''
