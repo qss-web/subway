@@ -59,7 +59,8 @@
                         lineWidth: 1,
                         tickWidth: 1,
                         tickColor: '#2f4554',
-                        showLastLabel: false
+                        showLastLabel: false,
+                        tickPositions: [0, 50, 100]
                     },
                     plotOptions: {
                         bar: {
@@ -70,7 +71,7 @@
                             borderWidth: 0,
                             dataLabels: {
                                 enabled: true,
-                                format: '{point.y:.1f}%',
+                                format: '{point.y:.2f}%',
                                 color: '#fff',
                                 fontWeight: 'normal'
                             },

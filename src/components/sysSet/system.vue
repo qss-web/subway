@@ -23,18 +23,13 @@
                 <dt>在线功能组</dt>
                 <dd>
                     <el-checkbox-group v-model="checkList">
-                        <el-checkbox v-for="(item, index) in checkListShow[1]" v-bind:label="item.code">{{item.name}}</el-checkbox>
-                        <!-- <el-checkbox label="扶梯专用图谱"></el-checkbox>
-                        <el-checkbox label="在线报表报告"></el-checkbox>
-                        <el-checkbox label="预警统计"></el-checkbox>
-                        <el-checkbox label="站台门专用图谱"></el-checkbox>
-                        <el-checkbox label="分析诊断专用图谱"></el-checkbox> -->
+                        <el-checkbox @change="handleCheckedChange(item)" v-for="(item, index) in checkListShow[1]" v-bind:label="item.code">{{item.name}}</el-checkbox>
                     </el-checkbox-group>
                 </dd>
                 <dt>离线功能组</dt>
                 <dd>
                     <el-checkbox-group v-model="checkList">
-                        <el-checkbox v-for="(item, index) in checkListShow[2]" v-bind:label="item.code">{{item.name}}</el-checkbox>
+                        <el-checkbox @change="handleCheckedChange(item)" v-for="(item, index) in checkListShow[2]" v-bind:label="item.code">{{item.name}}</el-checkbox>
                     </el-checkbox-group>
                 </dd>
             </dl>
@@ -111,11 +106,11 @@
                 }, {
                     'label': '类型',
                     'width': 13,
-                    'value': 'type'
+                    'value': 'typeName'
                 }, {
                     'label': '连接方式',
                     'width': 20,
-                    'value': 'connectionMode'
+                    'value': 'connectionModeName'
                 }, {
                     'label': '操作',
                     'width': 15,
@@ -124,7 +119,7 @@
                 equList: [],
                 connectionShow: ['旧连接', '新连接'],
                 typeShow: ['在线', '离线'],
-                test: []
+                saveData: []
             };
         },
         created() {
@@ -177,7 +172,11 @@
                     ops: req,
                     api: 'sysAdd',
                     callback: () => {
-                        this.$message.success('新增成功！');
+                        if(req.id) {
+                            this.$message.success('修改成功！');
+                        } else {
+                            this.$message.success('新增成功！');
+                        }
                         this.isShowPop = false;
                         this.getSysList();
                     }
@@ -198,8 +197,8 @@
                     api: 'sysList',
                     callback: res => {
                         res.rows.forEach(item => {
-                            item.connectionMode = this.connectionShow[item.connectionMode - 1];
-                            item.type = this.typeShow[item.type - 1];
+                            item.connectionModeName = this.connectionShow[item.connectionMode - 1];
+                            item.typeName = this.typeShow[item.type - 1];
                         });
                         this.equList = res.rows;
                         this.totalPage = res.total;
@@ -228,38 +227,40 @@
                     }
                 });
             },
-            //保存多选框
-            saveChecked() {
+            handleCheckedChange(items) {
                 this.checkListShow[1].forEach(item => {
-                    this.checkList.filter(item1 => {
-                        debugger;
-                        if(item.code == item1) {
-                            item.flag = !item.flag;
-                            if(item.flag) {
-                                item.flag = 1;
-                            } else {
-                                item.flag = 0;
-                            }
-                            this.test.push({ 'id': item.id, 'flag': item.flag });
-                        }
-                    });
+                    if(items.id == item.id) {
+                        item.flag = !items.flag;
+                    }
                 });
                 this.checkListShow[2].forEach(item => {
-                    this.checkList.filter(item1 => {
-                        if(item.code == item1) {
-                            item.flag = !item.flag;
-                            if(item.flag) {
-                                item.flag = 1;
-                            } else {
-                                item.flag = 0;
-                            }
-                            this.test.push({ 'id': item.id, 'flag': item.flag });
-                        }
-                    });
+                    if(items.id == item.id) {
+                        item.flag = !items.flag;
+                    }
+                });
+            },
+            //保存多选框
+            saveChecked() {
+                this.saveData = [];
+                this.checkListShow[1].forEach(item => {
+                    if(item.flag) {
+                        item.flag = 1;
+                    } else {
+                        item.flag = 0;
+                    }
+                    this.saveData.push({ 'id': item.id, 'flag': item.flag });
+                });
+                this.checkListShow[2].forEach(item => {
+                    if(item.flag) {
+                        item.flag = 1;
+                    } else {
+                        item.flag = 0;
+                    }
+                    this.saveData.push({ 'id': item.id, 'flag': item.flag });
                 });
 
                 this._getList({
-                    ops: { key: this.test },
+                    ops: { key: this.saveData },
                     api: 'groupconfigUpdate',
                     callback: () => {
                         this.$message.success('保存成功！');

@@ -34,7 +34,7 @@
         <div class="showPic" v-if="indexed==4">
             <img class="border-bg" src="../assets/other/footer-border.png" />
             <ul class="flex minHeight">
-                <li v-for="(item, index) in picList">
+                <li v-for="(item, index) in picList" style="text-align: center">
                     <img v-bind:src="item.url" />
                     <p>
                         <span style="display: inline-block; width: 0.24rem; height: 0.24rem; cursor: pointer" v-on:click="singleCheckFn(item)">

@@ -43,15 +43,14 @@
                     <span class="picShow" v-else-if="item1.showPic">
                         <a href="javascript:;">
                             {{item1.showPic}}
-                            <img style="border:1px solid red" v-bind:src="item1.value"/>
+                            <img v-if="item[item1.value].search('.jpg') != -1" v-bind:src="item[item1.value]"/>
+                            <i class="hoverShow" v-else>暂无图片</i>
                         </a>
-                        <!-- <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a> -->
                     </span>
                     <span v-else v-bind:class="item.status?listStatus[item.status-1] :''" v-on:click="goToNextPage(other.goToNextFn,item)">
                         <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
                             {{item[item1.value]}}
-                            <i class="redDot" v-if="item1.isShowRed && item.type==1">
-                            </i>
+                            <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
                         </a>
                         <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
                         
@@ -154,6 +153,24 @@
         a {
             color: #fff;
             text-decoration: underline;
+            position: relative;
+            display: block;
+            img {
+                display: none;
+                position: absolute;
+                bottom: 0.2rem;
+                left: -0.4rem;
+                width: 0.9rem !important;
+                height: 1.2rem !important;
+                z-index: 1;
+            }
+        }
+    }
+    .picShow {
+        a:hover {
+            img {
+                display: block;
+            }
         }
     }
     div span {

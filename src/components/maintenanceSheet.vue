@@ -52,17 +52,19 @@
                         </select>
                     </li>
                 </ul>
-                <dl class="textareaShow">
+                <dl class="textareaShow specialPic">
                     <dt>故障现象及车站先期处理内容（车站人员填写）：</dt>
                     <dd>
                         <textarea v-model="info.reportPretreatment" placeholder="请输入内容"></textarea>
                     </dd>
+                    <img v-if="info.image1.search('.jpg') != -1" v-bind:src="info.image1" />
                 </dl>
-                <dl class="textareaShow">
+                <dl class="textareaShow specialPic">
                     <dt>故障处理（维修人员填写，如不能现场修复说明情况）：</dt>
                     <dd>
                         <textarea v-model="info.reportProcessContent" placeholder="请输入内容"></textarea>
                     </dd>
+                    <img v-if="info.image2.search('.jpg') != -1" v-bind:src="info.image2" />
                 </dl>
                 <dl class="sign flex">
                     <dd>更换零配件情况（维修人员填写）：
@@ -70,14 +72,12 @@
                         <input type="radio" v-model="info.isReplacePart" value="0" /> 否
                     </dd>
                 </dl>
-                <dl class="sign flex">
+                <dl class="sign flex" style="padding: 0.04rem 0;">
                     <dd>修复时间：<input type="text" value="" v-model="info.repairTime" /></dd>
                     <dd>维修人员签字：<input type="text" value="" v-model="info.repairUserName" /></dd>
                     <dd class="showPic">修复确认签字：
-                        <a href="javascript:;">
-                            图片
-                            <div><img v-bind:src="info.confirmUserName" /></div>
-                        </a>
+                        <img v-if="info.confirmUserName.search('.jpg') != -1" v-bind:src="info.confirmUserName" />
+                        <span v-else>暂无图片</span>
                     </dd>
                 </dl>
                 <dl class="textareaShow">
@@ -143,6 +143,20 @@
     };
 </script>
 <style lang="less" scoped>
+    .specialPic {
+        padding-top: 0.1rem;
+        padding-bottom: 0.1rem;
+        padding-right: 1.6rem;
+        position: relative;
+        img {
+            position: absolute;
+            width: 0.9rem;
+            height: 1.2rem;
+            top: 0.1rem;
+            right: 0.2rem;
+            z-index: 1;
+        }
+    }
     textarea {
         resize: none;
     }
@@ -167,6 +181,7 @@
         margin: auto;
         z-index: 3;
         color: #363232;
+        overflow-y: auto;
         h3 {
             font-size: 0.2rem;
             font-weight: normal;
@@ -224,30 +239,9 @@
                     }
                 }
                 dd.showPic {
-                    position: relative;
-                    a {
-                        color: blue;
-                        text-decoration: underline;
-                        div {
-                            display: none;
-                            position: absolute;
-                            right: 0.2rem;
-                            bottom: 0.4rem;
-                            z-index: 99;
-                            width: 180px;
-                            height: 233px;
-                            background: #fff;
-                            img {
-                                width: 100%;
-                                height: 100%;
-                                float: left;
-                            }
-                        }
-                    }
-                    a:hover {
-                        div {
-                            display: block;
-                        }
+                    img {
+                        width: 0.56rem;
+                        height: 0.72rem;
                     }
                 }
             }

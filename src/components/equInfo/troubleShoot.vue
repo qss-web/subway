@@ -2,13 +2,13 @@
     <div class="txt-center">
         <div class="flex">
             <div class="showChart">
-                <v-pie-chart id="test1" v-if="test1.data" v-bind:chartData="test1"></v-pie-chart>
+                <v-pie-chart id="test1" v-if="test1[0].data.length!=0" v-bind:chartData="test1"></v-pie-chart>
                 <p v-else>
                     暂无数据
                 </p>
             </div>
             <div class="showChart">
-                <v-pie-chart id="test2" v-if="test2.data" v-bind:chartData="test2"></v-pie-chart>
+                <v-pie-chart id="test2" v-if="test2[0].data.length!=0" v-bind:chartData="test2"></v-pie-chart>
                 <p v-else>
                     暂无数据
                 </p>
@@ -103,7 +103,7 @@
                     },
                     api: 'getPie1',
                     callback: res => {
-                        this.test1.data = res;
+                        this.test1[0].data = res;
                     }
                 });
             },
@@ -114,7 +114,7 @@
                     },
                     api: 'getPie2',
                     callback: res => {
-                        this.test2.data = res;
+                        this.test2[0].data = res;
                     }
                 });
             },

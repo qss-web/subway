@@ -2,10 +2,10 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+                <v-sub-search v-on:getEquName="getEquNameFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-chart v-if="lastMonth.length!=0" :id="id" :option="option" :styleObject="styleObject"></v-chart>
+                <v-chart v-if="currentMonth.length!=0" :id="id" :option="option" :styleObject="styleObject"></v-chart>
             </div>
         </div>
         <v-goback></v-goback>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -36,7 +36,7 @@
                         'placeholder': '请输入内容',
                         'val': 'equSys'
                     }, {
-                        'status': 1,
+                        'status': 6,
                         'title': '设备名称',
                         'placeholder': '请输入内容',
                         'val': 'equSort'
@@ -47,7 +47,13 @@
                         'placeholderE': '选择结束日期',
                         'val1': 'startTime',
                         'val2': 'endTime'
-                    }]
+                    }],
+                    defaultReq: {
+                        line: '6号线西延线',
+                        station: '',
+                        equSys: '',
+                        equName: ''
+                    }
                 },
                 id: 'todayAlarm',
                 styleObject: {
@@ -135,14 +141,18 @@
                             fontWeight: 'normal'
                         }
                     }
-                }
+                },
+                isReq: {},
+                getEquNameArr: []
             };
         },
         created() {
-            this.getWarningEventsFn();
+            this.isReq = this.searchData.defaultReq;
+            this.getWarningEventsFn(this.isReq);
         },
         methods: {
-            ...mapActions(['_getInfo']),
+            ...mapActions(['_getInfo', '_getList']),
+            ...mapMutations(['_equNameList']),
             getWarningEventsFn(req) {
                 this._getInfo({
                     ops: req,
@@ -154,14 +164,35 @@
                         res.last.forEach(item => {
                             this.lastMonth.push(item[1]);
                         });
-                        this.option.series[1].data = this.lastMonth;
-                        this.option.series[0].data = this.currentMonth;
+                        //本月
+                        this.option.series[1].data = this.currentMonth;
+                        //上月
+                        this.option.series[0].data = this.lastMonth;
                     }
                 });
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
+                this.lastMonth = [];
+                this.currentMonth = [];
                 this.getWarningEventsFn(req);
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                if(req.line && req.station && req.equSys) {
+                    this._getList({
+                        ops: req,
+                        api: 'selectlist2',
+                        callback: res => {
+                            this.getEquNameArr = [];
+                            res.forEach(item => {
+                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                            });
+                            this._equNameList(this.getEquNameArr);
+                        }
+                    });
+                }
             }
         }
     };

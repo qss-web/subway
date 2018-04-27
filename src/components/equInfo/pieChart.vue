@@ -6,7 +6,6 @@
 
 <script>
     export default {
-        props: ['id', 'chartData'],
         data() {
             return {
                 styleObject: {
@@ -67,7 +66,8 @@
                     }
                 }
             };
-        }
+        },
+        props: ['id', 'chartData']
     };
 </script>
 
