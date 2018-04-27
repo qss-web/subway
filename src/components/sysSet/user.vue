@@ -1,7 +1,7 @@
 <template>
     <div class="user">
         <div class="searchWrap">
-            <v-sub-search v-on:receive="addUserFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
             <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
@@ -89,9 +89,9 @@
                     }]
                 },
                 searchData: {
-                    'btnShow': {
-                        'add': true
-                    },
+                    'btnShow': [
+                        { 'title': '增加', 'fn': 'addUserFn' }
+                    ],
                     'options': [{
                         'status': 1,
                         'title': '用户名',
@@ -155,6 +155,10 @@
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_itemObj']),
+            //搜索按钮
+            btnsFn(fn) {
+                this[fn]();
+            },
             getUserList(req) {
                 const ops = {
                     'curPage': this.currentPage,
@@ -208,9 +212,9 @@
                 });
             },
             //增加用户操作
-            addUserFn(val) {
+            addUserFn() {
                 this._itemObj('');
-                this.isShowPop = val;
+                this.isShowPop = true;
             },
             //弹出框保存数据
             saveFn(req) {

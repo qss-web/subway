@@ -1,7 +1,7 @@
 <template>
     <div class="equWrap">
         <div class="searchWrap">
-            <v-sub-search v-on:filter="fifterBtnFn" v-bind:searchData="searchData02"></v-sub-search>
+            <v-sub-search v-on:receiveBtnFn="btnsFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData02"></v-sub-search>
         </div>
         <div class="tab">
             <v-search-list v-bind:other="otherInfo" v-bind:label="info3" v-bind:list="equList"></v-search-list>
@@ -14,7 +14,8 @@
     </div>
 </template>
 <script>
-    import { mapActions, mapMutations, mapState } from 'vuex';
+    import { mapActions } from 'vuex';
+    import { formatDate } from '../../utils';
     export default {
         data() {
             return {
@@ -23,77 +24,29 @@
                 pageTotal: 0,//总页数
                 pageNumber: 0,//总条目数
                 searchData02: {
-                    'btnShow': {
-                        'export': true
-                    },
+                    'btnShow': [
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
-                        'status': 2,
+                        'status': 1,
                         'title': '人员',
-                        'placeholder': '请选择内容',
-                        'val': 'username',
-                        'list': [{
-                            value: '1',
-                            label: '巡检人员1'
-                        }, {
-                            value: '2',
-                            label: '巡检人员2'
-                        }, {
-                            value: '3',
-                            label: '巡检人员3'
-                        }]
+                        'placeholder': '请输入内容',
+                        'val': 'name'
                     }, {
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'stationId',
-                        'list': []
+                        'val': 'stationId'
                     }, {
-                        'status': 2,
+                        'status': 5,
                         'title': '月份',
                         'placeholder': '请选择内容',
-                        'val': 'month',
-                        'list': [{
-                            value: '1',
-                            label: '一月'
-                        }, {
-                            value: '2',
-                            label: '二月'
-                        }, {
-                            value: '3',
-                            label: '三月'
-                        }, {
-                            value: '4',
-                            label: '四月'
-                        }, {
-                            value: '5',
-                            label: '五月'
-                        }, {
-                            value: '6',
-                            label: '六月'
-                        }, {
-                            value: '7',
-                            label: '七月'
-                        }, {
-                            value: '8',
-                            label: '八月'
-                        }, {
-                            value: '9',
-                            label: '九月'
-                        }, {
-                            value: '10',
-                            label: '十月'
-                        }, {
-                            value: '11',
-                            label: '十一月'
-                        }, {
-                            value: '12',
-                            label: '十二月'
-                        }]
+                        'val1': 'selectMonth'
                     }],
                     defaultReq: {
                         username: '',
                         stationId: '',
-                        month: ''
+                        selectMonth: formatDate('', 4)
                     }
                 },
                 otherInfo: {
@@ -139,6 +92,9 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            btnsFn(fn) {
+                this[fn]();
+            },
             //搜索的传值
             fifterBtnFn(req) {
                 this.isReq = req;

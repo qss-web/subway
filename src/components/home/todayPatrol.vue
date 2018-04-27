@@ -73,7 +73,9 @@
                                 format: '{point.y:.1f}%',
                                 color: '#fff',
                                 fontWeight: 'normal'
-                            }
+                            },
+                            cursor: 'pointer',
+                            events: {}
                         }
                     },
                     series: [
@@ -132,6 +134,24 @@
                         this.timeOut = setTimeout(() => {
                             this.getBacklogCountFn();
                         }, 60000);
+
+                        var _this = this;
+
+                        this.option.plotOptions.series.events.click = function(event) {
+                            if(event.point.index == 0) {
+                                //77为自定义的
+                                _this.$router.push({ path: 'inspect', query: { 'equKey': '77' } });
+                            } else if(event.point.index == 1) {
+                                //自动扶梯
+                                _this.$router.push({ path: 'inspect', query: { 'equKey': '7' } });
+                            } else if(event.point.index == 2) {
+                                //风机
+                                _this.$router.push({ path: 'inspect', query: { 'equKey': '8' } });
+                            } else {
+                                //站台门
+                                _this.$router.push({ path: 'inspect', query: { 'equKey': '0' } });
+                            }
+                        };
                     }
                 });
             }

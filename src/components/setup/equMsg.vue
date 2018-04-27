@@ -27,17 +27,9 @@
                 getEquNameArr: [],//接口获取的设备名称
                 equList: [],
                 searchData: {
-                    // 'btnShow': {
-                    //     'add': true,
-                    //     'delete': true,
-                    //     'download': true,
-                    //     'import': true,
-                    //     'synchronization': true
-                    // },
                     'btnShow': [
                         { 'title': '增加', 'fn': 'addFn' },
                         { 'title': '删除', 'fn': 'deleteFn' },
-                        // { 'title': '下载', 'fn': 'downloadFn' },
                         { 'title': '导入', 'fn': 'importFn' },
                         { 'title': '同步', 'fn': 'synchronizationFn' },
                         { 'title': '导出', 'fn': 'exportFn' }
@@ -192,12 +184,11 @@
                     },
                     api: 'exportApi',
                     callback: res => {
-                        window.open(res.url);
-                        // debugger;
-                        // window.location.href = res.url;
-                        // console.log(res);
-                        // this.$message.success('更新成功！');
-                        // this.infoListFn(this.isReq);
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
                     }
                 });
             },

@@ -52,6 +52,7 @@
                     <span>{{item.title}}：</span>
                     <el-select filterable remote :remote-method="remoteMethod" :loading="loading" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                         <el-option key="" label="全部" value=""></el-option>
+
                         <el-option v-for="itemSel in optionsShow" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
@@ -59,21 +60,15 @@
             </ul>
         </div>
         <a class="exportBtn" href="javascript:;" v-on:click="filterBtn">查询</a>
-        <!-- <div class="exportBtn" v-for="(item,index) in searchData.btnShow">
-            <el-upload v-if="item.fn == 'importFn'" class="upload-demo" action="http://192.168.0.195:8080/bjdt/webapi/import/excel" :show-file-list="false">
-                <el-button size="small" type="primary">{{item.title}}</el-button>
+        <div class="exportBtn" v-for="(item,index) in searchData.btnShow">
+            <el-upload v-if="item.fn == 'importFn'" class="upload-demo" action="http://bhxz.net:48092/bjdt/webapi/import/excel" :show-file-list="false">
+                <a href="javascript:;">{{item.title}}</a>
+            </el-upload>
+            <el-upload v-else-if="item.fn == 'importFn2'" class="upload-demo" action="http://bhxz.net:48092/bjdt/webapi/import/excel2" :show-file-list="false">
+                <a href="javascript:;">{{item.title}}</a>
             </el-upload>
             <a v-else href="javascript:;" v-on:click="btnFn(item.fn)">{{item.title}}</a>
-        </div> -->
-        <!-- <a class="exportBtn" href="javascript:;" v-on:click="btnFn(item.fn)" v-for="(item,index) in searchData.btnShow">{{item.title}}</a> -->
-        <a v-if="searchData.btnShow && searchData.btnShow.export" class="exportBtn" href="javascript:;">导出</a>
-        <a v-if="searchData.btnShow && searchData.btnShow.add" v-on:click="testPop" class="exportBtn" href="javascript:;">增加</a>
-        <a v-if="searchData.btnShow && searchData.btnShow.delete" v-on:click="deleteBtn" class="exportBtn" href="javascript:;">删除</a>
-        <a v-if="searchData.btnShow && searchData.btnShow.synchronization" class="exportBtn" href="javascript:;">同步</a>
-        <a v-if="searchData.btnShow && searchData.btnShow.edit" class="exportBtn" href="javascript:;">编辑</a>
-        <a v-if="searchData.btnShow && searchData.btnShow.download" class="exportBtn" href="javascript:;">下载</a>
-        <a v-if="searchData.btnShow && searchData.btnShow.import" class="exportBtn" href="javascript:;">导入</a>
-        <a v-if="searchData.btnShow && searchData.btnShow.save" class="exportBtn" href="javascript:;">保存</a>
+        </div>
     </div>
 </template>
 <script>
@@ -116,6 +111,7 @@
         },
         props: ['searchData'],
         created() {
+            this.optionsShow = JSON.parse(JSON.stringify(this.equNameList));
             //设置默认值
             if(this.searchData.defaultReq) {
                 this.req = this.searchData.defaultReq;
@@ -130,16 +126,9 @@
             btnFn(val) {
                 this.$emit('receiveBtnFn', val);
             },
-            testPop() {
-                this.$emit('receive', true);
-            },
             //查询
             filterBtn() {
                 this.$emit('filter', this.req);
-            },
-            //删除
-            deleteBtn() {
-                this.$emit('delete');
             },
             //获取车站列表
             getStationsFn() {
@@ -151,15 +140,6 @@
                     }
                 });
             },
-            // test() {
-            //     this._getList({
-            //         ops: { type: 1 },
-            //         api: 'importApi',
-            //         callback: res => {
-            //             console.log(res);
-            //         }
-            //     });
-            // },
             //获取线路列表
             getLinesFn() {
                 this._getList({

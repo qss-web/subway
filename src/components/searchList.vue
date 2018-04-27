@@ -40,6 +40,13 @@
                     <span v-else-if="item1.btn" class="btn">
                         <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
+                    <span class="picShow" v-else-if="item1.showPic">
+                        <a href="javascript:;">
+                            {{item1.showPic}}
+                            <img style="border:1px solid red" v-bind:src="item1.value"/>
+                        </a>
+                        <!-- <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a> -->
+                    </span>
                     <span v-else v-bind:class="item.status?listStatus[item.status-1] :''" v-on:click="goToNextPage(other.goToNextFn,item)">
                         <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
                             {{item[item1.value]}}
@@ -101,6 +108,8 @@
                 this.listShow.forEach(item => {
                     if(item.isCheck && item.deviceId) {
                         this.checkedValue += item.deviceId + ',';
+                    } else if(item.isCheck && item.rowid) {
+                        this.checkedValue += item.rowid + ',';
                     } else if(item.isCheck) {
                         this.checkedValue += item.id + ',';
                     }
@@ -124,6 +133,9 @@
                 this.listShow.forEach(item => {
                     if(item.isCheck && item.deviceId) {
                         this.checkedValue += item.deviceId + ',';
+                    } else if(item.isCheck && item.rowid) {
+                        debugger;
+                        this.checkedValue += item.rowid + ',';
                     } else if(item.isCheck) {
                         this.checkedValue += item.id + ',';
                     }
@@ -138,6 +150,12 @@
     };
 </script>
 <style lang="less" scoped>
+    .picShow {
+        a {
+            color: #fff;
+            text-decoration: underline;
+        }
+    }
     div span {
         display: block;
         width: 100% !important;

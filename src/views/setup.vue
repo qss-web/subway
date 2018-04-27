@@ -18,26 +18,17 @@
 </template>
 
 <script>
-    import { mapActions, mapMutations, mapState } from 'vuex';
+    import { mapState } from 'vuex';
     export default {
         data() {
             return {
-                tabShow: 1,
-                currentPage3: 1, //当前页数
-                pageSize3: 12, //每页显示数量
-                pageTotal3: 0,//总页数
-                pageNumber3: 0,//总条目数
-                unitAccount: {},
-                equList3: [],
-                isReq4: {} //是否点击过筛选，如果点击过，筛选的值
+                tabShow: 1
             };
         },
         computed: {
             ...mapState(['userInfo'])
         },
-        created() {
-
-        },
+        created() { },
         methods: {
             currentList(index) {
                 this.tabShow = index;

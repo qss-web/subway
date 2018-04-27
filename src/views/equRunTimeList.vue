@@ -2,7 +2,7 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
+                <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
@@ -28,9 +28,9 @@
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 searchData: {
-                    'btnShow': {
-                        'export': true
-                    },
+                    'btnShow': [
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -117,6 +117,13 @@
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_equNameList']),
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //导出
+            exportFn() {
+
+            },
             currentList(index) {
                 this.indexed = index;
             },

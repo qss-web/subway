@@ -13,18 +13,9 @@
                     </dd>
                 </dl>
             </div>
-            <dl class="notice" v-if="isNotice" style="display: none">
-                <dt>提示
-                    <span v-on:click="close"><img src="../assets/login/close_icon.png"/></span>
-                    <span v-on:click="close"><img src="../assets/login/minimize_icon.png"/></span>
-                </dt>
-                <dd>插件版本4.9.0.9</dd>
-                <dd>同当前服务器版本（4.8.0.5）不一致，使用中如有问题，请点击 <span>更新控件</span> 进行下载并重新安装。</dd>
-            </dl>
         </div>
         <v-login-footer></v-login-footer>
     </div>
-
 </template>
 
 <script>
@@ -32,7 +23,6 @@
     export default {
         data() {
             return {
-                isNotice: true,
                 req: {
                     username: '',
                     password: ''
@@ -41,9 +31,6 @@
         },
         methods: {
             ...mapActions(['_login']),
-            close() {
-                this.isNotice = false;
-            },
             loginFn() {
                 this._login({
                     ops: this.req,
@@ -128,49 +115,6 @@
                     font-size: 0.2rem;
                     border-radius: 2px;
                     text-shadow: 0.008rem 0.008rem rgba(0, 252, 225, 0.4);
-                    cursor: pointer;
-                }
-            }
-        }
-        .notice {
-            position: absolute;
-            right: 0.04rem;
-            bottom: 0.78rem;
-            z-index: 1;
-            width: 4.26rem;
-            background: #a7abbe;
-            color: #435370;
-            border-radius: 2px;
-            overflow: hidden;
-            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-            dt,
-            dd {
-                padding: 0 0.18rem;
-            }
-            dd:nth-child(2) {
-                margin-top: 0.1rem;
-            }
-            dd:nth-child(3) {
-                margin-bottom: 0.2rem;
-            }
-            dt {
-                height: 0.36rem;
-                line-height: 0.36rem;
-                text-align: left;
-                background: #bec0ce;
-                font-size: 0.18rem;
-                span {
-                    float: right;
-                    cursor: pointer;
-                }
-                span:nth-child(1) {
-                    margin-left: 0.1rem;
-                }
-            }
-            dd {
-                line-height: 0.24rem;
-                span {
-                    color: #402700;
                     cursor: pointer;
                 }
             }

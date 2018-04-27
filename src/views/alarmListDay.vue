@@ -1,7 +1,7 @@
 <template>
     <div class="wholeWrap">
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="tab">
             <ul class="title">
@@ -47,9 +47,9 @@
                 equInfoCount: [], //设备信息
                 equTotal: 0, //设备信息全部
                 searchData: {
-                    'btnShow': {
-                        'export': true
-                    },
+                    'btnShow': [
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -84,7 +84,7 @@
                         equSys: '',
                         equName: '',
                         startTime: formatDate('', 2) + ' 00:00:00',
-                        endTime: formatDate('', 3)
+                        endTime: formatDate('', 2) + ' 23:59:59'
                     }
                 },
                 otherInfo: {
@@ -134,7 +134,9 @@
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             if(this.itemObj.equuid) {
-                this.isReq.equName = this.itemObj.equuid;
+                this._equNameList([{ 'label': this.itemObj.equName, 'value': this.itemObj.equuid }]);
+                this.searchData.defaultReq.equName = this.itemObj.equuid;
+                this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
                 this.getHaveTimelyAlarmListFn(this.isReq);
             } else {
                 this.getTimelyAlarmListFn(this.isReq);
@@ -144,6 +146,13 @@
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_equNameList']),
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //导出
+            exportFn() {
+
+            },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;

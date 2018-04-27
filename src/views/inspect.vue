@@ -2,7 +2,7 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn" v-on:delete="deleteBtn"></v-sub-search>
+                <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn" v-on:receiveBtnFn="btnsFn"></v-sub-search>
             </div>
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:ids="deleteValue"></v-search-list>
@@ -28,10 +28,10 @@
                 pageNumber: 0,//总条目数
                 ids: '',//删除的id
                 searchData: {
-                    'btnShow': {
-                        'export': true,
-                        'delete': true
-                    },
+                    'btnShow': [
+                        { 'title': '删除', 'fn': 'deleteBtn' },
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -131,12 +131,40 @@
         },
         props: ['list', 'label', 'checked'],
         created() {
+            this.equKey = this.$route.query.equKey;
+            if(this.equKey || this.equKey == 0) {
+                if(this.equKey == 77) {
+                    this.searchData.defaultReq.equSys = "";
+                } else {
+                    this.searchData.defaultReq.equSys = this.equKey.toString();
+                }
+            }
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getCheckRatioListFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_equNameList']),
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //导出
+            exportFn() {
+                this._getList({
+                    ops: {
+                        type: '6',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
+            },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
@@ -179,7 +207,7 @@
                         api: 'checkRatioDel',
                         callback: () => {
                             this.$message.success('删除成功！');
-                            this.getCheckRatioListFn();
+                            this.getCheckRatioListFn(this.isReq);
                         }
                     });
                 }

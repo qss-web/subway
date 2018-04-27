@@ -225,7 +225,23 @@ const api = {
 
   //导出
   exportApi: 'webapi/export/excel',
-  importApi: 'webapi/import/excel'
+  importApi: 'webapi/import/excel',
+  //导出图片
+  downloadPic: 'monitor/downloadPic',
+
+  //故障库--列表
+  faultList: 'webapi/deviceFaultDatabase/list',
+  //故障库--增加
+  faultAdd: 'webapi/deviceFaultDatabase/add',
+  //故障库--删除
+  faultDel: 'webapi/deviceFaultDatabase/del',
+
+  //监控日志
+  getMonitorLog: 'webapi/system/runtime/info',
+  //功能组设置列表
+  groupconfigList: 'webapi/groupconfig/list',
+  //功能组设置修改
+  groupconfigUpdate: 'webapi/groupconfig/update'
 };
 
 for (var k in api) {

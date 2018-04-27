@@ -1,7 +1,7 @@
 <template>
     <div class="timeManagement">
         <div class="searchWrap">
-            <v-sub-search v-on:receive="addFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
             <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
@@ -67,10 +67,10 @@
                     }]
                 },
                 searchData: {
-                    'btnShow': {
-                        'add': true,
-                        'export': true
-                    },
+                    'btnShow': [
+                        { 'title': '增加', 'fn': 'addFn' },
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -147,6 +147,10 @@
         methods: {
             ...mapActions(['_getList', '_getInfo']),
             ...mapMutations(['_itemObj', '_equNameList']),
+            //搜索按钮
+            btnsFn(fn) {
+                this[fn]();
+            },
             //获取列表
             getEquRunTimeListFn(req) {
                 const ops = {
@@ -196,9 +200,9 @@
                 this[val.fn](val.id, val.item);
             },
             //增加用户操作
-            addFn(val) {
+            addFn() {
                 this._itemObj('');
-                this.isShowPop = val;
+                this.isShowPop = true;
             },
             //删除操作
             deleteFn(id) {

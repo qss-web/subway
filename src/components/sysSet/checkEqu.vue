@@ -1,7 +1,7 @@
 <template>
     <div class="timeManagement">
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
             <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
@@ -45,9 +45,9 @@
                     }]
                 },
                 searchData: {
-                    'btnShow': {
-                        'export': true
-                    },
+                    'btnShow': [
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -66,14 +66,7 @@
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'deviceSys',
-                        'list': [{
-                            value: '1',
-                            label: '设备系统一'
-                        }, {
-                            value: '2',
-                            label: '设备系统二'
-                        }]
+                        'val': 'deviceSys'
                     }, {
                         'status': 1,
                         'title': '设备名称',
@@ -115,6 +108,10 @@
         methods: {
             ...mapActions(['_getList', '_getInfo']),
             ...mapMutations(['_itemObj']),
+            //搜索按钮
+            btnsFn(fn) {
+                this[fn]();
+            },
             //子组件按钮
             btnFn(val) {
                 this[val.fn](val.id, val.item);

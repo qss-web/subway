@@ -2,7 +2,7 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+                <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
@@ -20,9 +20,9 @@
         data() {
             return {
                 searchData: {
-                    'btnShow': {
-                        'export': true
-                    },
+                    'btnShow': [
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 2,
                         'title': '车站',
@@ -147,6 +147,13 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //导出
+            exportFn() {
+
+            },
             currentList(index) {
                 this.indexed = index;
             },

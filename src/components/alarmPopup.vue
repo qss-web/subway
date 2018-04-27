@@ -30,7 +30,7 @@
                             text: null
                         },
                         type: 'category',
-                        categories: ['哈哈', '嘿嘿', 3, 4, 5, 6, 7],
+                        categories: [],
                         labels: {
                             // style: {
                             //     color: '#474740',
@@ -63,6 +63,16 @@
                         tickWidth: 1,
                         tickColor: '#7281a3'
                     },
+                    tooltip: {
+                        shared: true,
+                        crosshairs: true,
+                        // 时间格式化字符
+                        // 默认会根据当前的数据点间隔取对应的值
+                        // 当前图表中数据点间隔为 1天，所以配置 day 值即可
+                        dateTimeLabelFormats: {
+                            day: '%Y-%m-%d'
+                        }
+                    },
                     plotOptions: {
                         series: {
                             borderWidth: 0,
@@ -71,7 +81,8 @@
                     },
                     series: [{
                         color: '#d06c6a',
-                        data: []
+                        data: [],
+                        name: '工艺量'
                     }],
                     legend: {
                         enabled: false
@@ -84,7 +95,8 @@
                         }
                     }
                 },
-                test: []
+                test: [],
+                test2: []
             };
         },
         computed: {
@@ -93,8 +105,10 @@
         created() {
             this.warnChart.forEach(item => {
                 this.test.push(parseFloat(item.value));
+                this.test2.push(item.date);
             });
             this.option.series[0].data = this.test;
+            this.option.xAxis.categories = this.test2;
         }
     };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-search v-on:receive="fifterBtn"></v-search>
+        <v-search v-on:receive="fifterBtn" v-on:download="downloadFn"></v-search>
         <dl class="middleSort clearfix">
             <dd v-on:click="currentList(1)" v-bind:class="indexed == 1 ?'active':''">
                 <p>设备档案 <span v-if="count.archives|| count.archives==0">{{count.archives+'份'}}</span></p>
@@ -28,15 +28,20 @@
                 <img v-if="indexed==5" src="../assets/search/sort05_orange.png" />
             </dd>
         </dl>
-        <v-search-list class="minHeight" v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list" v-on:receive="clickFn"></v-search-list>
-        <v-search-list class="minHeight" v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="list"></v-search-list>
-        <v-search-list class="minHeight" v-if="indexed==3" v-on:receive="clickFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list"></v-search-list>
+        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list" v-on:receive="clickFn"></v-search-list>
+        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="list"></v-search-list>
+        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==3" v-on:receive="clickFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list"></v-search-list>
         <div class="showPic" v-if="indexed==4">
             <img class="border-bg" src="../assets/other/footer-border.png" />
             <ul class="flex minHeight">
                 <li v-for="(item, index) in picList">
                     <img v-bind:src="item.url" />
-                    <p>{{item.name}}</p>
+                    <p>
+                        <span style="display: inline-block; width: 0.24rem; height: 0.24rem; cursor: pointer" v-on:click="singleCheckFn(item)">
+                        <img style="width: 0.24rem; height: 0.24rem;" v-if="!item.isCheck" src="../assets/search/check.png" />
+                        <img style="width: 0.24rem; height: 0.24rem;" v-if="item.isCheck" src="../assets/search/checked.png" />
+                        </span> {{item.name}}
+                    </p>
                 </li>
             </ul>
         </div>
@@ -45,8 +50,8 @@
                 <li v-on:click="otherFn(true)" v-bind:class="{active:subOther==true}">巡视巡检</li>
                 <li v-on:click="otherFn(false)" v-bind:class="{active:subOther==false}">故障库</li>
             </ul>
-            <v-search-list v-if="subOther " v-bind:label="equLabe5 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
-            <v-search-list v-if="!subOther " v-bind:label="equLabe4 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="subOther " v-bind:label="equLabe5 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="!subOther " v-bind:label="equLabe4 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
         </div>
         <div v-if="indexed == 1" class="pagination">
             <el-pagination :page-size=" pageSize01 " @current-change="changePages01" layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
@@ -88,6 +93,7 @@
     export default {
         data() {
             return {
+                picChecked: '',
                 list: [],
                 isPop: false,
                 indexed: 1,
@@ -180,23 +186,23 @@
                 }, {
                     'label': '车站',
                     'width': 15,
-                    'value': 'company'
+                    'value': 'station'
                 }, {
                     'label': '设备名称',
                     'width': 21,
-                    'value': 'company'
+                    'value': 'equName'
                 }, {
                     'label': '时间',
                     'width': 15,
-                    'value': 'project'
+                    'value': 'time'
                 }, {
                     'label': '预警事件',
                     'width': 15,
-                    'value': 'line'
+                    'value': 'alarmEvent'
                 }, {
                     'label': '状态',
                     'width': 10,
-                    'value': 'station'
+                    'value': 'statusValue'
                 }],
                 equLabe3: [{
                     'label': '序号',
@@ -241,7 +247,8 @@
                 }, {
                     'label': '修复确认',
                     'width': 9,
-                    'value': 'repairConfirm'
+                    'value': 'repairConfirm',
+                    'showPic': '签名'
                 }],
                 equLabe4: [{
                     'label': '序号',
@@ -250,15 +257,15 @@
                 }, {
                     'label': '设备类型编码',
                     'width': 10,
-                    'value': 'equNum'
+                    'value': 'deviceTypeCode'
                 }, {
                     'label': '设备类型',
                     'width': 10,
-                    'value': 'equSort'
+                    'value': 'deviceType'
                 }, {
                     'label': '故障部位编码',
                     'width': 10,
-                    'value': 'faultPositionNum'
+                    'value': 'faultPositionCode'
                 }, {
                     'label': '故障部位',
                     'width': 10,
@@ -266,7 +273,7 @@
                 }, {
                     'label': '故障原因编码',
                     'width': 10,
-                    'value': 'faultReasonNum'
+                    'value': 'faultReasonCode'
                 }, {
                     'label': '故障原因',
                     'width': 10,
@@ -274,11 +281,11 @@
                 }, {
                     'label': '维修策略编码',
                     'width': 10,
-                    'value': 'repairNum'
+                    'value': 'repairStrategyCode'
                 }, {
                     'label': '维修建议',
                     'width': 10,
-                    'value': 'repairAdvise'
+                    'value': 'repairStrategy'
                 }],
                 equLabe5: [{
                     'label': '序号',
@@ -314,7 +321,10 @@
                     'value': 'executor'
                 }],
                 picList: [],
-                queryInfo: ''
+                queryInfo: '',
+                ids: '',
+                downloadType: 0, //下载的type
+                exportApi: ''//导出的api
             };
         },
         computed: {
@@ -324,6 +334,65 @@
         methods: {
             ...mapActions(['_getList', '_getInfo']),
             ...mapMutations(['_equInfo']),
+            //图片的多选框
+            singleCheckFn(item) {
+                item.isCheck = true;
+            },
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
+            },
+            //下载按钮
+            downloadFn() {
+                if(this.indexed == 1) {
+                    this.downloadType = 1;
+                } else if(this.indexed == 2) {
+                    //预警信息
+                    this.downloadType = 10;
+                } else if(this.indexed == 3) {
+                    this.downloadType = 9;
+                } else if(this.indexed == 4) {
+                    this.picList.forEach(item => {
+                        if(item.isCheck) {
+                            this.ids += item.id + ',';
+                        }
+                    });
+                    this.ids = this.ids.substr(0, this.ids.length - 1);
+                    //图片不需要type，制空
+                    this.downloadType = '';
+                } else if(this.indexed == 5 && this.subOther) {
+                    //巡视巡检
+                    this.downloadType = 7;
+                } else {
+                    //故障库
+                    this.downloadType = 5;
+                }
+                if(this.ids) {
+                    if(this.indexed == 4) {
+                        this.exportApi = "downloadPic";
+                    } else {
+                        this.exportApi = "exportApi";
+                    }
+                    this._getList({
+                        ops: {
+                            type: this.downloadType,
+                            ids: this.ids
+                        },
+                        api: this.exportApi,
+                        callback: res => {
+                            if(this.indexed == 4) {
+                                console.log(res);
+                            } else if(res.url) {
+                                window.location.href = res.url;
+                            } else {
+                                this.$message.error(res.message);
+                            }
+                        }
+                    });
+                } else {
+                    this.$message.error('请至少选择一列数据！');
+                }
+            },
             fifterBtn(value) {
                 if(value) {
                     this.queryInfo = value;
@@ -344,7 +413,7 @@
                     api: 'infoDetail',
                     callback: res => {
                         this._equInfo(res);
-                        if(this.itemObj.deviceTypeCode == 0 || this.itemObj.deviceTypeCode == 8) {
+                        if(this.itemObj.equSystem == "站台门" || this.itemObj.equSystem == "风机") {
                             this.$router.push({ path: '/equInfoOther', query: { 'id': this.itemObj.id, 'isShow': true } });
                         } else {
                             this.$router.push({ path: '/equInfo', query: { 'id': this.itemObj.id, 'isShow': true } });
@@ -354,6 +423,7 @@
             },
             currentList(index) {
                 this.indexed = index;
+                this.ids = "";
                 if(this.queryInfo) {
                     this['queryFn' + index](this.queryInfo);
                 }
@@ -501,6 +571,9 @@
                     ops: ops,
                     api: 'queryPic',
                     callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
                         this.picList = res.rows;
                         this.totalPage04 = res.total;
                         this.pageNumber04 = res.records;

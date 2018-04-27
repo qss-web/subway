@@ -2,7 +2,7 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData"></v-sub-search>
+                <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData"></v-sub-search>
             </div>
             <div class="tab">
                 <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
@@ -24,14 +24,9 @@
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
                 searchData: {
-                    'btnShow': {
-                        'add': false,
-                        'export': true,
-                        'delete': false,
-                        'edit': false,
-                        'download': false,
-                        'import': false
-                    },
+                    'btnShow': [
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -237,6 +232,13 @@
         },
         props: ['list', 'label', 'checked'],
         methods: {
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //导出
+            exportFn() {
+
+            },
             currentList(index) {
                 this.indexed = index;
             },

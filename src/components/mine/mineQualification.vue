@@ -39,18 +39,19 @@
                 this._getList({
                     ops: {},
                     api: 'mineRate',
-                    callback: () => {
-                        this.codes = {
-                            "nor": [
-                                { name: 'F04', type: 0, x: 100, y: 50 },
-                                { name: 'F05', type: 0, x: 120, y: 100 }],
-                            "high": [
-                                { name: 'F06', type: 7, x: 50, y: 120 }],
-                            "low": [
-                                { name: 'F01', type: 7, x: 170, y: 180 },
-                                { name: 'F02', type: 0, x: 150, y: 40 },
-                                { name: 'F03', type: 8, x: 180, y: 80 }]
-                        };
+                    callback: res => {
+                        this.codes = res;
+                        // this.codes = {
+                        //     "nor": [
+                        //         { name: 'F04', type: 0, x: 100, y: 50 },
+                        //         { name: 'F05', type: 0, x: 120, y: 100 }],
+                        //     "high": [
+                        //         { name: 'F06', type: 7, x: 50, y: 120 }],
+                        //     "low": [
+                        //         { name: 'F01', type: 7, x: 170, y: 180 },
+                        //         { name: 'F02', type: 0, x: 150, y: 40 },
+                        //         { name: 'F03', type: 8, x: 180, y: 80 }]
+                        // };
                     }
                 });
             }

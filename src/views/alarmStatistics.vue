@@ -2,20 +2,18 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
+                <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
                 <ul class="title">
                     <dl class="notice flex">
                         <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
                         <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
-                        <dd class="normal" v-on:click="statusFilter('3')">运行：{{equInfoCount[2]}}次</dd>
-                        <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}次</dd>
-                        <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}次</dd>
+                        <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[2]}}次</dd>
                         <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                     </dl>
                 </ul>
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
+                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -40,9 +38,9 @@
                 equInfoCount: [], //设备信息
                 equTotal: 0, //设备信息全部
                 searchData: {
-                    'btnShow': {
-                        'export': true
-                    },
+                    'btnShow': [
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -122,7 +120,8 @@
                 alarmVal: '',//预警状态
                 isReq: {},
                 getEquNameArr: [],
-                equKey: ''
+                equKey: '',
+                ids: ''
             };
         },
         created() {
@@ -135,6 +134,30 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
+            },
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //导出
+            exportFn() {
+                this._getList({
+                    ops: {
+                        type: '10',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
+            },
             currentList(index) {
                 this.indexed = index;
             },
@@ -173,6 +196,8 @@
                             item.isCheck = false;
                         });
                         this.equTotal = 0;
+                        res.counts.splice(2, 1);
+                        res.counts.pop();
                         this.equInfoCount = res.counts;
                         res.counts.forEach(item => {
                             this.equTotal += item;

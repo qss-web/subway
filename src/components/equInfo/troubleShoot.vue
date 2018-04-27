@@ -98,11 +98,12 @@
             ...mapActions(['_getList']),
             getPie1Fn() {
                 this._getList({
-                    ops: {},
+                    ops: {
+                        'id': this.equId
+                    },
                     api: 'getPie1',
                     callback: res => {
                         this.test1.data = res;
-
                     }
                 });
             },

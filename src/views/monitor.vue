@@ -3,7 +3,8 @@
         <div id="childBox">
 
         </div>
-        <v-goback></v-goback>
+        <!-- 下载或更新控件提示框 -->
+        <v-control-box v-bind:type="download" v-if="isDownloadControl"></v-control-box>
     </div>
 </template>
 
@@ -24,7 +25,9 @@
     export default {
         data() {
             return {
-                equList: []
+                equList: [],
+                isDownloadControl: false,
+                download: 'download'
             };
         },
         created() { },
@@ -79,8 +82,9 @@
                     G_oObject.SetAppMode(1);
 
                 } catch(e) {
-
+                    //判断提示下载框
                     alert("客户端初始化失败，请确认是否正确安装客户端插件");
+                    this.isDownloadControl = true;
                     return false;
                 }
 
@@ -175,7 +179,7 @@
              */
 
             clientLogin() {
-                G_oObject.SetParameter("Online_Category", "系统,风电专用图谱,案例库系统,旋转机械专用图谱,往复机械专用图谱,柴油发动机专用图谱,机泵专用图谱,在线报告报表,报警统计"); //在线功能组
+                G_oObject.SetParameter("Online_Category", "系统,自动扶梯专用图谱,风机专用图谱,屏蔽门专用图谱"); //在线功能组
 
                 var userName = "mgr";
                 var pass = 111;

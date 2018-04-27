@@ -1,7 +1,7 @@
 <template>
     <div class="timeManagement">
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData" v-on:receive="addUserFn" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-bind:searchData="searchData" v-on:receiveBtnFn="btnsFn" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
             <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
@@ -46,10 +46,10 @@
                     }]
                 },
                 searchData: {
-                    'btnShow': {
-                        'add': true,
-                        'export': true
-                    },
+                    'btnShow': [
+                        { 'title': '增加', 'fn': 'addUserFn' },
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 1,
                         'title': '角色名称',
@@ -85,6 +85,10 @@
         methods: {
             ...mapActions(['_getList', '_getInfo']),
             ...mapMutations(['_itemObj']),
+            //搜索按钮
+            btnsFn(fn) {
+                this[fn]();
+            },
             //获取列表
             getRoleListFn(req) {
                 const ops = {
@@ -147,9 +151,9 @@
                 this.isShowPop = false;
             },
             //增加用户操作
-            addUserFn(val) {
+            addUserFn() {
                 this._itemObj('');
-                this.isShowPop = val;
+                this.isShowPop = true;
             },
             //获取筛选的值
             filterBtn(req) {

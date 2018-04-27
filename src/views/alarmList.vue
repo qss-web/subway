@@ -1,7 +1,7 @@
 <template>
     <div class="wholeWrap">
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="tab">
             <ul class="title">
@@ -16,8 +16,8 @@
                     <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                 </dl>
             </ul>
-            <v-search-list v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
-            <v-search-list v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList01" v-on:receive="btnFn"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList01" v-on:receive="btnFn"></v-search-list>
             <div class=" pagination " v-if="tabShow">
                 <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}} / {{totalPage}}</span>
@@ -53,9 +53,9 @@
                 equTotal: 0, //设备信息全部
                 getEquNameArr: [],//接口获取的设备名称
                 searchData: {
-                    'btnShow': {
-                        'export': true
-                    },
+                    'btnShow': [
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -131,7 +131,8 @@
                 equList: [],
                 equList01: [],
                 alarmVal: '', //预警状态
-                isReq: {}
+                isReq: {},
+                ids: ''
             };
         },
         created() {
@@ -141,6 +142,30 @@
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_equNameList']),
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
+            },
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //导出
+            exportFn() {
+                this._getList({
+                    ops: {
+                        type: '10',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
+            },
             currentList(index) {
                 this.indexed = index;
             },

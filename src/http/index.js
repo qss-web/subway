@@ -1,7 +1,8 @@
 // 封装请求
 import api from './api';
 import axios from 'axios';
-import { Notification, Loading } from 'element-ui';
+// import { Notification, Loading } from 'element-ui';
+import { Notification } from 'element-ui';
 import store from '../store';
 
 // 全局设置

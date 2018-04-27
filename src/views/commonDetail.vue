@@ -2,7 +2,7 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+                <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="content">
                 <dt class="flex title">
@@ -96,9 +96,9 @@
                 rightValue03: [],
                 currentDate: formatDate('', '4'),
                 searchData: {
-                    'btnShow': {
-                        'export': true
-                    },
+                    'btnShow': [
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 2,
                         'title': '线路',
@@ -354,6 +354,13 @@
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //导出
+            exportFn() {
+
+            },
             goBack() {
                 this.$router.go(-1);
             },

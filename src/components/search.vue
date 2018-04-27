@@ -6,7 +6,7 @@
                 <a href="javascript:;"><img src="../assets/search/delete_icon.png" /></a>
             </div>
             <span v-on:click="fifterBtn">查询</span>
-            <span>下载</span>
+            <span v-on:click="downloadBtn">下载</span>
             <!-- <span><img src="../assets/search/search_icon.png"/></span> -->
             <!-- <span><img src="../assets/search/download_icon.png"/></span> -->
         </div>
@@ -25,6 +25,9 @@
         methods: {
             fifterBtn() {
                 this.$emit('receive', this.fifterValue);
+            },
+            downloadBtn() {
+                this.$emit('download');
             }
         }
     };

@@ -2,7 +2,7 @@
     <div>
         <div>
             <div class="button-group flex">
-                <button class="btn-name">{{alarmOtherInfos.deviceName}}</button>
+                <button class="btn-name" v-on:click="goInfoFn">{{alarmOtherInfos.deviceName}}</button>
                 <button class="btn-alarm" v-bind:class="colorStatus[alarmOtherInfos.deviceStatus-1]">{{statusShow[alarmOtherInfos.deviceStatus-1]}}</button>
             </div>
             <div class="alarm-reason">
@@ -602,7 +602,7 @@
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),
-            ...mapMutations(['_warnChart']),
+            ...mapMutations(['_warnChart', '_equInfo']),
             monitorFn() {
                 this.$router.push({ path: 'monitor' });
             },
@@ -689,7 +689,7 @@
             warnChartFn() {
                 this._getList({
                     ops: {
-                        'pointUuid': 'ca663ccdb90728a49daba918b172ebee' //this.itemObj.equuid
+                        'pointUuid': this.itemObj.equuid
                     },
                     api: 'warnData',
                     callback: res => {
@@ -712,8 +712,18 @@
                 this.fixedIdStr = (fixedIdUp + fixedIdDown).substr(0, (fixedIdUp + fixedIdDown).length - 1);
                 this.getDoorStatusFn();
             },
+            //点击列表进入设备详情页
+            goInfoFn() {
+                this._getList({
+                    ops: { 'id': this.deviceInfo.deviceId.toString() },
+                    api: 'infoDetail',
+                    callback: res => {
+                        this._equInfo(res);
+                        this.$router.push({ path: '/equInfoOther', query: { 'id': this.deviceInfo.deviceId, 'isShow': true } });
+                    }
+                });
+            },
             getDoorStatusFn() {
-
                 const ops = {
                     sectionIndex: this.fixedIdStr,
                     deviceUuid: this.deviceInfo.deviceUuid

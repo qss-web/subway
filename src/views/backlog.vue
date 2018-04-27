@@ -2,10 +2,10 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
+                <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
+                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -25,39 +25,51 @@
         data() {
             return {
                 currentPage: 1, //当前页数
-                pageSize: 12, //每页显示数量
+                pageSize: 11, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 searchData: {
-                    'btnShow': {
-                        'export': true,
-                        'delete': true
-                    },
+                    'btnShow': [
+                        { 'title': '删除', 'fn': 'deleteFn' },
+                        { 'title': '导出', 'fn': 'exportFn' }
+                    ],
                     'options': [{
                         'status': 2,
-                        'title': '线路',
+                        'title': ' 线路',
                         'placeholder': '请选择内容',
                         'val': 'line'
                     }, {
                         'status': 2,
-                        'title': '车站',
+                        'title': ' 车站',
                         'placeholder': '请选择内容',
                         'val': 'station'
                     }, {
                         'status': 2,
-                        'title': '设备系统',
+                        'title': ' 设备系统',
                         'placeholder': '请选择内容',
                         'val': 'equSys'
                     }, {
                         'status': 6,
-                        'title': '设备名称',
+                        'title': ' 设备名称',
                         'placeholder': '请输入内容',
                         'val': 'equName'
                     }, {
                         'status': 1,
-                        'title': '故障系统',
+                        'title': ' 故障系统',
                         'placeholder': '请输入内容',
                         'val': 'faultSys'
+                    }, {
+                        'status': 2,
+                        'title': '故障事项状态',
+                        'placeholder': '请选择内容',
+                        'val': 'isTodo',
+                        'list': [{
+                            value: '1',
+                            label: '未处理'
+                        }, {
+                            value: '2',
+                            label: '已处理'
+                        }]
                     }, {
                         'status': 3,
                         'title': '时间',
@@ -72,8 +84,7 @@
                         equSys: '',
                         equName: '',
                         faultSys: '',
-                        startTime: formatDate('', 2) + ' 00:00:00',
-                        endTime: formatDate('', 2) + ' 23:59:59'
+                        isTodo: '1'
                     }
                 },
                 otherInfo: {
@@ -125,7 +136,8 @@
                 isPop: false,
                 getEquNameArr: [],
                 isReq: {},
-                equKey: ''
+                equKey: '',
+                ids: ''
             };
         },
         computed: {
@@ -134,17 +146,46 @@
         created() {
             this.equKey = this.$route.query.equKey;
             if(this.equKey || this.equKey == 0) {
-                this.searchData.defaultReq.equSys = this.equKey;
+                this.searchData.defaultReq.equSys = this.equKey.toString();
+            }
+            if(this.itemObj.equuid) {
+                this._equNameList([{ 'label': this.itemObj.equName, 'value': this.itemObj.equuid }]);
+                this.searchData.defaultReq.equName = this.itemObj.equuid;
             }
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
-            if(this.itemObj.equuid) {
-                this.isReq.equName = this.itemObj.equuid;
-            }
             this.getBacklogFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_equNameList']),
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
+            },
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //导出
+            exportFn() {
+                this._getList({
+                    ops: {
+                        type: '8',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
+            },
+            //删除
+            deleteFn() {
+
+            },
             currentList(index) {
                 this.indexed = index;
             },

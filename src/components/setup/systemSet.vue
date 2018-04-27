@@ -11,6 +11,7 @@
             <li v-on:click="indexed=7" v-bind:class="indexed==7?'active':''">当前设备运行状态</li>
             <li v-on:click="indexed=8" v-bind:class="indexed==8?'active':''">运行时间管理</li>
             <li v-on:click="indexed=9" v-bind:class="indexed==9?'active':''">菜单管理</li>
+            <li v-on:click="indexed=10" v-bind:class="indexed==10?'active':''">监控日志</li>
         </ul>
         <div class="content">
             <v-system v-if="indexed==1"></v-system>
@@ -23,6 +24,7 @@
             <v-runni-state v-if="indexed==7"></v-runni-state>
             <v-time-management v-if="indexed==8"></v-time-management>
             <v-menu v-if="indexed==9"></v-menu>
+            <v-monitor-log v-if="indexed==10"></v-monitor-log>
         </div>
     </div>
 </template>

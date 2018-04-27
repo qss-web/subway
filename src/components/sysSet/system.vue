@@ -23,29 +23,23 @@
                 <dt>在线功能组</dt>
                 <dd>
                     <el-checkbox-group v-model="checkList">
-                        <el-checkbox label="系统"></el-checkbox>
-                        <el-checkbox label="扶梯专用图谱"></el-checkbox>
+                        <el-checkbox v-for="(item, index) in checkListShow[1]" v-bind:label="item.code">{{item.name}}</el-checkbox>
+                        <!-- <el-checkbox label="扶梯专用图谱"></el-checkbox>
                         <el-checkbox label="在线报表报告"></el-checkbox>
                         <el-checkbox label="预警统计"></el-checkbox>
                         <el-checkbox label="站台门专用图谱"></el-checkbox>
-                        <el-checkbox label="分析诊断专用图谱"></el-checkbox>
+                        <el-checkbox label="分析诊断专用图谱"></el-checkbox> -->
                     </el-checkbox-group>
                 </dd>
                 <dt>离线功能组</dt>
                 <dd>
                     <el-checkbox-group v-model="checkList">
-                        <el-checkbox label="测试组"></el-checkbox>
-                        <el-checkbox label="基础服务"></el-checkbox>
-                        <el-checkbox label="离线报表报告"></el-checkbox>
-                        <el-checkbox label="离线轴承报告"></el-checkbox>
-                        <el-checkbox label="离线轴承诊断"></el-checkbox>
-                        <el-checkbox label="离线常规分析"></el-checkbox>
-                        <el-checkbox label="离线数据通讯"></el-checkbox>
+                        <el-checkbox v-for="(item, index) in checkListShow[2]" v-bind:label="item.code">{{item.name}}</el-checkbox>
                     </el-checkbox-group>
                 </dd>
             </dl>
             <div class="save">
-                <a href="javascript:;">保存</a>
+                <a href="javascript:;" v-on:click="saveChecked">保存</a>
             </div>
         </div>
         <v-pop-box v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
@@ -62,6 +56,7 @@
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 checkList: [],
+                checkListShow: {},//展示check列表
                 isShowPop: false, //是否显示弹框
                 popData1: {
                     'titleTotal': '添加',
@@ -126,11 +121,15 @@
                     'width': 15,
                     'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
-                equList: []
+                equList: [],
+                connectionShow: ['旧连接', '新连接'],
+                typeShow: ['在线', '离线'],
+                test: []
             };
         },
         created() {
             this.getSysList();
+            this.getCheckFn();
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
@@ -142,7 +141,7 @@
             },
             //子组件按钮
             btnFn(val) {
-                this[val.fn](val.id);
+                this[val.fn](val.id, val.item);
             },
             //删除操作
             deleteFn(id) {
@@ -158,8 +157,11 @@
                 });
             },
             //编辑操作
-            editFn() {
-                // alert(3);
+            editFn(id, item) {
+                // item.type = (this.typeShow.indexOf(item.type) + 1).toString();
+                // item.connectionMode = (this.typeShow.indexOf(item.connectionMode) + 1).toString();
+                this._itemObj(item);
+                this.isShowPop = true;
             },
             //改变当前页数
             changePages(val) {
@@ -168,6 +170,9 @@
             },
             //弹出框保存数据
             saveFn(req) {
+                if(req.id) {
+                    req.id = req.id.toString();
+                }
                 this._getInfo({
                     ops: req,
                     api: 'sysAdd',
@@ -192,9 +197,72 @@
                     ops: ops,
                     api: 'sysList',
                     callback: res => {
+                        res.rows.forEach(item => {
+                            item.connectionMode = this.connectionShow[item.connectionMode - 1];
+                            item.type = this.typeShow[item.type - 1];
+                        });
                         this.equList = res.rows;
                         this.totalPage = res.total;
                         this.pageNumber = res.records;
+                    }
+                });
+            },
+            getCheckFn() {
+                this._getList({
+                    ops: {},
+                    api: 'groupconfigList',
+                    callback: res => {
+                        this.checkListShow = res;
+                        this.checkListShow[1].forEach(item => {
+                            if(item.flag == 1) {
+                                // 1==选中
+                                this.checkList.push(item.code);
+                            }
+                        });
+                        this.checkListShow[2].forEach(item => {
+                            if(item.flag == 1) {
+                                // 1==选中
+                                this.checkList.push(item.code);
+                            }
+                        });
+                    }
+                });
+            },
+            //保存多选框
+            saveChecked() {
+                this.checkListShow[1].forEach(item => {
+                    this.checkList.filter(item1 => {
+                        debugger;
+                        if(item.code == item1) {
+                            item.flag = !item.flag;
+                            if(item.flag) {
+                                item.flag = 1;
+                            } else {
+                                item.flag = 0;
+                            }
+                            this.test.push({ 'id': item.id, 'flag': item.flag });
+                        }
+                    });
+                });
+                this.checkListShow[2].forEach(item => {
+                    this.checkList.filter(item1 => {
+                        if(item.code == item1) {
+                            item.flag = !item.flag;
+                            if(item.flag) {
+                                item.flag = 1;
+                            } else {
+                                item.flag = 0;
+                            }
+                            this.test.push({ 'id': item.id, 'flag': item.flag });
+                        }
+                    });
+                });
+
+                this._getList({
+                    ops: { key: this.test },
+                    api: 'groupconfigUpdate',
+                    callback: () => {
+                        this.$message.success('保存成功！');
                     }
                 });
             }

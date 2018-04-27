@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData" v-on:receive="btnShowPopFn" v-on:filter="fifterBtnFn"></v-sub-search>
+            <v-sub-search v-bind:searchData="searchData" v-on:receiveBtnFn="btnsFn" v-on:filter="fifterBtnFn"></v-sub-search>
         </div>
         <div class="system clearfix">
             <dl class="left leftTab">
@@ -66,9 +66,9 @@
                 roleTelId: '', //角色或者手机的id
                 chooseInfo: {},
                 searchData: {
-                    'btnShow': {
-                        'add': true
-                    },
+                    'btnShow': [
+                        { 'title': '增加', 'fn': 'addFn' }
+                    ],
                     'options': [{
                         'status': 1,
                         'title': '设备名称',
@@ -110,6 +110,15 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //增加
+            addFn() {
+                this.chooseInfo.type = this.roleTelType;
+                this.chooseInfo.id = this.roleTelId;
+                this.isShowPop = true;
+            },
             //获取角色列表
             getRoleListFn() {
                 const ops = {};
@@ -216,12 +225,6 @@
             fifterBtnFn(req) {
                 this.isReq = req;
                 this.getDeviceListFn(req);
-            },
-            //增加的弹出框
-            btnShowPopFn(val) {
-                this.chooseInfo.type = this.roleTelType;
-                this.chooseInfo.id = this.roleTelId;
-                this.isShowPop = val;
             },
             //关闭弹出框
             closeFn(val) {

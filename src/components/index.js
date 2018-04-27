@@ -39,7 +39,7 @@ import pieChart from './equInfo/pieChart'; //饼形图
 import systemList from './systemList'; //系统设置的列表
 import system from './sysSet/system'; //系统
 import user from './sysSet/user'; //用户
-import equ from './sysSet/equ'; //设备
+import monitorLog from './sysSet/monitorLog'; //监测日志
 import client from './sysSet/client'; //客户端
 import authorize from './sysSet/authorize'; //设备授权
 import role from './sysSet/role'; //角色
@@ -54,6 +54,7 @@ import equMsg from './setup/equMsg'; //设备信息
 import faultLibrary from './setup/faultLibrary'; //故障库
 import systemSet from './setup/systemSet'; //系统设置
 import statisticians from './setup/statisticians'; //人员情况统计
+import controlBox from './controlBox'; //更新或下载提示框
 
 export default {
   header,
@@ -104,12 +105,13 @@ export default {
   checkEqu,
   runniState,
   timeManagement,
-  equ,
+  monitorLog,
   maintenanceSheet,
   menu,
   popBox,
   popTable,
   equMsg,
   faultLibrary,
-  statisticians
+  statisticians,
+  controlBox
 };

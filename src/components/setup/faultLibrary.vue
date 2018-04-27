@@ -1,20 +1,21 @@
 <template>
     <div class="equWrap">
         <div class="searchWrap ">
-            <v-sub-search v-bind:searchData="searchData01"></v-sub-search>
+            <v-sub-search v-on:receiveBtnFn="btnsFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData01"></v-sub-search>
         </div>
         <div class="tab ">
-            <v-search-list v-bind:other="otherInfo " v-bind:label="info2" v-bind:list="equList"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo " v-bind:label="info2" v-bind:list="equList" v-on:receive="clickFn"></v-search-list>
             <div class=" pagination ">
                 <el-pagination :page-size=" pageSize " @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}}/{{pageTotal}}</span>
                 </el-pagination>
             </div>
         </div>
+        <v-pop-box v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
     </div>
 </template>
 <script>
-    import { mapActions, mapMutations, mapState } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -22,68 +23,42 @@
                 pageSize: 12, //每页显示数量
                 pageTotal: 0,//总页数
                 pageNumber: 0,//总条目数
+                isShowPop: false,
                 searchData01: {
-                    // 'btnShow': {
-                    //     'add': true,
-                    //     'delete': true,
-                    //     'edit': true,
-                    //     'download': true
-                    // },
                     'btnShow': [
                         { 'title': '增加', 'fn': 'addFn' },
                         { 'title': '删除', 'fn': 'deleteFn' },
-                        { 'title': '编辑', 'fn': 'editFn' },
-                        { 'title': '下载', 'fn': 'downloadFn' }
+                        { 'title': '导入', 'fn': 'importFn2' },
+                        { 'title': '导出', 'fn': 'exportFn' }
+                        // { 'title': '下载', 'fn': 'downloadFn' }
                     ],
                     'options': [{
                         'status': 2,
                         'title': '设备类型',
                         'placeholder': '请选择内容',
-                        'val': 'equSys',
-                        'list': [{
-                            value: '7',
-                            label: '自动扶梯'
-                        }, {
-                            value: '0',
-                            label: '站台门'
-                        }, {
-                            value: '8',
-                            label: '风机'
-                        }]
+                        'val': 'deviceTypeCode'
                     }, {
-                        'status': 2,
+                        'status': 1,
                         'title': '故障部位',
-                        'placeholder': '请选择内容',
-                        'val': 'lines',
-                        'list': [{
-                            value: '1',
-                            label: '故障部位'
-                        }]
+                        'placeholder': '请输入内容',
+                        'val': 'faultPosition'
                     }, {
-                        'status': 2,
+                        'status': 1,
                         'title': '故障原因',
-                        'placeholder': '请选择内容',
-                        'val': 'stations',
-                        'list': [{
-                            value: '1',
-                            label: '故障原因'
-                        }]
+                        'placeholder': '请输入内容',
+                        'val': 'faultReason'
                     }, {
-                        'status': 2,
+                        'status': 1,
                         'title': '维护建议',
-                        'placeholder': '请选择内容',
-                        'val': 'advice',
-                        'list': [{
-                            value: '1',
-                            label: '维护建议一'
-                        }, {
-                            value: '2',
-                            label: '维护建议二'
-                        }]
-                    }]
+                        'placeholder': '请输入内容',
+                        'val': 'repairStrategy'
+                    }],
+                    defaultReq: {
+                        deviceTypeCode: ''
+                    }
                 },
                 otherInfo: {
-                    isCheck: false, //是否显示多选框
+                    isCheck: true, //是否显示多选框
                     style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                 },
                 info2: [{
@@ -93,48 +68,190 @@
                 }, {
                     'label': '设备类型编码',
                     'width': 10,
-                    'value': 'equType'
+                    'value': 'deviceTypeCode'
                 }, {
                     'label': '设备类型',
                     'width': 10,
-                    'value': 'alarmCode'
+                    'value': 'deviceType'
                 }, {
                     'label': '故障部位编码',
                     'width': 10,
-                    'value': 'alarmName'
+                    'value': 'faultPositionCode'
                 }, {
                     'label': '故障部位',
-                    'width': 15,
-                    'value': 'faultTime'
+                    'width': 10,
+                    'value': 'faultPosition'
                 }, {
                     'label': '故障原因编码',
                     'width': 10,
-                    'value': 'faultNum'
+                    'value': 'faultReasonCode'
                 }, {
                     'label': '故障原因',
-                    'width': 15,
-                    'value': 'faultNum'
+                    'width': 10,
+                    'value': 'faultReason'
                 }, {
                     'label': '维修策略编码',
                     'width': 10,
-                    'value': 'faultNum'
+                    'value': 'repairStrategyCode'
                 }, {
                     'label': '维修建议',
-                    'width': 15,
-                    'value': 'faultNum'
+                    'width': 10,
+                    'value': 'repairStrategy'
+                }, {
+                    'label': '操作',
+                    'width': 10,
+                    'btn': [{ 'monitor': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
-                equList: []
+                popData1: {
+                    'titleTotal': '新增',
+                    'options': [{
+                        'status': 2,
+                        'title': '设备类型',
+                        'placeholder': '请选择内容',
+                        'val': 'deviceTypeCode'
+                    }, {
+                        'status': 1,
+                        'title': '故障部位编码',
+                        'placeholder': '请输入内容',
+                        'val': 'faultPositionCode'
+                    }, {
+                        'status': 1,
+                        'title': '故障部位',
+                        'placeholder': '请输入内容',
+                        'val': 'faultPosition'
+                    }, {
+                        'status': 1,
+                        'title': '故障原因编码',
+                        'placeholder': '请输入内容',
+                        'val': 'faultReasonCode'
+                    }, {
+                        'status': 1,
+                        'title': '故障原因',
+                        'placeholder': '请输入内容',
+                        'val': 'faultReason'
+                    }, {
+                        'status': 1,
+                        'title': '维修策略编码',
+                        'placeholder': '请输入内容',
+                        'val': 'repairStrategyCode'
+                    }, {
+                        'status': 1,
+                        'title': '维修建议',
+                        'placeholder': '请输入内容',
+                        'val': 'repairStrategy'
+                    }]
+                },
+                equList: [],
+                isReq: {},
+                ids: ''
             };
+        },
+        created() {
+            this.isReq = JSON.parse(JSON.stringify(this.searchData01.defaultReq));
+            this.faultListFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_itemObj']),
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
+            },
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //增加
+            addFn() {
+                this._itemObj('');
+                this.isShowPop = true;
+            },
+            //删除
+            deleteFn() {
+                this._getList({
+                    ops: {
+                        'ids': this.ids
+                    },
+                    api: 'faultDel',
+                    callback: () => {
+                        this.$message.success('删除成功');
+                        this.faultListFn(this.isReq);
+                    }
+                });
+            },
+            //导出
+            exportFn() {
+                this._getList({
+                    ops: {
+                        type: '5',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
+            },
+            //列表的按钮点击
+            clickFn(val) {
+                this[val]();
+            },
+            //编辑操作
+            editFn() {
+                this.isShowPop = true;
+            },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.infoListFn(this.isReq);
+                this.faultListFn(this.isReq);
+            },
+            //故障库列表
+            faultListFn(req) {
+                const ops = {
+                    curPage: this.currentPage,
+                    pageSize: this.pageSize
+                };
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
+                this._getList({
+                    ops: ops,
+                    api: 'faultList',
+                    callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.equList = res.rows;
+                        this.pageTotal = res.total;
+                        this.pageNumber = res.records;
+                    }
+                });
+            },
+            //搜索的传值
+            fifterBtnFn(req) {
+                this.isReq = req;
+                this.faultListFn(req);
+            },
+            //关闭弹出框并保存数据
+            saveFn(req) {
+                this._getList({
+                    ops: req,
+                    api: 'faultAdd',
+                    callback: () => {
+                        this.$message.success('新增成功！');
+                        this.isShowPop = false;
+                        this.faultListFn(this.isReq);
+                    }
+                });
+            },
+            //关闭弹出框
+            cancleFn(value) {
+                this.isShowPop = value;
             }
-
-
         }
     };
 </script>
