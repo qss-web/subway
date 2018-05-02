@@ -71,7 +71,7 @@
                             borderWidth: 0,
                             dataLabels: {
                                 enabled: true,
-                                format: '{point.y:.2f}%',
+                                format: '{point.y}%',
                                 color: '#fff',
                                 fontWeight: 'normal'
                             },
@@ -118,6 +118,9 @@
             }
             this.getBacklogCountFn();
         },
+        destroyed() {
+            clearTimeout(this.timeOut);
+        },
         methods: {
             ...mapActions(['_getInfo']),
             getBacklogCountFn() {
@@ -146,11 +149,11 @@
                                 //自动扶梯
                                 _this.$router.push({ path: 'inspect', query: { 'equKey': '7' } });
                             } else if(event.point.index == 2) {
-                                //风机
-                                _this.$router.push({ path: 'inspect', query: { 'equKey': '8' } });
-                            } else {
                                 //站台门
                                 _this.$router.push({ path: 'inspect', query: { 'equKey': '0' } });
+                            } else {
+                                //风机
+                                _this.$router.push({ path: 'inspect', query: { 'equKey': '8' } });
                             }
                         };
                     }

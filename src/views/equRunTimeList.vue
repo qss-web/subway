@@ -87,7 +87,7 @@
                 }, {
                     'label': '设备系统',
                     'width': 10,
-                    'value': 'equSysName'
+                    'value': 'equSysShow'
                 }, {
                     'label': '设备编号',
                     'width': 15,
@@ -147,6 +147,13 @@
                     callback: res => {
                         res.rows.forEach(item => {
                             item.isCheck = false;
+                            if(item.equSysName == 0) {
+                                item.equSysShow = '站台门';
+                            } else if(item.equSysName == 7) {
+                                item.equSysShow = '自动扶梯';
+                            } else {
+                                item.equSysShow = '风机';
+                            }
                         });
                         this.equList = res.rows;
                         this.totalPage = res.total;

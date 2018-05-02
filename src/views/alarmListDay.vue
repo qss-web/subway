@@ -89,7 +89,8 @@
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 2 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
+                    style: 2, // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
+                    specilShow: true
                 },
                 info1: [{
                     'label': '序号',
@@ -266,6 +267,9 @@
                         }
                     });
                 }
+            },
+            testFn() {
+                alert(this.itemObj.equuid);
             }
         }
     };

@@ -11,6 +11,7 @@
 
 <script>
     import { mapActions } from 'vuex';
+    import { formatDate } from '../../utils';
     export default {
         data() {
             return {
@@ -28,7 +29,9 @@
             getListFn() {
                 const ops = {
                     curPage: '1',
-                    pageSize: '6'
+                    pageSize: '6',
+                    month: formatDate('', 5),
+                    year: formatDate('', 6)
                 };
 
                 this._getList({

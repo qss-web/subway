@@ -4,19 +4,22 @@
             <div class="showChart">
                 <v-ring-diagram id="runIndex1 " title="累计运行时间 " v-if="runInfo.ljyxsj " :time="runInfo.ljyxsj + '小时' " :showData="test1 " :size="size " :setStyle="style "></v-ring-diagram>
                 <p v-else>
-                    暂无数据
+                    <span class="data">暂无数据</span>
+                    <span class="title">累计运行时间</span>
                 </p>
             </div>
             <div class=" showChart ">
                 <v-ring-diagram id="runIndex2 " title="平均无故障运行时间 " v-if="runInfo.pjwgzyxsj " :time="runInfo.pjwgzyxsj+ '小时' " :showData="test2 " :size="size " :setStyle="style "></v-ring-diagram>
                 <p v-else>
-                    暂无数据
+                    <span class="data">暂无数据</span>
+                    <span class="title">平均无故障运行时间</span>
                 </p>
             </div>
             <div class="showChart ">
                 <v-ring-diagram id="runIndex3 " title="累积运行次数 " v-if="runInfo.ljyxcs " :time="runInfo.ljyxcs+ '次' " :showData="test3 " :size="size " :setStyle="style "></v-ring-diagram>
                 <p v-else>
-                    暂无数据
+                    <span class="data">暂无数据</span>
+                    <span class="title">累积运行次数</span>
                 </p>
             </div>
         </div>
@@ -32,7 +35,7 @@
                 <span>最短无故障运行时间：{{runInfo.zdwgzyxsj}}小时</span>
             </li>
         </ul>
-        <v-search-list style="min-height: 4.9rem; " :other="otherInfo " :label="info1 " :list="equList "></v-search-list>
+        <v-search-list style="min-height: 4.33rem; " :other="otherInfo " :label="info1 " :list="equList "></v-search-list>
     </div>
 </template>
 
@@ -140,8 +143,17 @@
         flex: 1;
         padding-bottom: 0.24rem;
         p {
-            min-height: 2.03rem;
-            line-height: 2.03rem;
+            span {
+                display: block;
+            }
+            .data {
+                min-height: 2.3rem;
+                line-height: 2.3rem;
+            }
+            .title {
+                color: #63869e;
+                font-size: 0.2rem;
+            }
         }
     }
     .dataShow {

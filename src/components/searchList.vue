@@ -43,20 +43,33 @@
                     <span class="picShow" v-else-if="item1.showPic">
                         <a href="javascript:;">
                             {{item1.showPic}}
-                            <img v-if="item[item1.value].search('.jpg') != -1" v-bind:src="item[item1.value]"/>
+                            <img v-if="item[item1.value] && item[item1.value].search('.jpg') != -1" v-bind:src="item[item1.value]"/>
                             <i class="hoverShow" v-else>暂无图片</i>
                         </a>
                     </span>
-                    <span v-else v-bind:class="item.status?listStatus[item.status-1] :''" v-on:click="goToNextPage(other.goToNextFn,item)">
-                        <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
-                            {{item[item1.value]}}
-                            <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
-                        </a>
-                        <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
-                        
-                        <ul class="hoverShow" v-if="item1.isShowRed && item.type==1">
-                            <li v-for="(itemList,index) in item.gzlist">{{itemList}}</li>
-                        </ul>
+                    <span v-else>
+                        <span v-if="other.specilShow"  v-bind:class="item.status?listStatus[item.status-1] :''">
+                            <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
+                                {{item[item1.value]}}
+                                <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
+                            </a>
+                            <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
+
+                            <ul class="hoverShow" v-if="item1.isShowRed && item.type==1">
+                                <li v-for="(itemList,index) in item.gzlist">{{itemList}}</li>
+                            </ul>
+                        </span>
+                    <span v-else v-on:click="goToNextPage(other.goToNextFn,item)" v-bind:class="item.status?listStatus[item.status-1] :''">
+                            <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
+                                {{item[item1.value]}}
+                                <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
+                            </a>
+                            <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
+
+                            <ul class="hoverShow" v-if="item1.isShowRed && item.type==1">
+                                <li v-for="(itemList,index) in item.gzlist">{{itemList}}</li>
+                            </ul>
+                        </span>
                     </span>
                 </div>
             </dd>

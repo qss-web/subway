@@ -48,6 +48,9 @@
                     api: 'runCount',
                     callback: res => {
                         this.totalData = res;
+                        if(this.totalData.monthlyOnReliability == 100) {
+                            this.totalData.monthlyOnReliability = parseInt(this.totalData.monthlyOnReliability);
+                        }
                         this.ringInfo.value = this.totalData.monthlyOnReliability;
                         this.max1 = res.averageDailyRepairTime.max;
                         this.current1 = res.averageDailyRepairTime.current;

@@ -57,14 +57,14 @@
                     <dd>
                         <textarea v-model="info.reportPretreatment" placeholder="请输入内容"></textarea>
                     </dd>
-                    <img v-if="info.image1.search('.jpg') != -1" v-bind:src="info.image1" />
+                    <img v-if="info.image1 && info.image1.search('.jpg') != -1" v-bind:src="info.image1" />
                 </dl>
                 <dl class="textareaShow specialPic">
                     <dt>故障处理（维修人员填写，如不能现场修复说明情况）：</dt>
                     <dd>
                         <textarea v-model="info.reportProcessContent" placeholder="请输入内容"></textarea>
                     </dd>
-                    <img v-if="info.image2.search('.jpg') != -1" v-bind:src="info.image2" />
+                    <img v-if="info.image2 && info.image2.search('.jpg') != -1" v-bind:src="info.image2" />
                 </dl>
                 <dl class="sign flex">
                     <dd>更换零配件情况（维修人员填写）：
@@ -76,7 +76,7 @@
                     <dd>修复时间：<input type="text" value="" v-model="info.repairTime" /></dd>
                     <dd>维修人员签字：<input type="text" value="" v-model="info.repairUserName" /></dd>
                     <dd class="showPic">修复确认签字：
-                        <img v-if="info.confirmUserName.search('.jpg') != -1" v-bind:src="info.confirmUserName" />
+                        <img v-if="info.confirmUserName && info.confirmUserName.search('.jpg') != -1" v-bind:src="info.confirmUserName" />
                         <span v-else>暂无图片</span>
                     </dd>
                 </dl>
@@ -110,6 +110,7 @@
             };
         },
         created() {
+            debugger;
             this.goDetail();
         },
         computed: {

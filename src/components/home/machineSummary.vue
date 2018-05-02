@@ -55,6 +55,9 @@
             //今日故障待办事项
             this.getBacklogCountFn();
         },
+        destroyed() {
+            clearTimeout(this.timeOut);
+        },
         methods: {
             ...mapActions(['_getInfo']),
             goRunList() {

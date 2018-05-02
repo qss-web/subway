@@ -14,13 +14,13 @@
             </div>
         </div>
         <v-goback></v-goback>
-        <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn"></v-maintenance-sheet>
+        <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn" style="border:1px solid red"></v-maintenance-sheet>
     </div>
 </template>
 
 <script>
     import { mapActions, mapMutations, mapState } from 'vuex';
-    import { formatDate } from '../utils';
+    // import { formatDate } from '../utils';
     export default {
         data() {
             return {

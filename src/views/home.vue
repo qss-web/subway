@@ -39,6 +39,9 @@
             }
             this.getTimelyAlarmTopFn();
         },
+        destroyed() {
+            clearTimeout(this.timeOut);
+        },
         methods: {
             ...mapActions(['_getInfo']),
             getTimelyAlarmTopFn() {

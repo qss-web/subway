@@ -68,7 +68,7 @@
                             color: this.ringInfo.showInfo.color
                         }],
                         dataLabels: {
-                            format: `<div style="text-align:center">
+                            format: `<div style="text-align:center;">
                                         <span style="font-size:0.24rem;color:#fff">`+ this.ringInfo.value + `%</span>
                                     </div>`,
                             borderWidth: 0

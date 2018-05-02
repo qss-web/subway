@@ -196,7 +196,6 @@
 
                 window.setTimeout(this.checkData, 200);
             }
-
         }
     };
 </script>

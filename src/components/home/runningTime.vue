@@ -13,8 +13,8 @@
 
             return {
                 styleObject: {
-                    width: 1.0 + 'rem',
-                    height: 1.0 + 'rem'
+                    width: 1.1 + 'rem',
+                    height: 1.1 + 'rem'
                 },
                 option: {
                     chart: {
@@ -70,7 +70,7 @@
                             color: '#0ed4eb'
                         }],
                         dataLabels: {
-                            format: `<div style="text-align:center">
+                            format: `<div style="text-align:center;">
                                         <span style="font-size:0.12rem;color:#0ed4eb">{y}</span>
                                         <div style="background-color:#a0a1a2;height:0.02rem;width:180%;margin-left:-40%;"></div>
                                         <span style="font-size:0.12rem;color:#0ed4eb">${_this.max}</span>

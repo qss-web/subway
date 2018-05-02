@@ -21,11 +21,11 @@
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-ring-diagram id="runIndex1" v-if="showValue.yxsj" title="运行时间" :time="showValue.yxsj+'小时'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
-                        <span v-if="!showValue.yxsj">暂无数据</span>
+                        <span v-if="!showValue.yxsj">暂无数据<br/>运行时间</span>
                         <v-monthly-reliability v-if="ringInfo.value" v-bind:ringInfo="ringInfo"></v-monthly-reliability>
-                        <span v-if="!ringInfo.value">暂无数据</span>
+                        <span v-if="!ringInfo.value">暂无数据<br/>{{ringInfo.showInfo.title}}</span>
                         <v-ring-diagram id="runIndex2" v-if="showValue.yjsj" title="预警事件" :time="showValue.yjsj+'次'" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
-                        <span v-if="!showValue.yjsj">暂无数据</span>
+                        <span v-if="!showValue.yjsj">暂无数据<br/>预警事件</span>
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -111,7 +111,7 @@
                         color: '#63869e',
                         fontSize: '0.18rem'
                     },
-                    value: '99.8',
+                    value: '',
                     size: {
                         width: '2.2rem',
                         height: '2.2rem'
@@ -251,7 +251,8 @@
                     x: '7.7',
                     y: '3.4',
                     type: 2
-                }]
+                }],
+                sectionName: ''//部位名称
             };
         },
         created() {
@@ -273,7 +274,7 @@
                     ops: {
                         // "deviceInLineId": "6号线西延线",  //线路
                         // "deviceInStationId": "苹果园站",  //站点
-                        "deviceId": this.deviceInfo.deviceId  //设备id
+                        "deviceUuid": this.deviceInfo.deviceUuid  //设备uuid
                     },
                     api: 'equRuninfo',
                     callback: res => {
@@ -287,6 +288,7 @@
             tabListFn(value) {
                 this.activeIndex = value;
                 if(value) {
+                    this.sectionName = "";
                     this.getPointStatusFn();
                 } else {
                     this.getEventInfoFn();
@@ -317,13 +319,18 @@
             },
             //部位点击筛选测点状态列表
             escalatorFilterFn(item) {
+                this.sectionName = item;
                 this.activeIndex = 1;
                 this.getPointStatusFn(item);
             },
             //测点信息翻页
             changePages02(val) {
                 this.currentPage02 = val;
-                this.getPointStatusFn();
+                if(this.sectionName) {
+                    this.getPointStatusFn(this.sectionName);
+                } else {
+                    this.getPointStatusFn();
+                }
             },
             //获取测点信息
             getPointStatusFn(item) {
@@ -351,7 +358,7 @@
             warnChartFn() {
                 this._getList({
                     ops: {
-                        'pointUuid': this.itemObj.equuid
+                        'pointUuid': this.itemObj.pouuid //'ca663ccdb90728a49daba918b172ebee'
                     },
                     api: 'warnData',
                     callback: res => {
@@ -510,7 +517,8 @@
                 justify-content: space-around;
                 padding: 0 0.3rem;
                 span {
-                    color: #ffffff;
+                    color: #fff;
+                    line-height: 0.36rem;
                 }
             }
             .healthy-table {

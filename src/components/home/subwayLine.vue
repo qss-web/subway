@@ -81,6 +81,9 @@
             }
             this.getStationAlarmStatisticalFn();
         },
+        destroyed() {
+            clearTimeout(this.timeOut);
+        },
         methods: {
             ...mapActions(['_getInfo']),
             //设备实时状态

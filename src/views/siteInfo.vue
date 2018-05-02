@@ -9,11 +9,11 @@
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-monthly-reliability v-if="ringInfo1.value" v-bind:ringInfo="ringInfo1"></v-monthly-reliability>
-                        <span v-if="!ringInfo1.value">暂无数据</span>
+                        <span v-if="!ringInfo1.value">暂无数据<br/>{{ringInfo1.showInfo.title}}</span>
                         <v-monthly-reliability v-if="ringInfo2.value" v-bind:ringInfo="ringInfo2"></v-monthly-reliability>
-                        <span v-if="!ringInfo2.value">暂无数据</span>
+                        <span v-if="!ringInfo2.value">暂无数据<br/>{{ringInfo2.showInfo.title}}</span>
                         <v-monthly-reliability v-if="ringInfo3.value" v-bind:ringInfo="ringInfo3"></v-monthly-reliability>
-                        <span v-if="!ringInfo3.value">暂无数据</span>
+                        <span v-if="!ringInfo3.value">暂无数据<br/>{{ringInfo3.showInfo.title}}</span>
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -31,12 +31,12 @@
                             </div>
                             <div v-show="activeIndex">
                                 <dl class="notice flex">
-                                    <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
-                                    <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
-                                    <dd class="normal" v-on:click="statusFilter('3')">运行：{{equInfoCount[2]}}次</dd>
-                                    <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}次</dd>
-                                    <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}次</dd>
-                                    <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
+                                    <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}台</dd>
+                                    <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}台</dd>
+                                    <dd class="normal" v-on:click="statusFilter('3')">运行：{{equInfoCount[2]}}台</dd>
+                                    <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}台</dd>
+                                    <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}台</dd>
+                                    <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}台</dd>
                                 </dl>
                                 <v-search-list :other="testTable.other" :label="testTable.label" :list="testTable.list"></v-search-list>
                                 <div class=" pagination ">
@@ -314,6 +314,7 @@
             stationId() {
                 this.getAvailabilityFn();
                 this.getEventInfoFn();
+                this.getPointStatusFn();
             }
         },
         created() {
@@ -523,6 +524,7 @@
                 padding: 0 0.3rem;
                 span {
                     color: #fff;
+                    line-height: 0.36rem;
                 }
             }
             .healthy-table {

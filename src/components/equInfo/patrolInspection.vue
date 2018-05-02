@@ -4,19 +4,22 @@
             <div class="showChart">
                 <v-ring-diagram id="runIndex1" v-if="showValue.xjnum" title="巡视巡检条数" :time="showValue.xjnum+'条'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
                 <p v-else>
-                    暂无数据
+                    <span class="data">暂无数据</span>
+                    <span class="title">巡视巡检条数</span>
                 </p>
             </div>
             <div class="showChart">
                 <v-ring-diagram id="runIndex2" v-if="showValue.zcnum" title="正常条数" :time="showValue.zcnum+'条'" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
                 <p v-else>
-                    暂无数据
+                    <span class="data">暂无数据</span>
+                    <span class="title">正常条数</span>
                 </p>
             </div>
             <div class="showChart">
                 <v-ring-diagram id="runIndex3" v-if="showValue.gznum" title="故障条数" :time="showValue.gznum+'条'" :showData="test3" :size="size" :setStyle="style"></v-ring-diagram>
                 <p v-else>
-                    暂无数据
+                    <span class="data">暂无数据</span>
+                    <span class="title">故障条数</span>
                 </p>
             </div>
         </div>
@@ -128,8 +131,17 @@
         flex: 1;
         padding-bottom: 0.28rem;
         p {
-            min-height: 2.03rem;
-            line-height: 2.03rem;
+            span {
+                display: block;
+            }
+            .data {
+                min-height: 1.75rem;
+                line-height: 1.75rem;
+            }
+            .title {
+                color: #63869e;
+                font-size: 0.2rem;
+            }
         }
     }
 </style>

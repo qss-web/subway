@@ -126,6 +126,9 @@
             }
             this.getTodayAlarmTopFn();
         },
+        destroyed() {
+            clearTimeout(this.timeOut);
+        },
         methods: {
             ...mapActions(['_getInfo']),
             getTodayAlarmTopFn() {

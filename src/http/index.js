@@ -139,13 +139,13 @@ const xhr = ({ method = 'post', ur, options = {} }) => {
             if (response.data.code && response.data.code == 1) {
               resolve(response.data.body);
             } else {
-              reject(response.data.msg);
+              //   reject(response.data.msg);
             }
           },
           er => {
             m = true;
             load.close();
-            errHandler(er);
+            // errHandler(er);
           }
         );
       });

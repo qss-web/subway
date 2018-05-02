@@ -243,6 +243,7 @@
                         res.counts.splice(2, 1);
                         res.counts.pop();
                         this.equInfoCount = res.counts;
+                        this.equTotal = 0;
                         res.counts.forEach(item => {
                             this.equTotal += item;
                         });

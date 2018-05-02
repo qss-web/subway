@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -77,7 +77,8 @@
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 2 //列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
+                    style: 2, //列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
+                    goToNextFn: 'goToNextPage' //跳转方法设置字段
                 },
                 info1: [{
                     'label': '序号',
@@ -85,11 +86,11 @@
                     'value': 'index'
                 }, {
                     'label': '所属公司',
-                    'width': 12,
+                    'width': 14,
                     'value': 'company'
                 }, {
                     'label': '线路',
-                    'width': 13,
+                    'width': 16,
                     'value': 'line'
                 }, {
                     'label': '车站',
@@ -109,22 +110,27 @@
                     'value': 'equNum'
                 }, {
                     'label': '设备名称',
-                    'width': 11,
+                    'width': 16,
                     'value': 'equName'
                 }, {
                     'label': '状态',
                     'width': 10,
                     'value': 'statusValue',
                     'status': 'status'
-                }, {
-                    'label': '操作',
-                    'width': 10,
-                    'btn': [{ 'monitor': true, 'name': '监测', 'fn': 'monitorFn' }]
-                }],
+                }
+                    // {
+                    //     'label': '操作',
+                    //     'width': 10,
+                    //     'btn': [{ 'monitor': true, 'name': '监测', 'fn': 'monitorFn' }]
+                    // }
+                ],
                 equList: [],
                 isReq: {},
                 alarmVal: ''//预警状态
             };
+        },
+        computed: {
+            ...mapState(['itemObj'])
         },
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
@@ -132,7 +138,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_equNameList']),
+            ...mapMutations(['_equNameList', '_deviceInfo']),
             btnsFn(fn) {
                 this[fn]();
             },
@@ -208,6 +214,17 @@
             //子组件按钮
             btnFn(val) {
                 this[val]();
+            },
+            //点击列表进入设备详情页
+            goToNextPage() {
+                this._deviceInfo({ 'deviceUuid': this.itemObj.equuid });
+                if(this.itemObj.equSysName == '站台门') {
+                    this.$router.push('shielddoorinfo');
+                } else if(this.itemObj.equSysName == '自动扶梯') {
+                    this.$router.push('escalatorinfo');
+                } else {
+                    this.$router.push('faninfo');
+                }
             }
         }
     };
