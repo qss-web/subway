@@ -151,6 +151,8 @@
             if(this.itemObj.equuid) {
                 this._equNameList([{ 'label': this.itemObj.equName, 'value': this.itemObj.equuid }]);
                 this.searchData.defaultReq.equName = this.itemObj.equuid;
+            } else {
+                this._equNameList('');
             }
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getBacklogFn(this.isReq);

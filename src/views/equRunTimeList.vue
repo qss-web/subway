@@ -87,7 +87,7 @@
                 }, {
                     'label': '设备系统',
                     'width': 10,
-                    'value': 'equSysShow'
+                    'value': 'equSysName'
                 }, {
                     'label': '设备编号',
                     'width': 15,
@@ -111,6 +111,10 @@
             };
         },
         created() {
+            this.equKey = this.$route.query.equKey;
+            if(this.equKey || this.equKey == 0) {
+                this.searchData.defaultReq.equSys = this.equKey.toString();
+            }
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getMonthRunningTimeListFn(this.isReq);
         },
@@ -147,13 +151,6 @@
                     callback: res => {
                         res.rows.forEach(item => {
                             item.isCheck = false;
-                            if(item.equSysName == 0) {
-                                item.equSysShow = '站台门';
-                            } else if(item.equSysName == 7) {
-                                item.equSysShow = '自动扶梯';
-                            } else {
-                                item.equSysShow = '风机';
-                            }
                         });
                         this.equList = res.rows;
                         this.totalPage = res.total;

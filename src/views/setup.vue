@@ -172,4 +172,15 @@
             font-weight: normal;
         }
     }
+    .el-checkbox__input.is-checked + .el-checkbox__label {
+        color: #606266;
+    }
+    .el-checkbox__input.is-checked .el-checkbox__inner,
+    .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+        background-color: #7c8298;
+        border-color: #7c8298;
+    }
+    .el-checkbox__inner:hover {
+        border-color: #7c8298;
+    }
 </style>

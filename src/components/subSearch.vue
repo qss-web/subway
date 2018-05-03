@@ -21,7 +21,7 @@
                         </el-option>
                     </el-select>
                     <!-- 判断是不是线路列表，如果是线路列表，数据直接在子组件请求 -->
-                    <el-select v-else-if="item.val == 'line' || item.val == 'deviceInLineId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                    <el-select v-else-if="item.val == 'line' || item.val == 'deviceInLineId' || item.val == 'lineId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                         <el-option key="" label="全部" value=""></el-option>
                         <el-option v-for="itemSel in lineList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>

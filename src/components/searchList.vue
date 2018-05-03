@@ -55,7 +55,7 @@
                             </a>
                             <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
 
-                            <ul class="hoverShow" v-if="item1.isShowRed && item.type==1">
+                            <ul class="hoverShow" v-if="item1.isShowRed && item.type==1" style="left: -1.6rem; width: 5.1rem;">
                                 <li v-for="(itemList,index) in item.gzlist">{{itemList}}</li>
                             </ul>
                         </span>
@@ -66,7 +66,7 @@
                             </a>
                             <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
 
-                            <ul class="hoverShow" v-if="item1.isShowRed && item.type==1">
+                            <ul class="hoverShow" v-if="item1.isShowRed && item.type==1" style="left: -1.6rem; width: 5.1rem;">
                                 <li v-for="(itemList,index) in item.gzlist">{{itemList}}</li>
                             </ul>
                         </span>

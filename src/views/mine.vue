@@ -149,9 +149,10 @@
             getBacklogFn() {
                 const ops = {
                     'curPage': this.currentPage,
-                    'pageSize': this.pageSize
+                    'pageSize': this.pageSize,
                     // 'startTime': formatDate('', 2) + ' 00:00:00',
-                    // 'endTime': formatDate('', 2) + ' 23:59:59'
+                    // 'endTime': formatDate('', 2) + ' 23:59:59',
+                    'isTodo': '1'
                 };
 
                 this._getList({

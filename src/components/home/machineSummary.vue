@@ -5,10 +5,16 @@
                 <span class="text">当月设备运行时间</span>
                 <span class="line"></span>
             </div>
-            <div class="chart flex currentChart" v-on:click="goRunList">
-                <v-running-time v-if="escalator.max" id="running1" title="自动扶梯" :max="escalator.max" :current="escalator.current"></v-running-time>
-                <v-running-time v-if="fan.max" id="running2" title="风机" :max="fan.max" :current="fan.current"></v-running-time>
-                <v-running-time v-if="door.max" id="running3" title="站台门" :max="door.max" :current="door.current"></v-running-time>
+            <div class="chart flex currentChart">
+                <div v-on:click="goRunList(7)">
+                    <v-running-time v-if="escalator.max" id="running1" title="自动扶梯" :max="escalator.max" :current="escalator.current"></v-running-time>
+                </div>
+                <div v-on:click="goRunList(8)">
+                    <v-running-time v-if="fan.max" id="running2" title="风机" :max="fan.max" :current="fan.current"></v-running-time>
+                </div>
+                <div v-on:click="goRunList(0)">
+                    <v-running-time v-if="door.max" id="running3" title="站台门" :max="door.max" :current="door.current"></v-running-time>
+                </div>
             </div>
         </div>
         <div class="line2">
@@ -31,7 +37,7 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -60,10 +66,14 @@
         },
         methods: {
             ...mapActions(['_getInfo']),
-            goRunList() {
-                this.$router.push('equRunTimeList');
+            ...mapMutations(['_itemObj']),
+            goRunList(key) {
+                // this.$router.push('equRunTimeList');
+                this.$router.push({ path: 'equRunTimeList', query: { 'equKey': key } });
             },
             goBacklog(key) {
+                debugger;
+                this._itemObj('');
                 this.$router.push({ path: 'backlog', query: { 'equKey': key } });
             },
             //今日故障待办事项

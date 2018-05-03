@@ -103,11 +103,7 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'lineId',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
+                        'val': 'lineId'
                     }, {
                         'status': 2,
                         'title': '车站',
@@ -118,7 +114,12 @@
                         'title': '时间',
                         'placeholder': '选择日期',
                         'val1': 'selectDate'
-                    }]
+                    }],
+                    defaultReq: {
+                        lineId: '6号线西延线',
+                        stationId: '',
+                        selectDate: formatDate('', 4)
+                    }
                 },
                 id: 'todayAlarm',
                 styleObject: {
@@ -343,14 +344,16 @@
                             fontWeight: 'normal'
                         }
                     }
-                }
+                },
+                isReq: {}
             };
         },
         created() {
-            this.getCommonDetailFn();
-            this.getCommonLeft01Fn();
-            this.getCommonLeft02Fn();
-            this.getCommonLeft03Fn();
+            this.isReq = this.searchData.defaultReq;
+            this.getCommonDetailFn(this.isReq);
+            this.getCommonLeft01Fn(this.isReq);
+            this.getCommonLeft02Fn(this.isReq);
+            this.getCommonLeft03Fn(this.isReq);
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),
@@ -461,6 +464,10 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
+                this.leftValue01 = [];
+                this.leftValue02 = [];
+                this.leftValue03 = [];
                 this.getCommonDetailFn(req);
                 this.getCommonLeft01Fn(req);
                 this.getCommonLeft02Fn(req);
