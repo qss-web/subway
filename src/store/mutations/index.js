@@ -33,5 +33,10 @@ export default {
   _equNameList(state, equNameList) {
     setSen('equNameList', equNameList);
     state.equNameList = equNameList;
+  },
+  //存储当前页数，用来计算当前序号
+  _currentIndex(state, currentPage) {
+    setSen('currentIndex', currentPage);
+    state.currentIndex = currentPage;
   }
 };

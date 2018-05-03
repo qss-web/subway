@@ -23,7 +23,7 @@
                 </p>
             </div>
         </div>
-        <v-search-list style="min-height: 5.62rem" :other="otherInfo" :label="info1" :list="equList"></v-search-list>
+        <v-search-list style="min-height: 5.05rem;" :other="otherInfo" :label="info1" :list="equList"></v-search-list>
     </div>
 </template>
 
@@ -135,7 +135,7 @@
                 display: block;
             }
             .data {
-                min-height: 1.75rem;
+                min-height: 2.3rem;
                 line-height: 1.75rem;
             }
             .title {

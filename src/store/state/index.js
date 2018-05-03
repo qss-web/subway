@@ -8,6 +8,7 @@ import { getLoc, getSen } from '../../utils';
  * @warnChart 预警折线图数据
  * @stationId  车站id
  * @equNameList 设备名称列表
+ * @currentIndex 当前页数和每页显示数量，用来计算当前序号
  *
  */
 
@@ -20,5 +21,6 @@ export default {
   deviceInfo: getSen('deviceInfo') || {},
   warnChart: [],
   stationId: getSen('stationId') || '',
-  equNameList: []
+  equNameList: [],
+  currentIndex: getSen('currentIndex') || {}
 };

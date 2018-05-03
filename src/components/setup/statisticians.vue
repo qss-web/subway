@@ -14,7 +14,7 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     import { formatDate } from '../../utils';
     export default {
         data() {
@@ -92,6 +92,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_currentIndex']),
             btnsFn(fn) {
                 this[fn]();
             },
@@ -107,6 +108,7 @@
                     pageSize: this.pageSize
                 };
 
+                this._currentIndex(ops);
                 if(req) {
                     Object.assign(ops, req);
                 }

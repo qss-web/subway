@@ -138,7 +138,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_equNameList', '_deviceInfo']),
+            ...mapMutations(['_equNameList', '_deviceInfo', '_currentIndex']),
             btnsFn(fn) {
                 this[fn]();
             },
@@ -156,6 +156,8 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+
+                this._currentIndex(ops);
 
                 if(req) {
                     Object.assign(ops, req);

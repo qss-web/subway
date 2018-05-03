@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     import { formatDate } from '../utils';
     export default {
         data() {
@@ -134,6 +134,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_currentIndex']),
             //获取多选框选中的ids
             getIdsFn(id) {
                 this.ids = id.substr(0, id.length - 1);
@@ -180,6 +181,7 @@
                     'pageSize': this.pageSize
                 };
 
+                this._currentIndex(ops);
                 if(req) {
                     Object.assign(ops, req);
                 }

@@ -9,11 +9,11 @@
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-monthly-reliability v-if="ringInfo1.value" v-bind:ringInfo="ringInfo1"></v-monthly-reliability>
-                        <span v-if="!ringInfo1.value">暂无数据<br/>{{ringInfo1.showInfo.title}}</span>
+                        <span v-if="!ringInfo1.value">0%<i>{{ringInfo1.showInfo.title}}</i></span>
                         <v-monthly-reliability v-if="ringInfo2.value" v-bind:ringInfo="ringInfo2"></v-monthly-reliability>
-                        <span v-if="!ringInfo2.value">暂无数据<br/>{{ringInfo2.showInfo.title}}</span>
+                        <span v-if="!ringInfo2.value">0%<i>{{ringInfo2.showInfo.title}}</i></span>
                         <v-monthly-reliability v-if="ringInfo3.value" v-bind:ringInfo="ringInfo3"></v-monthly-reliability>
-                        <span v-if="!ringInfo3.value">暂无数据<br/>{{ringInfo3.showInfo.title}}</span>
+                        <span v-if="!ringInfo3.value">0%<i>{{ringInfo3.showInfo.title}}</i></span>
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -225,7 +225,7 @@
                     deviceId: '1030',
                     x: '5.8',
                     y: '2.53',
-                    status: "3",
+                    status: "",
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
@@ -233,7 +233,7 @@
                     deviceId: '1030',
                     x: '4.8',
                     y: '2.2',
-                    status: "4",
+                    status: "",
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
@@ -241,7 +241,7 @@
                     deviceId: '1030',
                     x: '4.2',
                     y: '1.8',
-                    status: "5",
+                    status: "",
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
@@ -249,7 +249,7 @@
                     deviceId: '1030',
                     x: '2.2',
                     y: '3',
-                    status: "1",
+                    status: "",
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
@@ -257,7 +257,7 @@
                     deviceId: '1030',
                     x: '7.3',
                     y: '1.5',
-                    status: "4",
+                    status: "",
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
@@ -265,7 +265,7 @@
                     deviceId: '1030',
                     x: '8.2',
                     y: '1.7',
-                    status: "3",
+                    status: "",
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
@@ -273,7 +273,7 @@
                     deviceId: '1030',
                     x: '6.6',
                     y: '1',
-                    status: "2",
+                    status: "",
                     name: 'PGY501自动扶梯'
                 }],
                 //风机的信息 type==1风机
@@ -281,25 +281,25 @@
                     type: 1,
                     deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
                     deviceId: '603',
-                    status: "1",
+                    status: "",
                     name: 'PGYFJ601'
                 }, {
                     type: 1,
                     deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
                     deviceId: '603',
-                    status: "3",
+                    status: "",
                     name: 'PGYFJ601'
                 }, {
                     type: 1,
                     deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
                     deviceId: '603',
-                    status: "2",
+                    status: "",
                     name: 'PGYFJ601'
                 }, {
                     type: 1,
                     deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
                     deviceId: '603',
-                    status: "5",
+                    status: "",
                     name: 'PGYFJ601'
                 }],
                 alarmVal: '',
@@ -324,7 +324,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_deviceInfo']),
+            ...mapMutations(['_deviceInfo', '_currentIndex']),
             goToDevice(deviceType, deviceId, deviceUuid) {
                 this._deviceInfo({ 'deviceId': deviceId, 'deviceUuid': deviceUuid });
                 if(deviceType == 1) {
@@ -382,6 +382,7 @@
                     'stationId': this.stationId
                 };
 
+                this._currentIndex(ops);
                 this._getList({
                     ops: ops,
                     api: 'eventInfo',
@@ -410,6 +411,7 @@
                     'stationId': this.stationId
                 };
 
+                this._currentIndex(ops);
                 if(req) {
                     Object.assign(ops, { 'status': req });
                 }
@@ -524,7 +526,23 @@
                 padding: 0 0.3rem;
                 span {
                     color: #fff;
-                    line-height: 0.36rem;
+                    width: 2.2rem;
+                    text-align: center;
+                    line-height: 2.2rem;
+                    display: block;
+                    height: 2.2rem;
+                    position: relative;
+                    font-size: 0.24rem;
+                    i {
+                        height: 0.24rem;
+                        line-height: 0.24rem;
+                        font-style: normal;
+                        font-size: 0.18rem;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                    }
                 }
             }
             .healthy-table {

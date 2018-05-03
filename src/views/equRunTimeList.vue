@@ -120,7 +120,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_equNameList']),
+            ...mapMutations(['_equNameList', '_currentIndex']),
             btnsFn(fn) {
                 this[fn]();
             },
@@ -142,6 +142,7 @@
                     'pageSize': this.pageSize
                 };
 
+                this._currentIndex(ops);
                 if(req) {
                     Object.assign(ops, req);
                 }

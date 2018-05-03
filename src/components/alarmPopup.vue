@@ -23,27 +23,16 @@
                         enabled: false //去掉地址
                     },
                     title: {
-                        text: '' //指定图表标题
+                        text: '工艺数据' //指定图表标题
                     },
                     xAxis: {
-                        title: {
-                            text: null
-                        },
-                        type: 'category',
-                        categories: [],
+                        tickInterval: 66,
                         labels: {
-                            // style: {
-                            //     color: '#474740',
-                            //     fontSize: '0.2rem'
-                            // },
-                            // align: 'center', //标签居中对齐
-                            // y: 30
-                            enabled: false
-                        },
-                        lineWidth: 0, //轴线宽度
-                        tickWidth: 0, //刻度线宽度
-                        showFirstLabel: true,
-                        showLastLabel: true
+                            x: 50,//调节x偏移
+                            formatter: function() {
+                                return this.value.substring(0, 10);
+                            }
+                        }
                     },
                     yAxis: {
                         title: {
@@ -65,13 +54,13 @@
                     },
                     tooltip: {
                         shared: true,
-                        crosshairs: true,
+                        crosshairs: true
                         // 时间格式化字符
                         // 默认会根据当前的数据点间隔取对应的值
                         // 当前图表中数据点间隔为 1天，所以配置 day 值即可
-                        dateTimeLabelFormats: {
-                            day: '%Y-%m-%d'
-                        }
+                        // dateTimeLabelFormats: {
+                        //     day: '%Y-%m-%d'
+                        // }
                     },
                     plotOptions: {
                         series: {
@@ -100,9 +89,10 @@
             };
         },
         computed: {
-            ...mapState(['warnChart'])
+            ...mapState(['warnChart', 'itemObj'])
         },
         created() {
+            this.option.title.text = this.itemObj.pointName + '工艺数据';
             this.warnChart.forEach(item => {
                 this.test.push(parseFloat(item.value));
                 this.test2.push(item.date);

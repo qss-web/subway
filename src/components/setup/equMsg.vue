@@ -151,7 +151,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_equInfo', '_equNameList', '_itemObj']),
+            ...mapMutations(['_equInfo', '_equNameList', '_itemObj', '_currentIndex']),
             //获取多选框选中的ids
             getIdsFn(id) {
                 this.ids = id.substr(0, id.length - 1);
@@ -220,6 +220,7 @@
                     pageSize: this.pageSize
                 };
 
+                this._currentIndex(ops);
                 if(req) {
                     Object.assign(ops, req);
                 }

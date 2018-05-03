@@ -21,11 +21,11 @@
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-ring-diagram id="runIndex1" v-if="showValue.yxsj" title="运行时间" :time="showValue.yxsj+'小时'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
-                        <span v-if="!showValue.yxsj">暂无数据<br/>运行时间</span>
+                        <span v-if="!showValue.yxsj">0小时<i>运行时间</i></span>
                         <v-monthly-reliability v-if="ringInfo.value" v-bind:ringInfo="ringInfo"></v-monthly-reliability>
-                        <span v-if="!ringInfo.value">暂无数据<br/>{{ringInfo.showInfo.title}}</span>
+                        <span v-if="!ringInfo.value">0%<i>{{ringInfo.showInfo.title}}</i></span>
                         <v-ring-diagram id="runIndex2" v-if="showValue.yjsj" title="预警事件" :time="showValue.yjsj+'次'" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
-                        <span v-if="!showValue.yjsj">暂无数据<br/>预警事件</span>
+                        <span v-if="!showValue.yjsj">0次<i>预警事件</i></span>
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -123,20 +123,20 @@
                 alarmTable: {
                     label: [{
                         'label': '序号',
-                        'width': 20,
+                        'width': 10,
                         'value': 'index'
                     }, {
                         'label': '设备名称',
-                        'width': 25,
+                        'width': 15,
                         'value': 'equName',
                         'clickFn': true
                     }, {
                         'label': '时间',
-                        'width': 20,
+                        'width': 25,
                         'value': 'time'
                     }, {
                         'label': '事件描述',
-                        'width': 20,
+                        'width': 35,
                         'value': 'eventDesc'
                     }, {
                         'label': '当前状态',
@@ -204,49 +204,49 @@
                 //风机的信息
                 escalatorInfo: [{
                     fixedId: '右扶手带',
-                    status: "1",
+                    status: "",
                     name: '右扶手带',
                     x: '1.8',
                     y: '1.4',
                     type: 1
                 }, {
                     fixedId: '左扶手带',
-                    status: "3",
+                    status: "",
                     name: '左扶手带',
                     x: '2',
                     y: '2.5',
                     type: 1
                 }, {
                     fixedId: '梯级链涨紧轮',
-                    status: "4",
+                    status: "",
                     name: '梯级链涨紧轮',
                     x: '1',
                     y: '3.5',
                     type: 1
                 }, {
                     fixedId: '主驱动轮',
-                    status: "5",
+                    status: "",
                     name: '主驱动轮',
                     x: '8.6',
                     y: '1.4',
                     type: 3
                 }, {
                     fixedId: '电梯振动',
-                    status: "2",
+                    status: "",
                     name: '电梯振动',
                     x: '8.5',
                     y: '2.6',
                     type: 4
                 }, {
                     fixedId: '齿轮箱振动',
-                    status: "3",
+                    status: "",
                     name: '齿轮箱振动',
                     x: '8.3',
                     y: '3',
                     type: 5
                 }, {
                     fixedId: '地脚振动',
-                    status: "4",
+                    status: "",
                     name: '地脚振动',
                     x: '7.7',
                     y: '3.4',
@@ -265,7 +265,7 @@
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),
-            ...mapMutations(['_warnChart', '_equInfo']),
+            ...mapMutations(['_warnChart', '_equInfo', '_currentIndex']),
             monitorFn() {
                 this.$router.push({ path: 'monitor' });
             },
@@ -307,6 +307,8 @@
                     'deviceUuid': this.deviceInfo.deviceUuid
                 };
 
+                this._currentIndex(ops);
+
                 this._getList({
                     ops: ops,
                     api: 'eventInfo',
@@ -339,6 +341,8 @@
                     'pageSize': this.pageSize02,
                     'deviceUuid': this.deviceInfo.deviceUuid
                 };
+
+                this._currentIndex(ops);
 
                 if(item) {
                     Object.assign(ops, { 'sectionName': item });
@@ -518,7 +522,23 @@
                 padding: 0 0.3rem;
                 span {
                     color: #fff;
-                    line-height: 0.36rem;
+                    width: 2.2rem;
+                    text-align: center;
+                    line-height: 2.2rem;
+                    display: block;
+                    height: 2.2rem;
+                    position: relative;
+                    font-size: 0.24rem;
+                    i {
+                        height: 0.24rem;
+                        line-height: 0.24rem;
+                        font-style: normal;
+                        font-size: 0.18rem;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                    }
                 }
             }
             .healthy-table {

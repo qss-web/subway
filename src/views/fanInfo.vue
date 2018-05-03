@@ -20,11 +20,11 @@
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-ring-diagram id="runIndex1" v-if="showValue.yxsj" title="运行时间" :time="showValue.yxsj+'小时'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
-                        <span v-if="!showValue.yxsj">暂无数据<br/>运行时间</span>
+                        <span v-if="!showValue.yxsj">0小时<i>运行时间</i></span>
                         <v-monthly-reliability v-if="ringInfo.value" v-bind:ringInfo="ringInfo"></v-monthly-reliability>
-                        <span v-if="!ringInfo.value">暂无数据<br/>{{ringInfo.showInfo.title}}</span>
+                        <span v-if="!ringInfo.value">0%<i>{{ringInfo.showInfo.title}}</i></span>
                         <v-ring-diagram id="runIndex2" v-if="showValue.yjsj" title="预警事件" :time="showValue.yjsj+'次'" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
-                        <span v-if="!showValue.yjsj">暂无数据<br/>预警事件</span>
+                        <span v-if="!showValue.yjsj">0次<i>预警事件</i></span>
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -91,8 +91,8 @@
                     color: '#32b16c'
                 }],
                 size: {
-                    width: '1.8rem',
-                    height: '1.8rem'
+                    width: '2.2rem',
+                    height: '2.2rem'
                 },
                 style: {
                     color: '#fff',
@@ -111,8 +111,8 @@
                     },
                     value: '',
                     size: {
-                        width: '1.8rem',
-                        height: '1.8rem'
+                        width: '2.2rem',
+                        height: '2.2rem'
                     },
                     id: 'health2'
                 },
@@ -120,19 +120,19 @@
                 alarmTable: {
                     label: [{
                         'label': '序号',
-                        'width': 20,
+                        'width': 10,
                         'value': 'index'
                     }, {
                         'label': '设备名称',
-                        'width': 25,
+                        'width': 15,
                         'value': 'equName'
                     }, {
                         'label': '时间',
-                        'width': 20,
+                        'width': 25,
                         'value': 'time'
                     }, {
                         'label': '事件描述',
-                        'width': 20,
+                        'width': 35,
                         'value': 'eventDesc'
                     }, {
                         'label': '当前状态',
@@ -200,14 +200,14 @@
                 //风机的信息
                 fanInfo: [{
                     fixedId: '震动监测值Y',
-                    status: "1",
+                    status: "",
                     name: '震动监测值Y',
                     x: '5.4',
                     y: '-0.5',
                     type: 1
                 }, {
                     fixedId: '震动监测值X',
-                    status: "3",
+                    status: "",
                     name: '震动监测值X',
                     x: '8.4',
                     y: '2.8',
@@ -226,7 +226,7 @@
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),
-            ...mapMutations(['_warnChart', '_equInfo']),
+            ...mapMutations(['_warnChart', '_equInfo', '_currentIndex']),
             monitorFn() {
                 this.$router.push({ path: 'monitor' });
             },
@@ -268,6 +268,7 @@
                     'deviceUuid': this.deviceInfo.deviceUuid
                 };
 
+                this._currentIndex(ops);
                 this._getList({
                     ops: ops,
                     api: 'eventInfo',
@@ -301,6 +302,7 @@
                     'deviceUuid': this.deviceInfo.deviceUuid
                 };
 
+                this._currentIndex(ops);
                 if(item) {
                     Object.assign(ops, { 'sectionName': item });
                 }
@@ -477,7 +479,23 @@
                 padding: 0 0.3rem;
                 span {
                     color: #fff;
-                    line-height: 0.36rem;
+                    width: 2.2rem;
+                    text-align: center;
+                    line-height: 2.2rem;
+                    display: block;
+                    height: 2.2rem;
+                    position: relative;
+                    font-size: 0.24rem;
+                    i {
+                        height: 0.24rem;
+                        line-height: 0.24rem;
+                        font-style: normal;
+                        font-size: 0.18rem;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                    }
                 }
             }
             .healthy-table {

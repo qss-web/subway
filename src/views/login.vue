@@ -4,7 +4,7 @@
         <div class="main">
             <img class="showPic" src="../assets/login/img_bg.png" />
             <div class="login">
-                <dl class="loginBox">
+                <dl class="loginBox" v-on:keyup.enter="loginFn">
                     <dt>用户登录</dt>
                     <dd class="account"><input type="text" placeholder="Username" v-model="req.username" /><img src="../assets/login/account_icon.png" /></dd>
                     <dd class="password"><input type="password" placeholder="Password" v-model="req.password" /><img src="../assets/login/password_icon.png" /></dd>
@@ -32,6 +32,14 @@
         methods: {
             ...mapActions(['_login']),
             loginFn() {
+                if(!this.req.username) {
+                    this.$message.error('请输入用户名！');
+                    return false;
+                }
+                if(!this.req.password) {
+                    this.$message.error('请输入密码！');
+                    return false;
+                }
                 this._login({
                     ops: this.req,
                     api: 'login',

@@ -99,6 +99,26 @@
                 return isPic && isLt2M;
             },
             save() {
+                if(!this.repairInfo.email) {
+                    this.$message.error('请输入个人邮箱！');
+                    return false;
+                }
+                if(!this.repairInfo.phone) {
+                    this.$message.error('请输入手机号码！');
+                    return false;
+                }
+                if(!this.repairInfo.password) {
+                    this.$message.error('请输入密码！');
+                    return false;
+                }
+                if(!this.repairInfo.conPassword) {
+                    this.$message.error('请输入确认密码！');
+                    return false;
+                }
+                if(this.repairInfo.password != this.repairInfo.conPassword) {
+                    this.$message.error('两次密码不一致，请确认！');
+                    return false;
+                }
                 this._getInfo({
                     ops: this.repairInfo,
                     api: 'mineUpdateuser',

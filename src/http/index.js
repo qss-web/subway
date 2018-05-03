@@ -98,9 +98,11 @@ const xhr = ({ method = 'post', ur, options = {} }) => {
   //   }, 500);
 
   let ops = {};
+  let unOps = {};
 
   if (store.state.userInfo) {
-    ops = JSON.parse(JSON.stringify(store.state.userInfo));
+    unOps = JSON.parse(JSON.stringify(store.state.userInfo));
+    ops = { userId: unOps.userId, token: unOps.token };
     Object.assign(ops, options);
   } else {
     ops = options;

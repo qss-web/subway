@@ -23,7 +23,7 @@
         data() {
             return {
                 currentPage: 1, //当前页数
-                pageSize: 13, //每页显示数量
+                pageSize: 12, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 ids: '',//删除的id
@@ -144,7 +144,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_equNameList']),
+            ...mapMutations(['_equNameList', '_currentIndex']),
             btnsFn(fn) {
                 this[fn]();
             },
@@ -175,6 +175,8 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+
+                this._currentIndex(ops);
 
                 if(req) {
                     Object.assign(ops, req);

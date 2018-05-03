@@ -333,7 +333,7 @@
         created() { },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
-            ...mapMutations(['_equInfo']),
+            ...mapMutations(['_equInfo', '_currentIndex']),
             //图片的多选框
             singleCheckFn(item) {
                 item.isCheck = true;
@@ -491,6 +491,7 @@
                     pageSize: this.pageSize01
                 };
 
+                this._currentIndex(ops);
                 if(value) {
                     Object.assign(ops, { "queryInfo": value });
                 }
@@ -515,6 +516,7 @@
                     pageSize: this.pageSize02
                 };
 
+                this._currentIndex(ops);
                 if(value) {
                     Object.assign(ops, { "queryInfo": value });
                 }
@@ -539,6 +541,7 @@
                     pageSize: this.pageSize03
                 };
 
+                this._currentIndex(ops);
                 if(value) {
                     Object.assign(ops, { "queryInfo": value });
                 }
@@ -563,6 +566,7 @@
                     pageSize: this.pageSize04
                 };
 
+                this._currentIndex(ops);
                 if(value) {
                     Object.assign(ops, { "queryInfo": value });
                 }
@@ -587,6 +591,7 @@
                     pageSize: this.pageSize05
                 };
 
+                this._currentIndex(ops);
                 if(value) {
                     Object.assign(ops, { "queryInfo": value });
                 }
@@ -611,6 +616,7 @@
                     pageSize: this.pageSize06
                 };
 
+                this._currentIndex(ops);
                 if(value) {
                     Object.assign(ops, { "queryInfo": value });
                 }

@@ -27,11 +27,11 @@
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-ring-diagram id="runIndex1" v-if="showValue.yxsj" title="运行时间" :time="showValue.yxsj+'小时'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
-                        <span v-if="!showValue.yxsj">暂无数据<br/>运行时间</span>
+                        <span v-if="!showValue.yxsj">0小时<i>运行时间</i></span>
                         <v-monthly-reliability v-if="ringInfo.value" v-bind:ringInfo="ringInfo"></v-monthly-reliability>
-                        <span v-if="!ringInfo.value">暂无数据<br/>{{ringInfo.showInfo.title}}</span>
+                        <span v-if="!ringInfo.value">0%<i>{{ringInfo.showInfo.title}}</i></span>
                         <v-ring-diagram id="runIndex2" v-if="showValue.yjsj" title="预警事件" :time="showValue.yjsj+'次'" :showData="test2" :size="size" :setStyle="style"></v-ring-diagram>
-                        <span v-if="!showValue.yjsj">暂无数据<br/>预警事件</span>
+                        <span v-if="!showValue.yjsj">0次<i>预警事件</i></span>
                     </div>
                     <div class="healthy-table">
                         <div class="tabs flex">
@@ -91,386 +91,386 @@
                 colorStatus: ['bg-error', 'bg-warn', 'bg-normal', 'bg-stop', 'bg-offline'],
                 doorUpInfo: [{
                     fixedId: '上行1号',
-                    status: "1",
+                    status: "",
                     name: '1',
                     x: '0.85',
                     y: '0.05'
                 }, {
                     fixedId: '上行2号',
-                    status: "1",
+                    status: "",
                     name: '2',
                     x: '1.85',
                     y: '0.05'
                 }, {
                     fixedId: '上行3号',
-                    status: "1",
+                    status: "",
                     name: '3',
                     x: '2.85',
                     y: '0.05'
                 }, {
                     fixedId: '上行4号',
-                    status: "1",
+                    status: "",
                     name: '4',
                     x: '3.85',
                     y: '0.05'
                 }, {
                     fixedId: '上行5号',
-                    status: "1",
+                    status: "",
                     name: '5',
                     x: '4.85',
                     y: '0.05'
                 }, {
                     fixedId: '上行6号',
-                    status: "1",
+                    status: "",
                     name: '6',
                     x: '5.85',
                     y: '0.05'
                 }, {
                     fixedId: '上行7号',
-                    status: "4",
+                    status: "",
                     name: '7',
                     x: '6.85',
                     y: '0.05'
                 }, {
                     fixedId: '上行8号',
-                    status: "1",
+                    status: "",
                     name: '8',
                     x: '7.85',
                     y: '0.05'
                 }, {
                     fixedId: '上行9号',
-                    status: "1",
+                    status: "",
                     name: '9',
                     x: '0.85',
                     y: '1.28'
                 }, {
                     fixedId: '上行10号',
-                    status: "1",
+                    status: "",
                     name: '10',
                     x: '1.85',
                     y: '1.28'
                 }, {
                     fixedId: '上行11号',
-                    status: "1",
+                    status: "",
                     name: '11',
                     x: '2.85',
                     y: '1.28'
                 }, {
                     fixedId: '上行12号',
-                    status: "5",
+                    status: "",
                     name: '12',
                     x: '3.85',
                     y: '1.28'
                 }, {
                     fixedId: '上行13号',
-                    status: "1",
+                    status: "",
                     name: '13',
                     x: '4.85',
                     y: '1.28'
                 }, {
                     fixedId: '上行14号',
-                    status: "1",
+                    status: "",
                     name: '14',
                     x: '5.85',
                     y: '1.28'
                 }, {
                     fixedId: '上行15号',
-                    status: "1",
+                    status: "",
                     name: '15',
                     x: '6.85',
                     y: '1.28'
                 }, {
                     fixedId: '上行16号',
-                    status: "1",
+                    status: "",
                     name: '16',
                     x: '7.85',
                     y: '1.28'
                 }, {
                     fixedId: '上行17号',
-                    status: "2",
+                    status: "",
                     name: '17',
                     x: '0.85',
                     y: '2.55'
                 }, {
                     fixedId: '上行18号',
-                    status: "1",
+                    status: "",
                     name: '18',
                     x: '1.85',
                     y: '2.55'
                 }, {
                     fixedId: '上行19号',
-                    status: "1",
+                    status: "",
                     name: '19',
                     x: '2.85',
                     y: '2.55'
                 }, {
                     fixedId: '上行20号',
-                    status: "3",
+                    status: "",
                     name: '20',
                     x: '3.85',
                     y: '2.55'
                 }, {
                     fixedId: '上行21号',
-                    status: "1",
+                    status: "",
                     name: '21',
                     x: '4.85',
                     y: '2.55'
                 }, {
                     fixedId: '上行22号',
-                    status: "1",
+                    status: "",
                     name: '22',
                     x: '5.85',
                     y: '2.55'
                 }, {
                     fixedId: '上行23号',
-                    status: "1",
+                    status: "",
                     name: '23',
                     x: '6.85',
                     y: '2.55'
                 }, {
                     fixedId: '上行24号',
-                    status: "1",
+                    status: "",
                     name: '24',
                     x: '7.85',
                     y: '2.55'
                 }, {
                     fixedId: '上行25号',
-                    status: "1",
+                    status: "",
                     name: '25',
                     x: '0.85',
                     y: '3.76'
                 }, {
                     fixedId: '上行26号',
-                    status: "2",
+                    status: "",
                     name: '26',
                     x: '1.85',
                     y: '3.76'
                 }, {
                     fixedId: '上行27号',
-                    status: "4",
+                    status: "",
                     name: '27',
                     x: '2.85',
                     y: '3.76'
                 }, {
                     fixedId: '上行28号',
-                    status: "1",
+                    status: "",
                     name: '28',
                     x: '3.85',
                     y: '3.76'
                 }, {
                     fixedId: '上行29号',
-                    status: "1",
+                    status: "",
                     name: '29',
                     x: '4.85',
                     y: '3.76'
                 }, {
                     fixedId: '上行30号',
-                    status: "1",
+                    status: "",
                     name: '30',
                     x: '5.85',
                     y: '3.76'
                 }, {
                     fixedId: '上行31号',
-                    status: "5",
+                    status: "",
                     name: '29',
                     x: '6.85',
                     y: '3.76'
                 }, {
                     fixedId: '上行32号',
-                    status: "1",
+                    status: "",
                     name: '30',
                     x: '7.85',
                     y: '3.76'
                 }],
                 doorDownInfo: [{
                     fixedId: '下行1号',
-                    status: "2",
+                    status: "",
                     name: '1',
                     x: '0.85',
                     y: '0.05'
                 }, {
                     fixedId: '下行2号',
-                    status: "1",
+                    status: "",
                     name: '2',
                     x: '1.85',
                     y: '0.05'
                 }, {
                     fixedId: '下行3号',
-                    status: "1",
+                    status: "",
                     name: '3',
                     x: '2.85',
                     y: '0.05'
                 }, {
                     fixedId: '下行4号',
-                    status: "1",
+                    status: "",
                     name: '5',
                     x: '3.85',
                     y: '0.05'
                 }, {
                     fixedId: '下行5号',
-                    status: "1",
+                    status: "",
                     name: '5',
                     x: '4.85',
                     y: '0.05'
                 }, {
                     fixedId: '下行6号',
-                    status: "1",
+                    status: "",
                     name: '6',
                     x: '5.85',
                     y: '0.05'
                 }, {
                     fixedId: '下行7号',
-                    status: "4",
+                    status: "",
                     name: '7',
                     x: '6.85',
                     y: '0.05'
                 }, {
                     fixedId: '下行8号',
-                    status: "1",
+                    status: "",
                     name: '8',
                     x: '7.85',
                     y: '0.05'
                 }, {
                     fixedId: '下行9号',
-                    status: "1",
+                    status: "",
                     name: '9',
                     x: '0.85',
                     y: '1.28'
                 }, {
                     fixedId: '下行10号',
-                    status: "1",
+                    status: "",
                     name: '10',
                     x: '1.85',
                     y: '1.28'
                 }, {
                     fixedId: '下行11号',
-                    status: "1",
+                    status: "",
                     name: '11',
                     x: '2.85',
                     y: '1.28'
                 }, {
                     fixedId: '下行12号',
-                    status: "5",
+                    status: "",
                     name: '12',
                     x: '3.85',
                     y: '1.28'
                 }, {
                     fixedId: '下行13号',
-                    status: "1",
+                    status: "",
                     name: '13',
                     x: '4.85',
                     y: '1.28'
                 }, {
                     fixedId: '下行14号',
-                    status: "1",
+                    status: "",
                     name: '14',
                     x: '5.85',
                     y: '1.28'
                 }, {
                     fixedId: '下行15号',
-                    status: "1",
+                    status: "",
                     name: '15',
                     x: '6.85',
                     y: '1.28'
                 }, {
                     fixedId: '下行16号',
-                    status: "1",
+                    status: "",
                     name: '16',
                     x: '7.85',
                     y: '1.28'
                 }, {
                     fixedId: '下行17号',
-                    status: "2",
+                    status: "",
                     name: '17',
                     x: '0.85',
                     y: '2.55'
                 }, {
                     fixedId: '下行18号',
-                    status: "1",
+                    status: "",
                     name: '18',
                     x: '1.85',
                     y: '2.55'
                 }, {
                     fixedId: '下行19号',
-                    status: "1",
+                    status: "",
                     name: '19',
                     x: '2.85',
                     y: '2.55'
                 }, {
                     fixedId: '下行20号',
-                    status: "3",
+                    status: "",
                     name: '20',
                     x: '3.85',
                     y: '2.55'
                 }, {
                     fixedId: '下行21号',
-                    status: "1",
+                    status: "",
                     name: '21',
                     x: '4.85',
                     y: '2.55'
                 }, {
                     fixedId: '下行22号',
-                    status: "1",
+                    status: "",
                     name: '22',
                     x: '5.85',
                     y: '2.55'
                 }, {
                     fixedId: '下行23号',
-                    status: "1",
+                    status: "",
                     name: '23',
                     x: '6.85',
                     y: '2.55'
                 }, {
                     fixedId: '下行24号',
-                    status: "1",
+                    status: "",
                     name: '24',
                     x: '7.85',
                     y: '2.55'
                 }, {
                     fixedId: '下行25号',
-                    status: "1",
+                    status: "",
                     name: '25',
                     x: '0.85',
                     y: '3.76'
                 }, {
                     fixedId: '下行26号',
-                    status: "1",
+                    status: "",
                     name: '26',
                     x: '1.85',
                     y: '3.76'
                 }, {
                     fixedId: '下行27号',
-                    status: "1",
+                    status: "",
                     name: '27',
                     x: '2.85',
                     y: '3.76'
                 }, {
                     fixedId: '下行28号',
-                    status: "1",
+                    status: "",
                     name: '28',
                     x: '3.85',
                     y: '3.76'
                 }, {
                     fixedId: '下行29号',
-                    status: "1",
+                    status: "",
                     name: '29',
                     x: '4.85',
                     y: '3.76'
                 }, {
                     fixedId: '下行30号',
-                    status: "1",
+                    status: "",
                     name: '30',
                     x: '5.85',
                     y: '3.76'
                 }, {
                     fixedId: '下行31号',
-                    status: "1",
+                    status: "",
                     name: '29',
                     x: '6.85',
                     y: '3.76'
                 }, {
                     fixedId: '下行32号',
-                    status: "1",
+                    status: "",
                     name: '30',
                     x: '7.85',
                     y: '3.76'
@@ -519,15 +519,15 @@
                         'value': 'index'
                     }, {
                         'label': '设备名称',
-                        'width': 25,
+                        'width': 15,
                         'value': 'equName'
                     }, {
                         'label': '时间',
-                        'width': 20,
+                        'width': 25,
                         'value': 'time'
                     }, {
                         'label': '事件描述',
-                        'width': 20,
+                        'width': 35,
                         'value': 'eventDesc'
                     }, {
                         'label': '当前状态',
@@ -603,7 +603,7 @@
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),
-            ...mapMutations(['_warnChart', '_equInfo']),
+            ...mapMutations(['_warnChart', '_equInfo', '_currentIndex']),
             monitorFn() {
                 this.$router.push({ path: 'monitor' });
             },
@@ -645,6 +645,7 @@
                     'deviceUuid': this.deviceInfo.deviceUuid
                 };
 
+                this._currentIndex(ops);
                 this._getList({
                     ops: ops,
                     api: 'eventInfo',
@@ -678,6 +679,7 @@
                     'deviceUuid': this.deviceInfo.deviceUuid
                 };
 
+                this._currentIndex(ops);
                 if(item) {
                     Object.assign(ops, { 'sectionName': item });
                 }
@@ -886,7 +888,23 @@
                 padding: 0 0.3rem;
                 span {
                     color: #fff;
-                    line-height: 0.36rem;
+                    width: 2.2rem;
+                    text-align: center;
+                    line-height: 2.2rem;
+                    display: block;
+                    height: 2.2rem;
+                    position: relative;
+                    font-size: 0.24rem;
+                    i {
+                        height: 0.24rem;
+                        line-height: 0.24rem;
+                        font-style: normal;
+                        font-size: 0.18rem;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                    }
                 }
             }
             .healthy-table {

@@ -15,7 +15,7 @@
                 </span>
                 <div v-for="(item1, index1) in label" v-bind:style="{width:item1.width+'%'}">
                     <span v-if="item1.value == 'index'" v-on:click="goToNextPage(other.goToNextFn,item)">
-                        {{index+1}}
+                        {{(currentIndex.pageSize*(currentIndex.curPage-1))+(index+1)}}
                     </span>
                     <span v-else-if="item1.btn" v-bind:class="other.btnCss?'btnCss':'btn'">
                         <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
@@ -35,7 +35,7 @@
                 </span>
                 <div v-for="(item1, index1) in label" v-bind:style="{width:item1.width+'%'}">
                     <span v-if="item1.value == 'index'" v-on:click="goToNextPage(other.goToNextFn,item)">
-                        {{index+1}}
+                        {{(currentIndex.pageSize*(currentIndex.curPage-1))+(index+1)}}
                     </span>
                     <span v-else-if="item1.btn" class="btn">
                         <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
@@ -77,7 +77,7 @@
     </div>
 </template>
 <script>
-    import { mapMutations } from 'vuex';
+    import { mapMutations, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -91,6 +91,7 @@
         },
         props: ['list', 'label', 'other'],
         computed: {
+            ...mapState(['currentIndex']),
             listShow() {
                 return this.list;
             }
