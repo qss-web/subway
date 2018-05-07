@@ -135,6 +135,7 @@
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getEqTimelyStatusFn(this.isReq);
+            this.getEquNameFn({ 'line': this.isReq.line });
         },
         methods: {
             ...mapActions(['_getList']),
@@ -191,19 +192,21 @@
             },
             //获取设备名称
             getEquNameFn(req) {
-                if(req.line && req.station && req.equSys) {
-                    this._getList({
-                        ops: req,
-                        api: 'selectlist2',
-                        callback: res => {
-                            this.getEquNameArr = [];
-                            res.forEach(item => {
-                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
-                            });
-                            this._equNameList(this.getEquNameArr);
-                        }
-                    });
-                }
+                console.log(req, 'getEquNameFn');
+                // if(req.line && req.station && req.equSys) {
+                debugger;
+                this._getList({
+                    ops: req,
+                    api: 'selectlist2',
+                    callback: res => {
+                        this.getEquNameArr = [];
+                        res.forEach(item => {
+                            this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                        });
+                        this._equNameList(this.getEquNameArr);
+                    }
+                });
+                // }
             },
             //二级筛选
             statusFilter(val) {

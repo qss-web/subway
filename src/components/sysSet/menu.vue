@@ -1,7 +1,7 @@
 <template>
     <div class="timeManagement">
         <div class="middleKey">
-            <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
+            <v-system-list v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
         </div>
         <div class=" pagination ">
             <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
@@ -22,6 +22,9 @@
                 pageNumber: 0,//总条目数
                 isShowPop: false,
                 currentId: '',//当前编辑的用户id
+                otherInfo: {
+                    isCheck: false //是否显示多选框
+                },
                 popData1: {
                     'titleTotal': '编辑菜单名称',
                     'options': [{

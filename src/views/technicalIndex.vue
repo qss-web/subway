@@ -2,13 +2,13 @@
     <div class="wholeWrap">
         <div class="equWrap">
             <div class="searchWrap">
-                <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData"></v-sub-search>
+                <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList.data"></v-search-list>
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
                 <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="equList.total " prev-text="上一页 " next-text="下一页 ">
-                        <span>{{currentPage}}/{{Math.ceil(equList.total / pageSize)}}</span>
+                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                        <span>{{currentPage}}/{{totalPage}}</span>
                     </el-pagination>
                 </div>
             </div>
@@ -18,11 +18,15 @@
 </template>
 
 <script>
+    import { mapMutations, mapActions } from 'vuex';
     export default {
         data() {
             return {
                 currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
+                pageSize: 12, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
+                ids: '',//删除的id
                 searchData: {
                     'btnShow': [
                         { 'title': '导出', 'fn': 'exportFn' }
@@ -38,19 +42,25 @@
                         'placeholder': '请选择内容',
                         'val': 'station'
                     }, {
-                        'status': 6,
+                        'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
                         'val': 'equSys'
                     }, {
-                        'status': 1,
+                        'status': 6,
                         'title': '设备名称',
                         'placeholder': '请输入内容',
-                        'val': 'equSort'
-                    }]
+                        'val': 'equName'
+                    }],
+                    defaultReq: {
+                        line: '6号线西延线',
+                        station: '',
+                        equSys: '',
+                        equName: ''
+                    }
                 },
                 otherInfo: {
-                    isCheck: false, //是否显示多选框
+                    isCheck: true, //是否显示多选框
                     style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                 },
                 info1: [{
@@ -60,148 +70,44 @@
                 }, {
                     'label': '线路',
                     'width': 10,
-                    'value': 'line'
+                    'value': 'lineName'
                 }, {
                     'label': '车站',
                     'width': 15,
-                    'value': 'station'
+                    'value': 'stationName'
                 }, {
                     'label': '设备系统',
                     'width': 10,
-                    'value': 'equSys'
+                    'value': 'deviceTypeName'
                 }, {
                     'label': '设备编号',
                     'width': 10,
-                    'value': 'equNum'
+                    'value': 'deviceCode'
                 }, {
                     'label': '设备名称',
                     'width': 15,
-                    'value': 'equName'
+                    'value': 'deviceName'
                 }, {
                     'label': '设备平均无故障运行时间',
                     'width': 20,
-                    'value': 'equRunTime'
+                    'value': 'pjwgzyxsj'
                 }, {
                     'label': '故障相对比率',
                     'width': 10,
-                    'value': 'faultPer'
+                    'value': 'gzxdbl'
                 }],
-                equList: {
-                    total: 9,
-                    data: [{
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }, {
-                        num: '序号',
-                        line: '线路',
-                        station: '车站',
-                        equSys: '设备系统',
-                        equNum: '设备编号',
-                        equName: '设备名称',
-                        equRunTime: '设备平均无故障运行时间',
-                        faultPer: '故障相对比率'
-                    }]
-                }
+                equList: [],
+                getEquNameArr: []
             };
         },
-        props: ['list', 'label', 'checked'],
+        created() {
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.rateListFn(this.isReq);
+            this.getEquNameFn({ 'line': this.isReq.line });
+        },
         methods: {
+            ...mapActions(['_getList']),
+            ...mapMutations(['_currentIndex', '_equNameList']),
             btnsFn(fn) {
                 this[fn]();
             },
@@ -209,13 +115,56 @@
             exportFn() {
 
             },
+            rateListFn(req) {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                this._currentIndex(ops);
+
+                if(req) {
+                    Object.assign(ops, req);
+                }
+                this._getList({
+                    ops: ops,
+                    api: 'rateList',
+                    callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
+                        this.equList = res.rows;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
+                    }
+                });
+            },
             currentList(index) {
                 this.indexed = index;
+            },
+            //获取筛选的值
+            filterBtn(req) {
+                this.isReq = req;
+                this.rateListFn(req);
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                // this.list();
+                this.rateListFn(this.isReq);
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                this._getList({
+                    ops: req,
+                    api: 'selectlist2',
+                    callback: res => {
+                        this.getEquNameArr = [];
+                        res.forEach(item => {
+                            this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                        });
+                        this._equNameList(this.getEquNameArr);
+                    }
+                });
             }
         }
     };

@@ -381,7 +381,7 @@
                         api: this.exportApi,
                         callback: res => {
                             if(this.indexed == 4) {
-                                console.log(res);
+                                window.location.href = res;
                             } else if(res.url) {
                                 window.location.href = res.url;
                             } else {

@@ -39,7 +39,7 @@
                         'status': 6,
                         'title': '设备名称',
                         'placeholder': '请输入内容',
-                        'val': 'equSort'
+                        'val': 'equName'
                     }, {
                         'status': 4,
                         'title': '月份',
@@ -149,6 +149,7 @@
         created() {
             this.isReq = this.searchData.defaultReq;
             this.getWarningEventsFn(this.isReq);
+            this.getEquNameFn({ 'line': this.isReq.line });
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),
@@ -180,19 +181,17 @@
             },
             //获取设备名称
             getEquNameFn(req) {
-                if(req.line && req.station && req.equSys) {
-                    this._getList({
-                        ops: req,
-                        api: 'selectlist2',
-                        callback: res => {
-                            this.getEquNameArr = [];
-                            res.forEach(item => {
-                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
-                            });
-                            this._equNameList(this.getEquNameArr);
-                        }
-                    });
-                }
+                this._getList({
+                    ops: req,
+                    api: 'selectlist2',
+                    callback: res => {
+                        this.getEquNameArr = [];
+                        res.forEach(item => {
+                            this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                        });
+                        this._equNameList(this.getEquNameArr);
+                    }
+                });
             }
         }
     };

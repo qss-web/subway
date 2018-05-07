@@ -1,22 +1,24 @@
 <template>
     <div class="g-table">
         <ul class="title">
+            <li v-on:click="checkAllFn" v-if="other.isCheck">
+                <img v-if="!isAllCkeck" src="../assets/search/check.png" />
+                <img v-if="isAllCkeck" src="../assets/search/checked.png" />
+            </li>
             <li v-for="(item, index) in label" v-bind:style="{width:item.width+'%'}">{{item.label}}</li>
         </ul>
         <dl class="content">
             <dd v-for="(item, index) in listShow">
-                <div v-for="(item1, index1) in label" v-bind:class="item1.status == 'status' ?'font-color-' + item.status:''" v-bind:style="{width:item1.width+'%'}">
+                <span class="isChecked" v-on:click="singleCheckFn(index)" v-if="other.isCheck">
+                    <img v-if="!item.isCheck" src="../assets/search/check.png"/>
+                    <img v-if="item.isCheck" src="../assets/search/checked.png"/>
+                </span>
+                <div v-for="(item1, index1) in label" v-bind:style="{width:item1.width+'%'}">
                     <span v-if="item1.value">{{item[item1.value]}}</span>
                     <span v-if="item1.value == 'index'">{{index+1}}</span>
                     <span v-if="item1.btn">
                         <a v-for="(subItem,index) in item1.btn" class="btn" v-on:click="goToNextPage(subItem.fn,item.id,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
-                    <select v-if="item1.select">
-                        <option value="1">未设置</option>
-                        <option value="2">手动操作</option>
-                        <option value="3">自动同步</option>
-                        <option value="4">默认未设置</option>
-                    </select>
                 </div>
             </dd>
         </dl>
@@ -29,29 +31,13 @@
             return {
                 isAllCkeck: false,
                 numLength: 0,
-                options: [{
-                    value: '1',
-                    label: '未设置'
-                }, {
-                    value: '2',
-                    label: '手动操作'
-                }, {
-                    value: '3',
-                    label: '自动同步'
-                }, {
-                    value: '4',
-                    label: '默认未设置'
-                }],
                 value: '',
                 receiveValue: {}
             };
         },
-        props: ['list', 'label'],
+        props: ['list', 'label', 'other'],
         computed: {
             listShow() {
-                this.list.forEach(item => {
-                    item.isCheck = false;
-                });
                 return this.list;
             }
         },
@@ -64,6 +50,59 @@
                     'item': item
                 };
                 this.$emit('receive', this.receiveValue);
+            },
+
+            checkAllFn() {
+                this.listShow.forEach(item => {
+                    if(this.isAllCkeck != item.isCheck) {
+                        item.isCheck = item.isCheck;
+                    } else {
+                        item.isCheck = !item.isCheck;
+                    }
+                    if(item.isCheck) {
+                        this.numLength = this.listShow.length;
+                    } else {
+                        this.numLength = 0;
+                    }
+                });
+                this.isAllCkeck = !this.isAllCkeck;
+                this.checkedValue = '';
+                this.listShow.forEach(item => {
+                    if(item.isCheck && item.deviceId) {
+                        this.checkedValue += item.deviceId + ',';
+                    } else if(item.isCheck && item.rowid) {
+                        this.checkedValue += item.rowid + ',';
+                    } else if(item.isCheck) {
+                        this.checkedValue += item.id + ',';
+                    }
+                });
+                this.$emit('ids', this.checkedValue);
+            },
+            singleCheckFn(index) {
+                this.listShow[index].isCheck = !this.listShow[index].isCheck;
+                if(this.listShow[index].isCheck) {
+                    this.numLength++;
+                } else {
+                    this.numLength--;
+                }
+                this.$set(this.listShow, index, this.listShow[index]);
+                if(this.numLength == this.listShow.length) {
+                    this.isAllCkeck = true;
+                } else {
+                    this.isAllCkeck = false;
+                }
+                this.checkedValue = '';
+                this.listShow.forEach(item => {
+                    if(item.isCheck && item.deviceId) {
+                        this.checkedValue += item.deviceId + ',';
+                    } else if(item.isCheck && item.rowid) {
+                        debugger;
+                        this.checkedValue += item.rowid + ',';
+                    } else if(item.isCheck) {
+                        this.checkedValue += item.id + ',';
+                    }
+                });
+                this.$emit('ids', this.checkedValue);
             }
         }
     };
@@ -86,6 +125,16 @@
                 color: #2f4554;
                 border-right: 1px solid #bbbfcc;
                 font-weight: bold;
+                img {
+                    width: 0.29rem;
+                    height: 0.29rem;
+                    vertical-align: top;
+                    margin-top: 0.165rem;
+                }
+            }
+            li:first-child {
+                width: 4%;
+                cursor: pointer;
             }
             li:last-child {
                 border-right: none;
@@ -109,6 +158,11 @@
                     font-size: 0.18rem;
                     color: #2f4554;
                     border-right: 1px solid #bbbfcc;
+                }
+                span.isChecked {
+                    border-right: 1px solid #bbbfcc;
+                    width: 4% !important;
+                    cursor: pointer;
                 }
                 div:last-child {
                     border-right: none;

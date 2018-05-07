@@ -2,7 +2,9 @@
 import api from './api';
 import axios from 'axios';
 // import { Notification, Loading } from 'element-ui';
-import { Notification } from 'element-ui';
+import {
+  Notification
+} from 'element-ui';
 import store from '../store';
 
 // 全局设置
@@ -84,10 +86,16 @@ const htp = axios.create({
 });
 
 // 处理接口规范的公有方法
-const xhr = ({ method = 'post', ur, options = {} }) => {
+const xhr = ({
+  method = 'post',
+  ur,
+  options = {}
+}) => {
   let p,
     m = false;
-  let load = { close: () => {} };
+  let load = {
+    close: () => {}
+  };
 
   //   setTimeout(() => {
   //     !m &&
@@ -102,7 +110,10 @@ const xhr = ({ method = 'post', ur, options = {} }) => {
 
   if (store.state.userInfo) {
     unOps = JSON.parse(JSON.stringify(store.state.userInfo));
-    ops = { userId: unOps.userId, token: unOps.token };
+    ops = {
+      userId: unOps.userId,
+      token: unOps.token
+    };
     Object.assign(ops, options);
   } else {
     ops = options;
@@ -141,13 +152,13 @@ const xhr = ({ method = 'post', ur, options = {} }) => {
             if (response.data.code && response.data.code == 1) {
               resolve(response.data.body);
             } else {
-              //   reject(response.data.msg);
+              reject(response.data.msg);
             }
           },
           er => {
             m = true;
             load.close();
-            // errHandler(er);
+            errHandler(er);
           }
         );
       });

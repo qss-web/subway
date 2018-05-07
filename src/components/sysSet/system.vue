@@ -8,7 +8,7 @@
                     <a href="javascript:;">重新启动Tomcat</a>
                 </dt>
                 <dd>
-                    <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
+                    <v-system-list v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
                 </dd>
             </dl>
             <div class=" pagination ">
@@ -53,6 +53,9 @@
                 checkList: [],
                 checkListShow: {},//展示check列表
                 isShowPop: false, //是否显示弹框
+                otherInfo: {
+                    isCheck: false //是否显示多选框
+                },
                 popData1: {
                     'titleTotal': '添加',
                     'options': [{

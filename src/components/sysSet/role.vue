@@ -4,7 +4,7 @@
             <v-sub-search v-bind:searchData="searchData" v-on:receiveBtnFn="btnsFn" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
-            <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
+            <v-system-list v-on:ids="getIdsFn" v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
         </div>
         <div class=" pagination ">
             <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
@@ -24,6 +24,9 @@
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 isShowPop: false,
+                otherInfo: {
+                    isCheck: true //是否显示多选框
+                },
                 popData1: {
                     'titleTotal': '增加角色',
                     'options': [{
@@ -76,7 +79,8 @@
                     'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }]
                 }],
                 equList: [],
-                isReq: {}
+                isReq: {},
+                ids: ''
             };
         },
         created() {
@@ -88,6 +92,27 @@
             //搜索按钮
             btnsFn(fn) {
                 this[fn]();
+            },
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
+            },
+            //导出
+            exportFn() {
+                this._getList({
+                    ops: {
+                        type: '2',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
             },
             //获取列表
             getRoleListFn(req) {
@@ -103,6 +128,9 @@
                     ops: ops,
                     api: 'roleList',
                     callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
                         this.equList = res.rows;
                         this.totalPage = res.total;
                         this.pageNumber = res.records;

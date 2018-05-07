@@ -32,7 +32,7 @@
             </dl>
             <div class="right">
                 <div class="middleKey">
-                    <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
+                    <v-system-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
                 </div>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
@@ -65,6 +65,9 @@
                 roleTelType: 1,//  type 1、角色  2、手机
                 roleTelId: '', //角色或者手机的id
                 chooseInfo: {},
+                otherInfo: {
+                    isCheck: false //是否显示多选框
+                },
                 searchData: {
                     'btnShow': [
                         { 'title': '增加', 'fn': 'addFn' }

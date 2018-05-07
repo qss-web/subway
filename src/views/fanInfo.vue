@@ -199,16 +199,16 @@
                 fixedIds: '',
                 //风机的信息
                 fanInfo: [{
-                    fixedId: '震动监测值Y',
+                    fixedId: '振动监测值Y',
                     status: "",
-                    name: '震动监测值Y',
+                    name: '振动监测值Y',
                     x: '5.4',
                     y: '-0.5',
                     type: 1
                 }, {
-                    fixedId: '震动监测值X',
+                    fixedId: '振动监测值X',
                     status: "",
-                    name: '震动监测值X',
+                    name: '振动监测值X',
                     x: '8.4',
                     y: '2.8',
                     type: 2

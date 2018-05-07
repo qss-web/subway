@@ -9,13 +9,13 @@
                     <dl class="notice flex">
                         <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}台</dd>
                         <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}台</dd>
-                        <dd class="normal" v-on:click="statusFilter('3')">运行：{{equInfoCount[2]}}台</dd>
+                        <dd class="normal" v-on:click="statusFilter('3')">正常：{{equInfoCount[2]}}台</dd>
                         <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}台</dd>
                         <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}台</dd>
                         <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}台</dd>
                     </dl>
                 </ul>
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
+                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -72,7 +72,8 @@
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 2 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
+                    style: 2,
+                    goToNextFn: 'goToNextPage' //跳转方法设置字段
                 },
                 info1: [{
                     'label': '序号',
@@ -141,10 +142,11 @@
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getPointTimelyStatusFn(this.isReq);
+            this.getEquNameFn({ 'line': this.isReq.line });
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_equNameList', '_currentIndex']),
+            ...mapMutations(['_equNameList', '_currentIndex', '_deviceInfo']),
             btnsFn(fn) {
                 this[fn]();
             },
@@ -159,6 +161,22 @@
             changePages(val) {
                 this.currentPage = val;
                 this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+            },
+            //子组件按钮
+            btnFn(val) {
+                this[val]();
+            },
+            //点击列表进入设备详情页
+            goToNextPage() {
+                console.log(this.itemObj);
+                this._deviceInfo({ 'deviceUuid': this.itemObj.equuid });
+                if(this.itemObj.equSysName == '站台门') {
+                    this.$router.push('shielddoorinfo');
+                } else if(this.itemObj.equSysName == '自动扶梯') {
+                    this.$router.push('escalatorinfo');
+                } else {
+                    this.$router.push('faninfo');
+                }
             },
             getPointTimelyStatusFn(req, val) {
                 const ops = {
@@ -199,19 +217,17 @@
             },
             //获取设备名称
             getEquNameFn(req) {
-                if(req.line && req.station && req.equSys) {
-                    this._getList({
-                        ops: req,
-                        api: 'selectlist2',
-                        callback: res => {
-                            this.getEquNameArr = [];
-                            res.forEach(item => {
-                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
-                            });
-                            this._equNameList(this.getEquNameArr);
-                        }
-                    });
-                }
+                this._getList({
+                    ops: req,
+                    api: 'selectlist2',
+                    callback: res => {
+                        this.getEquNameArr = [];
+                        res.forEach(item => {
+                            this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                        });
+                        this._equNameList(this.getEquNameArr);
+                    }
+                });
             },
             //二级筛选
             statusFilter(val) {

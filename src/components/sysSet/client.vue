@@ -9,7 +9,7 @@
             <!-- <v-sub-search v-bind:searchData="searchData"></v-sub-search> -->
         </div>
         <div class="middleKey">
-            <v-system-list v-bind:label="info1" v-bind:list="equList"></v-system-list>
+            <v-system-list v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList"></v-system-list>
         </div>
         <div class=" pagination ">
             <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
@@ -33,6 +33,9 @@
                     isShow: false,
                     title: '',
                     progress: '0'
+                },
+                otherInfo: {
+                    isCheck: false //是否显示多选框
                 },
                 info1: [{
                     'label': '序号',

@@ -33,7 +33,7 @@
                                 <dl class="notice flex">
                                     <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}台</dd>
                                     <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}台</dd>
-                                    <dd class="normal" v-on:click="statusFilter('3')">运行：{{equInfoCount[2]}}台</dd>
+                                    <dd class="normal" v-on:click="statusFilter('3')">正常：{{equInfoCount[2]}}台</dd>
                                     <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}台</dd>
                                     <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}台</dd>
                                     <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}台</dd>

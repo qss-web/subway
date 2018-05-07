@@ -110,15 +110,18 @@
                         'placeholder': '请选择内容',
                         'val': 'stationId'
                     }, {
-                        'status': 5,
+                        'status': 4,
                         'title': '时间',
-                        'placeholder': '选择日期',
-                        'val1': 'selectDate'
+                        'placeholderS': '选择开始日期',
+                        'placeholderE': '选择结束日期',
+                        'val1': 'startTime',
+                        'val2': 'endTime'
                     }],
                     defaultReq: {
                         lineId: '6号线西延线',
                         stationId: '',
-                        selectDate: formatDate('', 4)
+                        startTime: '',
+                        endTime: formatDate('', 4)
                     }
                 },
                 id: 'todayAlarm',

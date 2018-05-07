@@ -4,7 +4,7 @@
             <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
-            <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
+            <v-system-list v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
         </div>
         <div class=" pagination ">
             <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
@@ -24,6 +24,9 @@
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 isShowPop: false,
+                otherInfo: {
+                    isCheck: false //是否显示多选框
+                },
                 popData1: {
                     'titleTotal': '编辑',
                     'options': [{
@@ -54,7 +57,13 @@
                         'title': '设备名称',
                         'placeholder': '请选择内容',
                         'val': 'deviceName'
-                    }]
+                    }],
+                    defaultReq: {
+                        deviceInLineId: '6号线西延线',
+                        deviceInStationId: '',
+                        deviceTypeCode: '',
+                        deviceName: ''
+                    }
                 },
                 info1: [{
                     'label': '序号',
@@ -108,7 +117,9 @@
             };
         },
         created() {
-            this.getEquRunTimeListFn();
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.getEquRunTimeListFn(this.isReq);
+            this.getEquNameFn(this.isReq.deviceInLineId);
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
@@ -169,19 +180,17 @@
             },
             //获取设备名称
             getEquNameFn(req) {
-                if(req.deviceInLineId && req.deviceInStationId && req.deviceTypeCode) {
-                    this._getList({
-                        ops: req,
-                        api: 'selectlist',
-                        callback: res => {
-                            this.getEquNameArr = [];
-                            res.forEach(item => {
-                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id });
-                            });
-                            this._equNameList(this.getEquNameArr);
-                        }
-                    });
-                }
+                this._getList({
+                    ops: req,
+                    api: 'selectlist',
+                    callback: res => {
+                        this.getEquNameArr = [];
+                        res.forEach(item => {
+                            this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id });
+                        });
+                        this._equNameList(this.getEquNameArr);
+                    }
+                });
             }
         }
     };

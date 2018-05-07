@@ -27,10 +27,15 @@
             return {
                 equList: [],
                 isDownloadControl: false,
-                download: 'download'
+                download: 'download',
+                checkList: '',
+                curVer: '',
+                getVer: [2, 3, 4, 3]
             };
         },
-        created() { },
+        created() {
+            this.checkedStrFn();
+        },
         mounted() {
             this.getSysList();
         },
@@ -49,6 +54,29 @@
                     callback: res => {
                         this.equList = res.rows;
                         this.checkData();
+                    }
+                });
+            },
+            //获取系统功能组设置的项
+            checkedStrFn() {
+                this._getList({
+                    ops: {},
+                    api: 'groupconfigList',
+                    callback: res => {
+                        this.checkListShow = res;
+                        this.checkListShow[1].forEach(item => {
+                            if(item.flag == 1) {
+                                // 1==选中
+                                this.checkList += item.name + ',';
+                            }
+                        });
+                        this.checkListShow[2].forEach(item => {
+                            if(item.flag == 1) {
+                                // 1==选中
+                                this.checkList += item.name + ',';
+                            }
+                        });
+                        this.checkList = this.checkList.substr(0, this.checkList.length - 1);
                     }
                 });
             },
@@ -83,10 +111,24 @@
 
                 } catch(e) {
                     //判断提示下载框
-                    alert("客户端初始化失败，请确认是否正确安装客户端插件");
+                    this.$message.error('客户端初始化失败，请确认是否正确安装客户端插件');
                     this.isDownloadControl = true;
+                    this.download = 'download';
                     return false;
                 }
+                //获取版本号
+                var comActiveX = new ActiveXObject('KD5000.ComServer.1');
+
+                this.curVer = comActiveX.GetVersion();
+                this.curVer.split('.').forEach((item, index) => {
+                    if(item != this.getVer[index]) {
+                        //判断提示更新框
+                        this.$message.error('请更新客户端插件');
+                        this.isDownloadControl = true;
+                        this.download = 'update';
+                        return false;
+                    }
+                });
 
                 //进行登陆操作
                 if(lstrRet == 1) {
@@ -179,6 +221,7 @@
              */
 
             clientLogin() {
+                // alert(this.checkList);
                 G_oObject.SetParameter("Online_Category", "系统,自动扶梯专用图谱,风机专用图谱,屏蔽门专用图谱"); //在线功能组
 
                 var userName = "mgr";

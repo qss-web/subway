@@ -5,7 +5,7 @@
                 <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
+                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -34,15 +34,15 @@
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'equSys'
+                        'val': 'deviceTypeCode'
                     }, {
                         'status': 1,
                         'title': '故障名称',
                         'placeholder': '请输入内容',
-                        'val': 'faultName'
+                        'val': 'faultReason'
                     }],
                     defaultReq: {
-                        equSys: ''
+                        deviceTypeCode: ''
                     }
                 },
                 otherInfo: {
@@ -56,35 +56,42 @@
                 }, {
                     'label': '设备系统',
                     'width': 10,
-                    'value': 'equSys'
+                    'value': 'device_type_name'
                 }, {
                     'label': '故障原因代码',
                     'width': 20,
-                    'value': 'alarmCode'
+                    'value': 'code'
                 }, {
                     'label': '故障原因名称',
                     'width': 10,
-                    'value': 'alarmName'
+                    'value': 'fault_reason'
                 }, {
                     'label': '故障平均发生时间',
                     'width': 10,
-                    'value': 'faultTime'
+                    'value': 'pjgzsj'
                 }, {
                     'label': '故障发生次数',
                     'width': 20,
-                    'value': 'faultNum'
+                    'value': 'gzcs'
                 }],
-                equList: []
+                equList: [],
+                isReq: {},
+                ids: ''
             };
         },
         created() {
-            this.getFailureAnalysisListFn();
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.getFailureAnalysisListFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_currentIndex']),
             btnsFn(fn) {
                 this[fn]();
+            },
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
             },
             //导出
             exportFn() {
@@ -96,10 +103,11 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getFailureAnalysisListFn();
+                this.getFailureAnalysisListFn(this.isReq);
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
                 this.getFailureAnalysisListFn(req);
             },
             getFailureAnalysisListFn(req) {

@@ -241,7 +241,9 @@ const api = {
   //功能组设置列表
   groupconfigList: 'webapi/groupconfig/list',
   //功能组设置修改
-  groupconfigUpdate: 'webapi/groupconfig/update'
+  groupconfigUpdate: 'webapi/groupconfig/update',
+  //设备关注度列表
+  rateList: 'webapi/self/device/ratelist'
 };
 
 for (var k in api) {

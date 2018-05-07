@@ -5,7 +5,7 @@
                 <v-userinfo @edit="userinfoType = 0" v-if="userinfoType"></v-userinfo>
                 <v-edit-userinfo @save="userinfoType = 1" v-if="!userinfoType"></v-edit-userinfo>
             </v-card-container>
-            <v-card-container class="card-todolist" title="待办事项" goKey="unfinished" light="true">
+            <v-card-container class="card-todolist" title="待办事项" light="true">
                 <v-mine-todolist></v-mine-todolist>
             </v-card-container>
             <v-card-container class="card-qualification" goKey="qualification" title="设备关注度" light="true">

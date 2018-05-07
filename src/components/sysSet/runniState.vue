@@ -1,10 +1,10 @@
 <template>
     <div class="timeManagement">
         <div class="searchWrap">
-            <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-on:receiveBtnFn="btnsFn" v-on:getEquName="getEquNameFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
-            <v-system-list v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
+            <v-system-list v-on:ids="getIdsFn" v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
         </div>
         <div class=" pagination ">
             <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
@@ -25,6 +25,9 @@
                 pageNumber: 0,//总条目数
                 isShowPop: false,
                 getEquNameArr: [],//接口获取的设备名称
+                otherInfo: {
+                    isCheck: true //是否显示多选框
+                },
                 popData1: {
                     'titleTotal': '新增设备',
                     'options': [{
@@ -87,11 +90,17 @@
                         'placeholder': '请选择内容',
                         'val': 'equSys'
                     }, {
-                        'status': 1,
+                        'status': 6,
                         'title': '设备名称',
                         'placeholder': '请输入内容',
                         'val': 'equName'
-                    }]
+                    }],
+                    defaultReq: {
+                        line: '6号线西延线',
+                        station: '',
+                        equSys: '',
+                        equName: ''
+                    }
                 },
                 info1: [{
                     'label': '序号',
@@ -138,18 +147,44 @@
                     'width': 10,
                     'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }]
                 }],
-                equList: []
+                equList: [],
+                isReq: {},
+                ids: ''
             };
         },
         created() {
-            this.getEquRunTimeListFn();
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.getEquRunTimeListFn(this.isReq);
+            this.getEquNameFn(this.isReq.deviceInLineId);
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
             ...mapMutations(['_itemObj', '_equNameList']),
             //搜索按钮
             btnsFn(fn) {
+                debugger;
                 this[fn]();
+            },
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
+            },
+            //导出
+            exportFn() {
+                this._getList({
+                    ops: {
+                        type: '4',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
             },
             //获取列表
             getEquRunTimeListFn(req) {
@@ -165,6 +200,9 @@
                     ops: ops,
                     api: 'equRunList',
                     callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
                         this.equList = res.rows;
                         this.totalPage = res.total;
                         this.pageNumber = res.records;
@@ -174,10 +212,11 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getEquRunTimeListFn();
+                this.getEquRunTimeListFn(this.isReq);
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
                 this.getEquRunTimeListFn(req);
             },
             cancleFn() {
@@ -202,6 +241,7 @@
             //增加用户操作
             addFn() {
                 this._itemObj('');
+                this.getEquNameFn();
                 this.isShowPop = true;
             },
             //删除操作
@@ -217,19 +257,17 @@
             },
             //获取设备名称
             getEquNameFn(req) {
-                if(req.deviceTypeCode && req.deviceInLineId && req.deviceInStationId) {
-                    this._getList({
-                        ops: req,
-                        api: 'selectlist2',
-                        callback: res => {
-                            this.getEquNameArr = [];
-                            res.forEach(item => {
-                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
-                            });
-                            this._equNameList(this.getEquNameArr);
-                        }
-                    });
-                }
+                this._getList({
+                    ops: req,
+                    api: 'selectlist2',
+                    callback: res => {
+                        this.getEquNameArr = [];
+                        res.forEach(item => {
+                            this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                        });
+                        this._equNameList(this.getEquNameArr);
+                    }
+                });
             }
         }
     };

@@ -148,6 +148,7 @@
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.infoListFn(this.isReq);
+            this.getEquNameFn(this.isReq.deviceInLineId);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -162,6 +163,7 @@
             //增加
             addFn() {
                 this._itemObj('');
+                this.getEquNameFn();
                 this.isShowPop = true;
             },
             //同步
@@ -194,19 +196,17 @@
             },
             //获取设备名称
             getEquNameFn(req) {
-                if(req.deviceTypeCode && req.deviceInLineId && req.deviceInStationId) {
-                    this._getList({
-                        ops: req,
-                        api: 'selectlist',
-                        callback: res => {
-                            this.getEquNameArr = [];
-                            res.forEach(item => {
-                                this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id.toString() });
-                            });
-                            this._equNameList(this.getEquNameArr);
-                        }
-                    });
-                }
+                this._getList({
+                    ops: req,
+                    api: 'selectlist',
+                    callback: res => {
+                        this.getEquNameArr = [];
+                        res.forEach(item => {
+                            this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id.toString() });
+                        });
+                        this._equNameList(this.getEquNameArr);
+                    }
+                });
             },
             //搜索的传值
             fifterBtnFn(req) {
