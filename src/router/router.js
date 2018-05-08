@@ -145,6 +145,11 @@ const router = [
     component: resolve => require(['@/views/login'], resolve)
   },
   {
+    name: 'printPage',
+    path: '/printPage',
+    component: resolve => require(['@/views/printPage'], resolve)
+  },
+  {
     name: '404',
     path: '/404',
     component: resolve => require(['@/views/404'], resolve)

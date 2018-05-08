@@ -15,7 +15,7 @@
                         <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}台</dd>
                     </dl>
                 </ul>
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
+                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -126,7 +126,8 @@
                 ],
                 equList: [],
                 isReq: {},
-                alarmVal: ''//预警状态
+                alarmVal: '',//预警状态
+                ids: ''
             };
         },
         computed: {
@@ -145,7 +146,24 @@
             },
             //导出
             exportFn() {
-
+                this._getList({
+                    ops: {
+                        type: '12',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
+            },
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
             },
             //改变当前页数
             changePages(val) {

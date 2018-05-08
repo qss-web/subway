@@ -38,5 +38,9 @@ export default {
   _currentIndex(state, currentPage) {
     setSen('currentIndex', currentPage);
     state.currentIndex = currentPage;
+  },
+  _menuList(state, menuList) {
+    setSen('menuList', menuList);
+    state.menuList = menuList;
   }
 };

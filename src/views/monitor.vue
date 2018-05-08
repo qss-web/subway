@@ -30,30 +30,25 @@
                 download: 'download',
                 checkList: '',
                 curVer: '',
-                getVer: [2, 3, 4, 3]
+                getVer: [],
+                downloadUrl: ''
             };
         },
-        created() {
-            this.checkedStrFn();
-        },
+        created() { },
         mounted() {
-            this.getSysList();
+            this.getVersionFn();
         },
         methods: {
             ...mapActions(['_getList']),
-            //改变当前页数
-            getSysList() {
-                const ops = {
-                    'curPage': this.currentPage,
-                    'pageSize': '100'
-                };
-
+            //获取最后一次上传的客户端url和版本号
+            getVersionFn() {
                 this._getList({
-                    ops: ops,
-                    api: 'sysList',
+                    ops: {},
+                    api: 'getVersion',
                     callback: res => {
-                        this.equList = res.rows;
-                        this.checkData();
+                        this.downloadUrl = res.url;
+                        this.getVer = res.version.split('.');
+                        this.checkedStrFn();
                     }
                 });
             },
@@ -77,6 +72,23 @@
                             }
                         });
                         this.checkList = this.checkList.substr(0, this.checkList.length - 1);
+                        this.getSysList();
+                    }
+                });
+            },
+            //获取ip列表
+            getSysList() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': '100'
+                };
+
+                this._getList({
+                    ops: ops,
+                    api: 'sysList',
+                    callback: res => {
+                        this.equList = res.rows;
+                        this.checkData();
                     }
                 });
             },
@@ -129,16 +141,16 @@
                         return false;
                     }
                 });
-
                 //进行登陆操作
                 if(lstrRet == 1) {
-
                     if(!G_Login) {
                         this.clientLogin();
                         return;
                     }
                     //插件的创建登陆完成，进入渲染过程
-                    window.setTimeout(this.CheckMainWindowStatus, 100);
+                    if(!this.isDownloadControl) {
+                        window.setTimeout(this.CheckMainWindowStatus, 100);
+                    }
                 } else {
                     window.setTimeout(this.checkData, 200);
                 }
@@ -157,7 +169,7 @@
                 var lnHeight = (document.documentElement.clientHeight == 0) ? document.body.clientHeight : document.documentElement.clientHeight;
                 var lnWidth = (document.documentElement.clientWidth == 0) ? document.body.clientWidth : document.documentElement.clientWidth;
 
-                lnHeight = (lnHeight - 61);
+                lnHeight = (lnHeight - 75);
 
                 return {
                     'width': lnWidth,

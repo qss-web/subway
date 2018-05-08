@@ -17,7 +17,7 @@
         data() {
             return {
                 currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
+                pageSize: 10, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 isShowPop: false,
@@ -58,8 +58,8 @@
             this.getMenuListFn();
         },
         methods: {
-            ...mapActions(['_getList']),
-            ...mapMutations(['_itemObj']),
+            ...mapActions(['_getList', '_getInfo']),
+            ...mapMutations(['_itemObj', '_menuList']),
             //子组件按钮
             btnFn(val) {
                 this[val.fn](val.id, val.item);
@@ -89,6 +89,16 @@
                         this.$message.success('保存成功！');
                         this.isShowPop = false;
                         this.getMenuListFn();
+                        this.getAlllistFn();
+                    }
+                });
+            },
+            getAlllistFn() {
+                this._getInfo({
+                    ops: {},
+                    api: 'getAlllist',
+                    callback: res => {
+                        this._menuList(res);
                     }
                 });
             },

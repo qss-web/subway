@@ -243,7 +243,11 @@ const api = {
   //功能组设置修改
   groupconfigUpdate: 'webapi/groupconfig/update',
   //设备关注度列表
-  rateList: 'webapi/self/device/ratelist'
+  rateList: 'webapi/self/device/ratelist',
+  //获取最后一次上传的客户端url和版本号
+  getVersion: 'webapi/client/last',
+  //获取全部菜单接口
+  getAlllist: 'webapi/menu/alllist'
 };
 
 for (var k in api) {

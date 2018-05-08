@@ -1,12 +1,12 @@
 <template>
     <div class="equWrap">
-        <div class="searchWrap">
-            <v-sub-search v-on:receiveBtnFn="btnsFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData02"></v-sub-search>
+        <div class=" searchWrap ">
+            <v-sub-search v-on:receiveBtnFn="btnsFn " v-on:filter="fifterBtnFn " v-bind:searchData="searchData02 "></v-sub-search>
         </div>
-        <div class="tab">
-            <v-search-list v-bind:other="otherInfo" v-bind:label="info3" v-bind:list="equList"></v-search-list>
+        <div class="tab ">
+            <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo " v-bind:label="info3 " v-bind:list="equList "></v-search-list>
             <div class=" pagination ">
-                <el-pagination :page-size="pageSize" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                <el-pagination :page-size="pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber " prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}}/{{pageTotal}}</span>
                 </el-pagination>
             </div>
@@ -50,7 +50,7 @@
                     }
                 },
                 otherInfo: {
-                    isCheck: false, //是否显示多选框
+                    isCheck: true, //是否显示多选框
                     style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
                 },
                 info3: [{
@@ -83,7 +83,8 @@
                     'value': 'faultNum'
                 }],
                 isReq: {},
-                equList: []
+                equList: [],
+                ids: ''
             };
         },
         created() {
@@ -95,6 +96,27 @@
             ...mapMutations(['_currentIndex']),
             btnsFn(fn) {
                 this[fn]();
+            },
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
+            },
+            //导出
+            exportFn() {
+                this._getList({
+                    ops: {
+                        type: '18',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
             },
             //搜索的传值
             fifterBtnFn(req) {

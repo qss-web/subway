@@ -6,16 +6,29 @@
             <router-link tag="button" to="index"><img src="~assets/header/icon_home.png" /></router-link>
             <router-link tag="button" to="mine"><img src="~assets/header/icon_mine.png" /></router-link>
             <router-link tag="button" to="search"><img src="~assets/header/icon_search.png" /></router-link>
-            <router-link tag="button" to="setup"><img src="~assets/header/icon_setting.png" /></router-link>
+            <button v-on:click="setupFn"><img src="~assets/header/icon_setting.png" /></button>
         </div>
     </div>
 </template>
 <script>
+    import { mapMutations, mapActions } from 'vuex';
     export default {
         data() {
             return {};
         },
         methods: {
+            ...mapActions(['_getInfo']),
+            ...mapMutations(['_menuList']),
+            setupFn() {
+                this._getInfo({
+                    ops: {},
+                    api: 'getAlllist',
+                    callback: res => {
+                        this._menuList(res);
+                        this.$router.push('setup');
+                    }
+                });
+            }
         }
     };
 </script>

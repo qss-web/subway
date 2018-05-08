@@ -1,18 +1,19 @@
 <template>
     <div class="setup">
         <ul class="tabTitle">
-            <li v-on:click="currentList(1)" v-bind:class="tabShow==1?'active':''">设备信息</li>
-            <li v-on:click="currentList(2)" v-bind:class="tabShow==2?'active':''">故障库</li>
-            <li v-if="userInfo.isLimitShow==1" v-on:click="currentList(3)" v-bind:class="tabShow==3?'active':''">系统设置</li>
-            <li v-on:click="currentList(4)" v-bind:class="tabShow==4?'active':''">人员情况统计</li>
+            <li v-for="(item,index) in tabName" v-if="item.isLimitShow==1" v-on:click="currentList(index+1)" v-bind:class="{active:(index+1) == tabShow}">{{item.name}}</li>
+            <!-- <li v-on:click=" currentList(1) " v-bind:class="tabShow==1? 'active': '' ">设备信息</li>
+            <li v-on:click="currentList(2) " v-bind:class="tabShow==2? 'active': '' ">故障库</li>
+            <li v-on:click="currentList(3) " v-if="userInfo.isLimitShow==1 " v-bind:class="tabShow==3? 'active': '' ">系统设置</li>
+            <li v-on:click="currentList(4) " v-bind:class="tabShow==4? 'active': '' ">人员情况统计</li> -->
         </ul>
-        <v-equ-msg v-if="tabShow==1"></v-equ-msg>
-        <v-fault-library v-if="tabShow==2"></v-fault-library>
+        <v-equ-msg v-if="tabShow==1 "></v-equ-msg>
+        <v-fault-library v-if="tabShow==2 "></v-fault-library>
 
-        <div class="equWrap" v-if="tabShow==3 && userInfo.isLimitShow==1">
+        <div class="equWrap " v-if="tabShow==3 && userInfo.isLimitShow==1 ">
             <v-system-set></v-system-set>
         </div>
-        <v-statisticians v-if="tabShow==4"></v-statisticians>
+        <v-statisticians v-if="tabShow==4 "></v-statisticians>
         <v-goback></v-goback>
     </div>
 </template>
@@ -22,16 +23,37 @@
     export default {
         data() {
             return {
-                tabShow: 1
+                tabShow: 1,
+                tabName: [{ code: 'deviceInfo', name: '', isLimitShow: 1 },
+                { code: 'faultData', name: '', isLimitShow: 1 },
+                { code: 'sysSet', name: '', isLimitShow: 0 },
+                { code: 'userInfo', name: '', isLimitShow: 1 }]
             };
         },
         computed: {
-            ...mapState(['userInfo'])
+            ...mapState(['userInfo', 'menuList'])
         },
-        created() { },
+        watch: {
+            menuList() {
+                this.getAlllistFn();
+            }
+        },
+        created() {
+            this.tabName[2].isLimitShow = this.userInfo.isLimitShow;
+            this.getAlllistFn();
+        },
         methods: {
             currentList(index) {
                 this.tabShow = index;
+            },
+            getAlllistFn() {
+                this.menuList.forEach(item => {
+                    this.tabName.filter(item1 => {
+                        if(item.menuCode == item1.code) {
+                            item1.name = item.menuName;
+                        }
+                    });
+                });
             }
         }
     };

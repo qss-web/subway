@@ -9,6 +9,7 @@ import { getLoc, getSen } from '../../utils';
  * @stationId  车站id
  * @equNameList 设备名称列表
  * @currentIndex 当前页数和每页显示数量，用来计算当前序号
+ * @menuList  菜单列表
  *
  */
 
@@ -22,5 +23,6 @@ export default {
   warnChart: [],
   stationId: getSen('stationId') || '',
   equNameList: [],
-  currentIndex: getSen('currentIndex') || {}
+  currentIndex: getSen('currentIndex') || {},
+  menuList: getSen('menuList') || []
 };

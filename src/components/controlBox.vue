@@ -34,7 +34,7 @@
 </script>
 <style lang="less" scoped>
     .notice {
-        position: absolute;
+        position: fixed;
         right: 0.04rem;
         bottom: 0.48rem;
         z-index: 10000002;

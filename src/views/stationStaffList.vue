@@ -5,7 +5,7 @@
                 <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
+                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList"></v-search-list>
             </div>
 
         </div>
@@ -138,21 +138,40 @@
                     'width': 10,
                     'value': 'state'
                 }],
-                equList: {}
+                equList: [],
+                isReq: {},
+                ids: ''
             };
         },
-        props: ['list', 'label', 'checked'],
         created() {
-            this.stationListFn();
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
+            this.stationListFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
             btnsFn(fn) {
                 this[fn]();
             },
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
+            },
             //导出
             exportFn() {
-
+                this._getList({
+                    ops: {
+                        type: '16',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
             },
             currentList(index) {
                 this.indexed = index;
@@ -171,6 +190,7 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isReq = req;
                 this.stationListFn(req);
             }
         }

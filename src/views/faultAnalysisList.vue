@@ -95,7 +95,20 @@
             },
             //导出
             exportFn() {
-
+                this._getList({
+                    ops: {
+                        type: '15',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
             },
             currentList(index) {
                 this.indexed = index;

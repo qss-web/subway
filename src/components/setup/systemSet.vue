@@ -1,22 +1,11 @@
 <template>
     <div class="setWrap">
         <ul class="tabTitle clearfix">
-            <li v-on:click="indexed=1" v-bind:class="indexed==1?'active':''">系统</li>
-            <li v-on:click="indexed=2" v-bind:class="indexed==2?'active':''">用户</li>
-            <!-- <li v-on:click="indexed=3" v-bind:class="indexed==3?'active':''">设备</li> -->
-            <li v-on:click="indexed=3" v-bind:class="indexed==3?'active':''">客户端</li>
-            <li v-on:click="indexed=4" v-bind:class="indexed==4?'active':''">设备授权</li>
-            <li v-on:click="indexed=5" v-bind:class="indexed==5?'active':''">角色</li>
-            <li v-on:click="indexed=6" v-bind:class="indexed==6?'active':''">监测设备配置</li>
-            <li v-on:click="indexed=7" v-bind:class="indexed==7?'active':''">当前设备运行状态</li>
-            <li v-on:click="indexed=8" v-bind:class="indexed==8?'active':''">运行时间管理</li>
-            <li v-on:click="indexed=9" v-bind:class="indexed==9?'active':''">菜单管理</li>
-            <li v-on:click="indexed=10" v-bind:class="indexed==10?'active':''">监控日志</li>
+            <li v-for="(item,index) in tabName" v-on:click="indexed=(index+1)" v-bind:class="{active:(index+1) == indexed}">{{item.name}}</li>
         </ul>
         <div class="content">
             <v-system v-if="indexed==1"></v-system>
             <v-user v-if="indexed==2"></v-user>
-            <!-- <v-equ v-if="indexed==3"></v-equ> -->
             <v-client v-if="indexed==3"></v-client>
             <v-authorize v-if="indexed==4"></v-authorize>
             <v-role v-if="indexed==5"></v-role>
@@ -29,16 +18,44 @@
     </div>
 </template>
 <script>
+    import { mapState } from 'vuex';
     export default {
         data() {
             return {
-                indexed: 1
+                indexed: 1,
+                tabName: [{ code: 'system', name: '' },
+                { code: 'systemUser', name: '' },
+                { code: 'systemClent', name: '' },
+                { code: 'systemAuth', name: '' },
+                { code: 'systemRole', name: '' },
+                { code: 'systemDeviceSet', name: '' },
+                { code: 'systemRunStatus', name: '' },
+                { code: 'systemRunTime', name: '' },
+                { code: 'systemMenu', name: '' },
+                { code: 'systemLog', name: '' }]
             };
         },
-        props: [''],
+        computed: {
+            ...mapState(['menuList'])
+        },
+        watch: {
+            menuList() {
+                this.getAlllistFn();
+            }
+        },
         created() {
+            this.getAlllistFn();
         },
         methods: {
+            getAlllistFn() {
+                this.menuList.forEach(item => {
+                    this.tabName.filter(item1 => {
+                        if(item.menuCode == item1.code) {
+                            item1.name = item.menuName;
+                        }
+                    });
+                });
+            }
         }
     };
 </script>
