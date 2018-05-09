@@ -148,7 +148,7 @@
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.infoListFn(this.isReq);
-            this.getEquNameFn(this.isReq.deviceInLineId);
+            this.getEquNameFn({ 'deviceInLineId': this.isReq.deviceInLineId });
         },
         methods: {
             ...mapActions(['_getList']),

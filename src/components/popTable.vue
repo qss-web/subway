@@ -47,7 +47,12 @@
                         'title': '车站',
                         'placeholder': '请选择内容',
                         'val': 'deviceInStationId'
-                    }]
+                    }],
+                    defaultReq: {
+                        deviceName: '',
+                        deviceTypeCode: '',
+                        deviceInStationId: ''
+                    }
                 },
                 otherInfo: {
                     isCheck: true,
@@ -74,13 +79,15 @@
                     'width': 22.5,
                     'value': 'deviceName'
                 }],
-                equList: []
+                equList: [],
+                isReq: {}
             };
         },
         props: ['info'],
         created() {
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             //获取车站列表
-            this.getDevicePopListFn();
+            this.getDevicePopListFn(this.isReq);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -129,12 +136,13 @@
             },
             //搜索的传值
             fifterBtnFn(req) {
+                this.isReq = req;
                 this.getDevicePopListFn(req);
             },
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getDevicePopListFn();
+                this.getDevicePopListFn(this.isReq);
             },
             getIdsFn(id) {
                 this.ids = id.substr(0, id.length - 1);

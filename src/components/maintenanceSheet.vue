@@ -55,7 +55,7 @@
                     </ul>
                     <dl class="textareaShow specialPic">
                         <dt>故障现象及车站先期处理内容（车站人员填写）：</dt>
-                        <dd>{{info.reportPretreatment}}
+                        <dd style="min-height: 0.86rem;">{{info.reportPretreatment}}
                             <!-- <textarea v-model="" placeholder="请输入内容"></textarea> -->
                         </dd>
                         <img v-if="info.image1 && info.image1.search('.jpg') != -1" v-bind:src="info.image1" />

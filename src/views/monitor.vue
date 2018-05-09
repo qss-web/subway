@@ -4,7 +4,7 @@
 
         </div>
         <!-- 下载或更新控件提示框 -->
-        <v-control-box v-bind:type="download" v-if="isDownloadControl"></v-control-box>
+        <v-control-box v-bind:msg="controlMsg" v-bind:type="download" v-if="isDownloadControl"></v-control-box>
     </div>
 </template>
 
@@ -31,7 +31,7 @@
                 checkList: '',
                 curVer: '',
                 getVer: [],
-                downloadUrl: ''
+                controlMsg: {}
             };
         },
         created() { },
@@ -46,7 +46,8 @@
                     ops: {},
                     api: 'getVersion',
                     callback: res => {
-                        this.downloadUrl = res.url;
+                        this.controlMsg.url = res.url;
+                        this.controlMsg.newVersion = res.version;
                         this.getVer = res.version.split('.');
                         this.checkedStrFn();
                     }
@@ -96,17 +97,18 @@
             checkData() {
                 loContainer = document.getElementById('childBox');
                 G_oObject = document.getElementById('DrawingControl');
-
                 if(!this.sinadotIsValidObject(G_oObject)) {
 
-                    var size = this.getClientPaintSize();
+                    // var size = this.getClientPaintSize();
 
-                    var lnHeight = size.height;
-                    var lnWidth = size.width;
+                    // var lnHeight = size.height;
+                    // var lnWidth = size.width;
 
                     obj = document.createElement("object");
-                    obj.setAttribute("width", "100%");
-                    obj.setAttribute("height", "" + (lnHeight));
+                    obj.setAttribute("width", '0');
+                    obj.setAttribute("height", '0');
+                    // obj.setAttribute("width", "100%");
+                    // obj.setAttribute("height", "" + (lnHeight));
                     obj.setAttribute("codeBase", "BHClient.CAB#version=1,0,0,001");
                     obj.setAttribute("classid", "CLSID:38C9B0EC-68CD-4C30-AC74-B1A1FE18841A");
                     obj.id = "DrawingControl";
@@ -114,10 +116,20 @@
                     window.setTimeout(this.checkData, 200);
                     return false;
                 }
-
                 var lstrRet = 0;
 
                 try {
+                    if(!this.sinadotIsValidObject(G_oObject)) {
+
+                        var size = this.getClientPaintSize();
+
+                        var lnHeight = size.height;
+                        var lnWidth = size.width;
+
+                        obj.setAttribute("width", "100%");
+                        obj.setAttribute("height", "" + (lnHeight));
+                        return false;
+                    }
                     lstrRet = G_oObject.GetParameter("inited");
                     G_oObject.SetAppMode(1);
 
@@ -132,6 +144,7 @@
                 var comActiveX = new ActiveXObject('KD5000.ComServer.1');
 
                 this.curVer = comActiveX.GetVersion();
+                this.controlMsg.oldVersion = comActiveX.GetVersion();
                 this.curVer.split('.').forEach((item, index) => {
                     if(item != this.getVer[index]) {
                         //判断提示更新框
@@ -141,6 +154,20 @@
                         return false;
                     }
                 });
+                if(!this.isDownloadControl) {
+                    if(!this.sinadotIsValidObject(G_oObject)) {
+
+                        var size = this.getClientPaintSize();
+
+                        var lnHeight = size.height;
+                        var lnWidth = size.width;
+
+                        obj.setAttribute("width", "100%");
+                        obj.setAttribute("height", "" + (lnHeight));
+
+                    }
+                }
+
                 //进行登陆操作
                 if(lstrRet == 1) {
                     if(!G_Login) {
@@ -233,8 +260,8 @@
              */
 
             clientLogin() {
-                // alert(this.checkList);
-                G_oObject.SetParameter("Online_Category", "系统,自动扶梯专用图谱,风机专用图谱,屏蔽门专用图谱"); //在线功能组
+                // "系统,自动扶梯专用图谱,风机专用图谱,屏蔽门专用图谱"
+                G_oObject.SetParameter("Online_Category", this.checkList); //在线功能组
 
                 var userName = "mgr";
                 var pass = 111;

@@ -154,7 +154,7 @@
             exportFn() {
                 this._getList({
                     ops: {
-                        type: '10',
+                        type: this.tabShow ? '10' : '11',
                         ids: this.ids
                     },
                     api: 'exportApi',
@@ -166,9 +166,6 @@
                         }
                     }
                 });
-            },
-            currentList(index) {
-                this.indexed = index;
             },
             //改变当前页数
             changePages(val) {

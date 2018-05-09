@@ -5,7 +5,11 @@
                 <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
+                <ul class="title">
+                    <li v-on:click="tabShowFn(true)" v-bind:class="tabShow?'active':''">未处理</li>
+                    <li v-on:click="tabShowFn(false)" v-bind:class="tabShow?'':'active'">已处理</li>
+                </ul>
+                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -14,7 +18,7 @@
             </div>
         </div>
         <v-goback></v-goback>
-        <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn" style="border:1px solid red"></v-maintenance-sheet>
+        <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn"></v-maintenance-sheet>
     </div>
 </template>
 
@@ -58,19 +62,21 @@
                         'title': ' 故障系统',
                         'placeholder': '请输入内容',
                         'val': 'faultSys'
-                    }, {
-                        'status': 2,
-                        'title': '故障事项状态',
-                        'placeholder': '请选择内容',
-                        'val': 'isTodo',
-                        'list': [{
-                            value: '1',
-                            label: '未处理'
-                        }, {
-                            value: '2',
-                            label: '已处理'
-                        }]
-                    }, {
+                    },
+                    // {
+                    //     'status': 2,
+                    //     'title': '故障事项状态',
+                    //     'placeholder': '请选择内容',
+                    //     'val': 'isTodo',
+                    //     'list': [{
+                    //         value: '1',
+                    //         label: '未处理'
+                    //     }, {
+                    //         value: '2',
+                    //         label: '已处理'
+                    //     }]
+                    // },
+                    {
                         'status': 3,
                         'title': '时间',
                         'placeholderS': '选择开始日期',
@@ -83,8 +89,8 @@
                         station: '',
                         equSys: '',
                         equName: '',
-                        faultSys: '',
-                        isTodo: '1'
+                        faultSys: ''
+                        // isTodo: '1'
                     }
                 },
                 otherInfo: {
@@ -99,10 +105,6 @@
                     'label': '故障单号',
                     'width': 10,
                     'value': 'faultNum'
-                }, {
-                    'label': '线路',
-                    'width': 8,
-                    'value': 'line'
                 }, {
                     'label': '车站',
                     'width': 10,
@@ -125,25 +127,77 @@
                     'value': 'faultSys'
                 }, {
                     'label': '故障现象',
-                    'width': 14,
+                    'width': 22,
                     'value': 'faultDis'
                 }, {
                     'label': '操作',
                     'width': 7,
                     'btn': [{ 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
+                info2: [{
+                    'label': '序号',
+                    'width': 4,
+                    'value': 'index'
+                }, {
+                    'label': '故障单号',
+                    'width': 8,
+                    'value': 'faultNum'
+                }, {
+                    'label': '车站',
+                    'width': 7,
+                    'value': 'station'
+                }, {
+                    'label': '设备名称',
+                    'width': 8,
+                    'value': 'equName'
+                }, {
+                    'label': '设备安装位置',
+                    'width': 8,
+                    'value': 'equPos'
+                }, {
+                    'label': '设备编号',
+                    'width': 6,
+                    'value': 'equNum'
+                }, {
+                    'label': '故障系统',
+                    'width': 8,
+                    'value': 'faultSys'
+                }, {
+                    'label': '故障现象',
+                    'width': 10,
+                    'value': 'faultDis'
+                }, {
+                    'label': '修复时间',
+                    'width': 8,
+                    'value': 'repairTime'
+                }, {
+                    'label': '修复人员',
+                    'width': 8,
+                    'value': 'repairUserName'
+                }, {
+                    'label': '修复确认人姓名',
+                    'width': 8,
+                    'value': 'confirmUserName'
+                }, {
+                    'label': '操作',
+                    'width': 7,
+                    'btn': [{ 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
+                }],
+                info: [],
                 equList: [],
                 isPop: false,
                 getEquNameArr: [],
                 isReq: {},
                 equKey: '',
-                ids: ''
+                ids: '',
+                tabShow: true
             };
         },
         computed: {
             ...mapState(['itemObj'])
         },
         created() {
+            this.info = this.info1;
             this.equKey = this.$route.query.equKey;
             if(this.equKey || this.equKey == 0) {
                 this.searchData.defaultReq.equSys = this.equKey.toString();
@@ -187,7 +241,16 @@
             },
             //删除
             deleteFn() {
-
+                this._getList({
+                    ops: {
+                        ids: this.ids
+                    },
+                    api: 'backlogDel',
+                    callback: () => {
+                        this.$message.success('删除成功!');
+                        this.getBacklogFn(this.isReq);
+                    }
+                });
             },
             currentList(index) {
                 this.indexed = index;
@@ -200,11 +263,11 @@
             getBacklogFn(req) {
                 const ops = {
                     'curPage': this.currentPage,
-                    'pageSize': this.pageSize
+                    'pageSize': this.pageSize,
+                    'isTodo': this.tabShow ? '1' : '2'
                 };
 
                 this._currentIndex(ops);
-
                 if(req) {
                     Object.assign(ops, req);
                 }
@@ -250,6 +313,17 @@
                         this._equNameList(this.getEquNameArr);
                     }
                 });
+            },
+            tabShowFn(b) {
+                //b==true  未处理
+                //b==false 已处理
+                this.tabShow = b;
+                if(b) {
+                    this.info = this.info1;
+                } else {
+                    this.info = this.info2;
+                }
+                this.getBacklogFn(this.isReq);
             }
         }
     };
@@ -276,26 +350,32 @@
     .tab {
         width: 98.5%;
         margin: 0px auto;
-        min-height: 7.8rem;
+        min-height: 7.2rem;
         .title {
-            background: #e5e8f7;
+            padding-top: 0.11rem;
+            background: #666b79;
+            overflow: hidden;
+            padding-left: 0.57rem;
             position: relative;
-            height: 0.52rem;
-            border: 1px solid #587386;
-            border-bottom: none;
-            .notice {
-                position: absolute;
-                right: 1rem;
-                top: 0;
-                dd {
-                    flex: auto;
-                    font-size: 0.2rem;
-                    margin-left: 0.26rem;
-                    height: 0.52rem;
-                    line-height: 0.52rem;
-                }
+            li {
+                width: 2rem;
+                height: 0.39rem;
+                line-height: 0.39rem;
+                font-size: 0.2rem;
+                float: left;
+                text-align: center;
+                background: #4a4d5e;
+                color: #ffffff;
+                border-radius: 8px 8px 0px 0px;
+                margin-left: 0.05rem;
+                cursor: pointer;
+            }
+            li.active {
+                background: #d7d9db;
+                color: #1f1e1e;
             }
         }
+
         .pagination {
             text-align: center;
             padding: 0.1rem 0;

@@ -119,7 +119,7 @@
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getEquRunTimeListFn(this.isReq);
-            this.getEquNameFn(this.isReq.deviceInLineId);
+            this.getEquNameFn({ 'deviceInLineId': this.isReq.deviceInLineId });
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
@@ -132,7 +132,6 @@
                 };
 
                 if(req) {
-                    req.deviceName = req.deviceName.toString();
                     Object.assign(ops, req);
                 }
                 this._getList({
@@ -152,6 +151,7 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                req.deviceName = req.deviceName.toString();
                 this.isReq = req;
                 this.getEquRunTimeListFn(req);
             },

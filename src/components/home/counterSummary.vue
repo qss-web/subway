@@ -38,7 +38,7 @@
                     ops: ops,
                     api: 'stationList',
                     callback: res => {
-                        res.forEach(item => {
+                        res.rows.forEach(item => {
                             this.failureCount.push({
                                 sequence: item.rank,
                                 name: item.line,

@@ -155,7 +155,7 @@
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getEquRunTimeListFn(this.isReq);
-            this.getEquNameFn(this.isReq.deviceInLineId);
+            this.getEquNameFn({ 'line': this.isReq.line });
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),

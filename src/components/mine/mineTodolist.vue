@@ -119,6 +119,14 @@
                                         fontSize: '0.18rem'
                                     }
                                 }
+                            },
+                            series: {
+                                cursor: 'pointer',
+                                events: {
+                                    click: () => {
+                                        this.$router.push('/alarmListDay');
+                                    }
+                                }
                             }
                         },
                         title: {
@@ -197,6 +205,14 @@
                                     useHTML: true,
                                     style: {
                                         fontSize: '0.18rem'
+                                    }
+                                }
+                            },
+                            series: {
+                                cursor: 'pointer',
+                                events: {
+                                    click: () => {
+                                        this.$router.push('/backlog');
                                     }
                                 }
                             }
@@ -280,6 +296,14 @@
                                         fontSize: '0.18rem'
                                     }
                                 }
+                            },
+                            series: {
+                                cursor: 'pointer',
+                                events: {
+                                    click: () => {
+                                        this.$router.push('/inspect');
+                                    }
+                                }
                             }
                         },
                         title: {
@@ -357,6 +381,9 @@
                         this.backlogInfo = res;
                     }
                 });
+            },
+            testFn() {
+                alert(1);
             }
         }
     };

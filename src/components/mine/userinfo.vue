@@ -51,7 +51,9 @@
                     api: 'mineUserInfo',
                     callback: res => {
                         this.userinfo = res;
-                        this.userinfo.imageUrl = 'http://' + window.location.host + res.imageUrl;
+                        if(res.imageUrl && res.imageUrl != 'null' && res.imageUrl != null) {
+                            this.userinfo.imageUrl = 'http://' + window.location.host + res.imageUrl;
+                        }
                     }
                 });
             }

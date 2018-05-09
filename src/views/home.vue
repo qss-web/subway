@@ -14,9 +14,9 @@
         </v-card-container>
         <v-subway-line class="subway-line"></v-subway-line>
         <div class="panel ">
-            <v-machine-summary class="machine-summary "></v-machine-summary>
-            <v-fixtime-summary class="fixtime-summary "></v-fixtime-summary>
-            <v-counter-summary class="counter-summary "></v-counter-summary>
+            <v-machine-summary class="machine-summary"></v-machine-summary>
+            <v-fixtime-summary class="fixtime-summary"></v-fixtime-summary>
+            <v-counter-summary class="counter-summary"></v-counter-summary>
         </div>
     </div>
 </template>

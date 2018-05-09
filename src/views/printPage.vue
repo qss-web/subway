@@ -45,12 +45,12 @@
             </ul>
             <dl class="textareaShow specialPic">
                 <dt>故障现象及车站先期处理内容（车站人员填写）：</dt>
-                <dd>{{info.reportPretreatment}}</dd>
+                <dd style="min-height: 0.86rem;">{{info.reportPretreatment}}</dd>
                 <img v-if="info.image1 && info.image1.search('.jpg') != -1" v-bind:src="info.image1" />
             </dl>
             <dl class="textareaShow specialPic">
                 <dt>故障处理（维修人员填写，如不能现场修复说明情况）：</dt>
-                <dd v-html="info.reportProcessContent"></dd>
+                <dd style="min-height: 0.86rem;" v-html="info.reportProcessContent"></dd>
                 <img v-if="info.image2 && info.image2.search('.jpg') != -1" v-bind:src="info.image2" />
             </dl>
             <dl class="sign flex">

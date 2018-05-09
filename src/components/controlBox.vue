@@ -4,9 +4,13 @@
             <span v-on:click="close"><img src="../assets/login/close_icon.png"/></span>
             <span v-on:click="close"><img src="../assets/login/minimize_icon.png"/></span>
         </dt>
-        <dd v-if="isShow">客户端初始化失败，请确认是否正确安装客户端插件<br/><span>下载</span></dd>
-        <dd v-if="!isShow">插件版本4.9.0.9</dd>
-        <dd v-if="!isShow">同当前服务器版本（4.8.0.5）不一致，使用中如有问题，请点击 <span>更新控件</span> 进行下载并重新安装。</dd>
+        <dd v-if="isShow">客户端初始化失败，请确认是否正确安装客户端插件<br/>
+            <a :href="msg.url">下载</a>
+        </dd>
+        <dd v-if="!isShow">插件版本{{msg.oldVersion}}</dd>
+        <dd v-if="!isShow">同当前服务器版本（{{msg.newVersion}}）不一致，使用中如有问题，请点击
+            <a :href="msg.url">更新控件</a> 进行下载并重新安装。
+        </dd>
     </dl>
 </template>
 <script>
@@ -17,7 +21,7 @@
                 isShow: false
             };
         },
-        props: ['type'],
+        props: ['type', 'msg'],
         created() {
             if(this.type == "download") {
                 this.isShow = true;

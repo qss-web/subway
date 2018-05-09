@@ -31,6 +31,8 @@ const api = {
   backlogCount: 'webapi/todo/count',
   // 今日故障待办事项列表
   backlogList: 'webapi/todo/list',
+  //今日故障待办事项列表删除
+  backlogDel: 'webapi/faultOrder/del',
   // 指标运行统计   月可靠度   平均修复时间     报修超市率
   runCount: 'webapi/quota/count', //??????????????详情的几个方法 TODO   还差几个详情的接口
   // 今日巡检比例

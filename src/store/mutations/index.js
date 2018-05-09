@@ -39,6 +39,7 @@ export default {
     setSen('currentIndex', currentPage);
     state.currentIndex = currentPage;
   },
+  //菜单信息
   _menuList(state, menuList) {
     setSen('menuList', menuList);
     state.menuList = menuList;
