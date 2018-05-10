@@ -23,7 +23,7 @@
                     <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                 </dl>
             </ul>
-            <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
+            <v-search-list v-bind:other="otherInfo" v-on:ids="getIdsFn" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
             <div class=" pagination ">
                 <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}}/{{totalPage}}</span>
@@ -126,13 +126,18 @@
                 equList: [],
                 alarmVal: '',
                 isReq: {},
-                getEquNameArr: []
+                getEquNameArr: [],
+                ids: ''
             };
         },
         computed: {
             ...mapState(['itemObj'])
         },
         created() {
+            this.equKey = this.$route.query.equKey;
+            if(this.equKey || this.equKey == 0) {
+                this.searchData.defaultReq.equSys = this.equKey.toString();
+            }
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             if(this.itemObj.equuid) {
                 this._equNameList([{ 'label': this.itemObj.equName, 'value': this.itemObj.equuid }]);
@@ -147,12 +152,29 @@
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_equNameList', '_currentIndex']),
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
+            },
             btnsFn(fn) {
                 this[fn]();
             },
             //导出
             exportFn() {
-
+                this._getList({
+                    ops: {
+                        type: '10',
+                        ids: this.ids
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
             },
             //改变当前页数
             changePages(val) {

@@ -1,7 +1,7 @@
 <template>
     <div class="search">
         <div class="searchWidth">
-            <div>
+            <div v-on:keyup.enter="fifterBtn">
                 <input type="text" v-model="fifterValue" />
                 <a href="javascript:;"><img src="../assets/search/delete_icon.png" /></a>
             </div>

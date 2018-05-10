@@ -123,8 +123,17 @@
                             series: {
                                 cursor: 'pointer',
                                 events: {
-                                    click: () => {
-                                        this.$router.push('/alarmListDay');
+                                    click: (event) => {
+                                        if(event.point.index == 0) {
+                                            //自动扶梯
+                                            this.$router.push({ path: 'alarmListDay', query: { 'equKey': '7' } });
+                                        } else if(event.point.index == 1) {
+                                            //风机
+                                            this.$router.push({ path: 'alarmListDay', query: { 'equKey': '8' } });
+                                        } else {
+                                            //站台门
+                                            this.$router.push({ path: 'alarmListDay', query: { 'equKey': '0' } });
+                                        }
                                     }
                                 }
                             }
@@ -211,8 +220,17 @@
                             series: {
                                 cursor: 'pointer',
                                 events: {
-                                    click: () => {
-                                        this.$router.push('/backlog');
+                                    click: (event) => {
+                                        if(event.point.index == 0) {
+                                            //自动扶梯
+                                            this.$router.push({ path: 'backlog', query: { 'equKey': '7' } });
+                                        } else if(event.point.index == 1) {
+                                            //风机
+                                            this.$router.push({ path: 'backlog', query: { 'equKey': '8' } });
+                                        } else {
+                                            //站台门
+                                            this.$router.push({ path: 'backlog', query: { 'equKey': '0' } });
+                                        }
                                     }
                                 }
                             }
@@ -300,8 +318,17 @@
                             series: {
                                 cursor: 'pointer',
                                 events: {
-                                    click: () => {
-                                        this.$router.push('/inspect');
+                                    click: (event) => {
+                                        if(event.point.index == 0) {
+                                            //自动扶梯
+                                            this.$router.push({ path: 'inspect', query: { 'equKey': '7' } });
+                                        } else if(event.point.index == 1) {
+                                            //风机
+                                            this.$router.push({ path: 'inspect', query: { 'equKey': '8' } });
+                                        } else {
+                                            //站台门
+                                            this.$router.push({ path: 'inspect', query: { 'equKey': '0' } });
+                                        }
                                     }
                                 }
                             }
