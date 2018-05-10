@@ -6,6 +6,7 @@
             </div>
             <div class="tab">
                 <ul class="title">
+                    <span class="titleName">设备实时状态</span>
                     <dl class="notice flex">
                         <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}台</dd>
                         <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}台</dd>
@@ -78,20 +79,13 @@
                 otherInfo: {
                     isCheck: true, //是否显示多选框
                     style: 2, //列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
-                    goToNextFn: 'goToNextPage' //跳转方法设置字段
+                    goToNextFn: 'goToNextPage', //跳转方法设置字段
+                    exportParam: true //这个字段前端用来判断导出的时候给后台传的字段是哪一个
                 },
                 info1: [{
                     'label': '序号',
                     'width': 5,
                     'value': 'index'
-                }, {
-                    'label': '所属公司',
-                    'width': 14,
-                    'value': 'company'
-                }, {
-                    'label': '线路',
-                    'width': 16,
-                    'value': 'line'
                 }, {
                     'label': '车站',
                     'width': 15,
@@ -102,7 +96,7 @@
                     'value': 'equSys'
                 }, {
                     'label': '位置',
-                    'width': 15,
+                    'width': 20,
                     'value': 'address'
                 }, {
                     'label': '设备编号',
@@ -210,7 +204,6 @@
             },
             //获取设备名称
             getEquNameFn(req) {
-                console.log(req, 'getEquNameFn');
                 // if(req.line && req.station && req.equSys) {
                 debugger;
                 this._getList({
@@ -236,6 +229,7 @@
             },
             //子组件按钮
             btnFn(val) {
+                alert(val);
                 this[val]();
             },
             //点击列表进入设备详情页
@@ -281,6 +275,13 @@
             height: 0.52rem;
             border: 1px solid #587386;
             border-bottom: none;
+            .titleName {
+                line-height: 0.52rem;
+                color: #fff;
+                padding-left: 0.24rem;
+                font-size: 0.2rem;
+                text-shadow: black 0.1em 0.1em 0.2em;
+            }
             .notice {
                 position: absolute;
                 right: 1rem;

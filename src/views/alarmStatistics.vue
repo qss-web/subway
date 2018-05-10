@@ -6,6 +6,7 @@
             </div>
             <div class="tab">
                 <ul class="title">
+                    <span class="titleName">今日预警统计</span>
                     <dl class="notice flex">
                         <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
                         <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
@@ -135,7 +136,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_currentIndex']),
+            ...mapMutations(['_currentIndex', '_equNameList']),
             //获取多选框选中的ids
             getIdsFn(id) {
                 this.ids = id.substr(0, id.length - 1);
@@ -267,6 +268,13 @@
             height: 0.52rem;
             border: 1px solid #587386;
             border-bottom: none;
+            .titleName {
+                line-height: 0.52rem;
+                color: #fff;
+                padding-left: 0.24rem;
+                font-size: 0.2rem;
+                text-shadow: black 0.1em 0.1em 0.2em;
+            }
             .notice {
                 position: absolute;
                 right: 1rem;

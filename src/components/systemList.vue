@@ -14,10 +14,14 @@
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
                 <div v-for="(item1, index1) in label" v-bind:style="{width:item1.width+'%'}">
-                    <span v-if="item1.value">{{item[item1.value]}}</span>
                     <span v-if="item1.value == 'index'">{{index+1}}</span>
-                    <span v-if="item1.btn">
+                    <span v-else-if="item1.btn">
                         <a v-for="(subItem,index) in item1.btn" class="btn" v-on:click="goToNextPage(subItem.fn,item.id,item)" href="javascript:;">{{subItem.name}}</a>
+                    </span>
+                    <!-- <span v-else style="border:1px solid red">{{item[item1.value]}}</span> -->
+                    <span v-else>
+                        <a class="textShow">{{item[item1.value]}}</a>
+                        <i class="hoverShow">{{item[item1.value]}}</i>
                     </span>
                 </div>
             </dd>
@@ -108,6 +112,38 @@
     };
 </script>
 <style lang="less" scoped>
+    a.textShow {
+        cursor: pointer;
+        display: block !important;
+        width: 100% !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    div {
+        span {
+            position: relative;
+            i.hoverShow {
+                display: none;
+                font-style: normal;
+                position: absolute;
+                bottom: 0.4rem;
+                left: 0;
+                line-height: 0.2rem;
+                background: rgba(255, 255, 255, 0.8);
+                color: #000;
+                border-radius: 4px;
+                padding: 0.05rem 0.1rem;
+                border: 1px solid #e1e1e1;
+                box-shadow: 1px 1px 2px #ccc;
+            }
+        }
+    }
+    div span:hover {
+        i.hoverShow {
+            display: block !important;
+        }
+    }
     .g-table {
         width: 100%;
         box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.35);
@@ -158,6 +194,9 @@
                     font-size: 0.18rem;
                     color: #2f4554;
                     border-right: 1px solid #bbbfcc;
+                }
+                span {
+                    display: block;
                 }
                 span.isChecked {
                     border-right: 1px solid #bbbfcc;

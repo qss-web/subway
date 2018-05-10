@@ -5,7 +5,7 @@
                 <button class="btn-name" v-on:click="goInfoFn">{{alarmOtherInfos.deviceName}}</button>
                 <button class="btn-alarm" style="cursor: default;" v-bind:class="colorStatus[alarmOtherInfos.deviceStatus-1]">{{statusShow[alarmOtherInfos.deviceStatus-1]}}</button>
             </div>
-            <div class="alarm-reason">
+            <div class="alarm-reason" v-if="alarmInfos.length!=0">
                 <div class="alarm-reason-title">预警原因</div>
                 <ul class="alarm-reason-body">
                     <li v-for="(item, index) in alarmInfos">{{index+1}}、{{item}}</li>

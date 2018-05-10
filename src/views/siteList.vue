@@ -6,6 +6,7 @@
             </div>
             <div class="tab">
                 <ul class="title">
+                    <span class="titleName">测点实时状态</span>
                     <dl class="notice flex">
                         <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}台</dd>
                         <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}台</dd>
@@ -28,7 +29,7 @@
 </template>
 
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -80,10 +81,6 @@
                     'width': 5,
                     'value': 'index'
                 }, {
-                    'label': '线路',
-                    'width': 10,
-                    'value': 'line'
-                }, {
                     'label': '车站',
                     'width': 6,
                     'value': 'station'
@@ -97,11 +94,11 @@
                     'value': 'address'
                 }, {
                     'label': '设备名称',
-                    'width': 6,
+                    'width': 10,
                     'value': 'equName'
                 }, {
                     'label': '测点名称',
-                    'width': 6,
+                    'width': 12,
                     'value': 'detectName'
                 }, {
                     'label': '当前值',
@@ -116,13 +113,8 @@
                     'width': 6,
                     'value': 'hhighLimit'
                 }, {
-                    'label': '测点状态',
-                    'width': 6,
-                    'status': 'status',
-                    'value': 'statusValue'
-                }, {
                     'label': '更新时间',
-                    'width': 6,
+                    'width': 12,
                     'value': 'time'
                 }, {
                     'label': '预警原因',
@@ -139,6 +131,9 @@
                 alarmVal: '',//预警状态
                 ids: ''
             };
+        },
+        computed: {
+            ...mapState(['itemObj'])
         },
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
@@ -186,7 +181,6 @@
             },
             //点击列表进入设备详情页
             goToNextPage() {
-                console.log(this.itemObj);
                 this._deviceInfo({ 'deviceUuid': this.itemObj.equuid });
                 if(this.itemObj.equSysName == '站台门') {
                     this.$router.push('shielddoorinfo');
@@ -284,6 +278,13 @@
             height: 0.52rem;
             border: 1px solid #587386;
             border-bottom: none;
+            .titleName {
+                line-height: 0.52rem;
+                color: #fff;
+                padding-left: 0.24rem;
+                font-size: 0.2rem;
+                text-shadow: black 0.1em 0.1em 0.2em;
+            }
             .notice {
                 position: absolute;
                 right: 1rem;

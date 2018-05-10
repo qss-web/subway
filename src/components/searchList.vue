@@ -66,8 +66,11 @@
                             </a>
                             <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
 
-                            <ul class="hoverShow" v-if="item1.isShowRed && item.type==1" style="left: -1.6rem; width: 5.1rem;">
-                                <li v-for="(itemList,index) in item.gzlist">{{itemList}}</li>
+                            <ul class="hoverShow" v-if="item1.isShowRed && item.type==1" style="left: -1.6rem; width: 4.2rem;">
+                                <li class="specialBox" v-for="(itemList,index) in item.gzlist">
+                                    <i class="row" v-if="itemList.type == 'fault'">故障单：{{itemList.name}}， <a href="javascript:;" v-on:click.stop="showSheetFn(itemList)">单号：{{itemList.status}}</a><i class="time">时间:{{itemList.time}}</i></i>
+                                    <i class="row" v-if="itemList.type == 'inspect'">巡视巡检：{{itemList.name}}状态：{{itemList.status}}<i class="time">时间:{{itemList.time}}</i></i>
+                                </li>
                             </ul>
                         </span>
                     </span>
@@ -146,8 +149,9 @@
                 this.listShow.forEach(item => {
                     if(item.isCheck && item.deviceId) {
                         this.checkedValue += item.deviceId + ',';
+                    } else if(item.isCheck && item.rowid && this.other.exportParam) {
+                        this.checkedValue += item.equuid + ',';
                     } else if(item.isCheck && item.rowid) {
-                        debugger;
                         this.checkedValue += item.rowid + ',';
                     } else if(item.isCheck) {
                         this.checkedValue += item.id + ',';
@@ -158,11 +162,31 @@
             goToNextPage(fn, item) {
                 this._itemObj(item);
                 this.$emit('receive', fn);
+            },
+            showSheetFn(item) {
+                this._itemObj(item);
+                this.$emit('isShowSheet', true);
             }
         }
     };
 </script>
 <style lang="less" scoped>
+    .specialBox {
+        i.row {
+            font-style: normal;
+            a {
+                color: #2f4554;
+                text-decoration: underline;
+            }
+            i.time {
+                display: block;
+                font-style: normal;
+                color: rgb(116, 113, 113);
+                line-height: 0.28rem;
+                margin-bottom: 0.1rem;
+            }
+        }
+    }
     .picShow {
         a {
             color: #fff;

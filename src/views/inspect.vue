@@ -5,7 +5,7 @@
                 <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn" v-on:receiveBtnFn="btnsFn"></v-sub-search>
             </div>
             <div class="tab">
-                <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:ids="deleteValue"></v-search-list>
+                <v-search-list v-on:isShowSheet="isShowSheetFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:ids="deleteValue"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -14,6 +14,8 @@
             </div>
         </div>
         <v-goback></v-goback>
+        <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn"></v-maintenance-sheet>
+        <span class="g-titleName">今日巡检比例</span>
     </div>
 </template>
 <script>
@@ -126,7 +128,8 @@
                 }],
                 equList: [],
                 getEquNameArr: [],
-                isReq: {}
+                isReq: {},
+                isPop: false
             };
         },
         props: ['list', 'label', 'checked'],
@@ -231,6 +234,12 @@
                         this._equNameList(this.getEquNameArr);
                     }
                 });
+            },
+            isPopFn(value) {
+                this.isPop = value;
+            },
+            isShowSheetFn(value) {
+                this.isPop = value;
             }
         }
     };
@@ -239,6 +248,7 @@
 <style scoped lang="less">
     .wholeWrap {
         padding: 0.16rem 0 0.24rem 0;
+        position: relative;
     }
     .equWrap {
         width: 99.4%;

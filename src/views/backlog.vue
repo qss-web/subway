@@ -6,8 +6,8 @@
             </div>
             <div class="tab">
                 <ul class="title">
-                    <li v-on:click="tabShowFn(true)" v-bind:class="tabShow?'active':''">未处理</li>
-                    <li v-on:click="tabShowFn(false)" v-bind:class="tabShow?'':'active'">已处理</li>
+                    <li v-on:click="tabShowFn(true)" v-bind:class="tabShow?'active':''">故障待办事项未处理</li>
+                    <li v-on:click="tabShowFn(false)" v-bind:class="tabShow?'':'active'">故障待办事项已处理</li>
                 </ul>
                 <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
                 <div class=" pagination ">
@@ -358,7 +358,8 @@
             padding-left: 0.57rem;
             position: relative;
             li {
-                width: 2rem;
+                min-width: 2rem;
+                padding: 0 0.34rem;
                 height: 0.39rem;
                 line-height: 0.39rem;
                 font-size: 0.2rem;

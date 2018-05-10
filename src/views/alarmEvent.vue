@@ -9,6 +9,7 @@
             </div>
         </div>
         <v-goback></v-goback>
+        <span class="g-titleName">预警事件</span>
     </div>
 </template>
 

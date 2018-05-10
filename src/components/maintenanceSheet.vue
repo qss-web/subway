@@ -140,7 +140,7 @@
             },
             goDetail() {
                 this._getInfo({
-                    ops: { 'id': this.itemObj.id.toString() },
+                    ops: { 'id': this.itemObj.inspectFaultId || this.itemObj.id.toString() },
                     api: 'faultDetail',
                     callback: res => {
                         this.info = res;
@@ -148,7 +148,7 @@
                 });
             },
             printFn() {
-                this.$router.push({ path: '/printPage', query: { 'id': this.itemObj.id.toString() } });
+                this.$router.push({ path: '/printPage', query: { 'id': this.itemObj.inspectFaultId || this.itemObj.id.toString() } });
             }
         }
     };

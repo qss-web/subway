@@ -14,6 +14,7 @@
             </div>
         </div>
         <v-goback></v-goback>
+        <span class="g-titleName">当月设备运行时间</span>
     </div>
 </template>
 
@@ -64,7 +65,7 @@
                         station: '',
                         equSys: '',
                         equName: '',
-                        startTime: formatDate('', 2) + ' 00:00:00',
+                        startTime: formatDate('', 6) + '-01-01 00:00:00',
                         endTime: formatDate('', 2) + ' 23:59:59'
                     }
                 },
@@ -204,6 +205,7 @@
 <style scoped lang="less">
     .wholeWrap {
         padding: 0.16rem 0 0.24rem 0;
+        position: relative;
     }
     .equWrap {
         width: 99.4%;

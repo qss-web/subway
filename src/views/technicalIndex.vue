@@ -14,6 +14,7 @@
             </div>
         </div>
         <v-goback></v-goback>
+        <span class="g-titleName">设备关注度</span>
     </div>
 </template>
 
@@ -94,7 +95,7 @@
                 }, {
                     'label': '故障相对比率',
                     'width': 10,
-                    'value': 'gzxdbl'
+                    'value': 'y'
                 }],
                 equList: [],
                 getEquNameArr: []

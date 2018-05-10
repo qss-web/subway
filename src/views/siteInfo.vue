@@ -52,7 +52,7 @@
             <div class="fans flex">
                 <div class="fan flex" v-for="(item,index) in fanInfo">
                     <img class="fan-icon" src="~assets/siteInfo/icon_fan.png" />
-                    <button class="fan-name" v-bind:class="stationStatus[item.status-1]" @click="goToDevice(item.type,item.deviceId,item.deviceUuid)">{{item.name}}</button>
+                    <button class="fan-name" v-bind:class="stationStatus[item.status-1]" @click="goToDevice(item.type,item.deviceId,item.deviceUuid,item.status)">{{item.name}}</button>
                 </div>
             </div>
             <v-train :select="true"></v-train>
@@ -325,17 +325,19 @@
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_deviceInfo', '_currentIndex']),
-            goToDevice(deviceType, deviceId, deviceUuid) {
-                this._deviceInfo({ 'deviceId': deviceId, 'deviceUuid': deviceUuid });
-                if(deviceType == 1) {
-                    //风机
-                    this.$router.push('faninfo');
-                } else if(deviceType == 2) {
-                    //站台门
-                    this.$router.push('shielddoorinfo');
-                } else {
-                    //扶梯
-                    this.$router.push('escalatorinfo');
+            goToDevice(deviceType, deviceId, deviceUuid, status) {
+                if(status != 6) {
+                    this._deviceInfo({ 'deviceId': deviceId, 'deviceUuid': deviceUuid });
+                    if(deviceType == 1) {
+                        //风机
+                        this.$router.push('faninfo');
+                    } else if(deviceType == 2) {
+                        //站台门
+                        this.$router.push('shielddoorinfo');
+                    } else {
+                        //扶梯
+                        this.$router.push('escalatorinfo');
+                    }
                 }
             },
             getAvailabilityFn() {

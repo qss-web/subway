@@ -14,6 +14,7 @@
             </div>
         </div>
         <v-goback></v-goback>
+        <span class="g-titleName">车站运行情况</span>
     </div>
 </template>
 
@@ -224,6 +225,7 @@
 <style scoped lang="less">
     .wholeWrap {
         padding: 0.16rem 0 0.24rem 0;
+        position: relative;
     }
     .equWrap {
         width: 99.4%;

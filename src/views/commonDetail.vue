@@ -114,14 +114,14 @@
                         'title': '时间',
                         'placeholderS': '选择开始日期',
                         'placeholderE': '选择结束日期',
-                        'val1': 'startTime',
-                        'val2': 'endTime'
+                        'val1': 'selectDate',
+                        'val2': 'endSelectDate'
                     }],
                     defaultReq: {
                         lineId: '6号线西延线',
                         stationId: '',
-                        startTime: '',
-                        endTime: formatDate('', 4)
+                        selectDate: formatDate('', 6) + '-' + ((formatDate('', 5) - 1) > 10 ? (formatDate('', 5) - 1) : ("0" + (formatDate('', 5) - 1))).toString(),
+                        endSelectDate: formatDate('', 4)
                     }
                 },
                 id: 'todayAlarm',
@@ -176,12 +176,19 @@
                         lineColor: '#7281a3',
                         lineWidth: 1,
                         tickWidth: 1,
-                        tickColor: '#7281a3'
+                        tickColor: '#7281a3',
+                        tickPositions: [0, 50, 100]
                     },
                     plotOptions: {
                         series: {
                             borderWidth: 0,
                             maxPointWidth: 20,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y}%',
+                                color: '#fff',
+                                fontWeight: 'normal'
+                            },
                             cursor: 'pointer',
                             events: {}
                         }
@@ -249,12 +256,19 @@
                         lineColor: '#7281a3',
                         lineWidth: 1,
                         tickWidth: 1,
-                        tickColor: '#7281a3'
+                        tickColor: '#7281a3',
+                        tickPositions: [0, 50, 100]
                     },
                     plotOptions: {
                         series: {
                             borderWidth: 0,
                             maxPointWidth: 20,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y}%',
+                                color: '#fff',
+                                fontWeight: 'normal'
+                            },
                             cursor: 'pointer',
                             events: {}
                         }
@@ -322,12 +336,19 @@
                         lineColor: '#7281a3',
                         lineWidth: 1,
                         tickWidth: 1,
-                        tickColor: '#7281a3'
+                        tickColor: '#7281a3',
+                        tickPositions: [0, 50, 100]
                     },
                     plotOptions: {
                         series: {
                             borderWidth: 0,
                             maxPointWidth: 20,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y}%',
+                                color: '#fff',
+                                fontWeight: 'normal'
+                            },
                             cursor: 'pointer',
                             events: {}
                         }
@@ -348,11 +369,12 @@
                         }
                     }
                 },
-                isReq: {}
+                isReq: {},
+                test: ''
             };
         },
         created() {
-            this.isReq = this.searchData.defaultReq;
+            this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getCommonDetailFn(this.isReq);
             this.getCommonLeft01Fn(this.isReq);
             this.getCommonLeft02Fn(this.isReq);
@@ -371,10 +393,12 @@
                 this.$router.go(-1);
             },
             getCommonDetailFn(req) {
+                debugger;
                 const ops = {
                     'selectDate': this.currentDate
                 };
 
+                debugger;
                 if(req) {
                     Object.assign(ops, req);
                 }
