@@ -28,6 +28,10 @@
                     title: {
                         text: '' //指定图表标题
                     },
+                    tooltip: {
+                        headerFormat: '{series.name}<br>',
+                        pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+                    },
                     legend: {
                         layout: 'vertical',
                         floating: true,

@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div v-show="activeIndex == 2">
-                        <el-table :data="equList2" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
+                        <!-- <el-table :data="equList2" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
                             <el-table-column type="index" width="50" label="序号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="line" label="线路" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="station" label="安装车站" align="center" show-overflow-tooltip></el-table-column>
@@ -69,7 +69,8 @@
                             <el-table-column prop="status" label="巡检状态" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="equStatus" label="巡视巡检情况记录" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="name" label="执行人" align="center" show-overflow-tooltip></el-table-column>
-                        </el-table>
+                        </el-table> -->
+                        <v-search-list style="border-left: none;border-right: none" v-bind:other="otherInfo" v-bind:label="info" v-bind:list="equList2"></v-search-list>
                         <div class="moreShow">
                             <a href="javascript:;" v-on:click="goToMoreFn3">更多</a>
                         </div>
@@ -94,7 +95,49 @@
                 activeIndex: 0,
                 userinfoType: 1, // 0展示 1编辑
                 currentPage: 1,
-                pageSize: 4
+                pageSize: 4,
+                otherInfo: {
+                    isCheck: false, //是否显示多选框
+                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
+                },
+                info: [{
+                    'label': '序号',
+                    'width': 5,
+                    'value': 'index'
+                }, {
+                    'label': '线路',
+                    'width': 10,
+                    'value': 'line'
+                }, {
+                    'label': '安装车站',
+                    'width': 14,
+                    'value': 'station'
+                }, {
+                    'label': '设备编号',
+                    'width': 10,
+                    'value': 'equNum'
+                }, {
+                    'label': '日期（月/日）',
+                    'width': 10,
+                    'value': 'date'
+                }, {
+                    'label': '到达时间',
+                    'width': 20,
+                    'value': 'arriveTime'
+                }, {
+                    'label': '巡检状态',
+                    'width': 10,
+                    'value': 'status'
+                }, {
+                    'label': '巡视巡检情况记录',
+                    'width': 14,
+                    'value': 'equStatus',
+                    'isShowRed': true
+                }, {
+                    'label': '执行人',
+                    'width': 10,
+                    'value': 'name'
+                }]
             };
         },
         computed: {},

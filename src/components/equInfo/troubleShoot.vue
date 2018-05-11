@@ -83,7 +83,8 @@
                 }, {
                     'label': '修复确认',
                     'width': 12,
-                    'value': 'repeatCon'
+                    'value': 'repeatCon',
+                    'showPic': '签名'
                 }],
                 equList: []
             };

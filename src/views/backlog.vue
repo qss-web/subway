@@ -177,7 +177,8 @@
                 }, {
                     'label': '修复确认人姓名',
                     'width': 8,
-                    'value': 'confirmUserName'
+                    'value': 'confirmUserName',
+                    'showPic': '签名'
                 }, {
                     'label': '操作',
                     'width': 7,

@@ -41,11 +41,11 @@
                         <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <span class="picShow" v-else-if="item1.showPic">
-                        <a href="javascript:;">
+                        <span>
                             {{item1.showPic}}
                             <img v-if="item[item1.value] && item[item1.value].search('.jpg') != -1" v-bind:src="item[item1.value]"/>
                             <i class="hoverShow" v-else>暂无图片</i>
-                        </a>
+                        </span>
                     </span>
                     <span v-else>
                         <span v-if="other.specilShow"  v-bind:class="item.status?listStatus[item.status-1] :''">
@@ -188,8 +188,8 @@
         }
     }
     .picShow {
-        a {
-            color: #fff;
+        span {
+            // color: #fff;
             text-decoration: underline;
             position: relative;
             display: block;
@@ -205,7 +205,7 @@
         }
     }
     .picShow {
-        a:hover {
+        span:hover {
             img {
                 display: block;
             }
