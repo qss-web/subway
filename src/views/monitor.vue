@@ -1,10 +1,11 @@
 <template>
-    <div class="wholeWrap">
+    <div>
         <div id="childBox">
 
         </div>
+        <v-goback></v-goback>
         <!-- 下载或更新控件提示框 -->
-        <v-control-box v-bind:msg="controlMsg" v-bind:type="download" v-if="isDownloadControl"></v-control-box>
+        <v-control-box v-bind:msg="controlMsg" v-bind:type="download" v-if="isControl"></v-control-box>
     </div>
 </template>
 
@@ -21,17 +22,18 @@
     };
 
 
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
                 equList: [],
-                isDownloadControl: false,
+                // isDownloadControl: false,
                 download: 'download',
                 checkList: '',
                 curVer: '',
                 getVer: [],
-                controlMsg: {}
+                controlMsg: {},
+                isControl: false
             };
         },
         created() { },
@@ -98,17 +100,14 @@
                 loContainer = document.getElementById('childBox');
                 G_oObject = document.getElementById('DrawingControl');
                 if(!this.sinadotIsValidObject(G_oObject)) {
+                    var size = this.getClientPaintSize();
 
-                    // var size = this.getClientPaintSize();
-
-                    // var lnHeight = size.height;
-                    // var lnWidth = size.width;
+                    var lnHeight = size.height;
+                    var lnWidth = size.width;
 
                     obj = document.createElement("object");
-                    obj.setAttribute("width", '0');
-                    obj.setAttribute("height", '0');
-                    // obj.setAttribute("width", "100%");
-                    // obj.setAttribute("height", "" + (lnHeight));
+                    obj.setAttribute("width", "100%");
+                    obj.setAttribute("height", "" + (lnHeight));
                     obj.setAttribute("codeBase", "BHClient.CAB#version=1,0,0,001");
                     obj.setAttribute("classid", "CLSID:38C9B0EC-68CD-4C30-AC74-B1A1FE18841A");
                     obj.id = "DrawingControl";
@@ -119,24 +118,12 @@
                 var lstrRet = 0;
 
                 try {
-                    if(!this.sinadotIsValidObject(G_oObject)) {
-
-                        var size = this.getClientPaintSize();
-
-                        var lnHeight = size.height;
-                        var lnWidth = size.width;
-
-                        obj.setAttribute("width", "100%");
-                        obj.setAttribute("height", "" + (lnHeight));
-                        return false;
-                    }
                     lstrRet = G_oObject.GetParameter("inited");
                     G_oObject.SetAppMode(1);
-
                 } catch(e) {
                     //判断提示下载框
-                    this.$message.error('客户端初始化失败，请确认是否正确安装客户端插件');
-                    this.isDownloadControl = true;
+                    // this.$message.error('客户端初始化失败，请确认是否正确安装客户端插件');
+                    this.isControl = true;
                     this.download = 'download';
                     return false;
                 }
@@ -148,25 +135,13 @@
                 this.curVer.split('.').forEach((item, index) => {
                     if(item != this.getVer[index]) {
                         //判断提示更新框
-                        this.$message.error('请更新客户端插件');
-                        this.isDownloadControl = true;
+                        // this.$message.error('请更新客户端插件');
+                        this.isControl = true;
                         this.download = 'update';
+                        // this.isDownloadControl = true;
                         return false;
                     }
                 });
-                if(!this.isDownloadControl) {
-                    if(!this.sinadotIsValidObject(G_oObject)) {
-
-                        var size = this.getClientPaintSize();
-
-                        var lnHeight = size.height;
-                        var lnWidth = size.width;
-
-                        obj.setAttribute("width", "100%");
-                        obj.setAttribute("height", "" + (lnHeight));
-
-                    }
-                }
 
                 //进行登陆操作
                 if(lstrRet == 1) {
@@ -175,9 +150,7 @@
                         return;
                     }
                     //插件的创建登陆完成，进入渲染过程
-                    if(!this.isDownloadControl) {
-                        window.setTimeout(this.CheckMainWindowStatus, 100);
-                    }
+                    window.setTimeout(this.CheckMainWindowStatus, 100);
                 } else {
                     window.setTimeout(this.checkData, 200);
                 }
@@ -196,7 +169,7 @@
                 var lnHeight = (document.documentElement.clientHeight == 0) ? document.body.clientHeight : document.documentElement.clientHeight;
                 var lnWidth = (document.documentElement.clientWidth == 0) ? document.body.clientWidth : document.documentElement.clientWidth;
 
-                lnHeight = (lnHeight - 75);
+                lnHeight = parseFloat((lnHeight / 100 - 0.85 - 1.2) * 100).toFixed(2);
 
                 return {
                     'width': lnWidth,

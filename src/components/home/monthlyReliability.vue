@@ -73,7 +73,7 @@
                                     </div>`,
                             borderWidth: 0
                         },
-                        innerRadius: 60,
+                        innerRadius: 66,
                         radius: 90
                     }],
                     legend: {

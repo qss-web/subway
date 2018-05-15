@@ -19,7 +19,7 @@
     </div>
 </template>
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     import { formatDate } from '../utils';
     export default {
         data() {
@@ -129,10 +129,13 @@
                 equList: [],
                 getEquNameArr: [],
                 isReq: {},
-                isPop: false
+                isPop: false,
+                powerControl: []
             };
         },
-        props: ['list', 'label', 'checked'],
+        computed: {
+            ...mapState(['isPowerShow'])
+        },
         created() {
             this.equKey = this.$route.query.equKey;
             if(this.equKey || this.equKey == 0) {
@@ -145,6 +148,23 @@
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getCheckRatioListFn(this.isReq);
             this.getEquNameFn({ 'line': this.isReq.line });
+            if(this.isPowerShow && this.isPowerShow.length > 10) {
+                //this.isPowerShow.length > 10   增加这个判断是为了新旧数据不报错
+                this.powerControl = eval(this.isPowerShow)[2];
+                //查询、导出
+                if(!this.powerControl[0].flag) {
+                    this.searchData.btnShow.pop();
+                    this.searchData.noCheck = true;
+                }
+                //删除
+                if(!this.powerControl[1].flag) {
+                    this.searchData.btnShow.forEach((item, index) => {
+                        if(item.fn == 'deleteBtn') {
+                            this.searchData.btnShow.splice(index, 1);
+                        }
+                    });
+                }
+            }
         },
         methods: {
             ...mapActions(['_getList']),
@@ -248,7 +268,6 @@
 <style scoped lang="less">
     .wholeWrap {
         padding: 0.16rem 0 0.24rem 0;
-        position: relative;
     }
     .equWrap {
         width: 99.4%;

@@ -17,6 +17,8 @@
                     </el-select>
                     <!-- 判断是不是设备系统的列表，如果是设备系统列表，数据直接在子组件请求 -->
                     <el-select v-else-if="item.val == 'equSys' || item.val=='deviceTypeCode'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                        <el-option key="" label="全部" value="">
+                        </el-option>
                         <el-option v-for="itemSel in sysList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
@@ -59,7 +61,7 @@
                 </li>
             </ul>
         </div>
-        <a class="exportBtn" href="javascript:;" v-on:click="filterBtn">查询</a>
+        <a class="exportBtn" v-if="!searchData.noCheck" href="javascript:;" v-on:click="filterBtn">查询</a>
         <div class="exportBtn" v-for="(item,index) in searchData.btnShow">
             <el-upload v-if="item.fn == 'importFn'" class="upload-demo" action="http://bhxz.net:48092/bjdt/webapi/import/excel" :show-file-list="false">
                 <a href="javascript:;">{{item.title}}</a>
@@ -80,19 +82,7 @@
 
                 },
                 staionsList: [],
-                sysList: [{
-                    value: '',
-                    label: '全部'
-                }, {
-                    value: '0',
-                    label: '站台门'
-                }, {
-                    value: '7',
-                    label: '自动扶梯'
-                }, {
-                    value: '8',
-                    label: '风机'
-                }],
+                sysList: [],
                 lineList: [],
                 loading: false,
                 getEquNameList: [],
@@ -120,6 +110,8 @@
             this.getStationsFn();
             //获取线路列表
             this.getLinesFn();
+            //获取设备类型
+            this.getDeviceTypeListFn();
         },
         methods: {
             ...mapActions(['_getList']),
@@ -147,6 +139,16 @@
                     api: 'getLines',
                     callback: res => {
                         this.lineList = res;
+                    }
+                });
+            },
+            //获取设备类型
+            getDeviceTypeListFn() {
+                this._getList({
+                    ops: {},
+                    api: 'getDeviceTypeList',
+                    callback: res => {
+                        this.sysList = res;
                     }
                 });
             },

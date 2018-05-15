@@ -15,7 +15,7 @@
     </div>
 </template>
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -143,12 +143,45 @@
                 },
                 equList: [],
                 isReq: {},
-                ids: ''
+                ids: '',
+                powerControl: []
             };
+        },
+        computed: {
+            ...mapState(['isPowerShow'])
         },
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData01.defaultReq));
             this.faultListFn(this.isReq);
+            if(this.isPowerShow && this.isPowerShow.length > 10) {
+                //this.isPowerShow.length > 10   增加这个判断是为了新旧数据不报错
+                this.powerControl = eval(this.isPowerShow)[1];
+                //查询、导出
+                if(!this.powerControl[0].flag) {
+                    this.searchData01.btnShow.pop();
+                    this.searchData01.noCheck = true;
+                }
+                //增加
+                if(!this.powerControl[1].flag) {
+                    this.searchData01.btnShow.forEach((item, index) => {
+                        if(item.fn == 'addFn') {
+                            this.searchData01.btnShow.splice(index, 1);
+                        }
+                    });
+                }
+                //删除
+                if(!this.powerControl[2].flag) {
+                    this.searchData01.btnShow.forEach((item, index) => {
+                        if(item.fn == 'deleteFn') {
+                            this.searchData01.btnShow.splice(index, 1);
+                        }
+                    });
+                }
+                //编辑
+                if(!this.powerControl[3].flag) {
+                    this.info2.pop();
+                }
+            }
         },
         methods: {
             ...mapActions(['_getList']),
@@ -167,6 +200,10 @@
             },
             //删除
             deleteFn() {
+                if(!this.ids) {
+                    this.$message.error('请至少选择一条数据！');
+                    return false;
+                }
                 this._getList({
                     ops: {
                         'ids': this.ids

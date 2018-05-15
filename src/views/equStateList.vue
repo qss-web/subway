@@ -229,7 +229,6 @@
             },
             //子组件按钮
             btnFn(val) {
-                alert(val);
                 this[val]();
             },
             //点击列表进入设备详情页

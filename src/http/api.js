@@ -7,6 +7,8 @@ const api = {
   infoList: 'webapi/device/list',
   //设备信息同步按钮
   synBtnFn: 'webapi/device/syn',
+  //设备删除按钮
+  delBtnInfo: 'webapi/device/del',
   //设备档案详情 GET
   infoDetail: 'webapi/device/details',
   //修改设备
@@ -249,7 +251,9 @@ const api = {
   //获取最后一次上传的客户端url和版本号
   getVersion: 'webapi/client/last',
   //获取全部菜单接口
-  getAlllist: 'webapi/menu/alllist'
+  getAlllist: 'webapi/menu/alllist',
+  //获取设备类型
+  getDeviceTypeList: 'webapi/getDeviceTypeList'
 };
 
 for (var k in api) {

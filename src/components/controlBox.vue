@@ -13,6 +13,7 @@
         </dd>
     </dl>
 </template>
+
 <script>
     export default {
         data() {
@@ -23,6 +24,7 @@
         },
         props: ['type', 'msg'],
         created() {
+            console.log(this.msg);
             if(this.type == "download") {
                 this.isShow = true;
             } else {
@@ -36,11 +38,13 @@
         }
     };
 </script>
+
+
 <style lang="less" scoped>
     .notice {
         position: fixed;
-        right: 0.04rem;
-        bottom: 0.48rem;
+        right: 0.02rem;
+        bottom: 0.02rem;
         z-index: 10000002;
         width: 4.26rem;
         background: #a7abbe;

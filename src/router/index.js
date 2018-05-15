@@ -13,12 +13,8 @@ const router = new VueRouter({
 router.beforeEach(function(to, from, next) {
   const userInfo = getLoc('userInfo') || getSen('userInfo') || '';
 
-  if (to.path != '/index') {
-    // console.log(store);
-    // console.log(window.newVue, 'newVue');
-    // clearTimeout();
-    // console.log(this.$store.state.timeout);
-    // console.log(to.path, 3);
+  if (to.path != '/monitor') {
+    store.commit('_isControl', false);
   }
 
   if (!userInfo.token && to.path != '/login') {

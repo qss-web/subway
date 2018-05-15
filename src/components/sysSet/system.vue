@@ -100,7 +100,7 @@
                     'value': 'index'
                 }, {
                     'label': 'IP地址',
-                    'width': 18,
+                    'width': 20,
                     'value': 'ip'
                 }, {
                     'label': '端口',
@@ -108,15 +108,15 @@
                     'value': 'port'
                 }, {
                     'label': '类型',
-                    'width': 13,
+                    'width': 15,
                     'value': 'typeName'
                 }, {
                     'label': '连接方式',
-                    'width': 20,
+                    'width': 15,
                     'value': 'connectionModeName'
                 }, {
                     'label': '操作',
-                    'width': 15,
+                    'width': 20,
                     'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
                 equList: [],

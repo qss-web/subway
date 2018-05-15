@@ -40,11 +40,11 @@
                     'value': 'index'
                 }, {
                     'label': '编码',
-                    'width': 10,
+                    'width': 20,
                     'value': 'menuCode'
                 }, {
                     'label': '菜单名称',
-                    'width': 50,
+                    'width': 40,
                     'value': 'menuName'
                 }, {
                     'label': '操作',

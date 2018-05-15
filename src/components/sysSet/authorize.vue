@@ -85,7 +85,7 @@
                     'value': 'index'
                 }, {
                     'label': '车站',
-                    'width': 18,
+                    'width': 20,
                     'value': 'deviceInStationName'
                 }, {
                     'label': '线路',
@@ -93,7 +93,7 @@
                     'value': 'deviceInLineName'
                 }, {
                     'label': '设备系统',
-                    'width': 13,
+                    'width': 15,
                     'value': 'deviceSys'
                 }, {
                     'label': '设备名称',

@@ -66,6 +66,41 @@
                         </li>
                     </ul>
                 </div>
+                <dl class="setPower" v-if="popData.isSetPower">
+                    <dt>权限设置：</dt>
+                    <dd>
+                        <span>设备信息：</span>
+                        <div class="wrap">
+                            <el-checkbox-group v-model="checkedList1">
+                                <el-checkbox v-for="(item,index) in showList[0]" :label="item.name" :key="index" @change="handleCheckedChange(item)">{{item.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </div>
+                    </dd>
+                    <dd>
+                        <span>故障库：</span>
+                        <div class="wrap">
+                            <el-checkbox-group v-model="checkedList2">
+                                <el-checkbox v-for="(item,index) in showList[1]" :label="item.name" :key="index" @change="handleCheckedChange(item)">{{item.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </div>
+                    </dd>
+                    <dd>
+                        <span>今日巡检：</span>
+                        <div class="wrap">
+                            <el-checkbox-group v-model="checkedList3">
+                                <el-checkbox v-for="(item,index) in showList[2]" :label="item.name" :key="index" @change="handleCheckedChange(item)">{{item.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </div>
+                    </dd>
+                    <dd>
+                        <span>故障待办：</span>
+                        <div class="wrap">
+                            <el-checkbox-group v-model="checkedList4">
+                                <el-checkbox v-for="(item,index) in showList[3]" :label="item.name" :key="index" @change="handleCheckedChange(item)">{{item.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </div>
+                    </dd>
+                </dl>
                 <div class="btn">
                     <a href="javascript:;" v-on:click="onSubmit">确定</a>
                     <a href="javascript:;" v-on:click="onCancle">取消</a>
@@ -77,8 +112,21 @@
 <script>
     import { mapState, mapActions } from 'vuex';
     export default {
+
         data() {
             return {
+                //设备信息 / 故障库  / 今日巡检比例   /故障待办
+                showList: [
+                    [{ 'name': '查询/导出', 'flag': false, 'code': '1-1' }, { 'name': '增加', 'flag': false, 'code': '1-2' }, { 'name': '删除', 'flag': false, 'code': '1-3' }, { 'name': '编辑', 'flag': false, 'code': '1-4' }],
+                    [{ 'name': '查询/导出', 'flag': false, 'code': '2-1' }, { 'name': '增加', 'flag': false, 'code': '2-2' }, { 'name': '删除', 'flag': false, 'code': '2-3' }, { 'name': '编辑', 'flag': false, 'code': '2-4' }],
+                    [{ 'name': '查询/导出', 'flag': false, 'code': '3-1' }, { 'name': '删除', 'flag': false, 'code': '3-2' }],
+                    [{ 'name': '查询/导出', 'flag': false, 'code': '4-1' }, { 'name': '删除', 'flag': false, 'code': '4-2' }, { 'name': '编辑', 'flag': false, 'code': '4-3' }]
+                ],
+                checkedList1: [],
+                checkedList2: [],
+                checkedList3: [],
+                checkedList4: [],
+                middleArr: [],
                 popReq: {},
                 staionsList: [],
                 lineList: [],
@@ -121,10 +169,44 @@
             this.getStationsFn();
             //获取线路列表
             this.getLinesFn();
+            if(this.popData.isSetPower) {
+                if(this.itemObj) {
+                    this.showList = JSON.parse(JSON.stringify(eval(this.itemObj.roleCode)));
+                    this.showList[0].forEach(item => {
+                        if(item.flag) {
+                            this.checkedList1.push(item.name);
+                        }
+                    });
+                    this.showList[1].forEach(item => {
+                        if(item.flag) {
+                            this.checkedList2.push(item.name);
+                        }
+                    });
+                    this.showList[2].forEach(item => {
+                        if(item.flag) {
+                            this.checkedList3.push(item.name);
+                        }
+                    });
+                    this.showList[3].forEach(item => {
+                        if(item.flag) {
+                            this.checkedList4.push(item.name);
+                        }
+                    });
+                } else {
+                    this.showList = JSON.parse(JSON.stringify(this.showList));
+                }
+            }
         },
         methods: {
             ...mapActions(['_getList']),
             onSubmit() {
+                if(this.popData.isSetPower) {
+                    this.middleArr.push(this.showList[0]);
+                    this.middleArr.push(this.showList[1]);
+                    this.middleArr.push(this.showList[2]);
+                    this.middleArr.push(this.showList[3]);
+                    this.popReq[this.popData.isSetPower] = this.middleArr;
+                }
                 this.$emit('save', this.popReq);
             },
             onCancle() {
@@ -165,6 +247,28 @@
                 } else {
                     this.optionsShow = [];
                 }
+            },
+            handleCheckedChange(items) {
+                this.showList[0].forEach(item => {
+                    if(items.code == item.code) {
+                        item.flag = !items.flag;
+                    }
+                });
+                this.showList[1].forEach(item => {
+                    if(items.code == item.code) {
+                        item.flag = !items.flag;
+                    }
+                });
+                this.showList[2].forEach(item => {
+                    if(items.code == item.code) {
+                        item.flag = !items.flag;
+                    }
+                });
+                this.showList[3].forEach(item => {
+                    if(items.code == item.code) {
+                        item.flag = !items.flag;
+                    }
+                });
             }
         }
     };
@@ -244,8 +348,36 @@
             }
         }
     }
-
+    .setPower {
+        padding: 0 0.26rem;
+        dt {
+            margin-bottom: 0.2rem;
+            font-size: 0.2rem;
+            color: #2f4553;
+        }
+        dd {
+            margin-bottom: 0.2rem;
+            border-bottom: 1px solid #ccc;
+            overflow: hidden;
+            span {
+                float: left;
+                color: #606266;
+                padding: 0.1rem 0.26rem;
+                min-width: 0.8rem;
+            }
+            div.wrap {
+                float: left;
+                width: 70%;
+            }
+        }
+        dd:last-child {
+            border-bottom: none;
+        }
+    }
     // // 分割线
+    .el-checkbox {
+        min-width: 1rem !important;
+    }
     .el-input--mini {
         width: 2.4rem;
         background: #fff;

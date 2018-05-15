@@ -110,6 +110,11 @@
                         'placeholder': '请选择内容',
                         'val': 'stationId'
                     }, {
+                        'status': 2,
+                        'title': '设备系统',
+                        'placeholder': '请选择内容',
+                        'val': 'equSys'
+                    }, {
                         'status': 4,
                         'title': '时间',
                         'placeholderS': '选择开始日期',
@@ -120,7 +125,8 @@
                     defaultReq: {
                         lineId: '6号线西延线',
                         stationId: '',
-                        selectDate: formatDate('', 6) + '-' + ((formatDate('', 5) - 1) > 10 ? (formatDate('', 5) - 1) : ("0" + (formatDate('', 5) - 1))).toString(),
+                        equSys: '',
+                        selectDate: (formatDate('', 6) - 1) + '-' + ((parseInt(formatDate('', 5)) + 1) > 10 ? (parseInt(formatDate('', 5)) + 1) : ("0" + (parseInt(formatDate('', 5)) + 1))).toString(),
                         endSelectDate: formatDate('', 4)
                     }
                 },
@@ -393,12 +399,10 @@
                 this.$router.go(-1);
             },
             getCommonDetailFn(req) {
-                debugger;
                 const ops = {
                     'selectDate': this.currentDate
                 };
 
-                debugger;
                 if(req) {
                     Object.assign(ops, req);
                 }

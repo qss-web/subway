@@ -61,6 +61,7 @@
                         deviceTypeCode: '',
                         deviceCode: ''
                     }
+                    // noCheck: true
                 },
                 otherInfo1: {
                     isCheck: true, //是否显示多选框
@@ -139,16 +140,46 @@
                 },
                 isReq: {}, //是否点击过筛选，如果点击过，筛选的值
                 isgoToEdit: true, //是否编辑页面
-                ids: ''
+                ids: '',
+                powerControl: []
             };
         },
         computed: {
-            ...mapState(['itemObj'])
+            ...mapState(['itemObj', 'isPowerShow'])
         },
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.infoListFn(this.isReq);
             this.getEquNameFn({ 'deviceInLineId': this.isReq.deviceInLineId });
+            if(this.isPowerShow && this.isPowerShow.length > 10) {
+                //this.isPowerShow.length > 10   增加这个判断是为了新旧数据不报错
+                this.powerControl = eval(this.isPowerShow)[0];
+                //查询、导出
+                if(!this.powerControl[0].flag) {
+                    this.searchData.btnShow.pop();
+                    this.searchData.noCheck = true;
+                }
+                //增加
+                if(!this.powerControl[1].flag) {
+                    this.searchData.btnShow.forEach((item, index) => {
+                        if(item.fn == 'addFn') {
+                            this.searchData.btnShow.splice(index, 1);
+                        }
+                    });
+                }
+                //删除
+                if(!this.powerControl[2].flag) {
+                    this.searchData.btnShow.forEach((item, index) => {
+                        if(item.fn == 'deleteFn') {
+                            this.searchData.btnShow.splice(index, 1);
+                        }
+                    });
+                }
+                //编辑
+                if(!this.powerControl[3].flag) {
+                    this.info1.pop();
+                }
+            }
         },
         methods: {
             ...mapActions(['_getList']),
@@ -291,6 +322,23 @@
                         } else {
                             this.$router.push({ path: '/equInfo', query: { 'id': this.itemObj.id, 'isShow': isEdit } });
                         }
+                    }
+                });
+            },
+            //删除
+            deleteFn() {
+                if(!this.ids) {
+                    this.$message.error('请至少选择一条数据！');
+                    return false;
+                }
+                this._getList({
+                    ops: {
+                        'ids': this.ids
+                    },
+                    api: 'delBtnInfo',
+                    callback: () => {
+                        this.$message.success('删除成功');
+                        this.infoListFn(this.isReq);
                     }
                 });
             }

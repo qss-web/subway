@@ -74,7 +74,7 @@
                 this._getInfo({
                     ops: {
                         "fileName": file.name,
-                        "fileUrl": res.url,
+                        "fileUrl": res.body.url,
                         "uploadTime": formatDate('', '2')
                     },
                     api: 'clientAdd',

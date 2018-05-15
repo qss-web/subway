@@ -29,23 +29,12 @@
                 },
                 popData1: {
                     'titleTotal': '增加角色',
+                    'isSetPower': 'roleCode',
                     'options': [{
                         'status': 1,
                         'title': '角色名称',
                         'placeholder': '请输入用角色名称',
                         'val': 'roleName'
-                    }, {
-                        'status': 2,
-                        'title': '状态',
-                        'placeholder': '请选择角色状态',
-                        'val': 'roleCode',
-                        'list': [{
-                            value: '开启',
-                            label: '开启'
-                        }, {
-                            value: '停用',
-                            label: '停用'
-                        }]
                     }]
                 },
                 searchData: {
@@ -66,17 +55,16 @@
                     'value': 'index'
                 }, {
                     'label': '角色名称',
-                    'width': 37,
+                    'width': 30,
                     'value': 'roleName'
                 }, {
                     'label': '状态',
-                    'width': 37,
+                    'width': 45,
                     'value': 'roleCode'
                 }, {
                     'label': '操作',
-                    'width': 20,
-                    // 'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
-                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }]
+                    'width': 15,
+                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
                 equList: [],
                 isReq: {},
@@ -130,6 +118,10 @@
                     callback: res => {
                         res.rows.forEach(item => {
                             item.isCheck = false;
+                            if(item.roleCode.indexOf('[[{') != -1) {
+                                //此处增加判断为区别新老数据
+
+                            }
                         });
                         this.equList = res.rows;
                         this.totalPage = res.total;

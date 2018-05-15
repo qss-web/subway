@@ -43,5 +43,10 @@ export default {
   _menuList(state, menuList) {
     setSen('menuList', menuList);
     state.menuList = menuList;
+  },
+  //权限显示
+  _isPowerShow(state, isPowerShow) {
+    setLoc('isPowerShow', isPowerShow);
+    state.isPowerShow = isPowerShow;
   }
 };

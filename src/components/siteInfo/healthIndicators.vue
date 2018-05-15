@@ -10,8 +10,8 @@
         data() {
             return {
                 styleObject: {
-                    width: '1.8rem',
-                    height: '1.8rem'
+                    width: '3.3rem',
+                    height: '3.3rem'
                 },
                 option: {
                     chart: {
@@ -27,7 +27,7 @@
                         verticalAlign: 'bottom',
                         style: {
                             color: '#fff',
-                            fontSize: '0.2rem'
+                            fontSize: '0.24rem'
                         },
                         y: 0
                     },
@@ -42,8 +42,8 @@
                     },
                     pane: {
                         center: ['50%', '45%'],
-                        startAngle: -135,
-                        endAngle: 135,
+                        startAngle: -150,
+                        endAngle: 150,
                         background: [{
                             backgroundColor: 'transparent',
                             borderWidth: 0
@@ -52,21 +52,23 @@
                     yAxis: {
                         lineWidth: 0,
                         min: 0,
-                        max: 100,
+                        max: 24,
                         minorTickInterval: 'auto',
                         minorTickWidth: 1,
                         minorTickLength: 4,
                         minorTickPosition: 'inside',
                         minorTickColor: '#ccc',
-                        tickPixelInterval: 30,
+                        tickPixelInterval: 50,
                         tickWidth: 1,
                         tickPosition: 'inside',
                         tickLength: 10,
                         tickColor: '#ccc',
                         labels: {
+                            distance: -32,
                             style: {
-                                fontSize: 8,
-                                padding: 1
+                                fontSize: 12,
+                                // padding: 8,
+                                color: '#fff'
                             }
                         },
                         title: {
@@ -74,16 +76,22 @@
                         },
                         plotBands: [{
                             from: 0,
-                            to: 20,
-                            color: '#91c7ae'
+                            to: 2,
+                            color: '#91c7ae',
+                            innerRadius: '100%',
+                            outerRadius: '86%'
                         }, {
-                            from: 20,
-                            to: 80,
-                            color: '#63869e'
+                            from: 2,
+                            to: 10,
+                            color: '#63869e',
+                            innerRadius: '100%',
+                            outerRadius: '86%'
                         }, {
-                            from: 80,
-                            to: 100,
-                            color: '#c23531'
+                            from: 10,
+                            to: 24,
+                            color: '#c23531',
+                            innerRadius: '100%',
+                            outerRadius: '86%'
                         }]
                     },
                     series: [{
@@ -91,10 +99,11 @@
                         data: [this.percent],
                         dataLabels: {
                             format: `<div style="text-align:center;">
-                                        <span style="font-size:0.12rem;color:#63869e;">${this.percent}%</span>
+                                        <span style="font-size:0.24rem;color:#fff;">${this.percent}</span>
                                     </div>`,
                             borderWidth: 0
-                        }
+                        },
+                        innerRadius: 76
                     }],
                     plotOptions: {
                         gauge: {
