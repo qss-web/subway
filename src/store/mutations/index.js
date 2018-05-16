@@ -48,5 +48,20 @@ export default {
   _isPowerShow(state, isPowerShow) {
     setLoc('isPowerShow', isPowerShow);
     state.isPowerShow = isPowerShow;
+  },
+  //车站列表
+  _setStations(state, setStations) {
+    setSen('setStations', setStations);
+    state.setStations = setStations;
+  },
+  //线路列表
+  _setLines(state, setLines) {
+    setSen('setLines', setLines);
+    state.setLines = setLines;
+  },
+  //设备列表
+  _setDeviceType(state, setDeviceType) {
+    setSen('setDeviceType', setDeviceType);
+    state.setDeviceType = setDeviceType;
   }
 };

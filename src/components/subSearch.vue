@@ -12,20 +12,20 @@
                     <el-select v-if="item.val == 'station' || item.val == 'deviceInStationId' || item.val == 'stationId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                         <el-option key="" label="全部" value="">
                         </el-option>
-                        <el-option v-for="itemSel in staionsList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                        <el-option v-for="itemSel in setStations" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
                     <!-- 判断是不是设备系统的列表，如果是设备系统列表，数据直接在子组件请求 -->
                     <el-select v-else-if="item.val == 'equSys' || item.val=='deviceTypeCode'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                         <el-option key="" label="全部" value="">
                         </el-option>
-                        <el-option v-for="itemSel in sysList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                        <el-option v-for="itemSel in setDeviceType" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
                     <!-- 判断是不是线路列表，如果是线路列表，数据直接在子组件请求 -->
                     <el-select v-else-if="item.val == 'line' || item.val == 'deviceInLineId' || item.val == 'lineId'" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                         <el-option key="" label="全部" value=""></el-option>
-                        <el-option v-for="itemSel in lineList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                        <el-option v-for="itemSel in setLines" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                         </el-option>
                     </el-select>
                     <el-select v-else v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
@@ -91,7 +91,7 @@
             };
         },
         computed: {
-            ...mapState(['equNameList'])
+            ...mapState(['equNameList', 'setStations', 'setLines', 'setDeviceType'])
         },
         watch: {
             equNameList() {
@@ -106,12 +106,12 @@
             if(this.searchData.defaultReq) {
                 this.req = this.searchData.defaultReq;
             }
-            //获取车站列表
-            this.getStationsFn();
-            //获取线路列表
-            this.getLinesFn();
-            //获取设备类型
-            this.getDeviceTypeListFn();
+            // //获取车站列表
+            // this.getStationsFn();
+            // //获取线路列表
+            // this.getLinesFn();
+            // //获取设备类型
+            // this.getDeviceTypeListFn();
         },
         methods: {
             ...mapActions(['_getList']),
@@ -122,36 +122,36 @@
             filterBtn() {
                 this.$emit('filter', this.req);
             },
-            //获取车站列表
-            getStationsFn() {
-                this._getList({
-                    ops: {},
-                    api: 'getStation',
-                    callback: res => {
-                        this.staionsList = res;
-                    }
-                });
-            },
-            //获取线路列表
-            getLinesFn() {
-                this._getList({
-                    ops: {},
-                    api: 'getLines',
-                    callback: res => {
-                        this.lineList = res;
-                    }
-                });
-            },
-            //获取设备类型
-            getDeviceTypeListFn() {
-                this._getList({
-                    ops: {},
-                    api: 'getDeviceTypeList',
-                    callback: res => {
-                        this.sysList = res;
-                    }
-                });
-            },
+            // //获取车站列表
+            // getStationsFn() {
+            //     this._getList({
+            //         ops: {},
+            //         api: 'getStation',
+            //         callback: res => {
+            //             this.staionsList = res;
+            //         }
+            //     });
+            // },
+            // //获取线路列表
+            // getLinesFn() {
+            //     this._getList({
+            //         ops: {},
+            //         api: 'getLines',
+            //         callback: res => {
+            //             this.lineList = res;
+            //         }
+            //     });
+            // },
+            // //获取设备类型
+            // getDeviceTypeListFn() {
+            //     this._getList({
+            //         ops: {},
+            //         api: 'getDeviceTypeList',
+            //         callback: res => {
+            //             this.sysList = res;
+            //         }
+            //     });
+            // },
             changeOps() {
                 this.$emit('getEquName', this.req);
             },

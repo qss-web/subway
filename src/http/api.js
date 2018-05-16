@@ -253,7 +253,13 @@ const api = {
   //获取全部菜单接口
   getAlllist: 'webapi/menu/alllist',
   //获取设备类型
-  getDeviceTypeList: 'webapi/getDeviceTypeList'
+  getDeviceTypeList: 'webapi/getDeviceTypeList',
+  //手机维护列表
+  mobileList: 'webapi/mobile/list',
+  //手机维护增加
+  mobileAdd: 'webapi/mobile/add',
+  //手机维护删除
+  mobileDel: 'webapi/mobile/del'
 };
 
 for (var k in api) {

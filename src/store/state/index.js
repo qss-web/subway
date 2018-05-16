@@ -11,6 +11,9 @@ import { getLoc, getSen } from '../../utils';
  * @currentIndex 当前页数和每页显示数量，用来计算当前序号
  * @menuList  菜单列表
  * @isPowerShow  权限控制
+ * @setStations  车站列表
+ * @setLines  线路
+ * @setDeviceType  设备类型
  *
  */
 
@@ -26,5 +29,8 @@ export default {
   equNameList: [],
   currentIndex: getSen('currentIndex') || {},
   menuList: getSen('menuList') || [],
-  isPowerShow: getLoc('isPowerShow') || {}
+  isPowerShow: getLoc('isPowerShow') || {},
+  setStations: getSen('setStations') || [],
+  setLines: getSen('setLines') || [],
+  setDeviceType: getSen('setDeviceType') || []
 };

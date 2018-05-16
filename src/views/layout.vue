@@ -10,6 +10,7 @@
 </template>
 
 <script>
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -17,20 +18,46 @@
             };
         },
         created() {
-            // let documentWidth = window.document.documentElement.clientWidth;
-            // let documentHeight = window.document.documentElement.clientHeight;
-
-            // if(documentWidth / documentHeight > 1920 / 1080) {
-            //     this.styleObject = {
-            //         width: (documentHeight * 1920 / 1080) + 'px',
-            //         height: '100%'
-            //     };
-            // } else {
-            //     this.styleObject = {
-            //         width: (documentHeight * 1920 / 1080) + 'px',
-            //         height: '100%'
-            //     };
-            // }
+            this.getStationsFn();
+            this.getLinesFn();
+            this.getDeviceTypeListFn();
+        },
+        methods: {
+            ...mapActions(['_getList']),
+            ...mapMutations(['_setStations', '_setLines', '_setDeviceType']),
+            //获取车站列表
+            getStationsFn() {
+                this._getList({
+                    ops: {},
+                    api: 'getStation',
+                    callback: res => {
+                        this._setStations(res);
+                        // this.staionsList = res;
+                    }
+                });
+            },
+            //获取线路列表
+            getLinesFn() {
+                this._getList({
+                    ops: {},
+                    api: 'getLines',
+                    callback: res => {
+                        this._setLines(res);
+                        // this.lineList = res;
+                    }
+                });
+            },
+            //获取设备类型
+            getDeviceTypeListFn() {
+                this._getList({
+                    ops: {},
+                    api: 'getDeviceTypeList',
+                    callback: res => {
+                        this._setDeviceType(res);
+                        // this.sysList = res;
+                    }
+                });
+            }
         }
     };
 </script>

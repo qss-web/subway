@@ -12,8 +12,9 @@
             <v-check-equ v-if="indexed==6"></v-check-equ>
             <v-runni-state v-if="indexed==7"></v-runni-state>
             <v-time-management v-if="indexed==8"></v-time-management>
-            <v-menu v-if="indexed==9"></v-menu>
-            <v-monitor-log v-if="indexed==10"></v-monitor-log>
+            <v-mobile v-if="indexed==9"></v-mobile>
+            <v-menu v-if="indexed==10"></v-menu>
+            <v-monitor-log v-if="indexed==11"></v-monitor-log>
         </div>
     </div>
 </template>
@@ -31,6 +32,7 @@
                 { code: 'systemDeviceSet', name: '' },
                 { code: 'systemRunStatus', name: '' },
                 { code: 'systemRunTime', name: '' },
+                { code: 'systemMobile', name: '' },
                 { code: 'systemMenu', name: '' },
                 { code: 'systemLog', name: '' }]
             };

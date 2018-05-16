@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router';
 import routes from './router';
 import { getLoc, getSen } from '../utils';
-import store from '../store';
+// import store from '../store';
 
 const router = new VueRouter({
   mode: 'hash',
@@ -13,9 +13,9 @@ const router = new VueRouter({
 router.beforeEach(function(to, from, next) {
   const userInfo = getLoc('userInfo') || getSen('userInfo') || '';
 
-  if (to.path != '/monitor') {
-    store.commit('_isControl', false);
-  }
+  //   if (to.path != '/monitor') {
+  //     store.commit('_isControl', false);
+  //   }
 
   if (!userInfo.token && to.path != '/login') {
     return next({ path: '/login' });
