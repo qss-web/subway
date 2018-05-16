@@ -65,8 +65,8 @@
                                 radius: 6
                             },
                             tooltip: {
-                                headerFormat: '<b>{series.name}</b><br>',
-                                pointFormat: '{point.code}<br>x：{point.x}<br>y：{point.y}'
+                                headerFormat: '',
+                                pointFormat: '{series.name} {point.code}<br>故障平均发生时间：{point.x}h<br>故障发生次数：{point.y}次'
                             }
                         }
                     },

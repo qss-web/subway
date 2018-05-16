@@ -1,5 +1,5 @@
 <template>
-    <dl class="notice" v-if="isNotice">
+    <dl class="notice">
         <dt>提示
             <span v-on:click="close"><img src="../assets/login/close_icon.png"/></span>
             <span v-on:click="close"><img src="../assets/login/minimize_icon.png"/></span>
@@ -18,13 +18,11 @@
     export default {
         data() {
             return {
-                isNotice: true,
                 isShow: false
             };
         },
         props: ['type', 'msg'],
         created() {
-            console.log(this.msg);
             if(this.type == "download") {
                 this.isShow = true;
             } else {
@@ -33,7 +31,7 @@
         },
         methods: {
             close() {
-                this.isNotice = false;
+                this.$emit('receive', false);
             }
         }
     };
