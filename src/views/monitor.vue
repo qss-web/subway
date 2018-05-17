@@ -13,7 +13,7 @@
     var G_Login = 0;
     var G_bMainWindowShowCalled = false;
     var G_bMainWindowCreated = 0;
-    var G_oObject, obj, loContainer;
+    var G_oObject, obj, loContainer, ii;
     var ClientVar = {
         "midwareOnlineGroup": "",
         "midwareOnLine": "",
@@ -21,7 +21,7 @@
     };
 
 
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapState, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -33,18 +33,33 @@
                 getVer: [],
                 controlMsg: {},
                 isControl: false,
-                isShow:false
+                isShow: false,
+                isCloseReload: true
             };
         },
-        created() { },
         mounted() {
             this.getVersionFn();
         },
+        computed: {
+            ...mapState(['isSpecial'])
+        },
+        created() {
+            alert(this.isSpecial);
+            if(ii) {
+                clearTimeout(ii);
+                window.location.reload();
+            }
+            this.isCloseReload = JSON.parse(JSON.stringify(this.isSpecial));
+        },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_isSpecial']),
             closeFn(val) {
                 this.isControl = val;
                 this.isShow = true;
+                clearTimeout(ii);
+                // window.location.reload();
+                this._isSpecial(false);
             },
             //获取最后一次上传的客户端url和版本号
             getVersionFn() {
@@ -86,7 +101,7 @@
             //获取ip列表
             getSysList() {
                 const ops = {
-                    'curPage': this.currentPage,
+                    'curPage': '1',
                     'pageSize': '100'
                 };
 
@@ -114,16 +129,16 @@
                 obj.setAttribute("classid", "CLSID:38C9B0EC-68CD-4C30-AC74-B1A1FE18841A");
                 obj.id = "DrawingControl";
                 loContainer.appendChild(obj);
-                if(G_oObject && G_oObject !='null') {
+                if(G_oObject && G_oObject != 'null') {
                     this.test();
                 }
             },
             //初始化加载客户端
             checkData(val) {
                 // console.log(val);
-                if(G_oObject && G_oObject !='null') {
+                if(G_oObject && G_oObject != 'null') {
                     this.test();
-                }else{
+                } else {
                     this.getElementFn();
                     window.setTimeout(() => {
                         this.getElementFn();
@@ -135,6 +150,7 @@
                 var lstrRet = 0;
 
                 try {
+                    console.log('我从正常的途径走了');
                     this.isShow = true;
                     lstrRet = G_oObject.GetParameter("inited");
                     G_oObject.SetAppMode(1);
@@ -146,25 +162,27 @@
                     this.download = 'download';
                     return false;
                 }
-                // //获取版本号
-                // var comActiveX = new ActiveXObject('KD5000.ComServer.1');
+                if(this.isCloseReload) {
+                    //获取版本号
+                    var comActiveX = new ActiveXObject('KD5000.ComServer.1');
 
-                // // this.curVer = comActiveX.GetVersion();
-    
-                // this.curVer="3.3.2.1";
-                // this.controlMsg.oldVersion = comActiveX.GetVersion();
-                // this.curVer.split('.').forEach((item, index) => {
-                //     if(item != this.getVer[index]) {
-                //         this.isShow = false;
-                //         //判断提示更新框
-                //         // this.$message.error('请更新客户端插件');
-                //         this.isControl = true;
-                //         this.download = 'update';
-                //         // this.isDownloadControl = true;
-                //         return false;
-                //     }
-                // });
-    
+                    // this.curVer = comActiveX.GetVersion();
+
+                    this.curVer = "3.3.2.1";
+                    this.controlMsg.oldVersion = comActiveX.GetVersion();
+                    this.curVer.split('.').forEach((item, index) => {
+                        if(item != this.getVer[index]) {
+                            this.isShow = false;
+                            //判断提示更新框
+                            // this.$message.error('请更新客户端插件');
+                            this.isControl = true;
+                            this.download = 'update';
+                            // this.isDownloadControl = true;
+                            return false;
+                        }
+                    });
+                }
+
                 //进行登陆操作
                 if(lstrRet == 1) {
                     if(!G_Login) {
@@ -177,8 +195,7 @@
                     window.setTimeout(this.CheckMainWindowStatus, 100);
                 } else {
                     console.log(3);
-                    // this.checkData('haha');
-                    window.setTimeout(this.checkData, 200);
+                    ii = window.setTimeout(this.checkData, 200);
                 }
             },
             //检测对象是否存在
@@ -281,5 +298,4 @@
 </script>
 
 <style scoped lang="less">
-
 </style>
