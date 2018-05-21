@@ -63,10 +63,5 @@ export default {
   _setDeviceType(state, setDeviceType) {
     setSen('setDeviceType', setDeviceType);
     state.setDeviceType = setDeviceType;
-  },
-  //监测页面特殊的判断
-  _isSpecial(state, isSpecial) {
-    setSen('isSpecial', isSpecial);
-    state.isSpecial = isSpecial;
   }
 };

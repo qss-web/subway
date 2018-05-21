@@ -151,16 +151,18 @@
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.infoListFn(this.isReq);
             this.getEquNameFn({ 'deviceInLineId': this.isReq.deviceInLineId });
-            if(this.isPowerShow && this.isPowerShow.length > 10) {
-                //this.isPowerShow.length > 10   增加这个判断是为了新旧数据不报错
+            if(this.isPowerShow) {
                 this.powerControl = eval(this.isPowerShow)[0];
-                //查询、导出
+                //查询
                 if(!this.powerControl[0].flag) {
-                    this.searchData.btnShow.pop();
                     this.searchData.noCheck = true;
                 }
-                //增加
+                //导出
                 if(!this.powerControl[1].flag) {
+                    this.searchData.btnShow.pop();
+                }
+                //增加
+                if(!this.powerControl[2].flag) {
                     this.searchData.btnShow.forEach((item, index) => {
                         if(item.fn == 'addFn') {
                             this.searchData.btnShow.splice(index, 1);
@@ -168,7 +170,7 @@
                     });
                 }
                 //删除
-                if(!this.powerControl[2].flag) {
+                if(!this.powerControl[3].flag) {
                     this.searchData.btnShow.forEach((item, index) => {
                         if(item.fn == 'deleteFn') {
                             this.searchData.btnShow.splice(index, 1);
@@ -176,8 +178,16 @@
                     });
                 }
                 //编辑
-                if(!this.powerControl[3].flag) {
+                if(!this.powerControl[4].flag) {
                     this.info1.pop();
+                }
+                //导入
+                if(!this.powerControl[5].flag) {
+                    this.searchData.btnShow.forEach((item, index) => {
+                        if(item.fn == 'importFn') {
+                            this.searchData.btnShow.splice(index, 1);
+                        }
+                    });
                 }
             }
         },

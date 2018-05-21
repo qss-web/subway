@@ -3,18 +3,48 @@
         <img class="logo" src="~assets/header/logo.png" />
         <span class="title flex-auto">机电设备运维服务智能监控系统</span>
         <div class="btn-group flex">
-            <router-link tag="button" to="index"><img src="~assets/header/icon_home.png" /></router-link>
-            <router-link tag="button" to="mine"><img src="~assets/header/icon_mine.png" /></router-link>
-            <router-link tag="button" to="search"><img src="~assets/header/icon_search.png" /></router-link>
-            <button v-on:click="setupFn"><img src="~assets/header/icon_setting.png" /></button>
+            <router-link v-if="home" tag="button" to="index"><img src="~assets/header/icon_home.png" /></router-link>
+            <router-link v-if="mine" tag="button" to="mine"><img src="~assets/header/icon_mine.png" /></router-link>
+            <router-link v-if="search" tag="button" to="search"><img src="~assets/header/icon_search.png" /></router-link>
+            <button v-if="set" v-on:click="setupFn"><img src="~assets/header/icon_setting.png" /></button>
         </div>
     </div>
 </template>
 <script>
-    import { mapMutations, mapActions } from 'vuex';
+    import { mapMutations, mapActions, mapState } from 'vuex';
     export default {
         data() {
-            return {};
+            return {
+                powerControl: [],
+                home: true,
+                mine: true,
+                search: true,
+                set: true
+            };
+        },
+        computed: {
+            ...mapState(['isPowerShow'])
+        },
+        created() {
+            if(this.isPowerShow) {
+                this.powerControl = eval(this.isPowerShow)[4];
+                //首页
+                if(!this.powerControl[0].flag) {
+                    this.home = false
+                }
+                //我的
+                if(!this.powerControl[1].flag) {
+                    this.mine = false
+                }
+                //搜索
+                if(!this.powerControl[2].flag) {
+                    this.search = false
+                }
+                //设置
+                if(!this.powerControl[3].flag) {
+                    this.set = false
+                }
+            }
         },
         methods: {
             ...mapActions(['_getInfo']),

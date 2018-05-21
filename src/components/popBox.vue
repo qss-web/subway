@@ -100,6 +100,14 @@
                             </el-checkbox-group>
                         </div>
                     </dd>
+                    <dd>
+                        <span>主按钮：</span>
+                        <div class="wrap">
+                            <el-checkbox-group v-model="checkedList5">
+                                <el-checkbox v-for="(item,index) in showList[4]" :label="item.name" :key="index" @change="handleCheckedChange(item)">{{item.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </div>
+                    </dd>
                 </dl>
                 <div class="btn">
                     <a href="javascript:;" v-on:click="onSubmit">确定</a>
@@ -117,15 +125,17 @@
             return {
                 //设备信息 / 故障库  / 今日巡检比例   /故障待办
                 showList: [
-                    [{ 'name': '查询/导出', 'flag': false, 'code': '1-1' }, { 'name': '增加', 'flag': false, 'code': '1-2' }, { 'name': '删除', 'flag': false, 'code': '1-3' }, { 'name': '编辑', 'flag': false, 'code': '1-4' }],
-                    [{ 'name': '查询/导出', 'flag': false, 'code': '2-1' }, { 'name': '增加', 'flag': false, 'code': '2-2' }, { 'name': '删除', 'flag': false, 'code': '2-3' }, { 'name': '编辑', 'flag': false, 'code': '2-4' }],
-                    [{ 'name': '查询/导出', 'flag': false, 'code': '3-1' }, { 'name': '删除', 'flag': false, 'code': '3-2' }],
-                    [{ 'name': '查询/导出', 'flag': false, 'code': '4-1' }, { 'name': '删除', 'flag': false, 'code': '4-2' }, { 'name': '编辑', 'flag': false, 'code': '4-3' }]
+                    [{ 'name': '查询', 'flag': false, 'code': '1-0' }, { 'name': '导出', 'flag': false, 'code': '1-1' }, { 'name': '增加', 'flag': false, 'code': '1-2' }, { 'name': '删除', 'flag': false, 'code': '1-3' }, { 'name': '编辑', 'flag': false, 'code': '1-4' }, { 'name': '导入', 'flag': false, 'code': '1-5' }],
+                    [{ 'name': '查询', 'flag': false, 'code': '2-0' }, { 'name': '导出', 'flag': false, 'code': '2-1' }, { 'name': '增加', 'flag': false, 'code': '2-2' }, { 'name': '删除', 'flag': false, 'code': '2-3' }, { 'name': '编辑', 'flag': false, 'code': '2-4' }, { 'name': '导入', 'flag': false, 'code': '2-5' }],
+                    [{ 'name': '查询', 'flag': false, 'code': '3-0' }, { 'name': '导出', 'flag': false, 'code': '3-1' }, { 'name': '删除', 'flag': false, 'code': '3-2' }],
+                    [{ 'name': '查询', 'flag': false, 'code': '4-0' }, { 'name': '导出', 'flag': false, 'code': '4-1' }, { 'name': '删除', 'flag': false, 'code': '4-2' }, { 'name': '编辑', 'flag': false, 'code': '4-3' }],
+                    [{ 'name': '首页', 'flag': false, 'code': '5-0' }, { 'name': '我的', 'flag': false, 'code': '5-1' }, { 'name': '搜索', 'flag': false, 'code': '5-2' }, { 'name': '设置', 'flag': false, 'code': '5-3' }]
                 ],
                 checkedList1: [],
                 checkedList2: [],
                 checkedList3: [],
                 checkedList4: [],
+                checkedList5: [],
                 middleArr: [],
                 popReq: {},
                 staionsList: [],
@@ -192,6 +202,11 @@
                             this.checkedList4.push(item.name);
                         }
                     });
+                    this.showList[4].forEach(item => {
+                        if(item.flag) {
+                            this.checkedList5.push(item.name);
+                        }
+                    });
                 } else {
                     this.showList = JSON.parse(JSON.stringify(this.showList));
                 }
@@ -205,6 +220,7 @@
                     this.middleArr.push(this.showList[1]);
                     this.middleArr.push(this.showList[2]);
                     this.middleArr.push(this.showList[3]);
+                    this.middleArr.push(this.showList[4]);
                     this.popReq[this.popData.isSetPower] = this.middleArr;
                 }
                 this.$emit('save', this.popReq);
@@ -265,6 +281,11 @@
                     }
                 });
                 this.showList[3].forEach(item => {
+                    if(items.code == item.code) {
+                        item.flag = !items.flag;
+                    }
+                });
+                this.showList[4].forEach(item => {
                     if(items.code == item.code) {
                         item.flag = !items.flag;
                     }
@@ -362,12 +383,12 @@
             span {
                 float: left;
                 color: #606266;
-                padding: 0.1rem 0.26rem;
+                padding: 0.1rem 0rem;
                 min-width: 0.8rem;
             }
             div.wrap {
                 float: left;
-                width: 70%;
+                width: 80%;
             }
         }
         dd:last-child {
@@ -376,7 +397,7 @@
     }
     // // 分割线
     .el-checkbox {
-        min-width: 1rem !important;
+        min-width: 0.5rem !important;
     }
     .el-input--mini {
         width: 2.4rem;

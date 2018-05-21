@@ -153,16 +153,18 @@
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData01.defaultReq));
             this.faultListFn(this.isReq);
-            if(this.isPowerShow && this.isPowerShow.length > 10) {
-                //this.isPowerShow.length > 10   增加这个判断是为了新旧数据不报错
+            if(this.isPowerShow) {
                 this.powerControl = eval(this.isPowerShow)[1];
-                //查询、导出
+                //查询
                 if(!this.powerControl[0].flag) {
-                    this.searchData01.btnShow.pop();
                     this.searchData01.noCheck = true;
                 }
-                //增加
+                //导出
                 if(!this.powerControl[1].flag) {
+                    this.searchData01.btnShow.pop();
+                }
+                //增加
+                if(!this.powerControl[2].flag) {
                     this.searchData01.btnShow.forEach((item, index) => {
                         if(item.fn == 'addFn') {
                             this.searchData01.btnShow.splice(index, 1);
@@ -170,7 +172,7 @@
                     });
                 }
                 //删除
-                if(!this.powerControl[2].flag) {
+                if(!this.powerControl[3].flag) {
                     this.searchData01.btnShow.forEach((item, index) => {
                         if(item.fn == 'deleteFn') {
                             this.searchData01.btnShow.splice(index, 1);
@@ -178,8 +180,16 @@
                     });
                 }
                 //编辑
-                if(!this.powerControl[3].flag) {
+                if(!this.powerControl[4].flag) {
                     this.info2.pop();
+                }
+                //导入
+                if(!this.powerControl[5].flag) {
+                    this.searchData01.btnShow.forEach((item, index) => {
+                        if(item.fn == 'importFn2') {
+                            this.searchData01.btnShow.splice(index, 1);
+                        }
+                    });
                 }
             }
         },

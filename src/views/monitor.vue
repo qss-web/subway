@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="childBox" v-show="isShow">
+        <div id="childBox">
 
         </div>
         <!-- 下载或更新控件提示框 -->
@@ -13,7 +13,7 @@
     var G_Login = 0;
     var G_bMainWindowShowCalled = false;
     var G_bMainWindowCreated = 0;
-    var G_oObject, obj, loContainer, ii;
+    var G_oObject, obj, loContainer, ii, gg;
     var ClientVar = {
         "midwareOnlineGroup": "",
         "midwareOnLine": "",
@@ -32,34 +32,28 @@
                 curVer: '',
                 getVer: [],
                 controlMsg: {},
-                isControl: false,
-                isShow: false,
-                isCloseReload: true
+                isControl: false
             };
         },
         mounted() {
             this.getVersionFn();
         },
         computed: {
-            ...mapState(['isSpecial'])
+
         },
         created() {
-            alert(this.isSpecial);
-            if(ii) {
+            if(ii || gg) {
                 clearTimeout(ii);
+                clearTimeout(gg);
                 window.location.reload();
             }
-            this.isCloseReload = JSON.parse(JSON.stringify(this.isSpecial));
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_isSpecial']),
             closeFn(val) {
                 this.isControl = val;
-                this.isShow = true;
                 clearTimeout(ii);
-                // window.location.reload();
-                this._isSpecial(false);
+                clearTimeout(gg);
             },
             //获取最后一次上传的客户端url和版本号
             getVersionFn() {
@@ -114,74 +108,49 @@
                     }
                 });
             },
-            getElementFn() {
+            //初始化加载客户端
+            checkData() {
                 loContainer = document.getElementById('childBox');
                 G_oObject = document.getElementById('DrawingControl');
-                var size = this.getClientPaintSize();
-
-                var lnHeight = size.height;
-                var lnWidth = size.width;
-
-                obj = document.createElement("object");
-                obj.setAttribute("width", "100%");
-                obj.setAttribute("height", "" + (lnHeight));
-                obj.setAttribute("codeBase", "BHClient.CAB#version=1,0,0,001");
-                obj.setAttribute("classid", "CLSID:38C9B0EC-68CD-4C30-AC74-B1A1FE18841A");
-                obj.id = "DrawingControl";
-                loContainer.appendChild(obj);
-                if(G_oObject && G_oObject != 'null') {
-                    this.test();
-                }
-            },
-            //初始化加载客户端
-            checkData(val) {
-                // console.log(val);
-                if(G_oObject && G_oObject != 'null') {
-                    this.test();
-                } else {
-                    this.getElementFn();
-                    window.setTimeout(() => {
-                        this.getElementFn();
-                    }, 200);
+                if(!this.sinadotIsValidObject(G_oObject)) {
+                    var size = this.getClientPaintSize();
+                    var lnHeight = size.height;
+                    var lnWidth = size.width;
+                    obj = document.createElement("object");
+                    obj.setAttribute("width", "100%");
+                    obj.setAttribute("height", "" + (lnHeight));
+                    obj.setAttribute("codeBase", "BHClient.CAB#version=1,0,0,001");
+                    obj.setAttribute("classid", "CLSID:38C9B0EC-68CD-4C30-AC74-B1A1FE18841A");
+                    obj.id = "DrawingControl";
+                    loContainer.appendChild(obj);
+                    window.setTimeout(this.checkData, 200);
                     return false;
                 }
-            },
-            test() {
                 var lstrRet = 0;
-
                 try {
-                    console.log('我从正常的途径走了');
-                    this.isShow = true;
                     lstrRet = G_oObject.GetParameter("inited");
                     G_oObject.SetAppMode(1);
                 } catch(e) {
-                    this.isShow = false;
                     //判断提示下载框
                     // this.$message.error('客户端初始化失败，请确认是否正确安装客户端插件');
                     this.isControl = true;
                     this.download = 'download';
                     return false;
                 }
-                if(this.isCloseReload) {
-                    //获取版本号
-                    var comActiveX = new ActiveXObject('KD5000.ComServer.1');
-
-                    // this.curVer = comActiveX.GetVersion();
-
-                    this.curVer = "3.3.2.1";
-                    this.controlMsg.oldVersion = comActiveX.GetVersion();
-                    this.curVer.split('.').forEach((item, index) => {
-                        if(item != this.getVer[index]) {
-                            this.isShow = false;
-                            //判断提示更新框
-                            // this.$message.error('请更新客户端插件');
-                            this.isControl = true;
-                            this.download = 'update';
-                            // this.isDownloadControl = true;
-                            return false;
-                        }
-                    });
-                }
+                //获取版本号
+                var comActiveX = new ActiveXObject('KD5000.ComServer.1');
+                this.curVer = comActiveX.GetVersion();
+                this.controlMsg.oldVersion = comActiveX.GetVersion();
+                this.curVer.split('.').forEach((item, index) => {
+                    if(item != this.getVer[index]) {
+                        //判断提示更新框
+                        // this.$message.error('请更新客户端插件');
+                        this.isControl = true;
+                        this.download = 'update';
+                        // this.isDownloadControl = true;
+                        return false;
+                    }
+                });
 
                 //进行登陆操作
                 if(lstrRet == 1) {
@@ -189,13 +158,12 @@
                         this.clientLogin();
                         return;
                     }
-                    console.log(2);
                     //插件的创建登陆完成，进入渲染过程
-                    // this.CheckMainWindowStatus();
+                    console.log(3);
                     window.setTimeout(this.CheckMainWindowStatus, 100);
                 } else {
-                    console.log(3);
                     ii = window.setTimeout(this.checkData, 200);
+                    console.log(2);
                 }
             },
             //检测对象是否存在
@@ -221,6 +189,7 @@
             },
             //监测系统代码开始
             CheckMainWindowStatus() {
+                console.log(4)
                 if(!G_bMainWindowShowCalled) {
                     G_bMainWindowShowCalled = true;
                     G_oObject.ShowMainWindow();
@@ -231,7 +200,7 @@
                     lstrRet = G_oObject.GetParameter("MainWindowCreated");
 
                     if(lstrRet != 1) {
-                        window.setTimeout(this.CheckMainWindowStatus, 200);
+                        gg = window.setTimeout(this.CheckMainWindowStatus, 200);
                         return;
 
                     }
