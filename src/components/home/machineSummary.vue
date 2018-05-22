@@ -72,7 +72,6 @@
                 this.$router.push({ path: 'equRunTimeList', query: { 'equKey': key } });
             },
             goBacklog(key) {
-                debugger;
                 this._itemObj('');
                 this.$router.push({ path: 'backlog', query: { 'equKey': key } });
             },

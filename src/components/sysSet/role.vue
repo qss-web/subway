@@ -60,7 +60,7 @@
                 }, {
                     'label': '状态',
                     'width': 45,
-                    'value': 'roleCode'
+                    'value': 'show'
                 }, {
                     'label': '操作',
                     'width': 15,
@@ -68,7 +68,8 @@
                 }],
                 equList: [],
                 isReq: {},
-                ids: ''
+                ids: '',
+                test: []
             };
         },
         created() {
@@ -120,7 +121,29 @@
                             item.isCheck = false;
                             if(item.roleCode.indexOf('[[{') != -1) {
                                 //此处增加判断为区别新老数据
+                                item.show = "";
+                                eval(item.roleCode).forEach((item1, index1) => {
+                                    if(index1 == 0) {
+                                        item1.push({ 'pingStr': '设备信息：' });
+                                    } else if(index1 == 1) {
+                                        item1.push({ 'pingStr': '故障库：' });
+                                    } else if(index1 == 2) {
+                                        item1.push({ 'pingStr': '今日巡检：' });
+                                    } else if(index1 == 3) {
+                                        item1.push({ 'pingStr': '故障待办：' });
+                                    } else if(index1 == 4) {
+                                        item1.push({ 'pingStr': '主按钮：' });
+                                    }
 
+                                    item1.forEach((item2) => {
+                                        if(item2.flag) {
+                                            item1[item1.length - 1].pingStr += item2.name + ' ';
+                                        }
+                                    });
+                                    item.show += item1[item1.length - 1].pingStr + ' ';
+                                });
+                            } else {
+                                item.show = item.roleCode;
                             }
                         });
                         this.equList = res.rows;

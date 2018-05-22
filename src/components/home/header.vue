@@ -26,23 +26,23 @@
             ...mapState(['isPowerShow'])
         },
         created() {
-            if(this.isPowerShow) {
+            if(this.isPowerShow && this.isPowerShow.length > 3) {
                 this.powerControl = eval(this.isPowerShow)[4];
                 //首页
                 if(!this.powerControl[0].flag) {
-                    this.home = false
+                    this.home = false;
                 }
                 //我的
                 if(!this.powerControl[1].flag) {
-                    this.mine = false
+                    this.mine = false;
                 }
                 //搜索
                 if(!this.powerControl[2].flag) {
-                    this.search = false
+                    this.search = false;
                 }
                 //设置
                 if(!this.powerControl[3].flag) {
-                    this.set = false
+                    this.set = false;
                 }
             }
         },

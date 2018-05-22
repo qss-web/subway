@@ -153,7 +153,7 @@
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData01.defaultReq));
             this.faultListFn(this.isReq);
-            if(this.isPowerShow) {
+            if(this.isPowerShow && this.isPowerShow.length > 3) {
                 this.powerControl = eval(this.isPowerShow)[1];
                 //查询
                 if(!this.powerControl[0].flag) {

@@ -18,25 +18,29 @@ router.beforeEach(function(to, from, next) {
     control = eval(store.state.isPowerShow)[4];
   }
 
-  console.log(control);
-
-  //   console.log(control);
-
-  //   if (to.path != '/monitor') {
-  //     store.commit('_isControl', false);
-  //   }
-
   if (!userInfo.token && to.path != '/login') {
-    return next({ path: '/login' });
+    return next({
+      path: '/login'
+    });
   } else if (userInfo.token && (to.path == '/' || to.path == '/login')) {
-    return next({ path: 'index' });
+    return next({
+      path: 'index'
+    });
+  } else if (control.length != 0 && control[0].flag && to.path == '/index') {
+    return next();
+  } else if (control.length != 0 && !control[0].flag && control[1].flag && to.path == '/index') {
+    return next({
+      path: '/mine'
+    });
+  } else if (control.length != 0 && !control[0].flag && !control[1].flag && control[2].flag && to.path == '/index') {
+    return next({
+      path: '/search'
+    });
+  } else if (control.length != 0 && !control[0].flag && !control[1].flag && !control[2].flag && control[3].flag && to.path == '/index') {
+    return next({
+      path: '/setup'
+    });
   }
-
-  //   if (!control[0].flag && control[1].flag) {
-  //     return next({ path: 'mine' });
-  //   } else {
-  //     return next();
-  //   }
   return next();
 });
 

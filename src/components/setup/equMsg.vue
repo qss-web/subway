@@ -151,7 +151,7 @@
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.infoListFn(this.isReq);
             this.getEquNameFn({ 'deviceInLineId': this.isReq.deviceInLineId });
-            if(this.isPowerShow) {
+            if(this.isPowerShow && this.isPowerShow.length > 3) {
                 this.powerControl = eval(this.isPowerShow)[0];
                 //查询
                 if(!this.powerControl[0].flag) {

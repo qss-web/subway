@@ -10,7 +10,7 @@ const router = [
       },
       {
         path: '/',
-        redirect: '/mine'
+        redirect: '/index'
       },
       {
         name: 'alarmCauseList',

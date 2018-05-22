@@ -213,7 +213,7 @@
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getBacklogFn(this.isReq);
             this.getEquNameFn({ 'line': this.isReq.line });
-            if(this.isPowerShow) {
+            if(this.isPowerShow && this.isPowerShow.length > 3) {
                 this.powerControl = eval(this.isPowerShow)[3];
                 //查询
                 if(!this.powerControl[0].flag) {
