@@ -9,7 +9,7 @@
             <!-- <v-sub-search v-bind:searchData="searchData"></v-sub-search> -->
         </div>
         <div class="middleKey">
-            <v-system-list v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList"></v-system-list>
+            <v-system-list v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
         </div>
         <div class=" pagination ">
             <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
@@ -43,16 +43,20 @@
                     'value': 'index'
                 }, {
                     'label': '文件名',
-                    'width': 30,
+                    'width': 25,
                     'value': 'fileName'
                 }, {
                     'label': '上传时间',
-                    'width': 30,
+                    'width': 25,
                     'value': 'uploadTime'
                 }, {
                     'label': '版本号',
-                    'width': 30,
+                    'width': 20,
                     'value': 'version'
+                }, {
+                    'label': '操作',
+                    'width': 20,
+                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }]
                 }],
                 equList: []
             };
@@ -105,6 +109,21 @@
             changePages(val) {
                 this.currentPage = val;
                 this.getClientListFn();
+            },
+            //子组件按钮
+            btnFn(val) {
+                this[val.fn](val.id, val.item);
+            },
+            //删除操作
+            deleteFn(id) {
+                this._getList({
+                    ops: { ids: id.toString() },
+                    api: 'clientDel',
+                    callback: () => {
+                        this.$message.success('删除成功!');
+                        this.getClientListFn();
+                    }
+                });
             }
         }
     };

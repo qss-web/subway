@@ -57,12 +57,13 @@
                         'title': ' 设备名称',
                         'placeholder': '请输入内容',
                         'val': 'equName'
-                    }, {
-                        'status': 1,
-                        'title': ' 故障系统',
-                        'placeholder': '请输入内容',
-                        'val': 'faultSys'
                     },
+                    //  {
+                    //     'status': 1,
+                    //     'title': ' 故障系统',
+                    //     'placeholder': '请输入内容',
+                    //     'val': 'faultSys'
+                    // },
                     // {
                     //     'status': 2,
                     //     'title': '故障事项状态',

@@ -96,6 +96,8 @@ const api = {
   clientAdd: 'webapi/client/add',
   // 客户端列表
   clientList: 'webapi/client/list',
+  //客户端删除
+  clientDel: 'webapi/client/del',
   //   // 客户端上传   POST
   //   clientUpload: 'webapi/client/upload',
   //   // 客户端下载

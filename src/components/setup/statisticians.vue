@@ -59,27 +59,29 @@
                     'value': 'index'
                 }, {
                     'label': '人员名称',
-                    'width': 10,
+                    'width': 25,
                     'value': 'name'
-                }, {
-                    'label': '所属车站',
-                    'width': 10,
-                    'value': 'station'
-                }, {
-                    'label': '所属线路',
-                    'width': 10,
-                    'value': 'line'
-                }, {
-                    'label': '月份',
-                    'width': 15,
-                    'value': 'month'
-                }, {
+                },
+                // {
+                //     'label': '所属车站',
+                //     'width': 10,
+                //     'value': 'station'
+                // }, {
+                //     'label': '所属线路',
+                //     'width': 10,
+                //     'value': 'line'
+                // }, {
+                //     'label': '月份',
+                //     'width': 15,
+                //     'value': 'month'
+                // },
+                {
                     'label': '巡检台次',
-                    'width': 10,
+                    'width': 30,
                     'value': 'checkNum'
                 }, {
                     'label': '处理故障单次数',
-                    'width': 15,
+                    'width': 30,
                     'value': 'faultNum'
                 }],
                 isReq: {},
@@ -138,6 +140,9 @@
                     ops: ops,
                     api: 'staffStatistics',
                     callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
                         this.equList = res.rows;
                         this.pageTotal = res.total;
                         this.pageNumber = res.records;

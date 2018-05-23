@@ -116,6 +116,7 @@
                     var size = this.getClientPaintSize();
                     var lnHeight = size.height;
                     var lnWidth = size.width;
+
                     obj = document.createElement("object");
                     obj.setAttribute("width", "100%");
                     obj.setAttribute("height", "" + (lnHeight));
@@ -127,6 +128,7 @@
                     return false;
                 }
                 var lstrRet = 0;
+
                 try {
                     lstrRet = G_oObject.GetParameter("inited");
                     G_oObject.SetAppMode(1);
@@ -139,6 +141,7 @@
                 }
                 //获取版本号
                 var comActiveX = new ActiveXObject('KD5000.ComServer.1');
+
                 this.curVer = comActiveX.GetVersion();
                 this.controlMsg.oldVersion = comActiveX.GetVersion();
                 this.curVer.split('.').forEach((item, index) => {
@@ -159,11 +162,9 @@
                         return;
                     }
                     //插件的创建登陆完成，进入渲染过程
-                    console.log(3);
                     window.setTimeout(this.CheckMainWindowStatus, 100);
                 } else {
                     ii = window.setTimeout(this.checkData, 200);
-                    console.log(2);
                 }
             },
             //检测对象是否存在
@@ -189,7 +190,6 @@
             },
             //监测系统代码开始
             CheckMainWindowStatus() {
-                console.log(4)
                 if(!G_bMainWindowShowCalled) {
                     G_bMainWindowShowCalled = true;
                     G_oObject.ShowMainWindow();

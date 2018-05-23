@@ -290,12 +290,17 @@
                 right: 1rem;
                 top: 0;
                 dd {
-                    flex: auto;
-                    font-size: 0.2rem;
-                    margin-left: 0.26rem;
-                    height: 0.52rem;
-                    line-height: 0.52rem;
                     cursor: pointer;
+                    flex: auto;
+                    font-size: 0.18rem;
+                    margin-left: 0.26rem;
+                    height: 0.32rem;
+                    line-height: 0.32rem;
+                    padding: 0 0.1rem;
+                    background: rgba(255, 255, 255, 1);
+                    border-radius: 2rem;
+                    margin-top: 0.1rem;
+                    box-shadow: white 0.05em 0em 0.05em;
                 }
             }
         }

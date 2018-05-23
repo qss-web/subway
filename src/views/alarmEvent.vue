@@ -42,12 +42,10 @@
                         'placeholder': '请输入内容',
                         'val': 'equName'
                     }, {
-                        'status': 4,
-                        'title': '月份',
-                        'placeholderS': '选择开始日期',
-                        'placeholderE': '选择结束日期',
-                        'val1': 'startTime',
-                        'val2': 'endTime'
+                        'status': 5,
+                        'title': '时间',
+                        'placeholder': '选择月',
+                        'val1': 'startDate'
                     }],
                     defaultReq: {
                         line: '6号线西延线',
