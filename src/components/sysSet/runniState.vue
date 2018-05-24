@@ -259,7 +259,7 @@
             getEquNameFn(req) {
                 this._getList({
                     ops: req,
-                    api: 'selectlist2',
+                    api: 'selectlist3',
                     callback: res => {
                         this.getEquNameArr = [];
                         res.forEach(item => {

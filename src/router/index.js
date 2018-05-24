@@ -14,6 +14,10 @@ router.beforeEach(function(to, from, next) {
   const userInfo = getLoc('userInfo') || getSen('userInfo') || '';
   var control = [];
 
+  if (to.path != '/search' && to.path != '/equInfo') {
+    store.commit('_setSearchVal', '');
+  }
+
   if (store.state.isPowerShow && store.state.isPowerShow.length > 3) {
     control = eval(store.state.isPowerShow)[4];
   }
@@ -41,6 +45,7 @@ router.beforeEach(function(to, from, next) {
       path: '/setup'
     });
   }
+
   return next();
 });
 

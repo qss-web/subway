@@ -14,6 +14,7 @@ import { getLoc, getSen } from '../../utils';
  * @setStations  车站列表
  * @setLines  线路
  * @setDeviceType  设备类型
+ * @searchVal  搜索的值
  *
  */
 
@@ -32,5 +33,6 @@ export default {
   isPowerShow: getLoc('isPowerShow') || {},
   setStations: getSen('setStations') || [],
   setLines: getSen('setLines') || [],
-  setDeviceType: getSen('setDeviceType') || []
+  setDeviceType: getSen('setDeviceType') || [],
+  searchVal: getSen('searchVal') || ''
 };

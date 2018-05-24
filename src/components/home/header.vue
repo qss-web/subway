@@ -5,7 +5,7 @@
         <div class="btn-group flex">
             <router-link v-if="home" tag="button" to="index"><img src="~assets/header/icon_home.png" /></router-link>
             <router-link v-if="mine" tag="button" to="mine"><img src="~assets/header/icon_mine.png" /></router-link>
-            <router-link v-if="search" tag="button" to="search"><img src="~assets/header/icon_search.png" /></router-link>
+            <button v-if="search" v-on:click="searchFn"><img src="~assets/header/icon_search.png" /></button>
             <button v-if="set" v-on:click="setupFn"><img src="~assets/header/icon_setting.png" /></button>
         </div>
     </div>
@@ -48,7 +48,7 @@
         },
         methods: {
             ...mapActions(['_getInfo']),
-            ...mapMutations(['_menuList']),
+            ...mapMutations(['_menuList', '_setSearchVal']),
             setupFn() {
                 this._getInfo({
                     ops: {},
@@ -58,6 +58,10 @@
                         this.$router.push('setup');
                     }
                 });
+            },
+            searchFn() {
+                this._setSearchVal('');
+                this.$router.push('/search');
             }
         }
     };

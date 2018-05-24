@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-search v-on:receive="fifterBtn" v-on:download="downloadFn"></v-search>
+        <v-search v-on:download="downloadFn"></v-search>
         <dl class="middleSort clearfix">
             <dd v-on:click="currentList(1)" v-bind:class="indexed == 1 ?'active':''">
                 <p>设备档案 <span v-if="count.archives|| count.archives==0">{{count.archives+'份'}}</span></p>
@@ -328,9 +328,24 @@
             };
         },
         computed: {
-            ...mapState(['itemObj'])
+            ...mapState(['itemObj', 'searchVal'])
         },
-        created() { },
+        watch: {
+            searchVal() {
+                if(this.searchVal) {
+                    this.queryInfo = this.searchVal;
+                    this.queryCountFn(this.searchVal);
+                    this['queryFn' + this.indexed](this.searchVal);
+                }
+            },
+        },
+        created() {
+            if(this.searchVal) {
+                this.queryInfo = this.searchVal;
+                this.queryCountFn(this.searchVal);
+                this['queryFn' + this.indexed](this.searchVal);
+            }
+        },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
             ...mapMutations(['_equInfo', '_currentIndex']),
@@ -391,13 +406,6 @@
                     });
                 } else {
                     this.$message.error('请至少选择一列数据！');
-                }
-            },
-            fifterBtn(value) {
-                if(value) {
-                    this.queryInfo = value;
-                    this.queryCountFn(value);
-                    this['queryFn' + this.indexed](value);
                 }
             },
             clickFn(val) {

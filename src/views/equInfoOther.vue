@@ -3,7 +3,7 @@
         <div class="flex infoWrap">
             <div class="tab">
                 <ul class="title">
-                    <li class="active">设备档案</li>
+                    <li class="active">{{info.deviceName}}设备档案</li>
                     <button class="saveBtn" v-on:click="saveInfoFn" v-if="!isShow">保存</button>
                 </ul>
                 <dl class="leftShow" v-bind:class="isShow?'editCss':''">

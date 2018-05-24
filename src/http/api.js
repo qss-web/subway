@@ -143,6 +143,7 @@ const api = {
   equRunList: 'runStatus/list',
   //根据线路，车站，设备系统获取设备名称//根据线路，车站，设备系统获取设备名称
   selectlist2: 'webapi/device/selectlist2',
+  selectlist3: 'webapi/device/selectlist3',
 
   // 菜单列表
   menuList: 'webapi/menu/list',

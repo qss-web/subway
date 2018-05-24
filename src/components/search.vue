@@ -13,18 +13,26 @@
     </div>
 </template>
 <script>
+    import { mapMutations, mapState } from 'vuex';
     export default {
         data() {
             return {
                 fifterValue: ''
             };
         },
+        computed: {
+            ...mapState(['searchVal'])
+        },
         created() {
-
+            if(this.searchVal) {
+                this.fifterValue = this.searchVal;
+            }
         },
         methods: {
+            ...mapMutations(['_setSearchVal']),
             fifterBtn() {
-                this.$emit('receive', this.fifterValue);
+                // this.$emit('receive', this.fifterValue);
+                this._setSearchVal(this.fifterValue)
             },
             downloadBtn() {
                 this.$emit('download');

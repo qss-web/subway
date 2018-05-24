@@ -63,5 +63,10 @@ export default {
   _setDeviceType(state, setDeviceType) {
     setSen('setDeviceType', setDeviceType);
     state.setDeviceType = setDeviceType;
+  },
+  //存search的值
+  _setSearchVal(state, searchVal) {
+    setSen('searchVal', searchVal);
+    state.searchVal = searchVal;
   }
 };
