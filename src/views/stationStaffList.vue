@@ -112,7 +112,8 @@
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 3 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它
+                    style: 3,
+                    isAllItem: true
                 },
                 info1: [{
                     'label': '序号',
@@ -192,7 +193,7 @@
                 this._currentIndex(ops);
 
                 if(req) {
-                    Object.assign(ops, req);
+                    Object.assign(req, ops);
                 }
                 this._getList({
                     ops: req,

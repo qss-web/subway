@@ -126,6 +126,8 @@
                         this.checkedValue += item.deviceId + ',';
                     } else if(item.isCheck && item.rowid) {
                         this.checkedValue += item.rowid + ',';
+                    } else if(item.isCheck && this.other.isAllItem) {
+                        this.checkedValue += item + ',';
                     } else if(item.isCheck) {
                         this.checkedValue += item.id + ',';
                     }
@@ -153,6 +155,8 @@
                         this.checkedValue += item.equuid + ',';
                     } else if(item.isCheck && item.rowid) {
                         this.checkedValue += item.rowid + ',';
+                    } else if(item.isCheck && this.other.isAllItem) {
+                        this.checkedValue += JSON.stringify(item) + ',';
                     } else if(item.isCheck) {
                         this.checkedValue += item.id + ',';
                     }

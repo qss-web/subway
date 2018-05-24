@@ -92,7 +92,7 @@
             ...mapState(['warnChart', 'itemObj'])
         },
         created() {
-            this.option.title.text = this.itemObj.pointName + '工艺数据';
+            this.option.title.text = this.itemObj.pointName + '历史趋势图';
             this.warnChart.forEach(item => {
                 this.test.push(parseFloat(item.value));
                 this.test2.push(item.date);

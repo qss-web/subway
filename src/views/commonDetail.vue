@@ -177,7 +177,10 @@
                                 fontSize: '0.16rem'
                             },
                             align: 'center', //标签居中对齐
-                            y: 5
+                            y: 5,
+                            formatter: function() {
+                                return this.value + '%';
+                            }
                         },
                         lineColor: '#7281a3',
                         lineWidth: 1,
@@ -191,7 +194,7 @@
                             maxPointWidth: 20,
                             dataLabels: {
                                 enabled: true,
-                                format: '{point.y}%',
+                                format: '{point.y}',
                                 color: '#fff',
                                 fontWeight: 'normal'
                             },
@@ -257,7 +260,10 @@
                                 fontSize: '0.16rem'
                             },
                             align: 'center', //标签居中对齐
-                            y: 5
+                            y: 5,
+                            formatter: function() {
+                                return this.value + '%';
+                            }
                         },
                         lineColor: '#7281a3',
                         lineWidth: 1,
@@ -271,7 +277,7 @@
                             maxPointWidth: 20,
                             dataLabels: {
                                 enabled: true,
-                                format: '{point.y}%',
+                                format: '{point.y}',
                                 color: '#fff',
                                 fontWeight: 'normal'
                             },
@@ -337,7 +343,10 @@
                                 fontSize: '0.16rem'
                             },
                             align: 'center', //标签居中对齐
-                            y: 5
+                            y: 5,
+                            formatter: function() {
+                                return this.value + '%';
+                            }
                         },
                         lineColor: '#7281a3',
                         lineWidth: 1,
@@ -351,7 +360,7 @@
                             maxPointWidth: 20,
                             dataLabels: {
                                 enabled: true,
-                                format: '{point.y}%',
+                                format: '{point.y}',
                                 color: '#fff',
                                 fontWeight: 'normal'
                             },
@@ -393,7 +402,20 @@
             },
             //导出
             exportFn() {
-
+                this._getList({
+                    ops: {
+                        type: "19",
+                        ids: this.isReq
+                    },
+                    api: 'exportApi',
+                    callback: res => {
+                        if(res.url) {
+                            window.location.href = res.url;
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    }
+                });
             },
             goBack() {
                 this.$router.go(-1);

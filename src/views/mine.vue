@@ -14,7 +14,7 @@
             <v-card-container class="card-alarm-event" goKey="alarmEvent" title="预警事件" light="true">
                 <v-mine-alarm-event></v-mine-alarm-event>
             </v-card-container>
-            <v-card-container class="card-alarm-reason" goKey="alarmReason" title="故障原因分析" light="true">
+            <v-card-container class="card-alarm-reason" goKey="alarmReason" title="故障频次分析" light="true">
                 <v-mine-alarm-reason></v-mine-alarm-reason>
             </v-card-container>
             <div class="tabs-wrapper">
