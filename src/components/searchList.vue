@@ -149,7 +149,9 @@
                 }
                 this.checkedValue = '';
                 this.listShow.forEach(item => {
-                    if(item.isCheck && item.deviceId) {
+                    if(item.isCheck && this.other.pouuid) {
+                        this.checkedValue += item.pouuid + ',';
+                    } else if(item.isCheck && item.deviceId) {
                         this.checkedValue += item.deviceId + ',';
                     } else if(item.isCheck && item.rowid && this.other.exportParam) {
                         this.checkedValue += item.equuid + ',';

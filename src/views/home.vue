@@ -18,6 +18,10 @@
             <v-fixtime-summary class="fixtime-summary"></v-fixtime-summary>
             <v-counter-summary class="counter-summary"></v-counter-summary>
         </div>
+        <div class="bg-3d-01" style="display: none"></div>
+        <div class="bg-3d-02" style="display: none"></div>
+        <div class="bg-3d-03" style="display: none"></div>
+        <div class="bg-3d-04" style="display: none"></div>
     </div>
 </template>
 

@@ -12,7 +12,7 @@
                     <li v-for="(item,index) in alarmInfos">{{index+1}}、{{item}}</li>
                 </ul>
             </div>
-            <div class="device-3d">
+            <div class="device-3d bg-3d-02">
                 <v-tag v-on:onclick="escalatorFilterFn(item.fixedId)" v-for="(item,index) in escalatorInfo" name="line" :type="item.type" :status="item.status" :x="item.x" :y="item.y">{{item.name}}</v-tag>
             </div>
             <div class="device-healthy">
@@ -473,8 +473,6 @@
         bottom: 0.4rem;
         width: 10.88rem;
         height: 7.08rem;
-        background: url('~assets/siteInfo/bg_escalator.png') no-repeat;
-        background-size: 100% 100%;
     }
 
     .device-healthy {

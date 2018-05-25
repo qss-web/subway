@@ -11,7 +11,7 @@
                     <li v-for="(item,index) in alarmInfos">{{index}}、{{item}}</li>
                 </ul>
             </div>
-            <div class="device-3d">
+            <div class="device-3d bg-3d-03">
                 <v-tag v-on:onclick="fanFilterFn(item.fixedId)" v-for="(item, index) in fanInfo" name="fan" :type="item.type" :status="item.status" :x="item.x" :y="item.y">{{item.name}}</v-tag>
             </div>
             <div class="device-healthy">
@@ -430,8 +430,6 @@
         top: 2.66rem;
         width: 10.98rem;
         height: 6.96rem;
-        background: url('~assets/siteInfo/bg_fan.png') no-repeat;
-        background-size: 100% 100%;
     }
 
     .device-healthy {

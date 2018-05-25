@@ -15,10 +15,10 @@
                 <li v-on:click="isUp = true" v-bind:class="{active:isUp==true}">上行</li>
                 <li v-on:click="isUp = false" v-bind:class="{active:isUp==false}">下行</li>
             </ul>
-            <div class="device-3d" v-if="isUp">
+            <div class="device-3d bg-3d-04" v-if="isUp">
                 <v-tag v-on:onclick="doorFilterFn(item.fixedId)" v-for="(item, index) in doorUpInfo" name="number" :status="item.status" :x="item.x" :y="item.y" :number="item.name"></v-tag>
             </div>
-            <div class="device-3d" v-if="!isUp">
+            <div class="device-3d bg-3d-04" v-if="!isUp">
                 <v-tag v-on:onclick="doorFilterFn(item.fixedId)" v-for="(item, index) in doorDownInfo" name="number" :status="item.status" :x="item.x" :y="item.y" :number="item.name"></v-tag>
             </div>
             <div class="device-healthy">
@@ -839,8 +839,6 @@
         top: 2.66rem;
         width: 9rem;
         height: 5rem;
-        background: url('~assets/siteInfo/bg_door.png') no-repeat;
-        background-size: 100% 100%;
     }
 
     .device-healthy {

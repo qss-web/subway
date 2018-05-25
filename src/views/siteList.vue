@@ -74,7 +74,8 @@
                 otherInfo: {
                     isCheck: true, //是否显示多选框
                     style: 2,
-                    goToNextFn: 'goToNextPage' //跳转方法设置字段
+                    goToNextFn: 'goToNextPage', //跳转方法设置字段
+                    pouuid: true
                 },
                 info1: [{
                     'label': '序号',

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <div class="device-3d">
+            <div class="device-3d bg-3d-01">
                 <v-tag v-for="(item, index) in stationInfo" name="triangle" v-bind:status="item.status" v-bind:x="item.x" v-bind:y="item.y" @onclick="goToDevice(item.type,item.deviceId,item.deviceUuid)">{{item.name}}</v-tag>
             </div>
             <div class="device-healthy">
@@ -490,8 +490,6 @@
         top: 0.75rem;
         width: 10.88rem;
         height: 7.08rem;
-        background: url('~assets/siteInfo/bg_station.png') no-repeat;
-        background-size: 100% 100%;
     }
 
     .device-healthy {
