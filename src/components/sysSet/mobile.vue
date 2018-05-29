@@ -145,6 +145,14 @@
                 });
             },
             saveFn(req) {
+                if(!req.mobileName) {
+                    this.$message.error('请输入手机名称！');
+                    return false;
+                }
+                if(!req.snCode) {
+                    this.$message.error('请输入SN码！');
+                    return false;
+                }
                 this._getInfo({
                     ops: req,
                     api: 'mobileAdd',

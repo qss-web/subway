@@ -52,7 +52,7 @@
                 </li>
                 <li v-if="item.status == 6">
                     <span>{{item.title}}：</span>
-                    <el-select filterable remote :remote-method="remoteMethod" :loading="loading" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                    <el-select filterable remote :remote-method="remoteMethod" :loading="loading" v-model="req[item.val]" v-bind:placeholder="item.placeholder" size="mini">
                         <el-option key="" label="全部" value=""></el-option>
 
                         <el-option v-for="itemSel in optionsShow" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
@@ -63,10 +63,10 @@
         </div>
         <a class="exportBtn" v-if="!searchData.noCheck" href="javascript:;" v-on:click="filterBtn">查询</a>
         <div class="exportBtn" v-for="(item,index) in searchData.btnShow">
-            <el-upload v-if="item.fn == 'importFn'" class="upload-demo" action="http://bhxz.net:48092/bjdt/webapi/import/excel" :show-file-list="false">
+            <el-upload v-if="item.fn == 'importFn'" class="upload-demo" :action="importAddress01" :show-file-list="false">
                 <a href="javascript:;">{{item.title}}</a>
             </el-upload>
-            <el-upload v-else-if="item.fn == 'importFn2'" class="upload-demo" action="http://bhxz.net:48092/bjdt/webapi/import/excel2" :show-file-list="false">
+            <el-upload v-else-if="item.fn == 'importFn2'" class="upload-demo" :action="importAddress02" :show-file-list="false">
                 <a href="javascript:;">{{item.title}}</a>
             </el-upload>
             <a v-else href="javascript:;" v-on:click="btnFn(item.fn)">{{item.title}}</a>
@@ -87,7 +87,9 @@
                 loading: false,
                 getEquNameList: [],
                 optionsShow: [],
-                importValue: ''
+                importValue: '',
+                importAddress01: 'http://' + window.location.host + '/bjdt/webapi/import/excel',
+                importAddress02: 'http://' + window.location.host + '/bjdt/webapi/import/excel2'
             };
         },
         computed: {

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -120,14 +120,14 @@
                 timeOut: ''
             };
         },
+        computed: {
+            ...mapState(['isTimeOut'])
+        },
         created() {
             if(this.timeOut) {
                 clearTimeout(this.timeOut);
             }
             this.getTodayAlarmTopFn();
-        },
-        destroyed() {
-            clearTimeout(this.timeOut);
         },
         methods: {
             ...mapActions(['_getInfo']),
@@ -157,9 +157,14 @@
                                 _this.$router.push({ path: 'alarmStatistics', query: { 'equKey': '0' } });
                             }
                         };
-                        this.timeOut = setTimeout(() => {
-                            this.getTodayAlarmTopFn();
-                        }, 2000);
+                        if(this.isTimeOut) {
+                            this.timeOut = setTimeout(() => {
+                                this.getTodayAlarmTopFn();
+                            }, 2000);
+                        } else {
+                            clearTimeout(this.timeOut);
+                        }
+
                     }
                 });
             }
@@ -169,6 +174,5 @@
 </script>
 
 <style lang="less" scoped>
-
 </style>
 

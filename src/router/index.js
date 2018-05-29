@@ -18,6 +18,12 @@ router.beforeEach(function(to, from, next) {
     store.commit('_setSearchVal', '');
   }
 
+  if (to.path != '/index') {
+    store.commit('_isTimeOut', false);
+  } else {
+    store.commit('_isTimeOut', true);
+  }
+
   if (store.state.isPowerShow && store.state.isPowerShow.length > 3) {
     control = eval(store.state.isPowerShow)[4];
   }

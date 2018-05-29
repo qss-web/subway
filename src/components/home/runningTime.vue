@@ -38,8 +38,12 @@
                     tooltip: {
                         formatter: function() {
                             return '<b>' + _this.title + '</b><br/>' +
-                                this.y + '/' + _this.max;
-                        }
+                                '故障时间：' + this.y + '小时<br/>运行时间：' + _this.max + '小时';
+                        },
+                        style: {
+                            "fontSize": "10px"
+                        },
+                        padding: 3
                     },
                     yAxis: {
                         lineWidth: 0,

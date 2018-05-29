@@ -14,17 +14,20 @@
                             <span>{{item.title}}：</span>
                             <!-- 判断是不是车站的列表，如果是车站列表，数据直接在子组件请求 -->
                             <el-select class="popBox" v-if="item.val == 'stationId' || item.val == 'deviceInStationId' || item.val == 'stationId'" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
-                                <el-option v-for="itemSel in staionsList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                                <!-- <el-option key="" label="全部" value=""></el-option> -->
+                                <el-option v-for="itemSel in setStations" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
                             </el-select>
                             <!-- 判断是不是线路列表，如果是线路列表，数据直接在子组件请求 -->
                             <el-select class="popBox" v-else-if="item.val == 'lineId' || item.val == 'deviceInLineId'" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
-                                <el-option v-for="itemSel in lineList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                                <!-- <el-option key="" label="全部" value=""></el-option> -->
+                                <el-option v-for="itemSel in setLines" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
                             </el-select>
                             <!-- 判断是不是设备系统的列表，如果是设备系统列表，数据直接在子组件请求 -->
                             <el-select class="popBox" v-else-if="item.val == 'equSys' || item.val=='deviceTypeCode'" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
-                                <el-option v-for="itemSel in sysList" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
+                                <!-- <el-option key="" label="全部" value=""></el-option> -->
+                                <el-option v-for="itemSel in setDeviceType" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
                             </el-select>
 
@@ -129,7 +132,7 @@
                     [{ 'name': '查询', 'flag': false, 'code': '2-0' }, { 'name': '导出', 'flag': false, 'code': '2-1' }, { 'name': '增加', 'flag': false, 'code': '2-2' }, { 'name': '删除', 'flag': false, 'code': '2-3' }, { 'name': '编辑', 'flag': false, 'code': '2-4' }, { 'name': '导入', 'flag': false, 'code': '2-5' }],
                     [{ 'name': '查询', 'flag': false, 'code': '3-0' }, { 'name': '导出', 'flag': false, 'code': '3-1' }, { 'name': '删除', 'flag': false, 'code': '3-2' }],
                     [{ 'name': '查询', 'flag': false, 'code': '4-0' }, { 'name': '导出', 'flag': false, 'code': '4-1' }, { 'name': '删除', 'flag': false, 'code': '4-2' }, { 'name': '编辑', 'flag': false, 'code': '4-3' }],
-                    [{ 'name': '首页', 'flag': false, 'code': '5-0' }, { 'name': '我的', 'flag': false, 'code': '5-1' }, { 'name': '搜索', 'flag': false, 'code': '5-2' }, { 'name': '设置', 'flag': false, 'code': '5-3' }]
+                    [{ 'name': '首页', 'flag': false, 'code': '5-0' }, { 'name': '我的', 'flag': false, 'code': '5-1' }, { 'name': '搜索', 'flag': false, 'code': '5-2' }, { 'name': '设置', 'flag': false, 'code': '5-3' }, { 'name': '监测', 'flag': false, 'code': '5-4' }]
                 ],
                 checkedList1: [],
                 checkedList2: [],
@@ -138,21 +141,21 @@
                 checkedList5: [],
                 middleArr: [],
                 popReq: {},
-                staionsList: [],
-                lineList: [],
-                sysList: [{
-                    value: '',
-                    label: '全部'
-                }, {
-                    value: '0',
-                    label: '站台门'
-                }, {
-                    value: '7',
-                    label: '自动扶梯'
-                }, {
-                    value: '8',
-                    label: '风机'
-                }],
+                // staionsList: [],
+                // lineList: [],
+                // sysList: [{
+                //     value: '',
+                //     label: '全部'
+                // }, {
+                //     value: '0',
+                //     label: '站台门'
+                // }, {
+                //     value: '7',
+                //     label: '自动扶梯'
+                // }, {
+                //     value: '8',
+                //     label: '风机'
+                // }],
                 loading: false,
                 getEquNameList: [],
                 optionsShow: []
@@ -160,7 +163,7 @@
         },
         props: ['popData'],
         computed: {
-            ...mapState(['itemObj', 'equNameList'])
+            ...mapState(['itemObj', 'equNameList', 'setStations', 'setLines', 'setDeviceType'])
         },
         watch: {
             equNameList() {
@@ -176,9 +179,9 @@
                 }
             }
             //获取车站列表
-            this.getStationsFn();
+            // this.getStationsFn();
             //获取线路列表
-            this.getLinesFn();
+            // this.getLinesFn();
             if(this.popData.isSetPower) {
                 if(this.itemObj) {
                     this.showList = JSON.parse(JSON.stringify(eval(this.itemObj.roleCode)));
@@ -231,26 +234,26 @@
             changeOps() {
                 this.$emit('getEquName', this.popReq);
             },
-            //获取车站列表
-            getStationsFn() {
-                this._getList({
-                    ops: {},
-                    api: 'getStation',
-                    callback: res => {
-                        this.staionsList = res;
-                    }
-                });
-            },
-            //获取线路列表
-            getLinesFn() {
-                this._getList({
-                    ops: {},
-                    api: 'getLines',
-                    callback: res => {
-                        this.lineList = res;
-                    }
-                });
-            },
+            // //获取车站列表
+            // getStationsFn() {
+            //     this._getList({
+            //         ops: {},
+            //         api: 'getStation',
+            //         callback: res => {
+            //             this.staionsList = res;
+            //         }
+            //     });
+            // },
+            // //获取线路列表
+            // getLinesFn() {
+            //     this._getList({
+            //         ops: {},
+            //         api: 'getLines',
+            //         callback: res => {
+            //             this.lineList = res;
+            //         }
+            //     });
+            // },
             remoteMethod(query) {
                 if(query !== '') {
                     this.loading = true;
@@ -403,13 +406,13 @@
         width: 2.4rem;
         background: #fff;
         border-radius: 5px;
-        text-indent: 1em;
+        text-indent: 0em;
     }
     .el-select--mini {
         width: 2.4rem;
         background: #fff;
         border-radius: 5px;
-        text-indent: 1em;
+        text-indent: 0em;
     }
     .el-date-editor.el-input,
     .el-date-editor.el-input__inner {

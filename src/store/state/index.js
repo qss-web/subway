@@ -15,6 +15,7 @@ import { getLoc, getSen } from '../../utils';
  * @setLines  线路
  * @setDeviceType  设备类型
  * @searchVal  搜索的值
+ * @isTimeOut 定时器
  *
  */
 
@@ -34,5 +35,6 @@ export default {
   setStations: getSen('setStations') || [],
   setLines: getSen('setLines') || [],
   setDeviceType: getSen('setDeviceType') || [],
-  searchVal: getSen('searchVal') || ''
+  searchVal: getSen('searchVal') || '',
+  isTimeOut: true
 };

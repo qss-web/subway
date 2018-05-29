@@ -14,12 +14,15 @@
 /* 覆盖下拉框 */
 .popBox .el-input--mini .el-input__inner {
   color: #2f4554 !important;
+  text-indent: 1em;
 }
 .popBox .el-select--mini .el-input__inner {
   color: #2f4554 !important;
+  text-indent: 1em;
 }
 .popBox .el-date-editor .el-input__inner {
   color: #2f4554 !important;
+  text-indent: 1em;
 }
 .el-select--mini .el-input__inner {
   background: none !important;

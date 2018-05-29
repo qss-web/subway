@@ -34,7 +34,7 @@
         <div class="showPic" v-if="indexed==4">
             <img class="border-bg" src="../assets/other/footer-border.png" />
             <ul class="flex minHeight">
-                <li v-for="(item, index) in picList" style="text-align: center">
+                <li v-for="(item, index) in picList" style="text-align: center;">
                     <img v-bind:src="item.url" />
                     <p>
                         <span style="display: inline-block; width: 0.24rem; height: 0.24rem; cursor: pointer" v-on:click="singleCheckFn(item)">
@@ -328,7 +328,7 @@
             };
         },
         computed: {
-            ...mapState(['itemObj', 'searchVal'])
+            ...mapState(['itemObj', 'searchVal', 'isPowerShown'])
         },
         watch: {
             searchVal() {
@@ -337,7 +337,7 @@
                     this.queryCountFn(this.searchVal);
                     this['queryFn' + this.indexed](this.searchVal);
                 }
-            },
+            }
         },
         created() {
             if(this.searchVal) {
@@ -412,7 +412,17 @@
                 this[val]();
             },
             goToFaultSheet() {
-                this.isPop = true;
+                if(this.isPowerShow && this.isPowerShow.length > 3) {
+                    this.powerControl = eval(this.isPowerShow)[3];
+                    //编辑
+                    if(!this.powerControl[3].flag) {
+                        this.isPop = false;
+                    } else {
+                        this.isPop = true;
+                    }
+                } else {
+                    this.isPop = true;
+                }
             },
             //点击列表进入设备详情页
             goToEquDetail() {
@@ -661,7 +671,6 @@
         ul {
             padding: 0.82rem 0.48rem 0.2rem 0.48rem;
             background: #4d505f;
-
             li {
                 flex: 1;
                 margin: 0 0.22rem;
@@ -672,9 +681,10 @@
                 p {
                     font-size: 0.2rem;
                     height: 0.78rem;
-                    line-height: 0.78rem;
+                    line-height: 0.32rem;
                     color: #fff;
                     text-align: center;
+                    padding-top: 0.1rem;
                 }
             }
         }
@@ -752,11 +762,11 @@
     }
     .pagination5 {
         background: #414455;
-        height: 0.66rem;
+        height: 1.05rem;
         text-align: center;
         margin-top: 0.05rem;
         .el-pagination {
-            padding-top: 0.15rem;
+            padding-top: 0.35rem;
             color: #fff;
         }
     }

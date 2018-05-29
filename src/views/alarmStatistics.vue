@@ -14,7 +14,7 @@
                         <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                     </dl>
                 </ul>
-                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
+                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     import { formatDate } from '../utils';
     export default {
         data() {
@@ -125,6 +125,9 @@
                 ids: ''
             };
         },
+        computed: {
+            ...mapState(['isPowerShow'])
+        },
         created() {
             this.equKey = this.$route.query.equKey;
             if(this.equKey || this.equKey == 0) {
@@ -133,6 +136,14 @@
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getTodayAlarmFn(this.isReq);
             this.getEquNameFn({ 'line': this.isReq.line });
+
+            if(this.isPowerShow && this.isPowerShow.length > 3) {
+                this.powerControl = eval(this.isPowerShow)[4];
+                //监测
+                if(!this.powerControl[5].flag) {
+                    this.info1.pop();
+                }
+            }
         },
         methods: {
             ...mapActions(['_getList']),

@@ -4,7 +4,7 @@
             <v-sub-search v-on:receiveBtnFn="btnsFn " v-on:filter="fifterBtnFn " v-bind:searchData="searchData02 "></v-sub-search>
         </div>
         <div class="tab ">
-            <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo " v-bind:label="info3 " v-bind:list="equList "></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo " v-bind:label="info3 " v-bind:list="equList" v-bind:curPage="currentPage"></v-search-list>
             <div class=" pagination ">
                 <el-pagination :page-size="pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber " prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}}/{{pageTotal}}</span>

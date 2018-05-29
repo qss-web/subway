@@ -68,5 +68,9 @@ export default {
   _setSearchVal(state, searchVal) {
     setSen('searchVal', searchVal);
     state.searchVal = searchVal;
+  },
+  //是否定时器
+  _isTimeOut(state, isTimeOut) {
+    state.isTimeOut = isTimeOut;
   }
 };

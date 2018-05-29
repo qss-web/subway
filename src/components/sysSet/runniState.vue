@@ -223,6 +223,31 @@
                 this.isShowPop = false;
             },
             saveFn(req) {
+                // if(!req.deviceInLineId) {
+                //     this.$message.error('请选择线路！');
+                //     return false;
+                // }
+                // if(!req.deviceInStationId) {
+                //     this.$message.error('请选择车站！');
+                //     return false;
+                // }
+                // if(!req.deviceTypeCode) {
+                //     this.$message.error('请选择设备系统！');
+                //     return false;
+                // }
+                // if(!req.equuid) {
+                //     this.$message.error('请选择设备名称！');
+                //     return false;
+                // }
+                // if(!req.dateTime) {
+                //     this.$message.error('请选择时间！');
+                //     return false;
+                // }
+                // if(!req.status) {
+                //     this.$message.error('请选择状态！');
+                //     return false;
+                // }
+
                 // req.id = req.equuid.toString();
                 this._getInfo({
                     ops: req,

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -112,14 +112,14 @@
                 timeOut: ''
             };
         },
+        computed: {
+            ...mapState(['isTimeOut'])
+        },
         created() {
             if(this.timeOut) {
                 clearTimeout(this.timeOut);
             }
             this.getBacklogCountFn();
-        },
-        destroyed() {
-            clearTimeout(this.timeOut);
         },
         methods: {
             ...mapActions(['_getInfo']),
@@ -135,9 +135,13 @@
                         });
                         this.option.xAxis.categories = this.nameShow;
                         this.option.series[0].data = this.valueShow;
-                        this.timeOut = setTimeout(() => {
-                            this.getBacklogCountFn();
-                        }, 60000);
+                        if(this.isTimeOut) {
+                            this.timeOut = setTimeout(() => {
+                                this.getBacklogCountFn();
+                            }, 60000);
+                        } else {
+                            clearTimeout(this.timeOut);
+                        }
 
                         var _this = this;
 
@@ -164,6 +168,5 @@
 </script>
 
 <style lang="less" scoped>
-
 </style>
 

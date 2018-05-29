@@ -5,7 +5,7 @@
             <v-sub-search style="padding: 0.1rem 0.2rem;" v-bind:searchData="searchData" v-on:filter="fifterBtnFn"></v-sub-search>
             <div class="content">
                 <div class="subContent clearfix">
-                    <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:ids="getIdsFn"></v-search-list>
+                    <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:ids="getIdsFn" v-bind:curPage="currentPage"></v-search-list>
                 </div>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">

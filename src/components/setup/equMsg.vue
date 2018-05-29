@@ -4,7 +4,7 @@
             <v-sub-search v-on:receiveBtnFn="btnsFn" v-on:getEquName="getEquNameFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData"></v-sub-search>
         </div>
         <div class="tab">
-            <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo1" v-bind:label="info1" v-bind:list="equList" v-on:receive="clickFn"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo1" v-bind:label="info1" v-bind:list="equList" v-on:receive="clickFn" v-bind:curPage="currentPage"></v-search-list>
             <div class=" pagination ">
                 <el-pagination :page-size=" pageSize" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}}/{{pageTotal}}</span>
@@ -30,6 +30,7 @@
                     'btnShow': [
                         { 'title': '增加', 'fn': 'addFn' },
                         { 'title': '删除', 'fn': 'deleteFn' },
+                        { 'title': '下载', 'fn': 'downloadFn' },
                         { 'title': '导入', 'fn': 'importFn' },
                         { 'title': '同步', 'fn': 'synchronizationFn' },
                         { 'title': '导出', 'fn': 'exportFn' }
@@ -218,6 +219,10 @@
                     }
                 });
             },
+            //下載
+            downloadFn() {
+                window.location.href = "http://" + window.location.host + "/bjdt/exceltemplate/device.xls";
+            },
             //导出
             exportFn() {
                 this._getList({
@@ -288,6 +293,26 @@
             },
             //关闭弹出框并保存数据
             saveFn(req) {
+                // if(!req.deviceInLineId) {
+                //     this.$message.error('请选择线路！');
+                //     return false;
+                // }
+                // if(!req.deviceInStationId) {
+                //     this.$message.error('请选择车站！');
+                //     return false;
+                // }
+                // if(!req.deviceTypeCode) {
+                //     this.$message.error('请选择设备系统！');
+                //     return false;
+                // }
+                // if(!req.id) {
+                //     this.$message.error('请选择设备名称！');
+                //     return false;
+                // }
+                // if(!req.devicePosition) {
+                //     this.$message.error('请输入位置！');
+                //     return false;
+                // }
                 if(req.id) {
                     req.id = req.id.toString();
                     this._getList({

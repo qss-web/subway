@@ -23,7 +23,7 @@
             </div>
             <div class="device-healthy">
                 <button class="device-healthy-title">今日设备健康监测指标</button>
-                <button class="device-healthy-monitor" v-on:click="monitorFn">监测</button>
+                <button class="device-healthy-monitor" v-on:click="monitorFn" v-if="isMonitor">监测</button>
                 <div class="device-healthy-body">
                     <div class="healthy-charts flex">
                         <v-ring-diagram id="runIndex1" v-if="showValue.yxsj" title="运行时间" :time="showValue.yxsj+'小时'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
@@ -590,16 +590,24 @@
                         isSubShowColor: true
                     }
                 },
-                sectionName: ''//部位名称
+                sectionName: '',//部位名称
+                isMonitor: true
             };
+        },
+        computed: {
+            ...mapState(['deviceInfo', 'itemObj', 'isPowerShow'])
         },
         created() {
             this.getEquRuninfoFn();
             this.getEventInfoFn();
             this.getStatusFn();
-        },
-        computed: {
-            ...mapState(['deviceInfo', 'itemObj'])
+            if(this.isPowerShow && this.isPowerShow.length > 3) {
+                this.powerControl = eval(this.isPowerShow)[4];
+                //监测
+                if(!this.powerControl[5].flag) {
+                    this.isMonitor = false;
+                }
+            }
         },
         methods: {
             ...mapActions(['_getInfo', '_getList']),

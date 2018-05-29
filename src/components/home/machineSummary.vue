@@ -8,12 +8,15 @@
             <div class="chart flex currentChart">
                 <div v-on:click="goRunList(7)">
                     <v-running-time v-if="escalator.max" id="running1" title="自动扶梯" :max="escalator.max" :current="escalator.current"></v-running-time>
+                    <span class="noneDate" v-if="!escalator.max">0<i>自动扶梯</i></span>
                 </div>
                 <div v-on:click="goRunList(8)">
                     <v-running-time v-if="fan.max" id="running2" title="风机" :max="fan.max" :current="fan.current"></v-running-time>
+                    <span class="noneDate" v-if="!fan.max">0<i>风机</i></span>
                 </div>
                 <div v-on:click="goRunList(0)">
                     <v-running-time v-if="door.max" id="running3" title="站台门" :max="door.max" :current="door.current"></v-running-time>
+                    <span class="noneDate" v-if="!door.max">0<i>站台门</i></span>
                 </div>
             </div>
         </div>
@@ -37,7 +40,7 @@
     </div>
 </template>
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -52,6 +55,9 @@
                 timeOut: ''
             };
         },
+        computed: {
+            ...mapState(['isTimeOut'])
+        },
         created() {
             if(this.timeOut) {
                 clearTimeout(this.timeOut);
@@ -60,9 +66,6 @@
             this.getMonthRunningTimeFn();
             //今日故障待办事项
             this.getBacklogCountFn();
-        },
-        destroyed() {
-            clearTimeout(this.timeOut);
         },
         methods: {
             ...mapActions(['_getInfo']),
@@ -82,9 +85,14 @@
                     api: 'backlogCount',
                     callback: res => {
                         this.failure = res;
-                        this.timeOut = setTimeout(() => {
-                            this.getBacklogCountFn();
-                        }, 2000);
+                        if(this.isTimeOut) {
+                            this.timeOut = setTimeout(() => {
+                                this.getBacklogCountFn();
+                            }, 2000);
+                        } else {
+                            clearTimeout(this.timeOut);
+                        }
+
                     }
                 });
             },
@@ -164,6 +172,27 @@
     }
     .line2 {
         padding-top: 0.2rem;
+    }
+
+    span.noneDate {
+        color: #fff;
+        width: 1.1rem;
+        text-align: center;
+        line-height: 1.1rem;
+        display: block;
+        height: 1.1rem;
+        position: relative;
+        font-size: 0.24rem;
+        i {
+            height: 0.24rem;
+            line-height: 0.24rem;
+            font-style: normal;
+            font-size: 0.18rem;
+            position: absolute;
+            bottom: -0.12rem;
+            left: 0;
+            right: 0;
+        }
     }
 </style>
 

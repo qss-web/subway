@@ -16,7 +16,7 @@
                         <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}台</dd>
                     </dl>
                 </ul>
-                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
+                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -121,16 +121,23 @@
                 equList: [],
                 isReq: {},
                 alarmVal: '',//预警状态
-                ids: ''
+                ids: '',
+                timeOut: ''
             };
         },
         computed: {
             ...mapState(['itemObj'])
         },
         created() {
+            if(this.timeOut) {
+                clearTimeout(this.timeOut);
+            }
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getEqTimelyStatusFn(this.isReq);
             this.getEquNameFn({ 'line': this.isReq.line });
+        },
+        destroyed() {
+            clearTimeout(this.timeOut);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -165,6 +172,9 @@
                 this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
             },
             getEqTimelyStatusFn(req, val) {
+                if(this.timeOut) {
+                    clearTimeout(this.timeOut);
+                }
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
@@ -194,6 +204,9 @@
                         this.equList = res.rows;
                         this.totalPage = res.total;
                         this.pageNumber = res.records;
+                        this.timeOut = setTimeout(() => {
+                            this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
+                        }, 2000);
                     }
                 });
             },
@@ -205,7 +218,6 @@
             //获取设备名称
             getEquNameFn(req) {
                 // if(req.line && req.station && req.equSys) {
-                debugger;
                 this._getList({
                     ops: req,
                     api: 'selectlist2',

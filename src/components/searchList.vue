@@ -92,20 +92,25 @@
                 listStatus: ['error', 'warn', 'normal', 'stop', 'offline']
             };
         },
-        props: ['list', 'label', 'other'],
+        props: ['list', 'label', 'other', 'curPage'],
         computed: {
             ...mapState(['currentIndex']),
             listShow() {
                 return this.list;
             }
         },
+        watch: {
+            list() {
+                this.isAllCkeck = false;
+                // this.listShow.forEach(item => {
+                //     item.isCheck = false;
+                // });
+            }
+        },
         created() {
         },
         methods: {
             ...mapMutations(['_itemObj']),
-            currentList(index) {
-                this.indexed = index;
-            },
             checkAllFn() {
                 this.listShow.forEach(item => {
                     if(this.isAllCkeck != item.isCheck) {
@@ -122,12 +127,16 @@
                 this.isAllCkeck = !this.isAllCkeck;
                 this.checkedValue = '';
                 this.listShow.forEach(item => {
-                    if(item.isCheck && item.deviceId) {
+                    if(item.isCheck && this.other.pouuid) {
+                        this.checkedValue += item.pouuid + ',';
+                    } else if(item.isCheck && item.deviceId) {
                         this.checkedValue += item.deviceId + ',';
+                    } else if(item.isCheck && item.rowid && this.other.exportParam) {
+                        this.checkedValue += item.equuid + ',';
                     } else if(item.isCheck && item.rowid) {
                         this.checkedValue += item.rowid + ',';
                     } else if(item.isCheck && this.other.isAllItem) {
-                        this.checkedValue += item + ',';
+                        this.checkedValue += JSON.stringify(item) + ',';
                     } else if(item.isCheck) {
                         this.checkedValue += item.id + ',';
                     }

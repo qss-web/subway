@@ -26,15 +26,14 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapState } from 'vuex';
     export default {
         data() {
             return {
                 currentPage: 1, //当前页数
                 pageSize: 4, //每页显示数量
                 timelyAlarm: [],
-                warningTotal: '实时预警信息（0次）', //实时预警信息总数
-                timeOut: ''
+                warningTotal: '实时预警信息（0次）' //实时预警信息总数
             };
         },
         created() {
@@ -43,8 +42,8 @@
             }
             this.getTimelyAlarmTopFn();
         },
-        destroyed() {
-            clearTimeout(this.timeOut);
+        computed: {
+            ...mapState(['isTimeOut'])
         },
         methods: {
             ...mapActions(['_getInfo']),
@@ -60,9 +59,13 @@
                     callback: res => {
                         this.timelyAlarm = res.list;
                         this.warningTotal = "实时预警信息（" + res.records + "次）";
-                        this.timeOut = setTimeout(() => {
-                            this.getTimelyAlarmTopFn();
-                        }, 2000);
+                        if(this.isTimeOut) {
+                            this.timeOut = setTimeout(() => {
+                                this.getTimelyAlarmTopFn();
+                            }, 2000);
+                        } else {
+                            clearTimeout(this.timeOut);
+                        }
                     }
                 });
             }

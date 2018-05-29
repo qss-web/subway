@@ -9,7 +9,7 @@
                     <li v-on:click="tabShowFn(true)" v-bind:class="tabShow?'active':''">故障待办事项未处理</li>
                     <li v-on:click="tabShowFn(false)" v-bind:class="tabShow?'':'active'">故障待办事项已处理</li>
                 </ul>
-                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
+                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>

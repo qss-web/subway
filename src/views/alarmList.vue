@@ -16,8 +16,8 @@
                     <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                 </dl>
             </ul>
-            <v-search-list v-on:ids="getIdsFn" v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
-            <v-search-list v-on:ids="getIdsFn" v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList01" v-on:receive="btnFn"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList01" v-on:receive="btnFn" v-bind:curPage="currentPage01"></v-search-list>
             <div class=" pagination " v-if="tabShow">
                 <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}} / {{totalPage}}</span>
@@ -34,19 +34,19 @@
 </template>
 
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     import { formatDate } from '../utils';
     export default {
         data() {
             return {
                 tabShow: true,
                 currentPage: 1, //当前页数
-                pageSize: 10, //每页显示数量
+                pageSize: 11, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
 
                 currentPage01: 1, //当前页数
-                pageSize01: 10, //每页显示数量
+                pageSize01: 11, //每页显示数量
                 totalPage01: 0,//总页数
                 pageNumber01: 0,//总条目数
                 equInfoCount: [], //设备信息
@@ -135,10 +135,20 @@
                 ids: ''
             };
         },
+        computed: {
+            ...mapState(['isPowerShow'])
+        },
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getTimelyAlarmListFn(this.isReq);
             this.getEquNameFn({ 'line': this.isReq.line });
+            if(this.isPowerShow && this.isPowerShow.length > 3) {
+                this.powerControl = eval(this.isPowerShow)[4];
+                //监测
+                if(!this.powerControl[5].flag) {
+                    this.info1.pop();
+                }
+            }
         },
         methods: {
             ...mapActions(['_getList']),

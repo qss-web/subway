@@ -63,7 +63,7 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -75,14 +75,14 @@
                 timeOut: ''
             };
         },
+        computed: {
+            ...mapState(['isTimeOut'])
+        },
         created() {
             if(this.timeOut) {
                 clearTimeout(this.timeOut);
             }
             this.getStationAlarmStatisticalFn();
-        },
-        destroyed() {
-            clearTimeout(this.timeOut);
         },
         methods: {
             ...mapActions(['_getInfo']),
@@ -106,9 +106,14 @@
                         this.fan = data.fan;//风机预警
                         this.door = data.door;//站台门预警
                         this.station = data.station; //车站
-                        this.timeOut = setTimeout(() => {
-                            this.getStationAlarmStatisticalFn();
-                        }, 2000);
+                        if(this.isTimeOut) {
+                            this.timeOut = setTimeout(() => {
+                                this.getStationAlarmStatisticalFn();
+                            }, 2000);
+                        } else {
+                            clearTimeout(this.timeOut);
+                        }
+
                     }
                 });
             }

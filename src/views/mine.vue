@@ -32,7 +32,7 @@
                             <el-table-column prop="time" label="时间" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="alarmEvent" label="预警事件" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="statusValue" label="状态" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="system" label="操作" align="center" show-overflow-tooltip>
+                            <el-table-column prop="system" label="操作" align="center" show-overflow-tooltip v-if="isMonitor">
                                 <template scope="scope">
                                     <span style="cursor: pointer" v-on:click="editBtn(scope.row.keyId)">【监测】</span>
                                 </template>
@@ -84,7 +84,7 @@
 </template>
 
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     import { formatDate } from '../utils';
     export default {
         data() {
@@ -137,12 +137,22 @@
                     'label': '执行人',
                     'width': 10,
                     'value': 'name'
-                }]
+                }],
+                isMonitor: true
             };
         },
-        computed: {},
+        computed: {
+            ...mapState(['isPowerShow'])
+        },
         created() {
             this.getTimelyAlarmListFn();
+            if(this.isPowerShow && this.isPowerShow.length > 3) {
+                this.powerControl = eval(this.isPowerShow)[4];
+                //监测
+                if(!this.powerControl[5].flag) {
+                    this.isMonitor = false;
+                }
+            }
         },
         methods: {
             ...mapActions(['_getList']),

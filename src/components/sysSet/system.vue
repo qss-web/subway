@@ -168,6 +168,23 @@
             },
             //弹出框保存数据
             saveFn(req) {
+                if(!req.ip) {
+                    this.$message.error('请输入IP地址！');
+                    return false;
+                }
+                if(!req.port) {
+                    this.$message.error('请输入端口！');
+                    return false;
+                }
+                if(!req.type) {
+                    this.$message.error('请选择类型！');
+                    return false;
+                }
+                if(!req.connectionMode) {
+                    this.$message.error('请选择连接方式！');
+                    return false;
+                }
+
                 if(req.id) {
                     req.id = req.id.toString();
                 }

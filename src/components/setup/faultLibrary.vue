@@ -4,7 +4,7 @@
             <v-sub-search v-on:receiveBtnFn="btnsFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData01"></v-sub-search>
         </div>
         <div class="tab ">
-            <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo " v-bind:label="info2" v-bind:list="equList" v-on:receive="clickFn"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo " v-bind:label="info2" v-bind:list="equList" v-on:receive="clickFn" v-bind:curPage="currentPage"></v-search-list>
             <div class=" pagination ">
                 <el-pagination :page-size=" pageSize " @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}}/{{pageTotal}}</span>
@@ -28,9 +28,9 @@
                     'btnShow': [
                         { 'title': '增加', 'fn': 'addFn' },
                         { 'title': '删除', 'fn': 'deleteFn' },
+                        { 'title': '下载', 'fn': 'downloadFn' },
                         { 'title': '导入', 'fn': 'importFn2' },
                         { 'title': '导出', 'fn': 'exportFn' }
-                        // { 'title': '下载', 'fn': 'downloadFn' }
                     ],
                     'options': [{
                         'status': 2,
@@ -225,6 +225,10 @@
                     }
                 });
             },
+            //下載
+            downloadFn() {
+                window.location.href = "http://" + window.location.host + "/bjdt/exceltemplate/faultDatabase.xls";
+            },
             //导出
             exportFn() {
                 this._getList({
@@ -286,6 +290,34 @@
             },
             //关闭弹出框并保存数据
             saveFn(req) {
+                if(!req.deviceTypeCode) {
+                    this.$message.error('请选择设备类型！');
+                    return false;
+                }
+                if(!req.faultPositionCode) {
+                    this.$message.error('请输入故障部位编码！');
+                    return false;
+                }
+                if(!req.faultPosition) {
+                    this.$message.error('请输入故障部位！');
+                    return false;
+                }
+                if(!req.faultReasonCode) {
+                    this.$message.error('请输入故障原因编码！');
+                    return false;
+                }
+                if(!req.faultReason) {
+                    this.$message.error('请输入故障原因！');
+                    return false;
+                }
+                if(!req.repairStrategyCode) {
+                    this.$message.error('请输入维修策略编码！');
+                    return false;
+                }
+                if(!req.repairStrategy) {
+                    this.$message.error('请输入维修建议！');
+                    return false;
+                }
                 this._getList({
                     ops: req,
                     api: 'faultAdd',
