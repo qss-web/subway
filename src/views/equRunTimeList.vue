@@ -65,7 +65,7 @@
                         station: '',
                         equSys: '',
                         equName: '',
-                        startTime: formatDate('', 6) + '-01-01 00:00:00',
+                        startTime: formatDate('', 4) +'-01 00:00:00',
                         endTime: formatDate('', 2) + ' 23:59:59'
                     }
                 },

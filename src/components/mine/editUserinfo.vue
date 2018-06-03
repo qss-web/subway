@@ -78,6 +78,7 @@
         },
         created() {
             this.uploadUrl = 'http://' + window.location.host + '/bjdt/common/upload';
+            // this.uploadUrl =  '/bjdt/common/upload';
             this.getUserInfo();
         },
         methods: {
@@ -88,15 +89,16 @@
             },
             beforeAvatarUpload(file) {
                 const isPic = (file.type === 'image/jpeg' || file.type === 'image/png');
-                const isLt2M = file.size / 1024 / 1024 < 2;
+                // const isLt2M = file.size / 1024 / 1024 < 2;
 
                 if(!isPic) {
                     this.$message.error('上传头像图片只能是 JPG或PNG 格式!');
                 }
-                if(!isLt2M) {
-                    this.$message.error('上传头像图片大小不能超过 2MB!');
-                }
-                return isPic && isLt2M;
+                // if(!isLt2M) {
+                //     this.$message.error('上传头像图片大小不能超过 2MB!');
+                // }
+                // return isPic && isLt2M;
+                return isPic 
             },
             save() {
                 if(!this.repairInfo.email) {

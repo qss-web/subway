@@ -214,20 +214,27 @@
                     type: 2
                 }],
                 sectionName: '',
-                isMonitor: true
+                isMonitor: true,
+                timeOut: ''
             };
         },
         computed: {
             ...mapState(['deviceInfo', 'itemObj', 'isPowerShow'])
         },
+        destroyed() {
+            clearTimeout(this.timeOut);
+        },
         created() {
+            if(this.timeOut) {
+                clearTimeout(this.timeOut);
+            }
             this.getEquRuninfoFn();
             this.getEventInfoFn();
             this.getStatusFn();
             if(this.isPowerShow && this.isPowerShow.length > 3) {
                 this.powerControl = eval(this.isPowerShow)[4];
                 //监测
-                if(!this.powerControl[5].flag) {
+                if(!this.powerControl[4].flag) {
                     this.isMonitor = false;
                 }
             }
@@ -255,6 +262,9 @@
             },
             //切换选项卡
             tabListFn(value) {
+                if(this.timeOut) {
+                    clearTimeout(this.timeOut);
+                }
                 this.activeIndex = value;
                 if(value) {
                     this.sectionName = "";
@@ -289,12 +299,18 @@
             },
             //部位点击筛选测点状态列表
             fanFilterFn(item) {
+                if(this.timeOut) {
+                    clearTimeout(this.timeOut);
+                }
                 this.sectionName = item;
                 this.activeIndex = 1;
                 this.getPointStatusFn(item);
             },
             //测点信息翻页
             changePages02(val) {
+                if(this.timeOut) {
+                    clearTimeout(this.timeOut);
+                }
                 this.currentPage02 = val;
                 if(this.sectionName) {
                     this.getPointStatusFn(this.sectionName);
@@ -322,6 +338,10 @@
                         this.testTable.list = res.rows;
                         this.totalPage02 = res.total;//总页数
                         this.pageNumber02 = res.records;//总条目数
+                        
+                        this.timeOut = setTimeout(() => {
+                            this.getPointStatusFn(this.sectionName);
+                        }, 3000);
                     }
                 });
             },

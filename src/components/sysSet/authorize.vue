@@ -48,7 +48,7 @@
     // webapi/auth/inside/device/list
     // {"type":"1","id":"1",deviceName:"","curPage":"1","pageSize":"10"}
     // type 1、角色  2、手机
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -113,6 +113,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_currentIndex']),
             btnsFn(fn) {
                 this[fn]();
             },
@@ -174,6 +175,7 @@
                     curPage: this.currentPage,
                     pageSize: this.pageSize
                 };
+                this._currentIndex({curPage: this.currentPage, pageSize: this.pageSize})
 
                 if(req) {
                     Object.assign(ops, req);

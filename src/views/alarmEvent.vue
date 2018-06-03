@@ -75,8 +75,8 @@
                         title: {
                             text: null
                         },
-                        type: 'category',
-                        categories: [1, 2, 3, 4, 5, 6, 7],
+                        // type: 'category',
+                        categories: [],
                         labels: {
                             style: {
                                 color: '#474740',
@@ -142,7 +142,8 @@
                     }
                 },
                 isReq: {},
-                getEquNameArr: []
+                getEquNameArr: [],
+                days:[]
             };
         },
         created() {
@@ -160,6 +161,7 @@
                     callback: res => {
                         res.current.forEach(item => {
                             this.currentMonth.push(item[1]);
+                            this.days.push(item[0]);
                         });
                         res.last.forEach(item => {
                             this.lastMonth.push(item[1]);
@@ -168,6 +170,8 @@
                         this.option.series[1].data = this.currentMonth;
                         //上月
                         this.option.series[0].data = this.lastMonth;
+                        //天数
+                        this.option.xAxis.categories = this.days;
                     }
                 });
             },

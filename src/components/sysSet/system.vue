@@ -41,8 +41,7 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
-    import { mapMutations } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -131,7 +130,7 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
-            ...mapMutations(['_itemObj']),
+            ...mapMutations(['_itemObj','_currentIndex']),
             //显示弹出框
             addFn() {
                 this._itemObj('');
@@ -211,6 +210,7 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+                this._currentIndex(ops)
 
                 this._getList({
                     ops: ops,

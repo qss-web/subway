@@ -159,7 +159,7 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
-            ...mapMutations(['_itemObj', '_equNameList']),
+            ...mapMutations(['_itemObj', '_equNameList', '_currentIndex']),
             //搜索按钮
             btnsFn(fn) {
                 debugger;
@@ -192,6 +192,7 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+                this._currentIndex(ops);
 
                 if(req) {
                     Object.assign(ops, req);

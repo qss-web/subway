@@ -5,7 +5,7 @@
             <v-sub-search style="padding: 0.1rem 0.2rem;" v-bind:searchData="searchData" v-on:filter="fifterBtnFn"></v-sub-search>
             <div class="content">
                 <div class="subContent clearfix">
-                    <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:ids="getIdsFn" v-bind:curPage="currentPage"></v-search-list>
+                    <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:ids="getIdsFn"></v-search-list>
                 </div>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
@@ -21,7 +21,7 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions ,mapMutations} from 'vuex';
     export default {
         data() {
             return {
@@ -33,20 +33,20 @@
                 searchData: {
                     'btnShow': {},
                     'options': [{
-                        'status': 1,
-                        'title': '设备名称',
-                        'placeholder': '请输入内容',
-                        'val': 'deviceName'
+                        'status': 2,
+                        'title': '车站',
+                        'placeholder': '请选择内容',
+                        'val': 'deviceInStationId'
                     }, {
                         'status': 2,
                         'title': '设备类型',
                         'placeholder': '请选择内容',
                         'val': 'deviceTypeCode'
                     }, {
-                        'status': 2,
-                        'title': '车站',
-                        'placeholder': '请选择内容',
-                        'val': 'deviceInStationId'
+                        'status': 1,
+                        'title': '设备名称',
+                        'placeholder': '请输入内容',
+                        'val': 'deviceName'
                     }],
                     defaultReq: {
                         deviceName: '',
@@ -91,6 +91,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_currentIndex']),
             onSubmit() {
                 this._getList({
                     ops: {
@@ -116,6 +117,7 @@
                     curPage: this.currentPage,
                     pageSize: this.pageSize
                 };
+                this._currentIndex({curPage: this.currentPage, pageSize: this.pageSize});
 
                 if(req) {
                     Object.assign(ops, req);

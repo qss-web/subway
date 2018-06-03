@@ -140,7 +140,7 @@
             if(this.isPowerShow && this.isPowerShow.length > 3) {
                 this.powerControl = eval(this.isPowerShow)[4];
                 //监测
-                if(!this.powerControl[5].flag) {
+                if(!this.powerControl[4].flag) {
                     this.info1.pop();
                 }
             }

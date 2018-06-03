@@ -14,7 +14,7 @@
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
                 <div v-for="(item1, index1) in label" v-bind:style="{width:item1.width+'%'}">
-                    <span v-if="item1.value == 'index'">{{index+1}}</span>
+                    <span v-if="item1.value == 'index'">{{(currentIndex.pageSize*(currentIndex.curPage-1))+(index+1)}}</span>
                     <span v-else-if="item1.btn">
                         <a v-for="(subItem,index) in item1.btn" class="btn" v-on:click="goToNextPage(subItem.fn,item.id,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
@@ -29,7 +29,7 @@
     </div>
 </template>
 <script>
-    // import { mapMutations } from 'vuex';
+    import { mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -41,6 +41,7 @@
         },
         props: ['list', 'label', 'other'],
         computed: {
+            ...mapState(['currentIndex']),
             listShow() {
                 return this.list;
             }

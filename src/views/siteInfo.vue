@@ -304,11 +304,15 @@
                 }],
                 alarmVal: '',
                 equInfoCount: [], //设备信息
-                equTotal: 0 //设备信息全部
+                equTotal: 0, //设备信息全部
+                timeOut:''
             };
         },
         computed: {
             ...mapState(['stationId'])
+        },
+        destroyed() {
+            clearTimeout(this.timeOut);
         },
         watch: {
             stationId() {
@@ -318,6 +322,9 @@
             }
         },
         created() {
+            if(this.timeOut) {
+                clearTimeout(this.timeOut);
+            }
             this.getAvailabilityFn();
             this.getEventInfoFn();
             this.getStatusFn();
@@ -353,6 +360,9 @@
             },
             //切换选项卡
             tabListFn(value) {
+                if(this.timeOut) {
+                    clearTimeout(this.timeOut);
+                }
                 this.activeIndex = value;
                 if(value) {
                     this.getPointStatusFn();
@@ -397,11 +407,17 @@
             },
             //测点信息翻页
             changePages02(val) {
+                if(this.timeOut) {
+                    clearTimeout(this.timeOut);
+                }
                 this.currentPage02 = val;
                 this.getPointStatusFn(this.alarmVal);
             },
             //二级筛选
             statusFilter(val) {
+                if(this.timeOut) {
+                    clearTimeout(this.timeOut);
+                }
                 this.alarmVal = val;
                 this.getPointStatusFn(this.alarmVal);
             },
@@ -430,6 +446,11 @@
                         this.testTable.list = res.rows;
                         this.totalPage02 = res.total;//总页数
                         this.pageNumber02 = res.records;//总条目数
+
+                        this.timeOut = setTimeout(() => {
+                            this.getPointStatusFn(this.alarmVal);
+                        }, 3000);
+                        
                     }
                 });
             },

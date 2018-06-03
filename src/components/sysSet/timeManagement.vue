@@ -123,13 +123,14 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
-            ...mapMutations(['_itemObj', '_equNameList']),
+            ...mapMutations(['_itemObj', '_equNameList','_currentIndex']),
             //获取列表
             getEquRunTimeListFn(req) {
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+                this._currentIndex(ops);
 
                 if(req) {
                     Object.assign(ops, req);

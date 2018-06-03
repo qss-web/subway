@@ -59,7 +59,7 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
-            ...mapMutations(['_itemObj', '_menuList']),
+            ...mapMutations(['_itemObj', '_menuList','_currentIndex']),
             //子组件按钮
             btnFn(val) {
                 this[val.fn](val.id, val.item);
@@ -110,6 +110,7 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+                this._currentIndex(ops);
 
                 this._getList({
                     ops: ops,

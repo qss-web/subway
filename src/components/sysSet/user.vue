@@ -157,7 +157,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_itemObj']),
+            ...mapMutations(['_itemObj', '_currentIndex']),
             //搜索按钮
             btnsFn(fn) {
                 this[fn]();
@@ -167,6 +167,7 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+                this._currentIndex(ops)
 
                 if(req) {
                     Object.assign(ops, req);

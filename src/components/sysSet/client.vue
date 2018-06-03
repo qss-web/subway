@@ -19,7 +19,7 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     import { formatDate } from '../../utils';
     export default {
         data() {
@@ -69,6 +69,7 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
+            ...mapMutations(['_currentIndex']),
             uploadFn(event, file) {
                 this.isUpload.isShow = true;
                 this.isUpload.title = file.name;
@@ -94,7 +95,7 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
-
+                this._currentIndex(ops);
                 this._getList({
                     ops: ops,
                     api: 'clientList',
