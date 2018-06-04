@@ -32,7 +32,7 @@
             ...mapMutations(['_setSearchVal']),
             fifterBtn() {
                 // this.$emit('receive', this.fifterValue);
-                this._setSearchVal(this.fifterValue)
+                this._setSearchVal(this.fifterValue);
             },
             downloadBtn() {
                 this.$emit('download');

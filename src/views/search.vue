@@ -335,7 +335,11 @@
                 if(this.searchVal) {
                     this.queryInfo = this.searchVal;
                     this.queryCountFn(this.searchVal);
-                    this['queryFn' + this.indexed](this.searchVal);
+                    if(!this.subOther) {
+                        this.queryFaultlibraryFn(this.searchVal);
+                    } else {
+                        this['queryFn' + this.indexed](this.searchVal);
+                    }
                 }
             }
         },
@@ -343,7 +347,11 @@
             if(this.searchVal) {
                 this.queryInfo = this.searchVal;
                 this.queryCountFn(this.searchVal);
-                this['queryFn' + this.indexed](this.searchVal);
+                if(!this.subOther) {
+                    this.queryFaultlibraryFn(this.searchVal);
+                } else {
+                    this['queryFn' + this.indexed](this.searchVal);
+                }
             }
         },
         methods: {
