@@ -1,5 +1,5 @@
 <template>
-    <div class="txt-center">
+    <div class="txt-center" style="min-height: 8.31rem;">
         <div class="flex" style=" padding-top: 0.39rem;">
             <div class="showChart">
                 <v-ring-diagram id="runIndex1" v-if="showValue.xjnum" title="巡视巡检条数" :time="showValue.xjnum+'条'" :showData="test1" :size="size" :setStyle="style"></v-ring-diagram>
@@ -23,15 +23,24 @@
                 </p>
             </div>
         </div>
-        <v-search-list style="min-height: 5.05rem;" :other="otherInfo" :label="info1" :list="equList"></v-search-list>
+        <v-search-list :other="otherInfo" :label="info1" :list="equList"></v-search-list>
+        <div class="pagination">
+            <el-pagination :page-size="pageSize" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage}} / {{totalPage}}</span>
+            </el-pagination>
+        </div>
     </div>
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
+                currentPage: 1, //当前页数
+                pageSize: 12, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
                 equId: '',//设备id
                 size: {
                     width: '2.6rem',
@@ -102,6 +111,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_currentIndex']),
             infoCheckFn() {
                 this._getList({
                     ops: { id: this.equId },
@@ -112,15 +122,29 @@
                 });
             },
             infoCheckListFn() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                this._currentIndex(ops);
+
+                Object.assign(ops, { id: this.equId });
+
                 this._getList({
-                    ops: {
-                        id: this.equId
-                    },
+                    ops: ops,
                     api: 'infoCheckList',
                     callback: res => {
-                        this.equList = res;
+                        this.equList = res.rows;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
                     }
                 });
+            },
+            //改变当前页数
+            changePages(val) {
+                this.currentPage = val;
+                this.infoCheckListFn();
             }
         }
     };

@@ -1,5 +1,5 @@
 <template>
-    <div class="txt-center">
+    <div class="txt-center" style="min-height: 8.31rem;">
         <div class="flex" style=" padding-top: 0.39rem;">
             <div class="showChart">
                 <v-ring-diagram id="runIndex1 " title="累计运行时间 " v-if="runInfo.ljyxsj " :time="runInfo.ljyxsj + '小时' " :showData="test1 " :size="size " :setStyle="style "></v-ring-diagram>
@@ -35,15 +35,24 @@
                 <span>最短无故障运行时间：{{runInfo.zdwgzyxsj}}小时</span>
             </li>
         </ul>
-        <v-search-list style="min-height: 4.33rem; " :other="otherInfo " :label="info1 " :list="equList "></v-search-list>
+        <v-search-list :other="otherInfo " :label="info1 " :list="equList "></v-search-list>
+        <div class="pagination">
+            <el-pagination :page-size="pageSize" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage}} / {{totalPage}}</span>
+            </el-pagination>
+        </div>
     </div>
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
+                currentPage: 1, //当前页数
+                pageSize: 10, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
                 equId: '',//设备id
                 runInfo: {},
                 test1: [{
@@ -114,6 +123,7 @@
         },
         methods: {
             ...mapActions(['_getInfo']),
+            ...mapMutations(['_currentIndex']),
             infoRunFn() {
                 this._getInfo({
                     ops: { id: this.equId },
@@ -124,15 +134,28 @@
                 });
             },
             infoRunListFn() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                this._currentIndex(ops);
+                Object.assign(ops, { id: this.equId });
+
                 this._getInfo({
-                    ops: {
-                        id: this.equId
-                    },
+                    ops: ops,
                     api: 'infoRunList',
                     callback: res => {
-                        this.equList = res;
+                        this.equList = res.rows;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
                     }
                 });
+            },
+            //改变当前页数
+            changePages(val) {
+                this.currentPage = val;
+                this.infoRunListFn();
             }
         }
     };

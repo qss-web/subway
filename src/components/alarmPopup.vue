@@ -71,7 +71,7 @@
                     series: [{
                         color: '#d06c6a',
                         data: [],
-                        name: '工艺量'
+                        name: '测点值'
                     }],
                     legend: {
                         enabled: false

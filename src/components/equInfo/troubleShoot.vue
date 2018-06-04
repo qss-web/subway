@@ -1,5 +1,5 @@
 <template>
-    <div class="txt-center">
+    <div class="txt-center" style="min-height: 8.31rem;">
         <div class="flex">
             <div class="showChart">
                 <v-pie-chart id="test1" v-if="test1[0].data.length!=0" v-bind:chartData="test1"></v-pie-chart>
@@ -14,15 +14,24 @@
                 </p>
             </div>
         </div>
-        <v-search-list style="min-height: 5.76rem;" :other="otherInfo" :label="info1" :list="equList"></v-search-list>
+        <v-search-list :other="otherInfo" :label="info1" :list="equList"></v-search-list>
+        <div class="pagination">
+            <el-pagination :page-size="pageSize" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                <span>{{currentPage}} / {{totalPage}}</span>
+            </el-pagination>
+        </div>
     </div>
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
+                currentPage: 1, //当前页数
+                pageSize: 11, //每页显示数量
+                totalPage: 0,//总页数
+                pageNumber: 0,//总条目数
                 equId: '',//设备id
                 test1: [{
                     name: '故障维修',
@@ -97,6 +106,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
+            ...mapMutations(['_currentIndex']),
             getPie1Fn() {
                 this._getList({
                     ops: {
@@ -120,15 +130,28 @@
                 });
             },
             infoFaultListFn() {
+                const ops = {
+                    'curPage': this.currentPage,
+                    'pageSize': this.pageSize
+                };
+
+                this._currentIndex(ops);
+                Object.assign(ops, { id: this.equId });
+
                 this._getList({
-                    ops: {
-                        id: this.equId
-                    },
+                    ops: ops,
                     api: 'infoFaultList',
                     callback: res => {
-                        this.equList = res;
+                        this.equList = res.rows;
+                        this.totalPage = res.total;
+                        this.pageNumber = res.records;
                     }
                 });
+            },
+            //改变当前页数
+            changePages(val) {
+                this.currentPage = val;
+                this.infoFaultListFn();
             }
         }
 

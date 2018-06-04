@@ -135,7 +135,13 @@
             }
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getTodayAlarmFn(this.isReq);
-            this.getEquNameFn({ 'line': this.isReq.line });
+            if(this.equKey || this.equKey == 0) {
+                this.getEquNameFn({ 'line': this.isReq.line, 'equSys': this.equKey });
+            } else {
+                this.getEquNameFn({ 'line': this.isReq.line });
+            }
+
+            // this.getEquNameFn(this.searchData.defaultReq);
 
             if(this.isPowerShow && this.isPowerShow.length > 3) {
                 this.powerControl = eval(this.isPowerShow)[4];

@@ -102,9 +102,6 @@
         watch: {
             list() {
                 this.isAllCkeck = false;
-                // this.listShow.forEach(item => {
-                //     item.isCheck = false;
-                // });
             }
         },
         created() {

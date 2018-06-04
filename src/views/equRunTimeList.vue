@@ -65,7 +65,7 @@
                         station: '',
                         equSys: '',
                         equName: '',
-                        startTime: formatDate('', 4) +'-01 00:00:00',
+                        startTime: formatDate('', 4) + '-01 00:00:00',
                         endTime: formatDate('', 2) + ' 23:59:59'
                     }
                 },
@@ -119,7 +119,11 @@
             }
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getMonthRunningTimeListFn(this.isReq);
-            this.getEquNameFn({ 'line': this.isReq.line });
+            if(this.equKey || this.equKey == 0) {
+                this.getEquNameFn({ 'line': this.isReq.line, 'equSys': this.equKey });
+            } else {
+                this.getEquNameFn({ 'line': this.isReq.line });
+            }
         },
         methods: {
             ...mapActions(['_getList']),

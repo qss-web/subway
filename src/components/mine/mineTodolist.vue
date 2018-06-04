@@ -207,7 +207,7 @@
                         plotOptions: {
                             column: {
                                 dataLabels: {
-                                    format: '{y}台',
+                                    format: '{y}条',
                                     enabled: true,
                                     align: 'center',
                                     borderWidth: 0,
@@ -240,7 +240,7 @@
                             text: `<div class="chart-title device-failure">
                                     <span>当前设备故障</span><br />
                                     <span class="count">`+ this.backlogInfo.faultInfo.total + `</span>
-                                    <span class="unit">台</span>
+                                    <span class="unit">条</span>
                                 </div>` // 指定图表标题
                         },
                         // 数据列
@@ -292,7 +292,7 @@
                         tooltip: {
                             ...this.option.tooltip,
                             headerFormat: '当前设备故障<br />',
-                            pointFormat: '{point.name}{point.y}台'
+                            pointFormat: '{point.name}{point.y}条'
                         }
                     }
                 };
