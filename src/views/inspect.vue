@@ -130,7 +130,8 @@
                 getEquNameArr: [],
                 isReq: {},
                 isPop: false,
-                powerControl: []
+                powerControl: [],
+                equKey: ''
             };
         },
         computed: {

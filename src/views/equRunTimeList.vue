@@ -120,7 +120,7 @@
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getMonthRunningTimeListFn(this.isReq);
             if(this.equKey || this.equKey == 0) {
-                this.getEquNameFn({ 'line': this.isReq.line, 'equSys': this.equKey });
+                this.getEquNameFn({ 'line': this.isReq.line, 'equSys': this.equKey.toString() });
             } else {
                 this.getEquNameFn({ 'line': this.isReq.line });
             }
