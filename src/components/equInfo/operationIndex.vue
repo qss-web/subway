@@ -66,7 +66,7 @@
                 style: {
                     color: '#63869e',
                     fontSize: '0.2rem',
-                    font: '0.28rem'
+                    font: '0.22rem'
                 },
                 test2: [{
                     y: 360,

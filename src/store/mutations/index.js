@@ -1,9 +1,14 @@
-import { setLoc, setSen } from '../../utils';
+import { setLoc, setSen, clearKey } from '../../utils';
 export default {
   //登录
   _userInfo(state, userInfo) {
     setLoc('userInfo', userInfo);
     state.userInfo = userInfo;
+  },
+  //退出登陆
+  _clearLogin(state) {
+    state.userInfo = '';
+    clearKey('userInfo', 'l');
   },
   //设备详情信息
   _equInfo(state, equInfo) {

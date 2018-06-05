@@ -51,7 +51,7 @@
                     plotOptions: {
                         solidgauge: {
                             dataLabels: {
-                                y: -18,
+                                y: -16,
                                 borderWidth: 0,
                                 useHTML: true
                             }

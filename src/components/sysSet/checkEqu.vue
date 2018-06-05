@@ -167,7 +167,7 @@
                     callback: () => {
                         this.$message.success('保存成功！');
                         this.isShowPop = false;
-                        this.getEquConfigListFn();
+                        this.getEquConfigListFn(this.isReq);
                     }
                 });
             },

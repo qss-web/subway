@@ -7,6 +7,7 @@
             <router-link v-if="mine" tag="button" to="mine"><img src="~assets/header/icon_mine.png" /></router-link>
             <button v-if="search" v-on:click="searchFn"><img src="~assets/header/icon_search.png" /></button>
             <button v-if="set" v-on:click="setupFn"><img src="~assets/header/icon_setting.png" /></button>
+            <button v-on:click="logoutFn"><img src="~assets/header/icon_logout.png" /></button>
         </div>
     </div>
 </template>
@@ -48,7 +49,7 @@
         },
         methods: {
             ...mapActions(['_getInfo']),
-            ...mapMutations(['_menuList', '_setSearchVal']),
+            ...mapMutations(['_menuList', '_setSearchVal', '_clearLogin']),
             setupFn() {
                 this._getInfo({
                     ops: {},
@@ -62,6 +63,19 @@
             searchFn() {
                 this._setSearchVal('');
                 this.$router.push('/search');
+            },
+            logoutFn() {
+                this.$confirm('确定要退出系统？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'info',
+                    closeOnClickModal: false
+                }).then(() => {
+                    this._clearLogin();
+                    this.$router.push('/login');
+                }).catch(() => {
+
+                });
             }
         }
     };

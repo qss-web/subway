@@ -5,7 +5,7 @@
             <dl class="middleKey">
                 <dt class="clearfix">
                     <a href="javascript:;" v-on:click="addFn">添加</a>
-                    <a href="javascript:;">重新启动Tomcat</a>
+                    <!-- <a href="javascript:;">重新启动Tomcat</a> -->
                 </dt>
                 <dd>
                     <v-system-list v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
@@ -26,8 +26,8 @@
                         <el-checkbox @change="handleCheckedChange(item)" v-for="(item, index) in checkListShow[1]" v-bind:label="item.code">{{item.name}}</el-checkbox>
                     </el-checkbox-group>
                 </dd>
-                <dt>离线功能组</dt>
-                <dd>
+                <dt style="display: none">离线功能组</dt>
+                <dd style="display: none">
                     <el-checkbox-group v-model="checkList">
                         <el-checkbox @change="handleCheckedChange(item)" v-for="(item, index) in checkListShow[2]" v-bind:label="item.code">{{item.name}}</el-checkbox>
                     </el-checkbox-group>
@@ -130,7 +130,7 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
-            ...mapMutations(['_itemObj','_currentIndex']),
+            ...mapMutations(['_itemObj', '_currentIndex']),
             //显示弹出框
             addFn() {
                 this._itemObj('');
@@ -210,7 +210,8 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
-                this._currentIndex(ops)
+
+                this._currentIndex(ops);
 
                 this._getList({
                     ops: ops,

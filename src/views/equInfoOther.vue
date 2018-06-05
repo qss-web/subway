@@ -95,6 +95,7 @@
                             <span>数量</span>
                             <span>制造厂</span>
                             <span>备注</span>
+                            <span>操作</span>
                         </dt>
                         <dd class="flex" v-if="info.deviceParts" v-for="(item,index) in info.deviceParts">
                             <!--名称-->
@@ -109,6 +110,7 @@
                             <span>{{item.devicePartFactory}}</span>
                             <!--备注-->
                             <span>{{item.remark}}</span>
+                            <span><a href="javascript:;" v-on:click="deletelFn(index)">删除</a></span>
                         </dd>
                         <dd v-if="!info.deviceParts" style=" text-align: center; min-height: 0.32rem; line-height: 0.32rem;">暂无数据</dd>
                     </dl>
@@ -274,6 +276,11 @@
             //关闭弹出框
             cancleFn(value) {
                 this.isShowPop = value;
+            },
+            //删除列表
+            deletelFn(index) {
+                this.resInfo.deviceParts.splice(index, 1);
+                this.$message.success('删除成功,请保存！');
             }
         }
     };
@@ -424,6 +431,17 @@
             }
             dd:nth-child(2n) {
                 background: #e4e8f7;
+            }
+            dd {
+                a {
+                    min-width: 0.28rem;
+                    line-height: 0.22rem;
+                    display: inline-block;
+                    background: #7c8298;
+                    color: #fff;
+                    font-size: 0.14rem;
+                    padding: 0 0.1rem;
+                }
             }
         }
         .rightShow {

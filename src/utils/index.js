@@ -76,12 +76,14 @@ export function getLoc(k) {
   return uu;
 }
 
-//clear session
-export function clearKey(k) {
+// 清除浏览器内存数据 @k 需求清除内存字段的键名 @m 指定需要清除的存储空间 有两个值's'或者'l';没有k值则清除内存数据
+export function clearKey(k, m) {
+  m = m || 's';
   if (k) {
-    sessionStorage.removeItem(k);
+    m == 'l' ? localStorage.removeItem(k) : sessionStorage.removeItem(k);
   } else {
     sessionStorage.clear();
+    localStorage.clear();
   }
 }
 

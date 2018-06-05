@@ -62,7 +62,7 @@
                 style: {
                     color: '#63869e',
                     fontSize: '0.2rem',
-                    font: '0.28rem'
+                    font: '0.22rem'
                 },
                 otherInfo: {
                     isCheck: false, //是否显示多选框
@@ -160,7 +160,7 @@
             }
             .data {
                 min-height: 2.3rem;
-                line-height: 1.75rem;
+                line-height: 2.3rem;
             }
             .title {
                 color: #63869e;
