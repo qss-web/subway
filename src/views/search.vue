@@ -54,32 +54,32 @@
             <v-search-list v-on:ids="getIdsFn" v-if="!subOther " v-bind:label="equLabe4 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
         </div>
         <div v-if="indexed == 1" class="pagination">
-            <el-pagination :page-size=" pageSize01 " @current-change="changePages01" layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size=" pageSize01" @current-change="changePages01" :current-page="currentPage01" layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage01}}/{{totalPage01}}</span>
             </el-pagination>
         </div>
         <div v-if="indexed == 2" class="pagination">
-            <el-pagination :page-size=" pageSize02 " @current-change="changePages02" layout="prev, slot, next " :total="pageNumber02" prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size=" pageSize02 " @current-change="changePages02" :current-page="currentPage02" layout="prev, slot, next " :total="pageNumber02" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage02}}/{{totalPage02}}</span>
             </el-pagination>
         </div>
         <div v-if="indexed == 3" class="pagination">
-            <el-pagination :page-size=" pageSize03 " @current-change="changePages03" layout="prev, slot, next " :total="pageNumber03" prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size=" pageSize03 " @current-change="changePages03" :current-page="currentPage03" layout="prev, slot, next " :total="pageNumber03" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage03}}/{{totalPage03}}</span>
             </el-pagination>
         </div>
         <div v-if="indexed == 4" class="pagination5">
-            <el-pagination :page-size=" pageSize04 " @current-change="changePages04" layout="prev, slot, next " :total="pageNumber04" prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size=" pageSize04 " @current-change="changePages04" :current-page="currentPage04" layout="prev, slot, next " :total="pageNumber04" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage04}}/{{totalPage04}}</span>
             </el-pagination>
         </div>
         <div v-if="indexed == 5 && subOther" class="pagination">
-            <el-pagination :page-size=" pageSize05 " @current-change="changePages05" layout="prev, slot, next " :total="pageNumber05" prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size=" pageSize05 " @current-change="changePages05" :current-page="currentPage05" layout="prev, slot, next " :total="pageNumber05" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage05}}/{{totalPage05}}</span>
             </el-pagination>
         </div>
         <div v-if="indexed == 5 && !subOther" class="pagination">
-            <el-pagination :page-size=" pageSize06 " @current-change="changePages06" layout="prev, slot, next " :total="pageNumber06" prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size=" pageSize06 " @current-change="changePages06" :current-page="currentPage06" layout="prev, slot, next " :total="pageNumber06" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage06}}/{{totalPage06}}</span>
             </el-pagination>
         </div>
@@ -333,11 +333,14 @@
         watch: {
             searchVal() {
                 if(this.searchVal) {
+                    this.currentPage = 1;
                     this.queryInfo = this.searchVal;
                     this.queryCountFn(this.searchVal);
                     if(!this.subOther) {
+                        this.currentPage06 = 1;
                         this.queryFaultlibraryFn(this.searchVal);
                     } else {
+                        this['currentPage0' + this.indexed] = 1;
                         this['queryFn' + this.indexed](this.searchVal);
                     }
                 }

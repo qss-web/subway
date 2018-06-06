@@ -4,7 +4,7 @@
             <v-system-list v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
         </div>
         <div class=" pagination ">
-            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size=" pageSize " @current-change="changePages" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage}}/{{totalPage}}</span>
             </el-pagination>
         </div>
@@ -59,7 +59,7 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
-            ...mapMutations(['_itemObj', '_menuList','_currentIndex']),
+            ...mapMutations(['_itemObj', '_menuList', '_currentIndex']),
             //子组件按钮
             btnFn(val) {
                 this[val.fn](val.id, val.item);
@@ -110,6 +110,7 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+
                 this._currentIndex(ops);
 
                 this._getList({

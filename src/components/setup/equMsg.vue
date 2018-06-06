@@ -6,7 +6,7 @@
         <div class="tab">
             <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo1" v-bind:label="info1" v-bind:list="equList" v-on:receive="clickFn"></v-search-list>
             <div class=" pagination ">
-                <el-pagination :page-size=" pageSize" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                <el-pagination :page-size=" pageSize" @current-change="changePages" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}}/{{pageTotal}}</span>
                 </el-pagination>
             </div>
@@ -256,6 +256,7 @@
             },
             //搜索的传值
             fifterBtnFn(req) {
+                this.currentPage = 1;
                 this.isReq = req;
                 this.infoListFn(req);
             },

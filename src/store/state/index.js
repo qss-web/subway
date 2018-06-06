@@ -1,4 +1,4 @@
-import { getLoc, getSen } from '../../utils';
+import { getSen } from '../../utils';
 /*
  * 参数说明:
  * @userInfo 用户信息
@@ -19,7 +19,7 @@ import { getLoc, getSen } from '../../utils';
  *
  */
 
-const userInfo = getLoc('userInfo') || '';
+const userInfo = getSen('userInfo') || '';
 
 export default {
   userInfo: userInfo,
@@ -31,10 +31,12 @@ export default {
   equNameList: [],
   currentIndex: getSen('currentIndex') || {},
   menuList: getSen('menuList') || [],
-  isPowerShow: getLoc('isPowerShow') || {},
+  isPowerShow: getSen('isPowerShow') || {},
   setStations: getSen('setStations') || [],
   setLines: getSen('setLines') || [],
   setDeviceType: getSen('setDeviceType') || [],
   searchVal: getSen('searchVal') || '',
-  isTimeOut: true
+  isTimeOut: true,
+  //checkMark: getSen('checkMark') || ''
+  checkMark: ''
 };

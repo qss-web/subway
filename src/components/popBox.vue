@@ -67,6 +67,10 @@
                                 <el-radio v-model="popReq[item.val]" label="0">否</el-radio>
                             </div>
                         </li>
+                        <li v-if="item.status == 8" class="popBox">
+                            <span>{{item.title}}：</span>
+                            <el-date-picker v-model="popReq[item.val]" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
+                        </li>
                     </ul>
                 </div>
                 <dl class="setPower" v-if="popData.isSetPower">

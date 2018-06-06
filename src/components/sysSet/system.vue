@@ -12,7 +12,7 @@
                 </dd>
             </dl>
             <div class=" pagination ">
-                <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                <el-pagination :page-size=" pageSize " @current-change="changePages" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}}/{{totalPage}}</span>
                 </el-pagination>
             </div>

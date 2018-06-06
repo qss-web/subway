@@ -42,7 +42,7 @@
                             <div v-show="!activeIndex">
                                 <v-search-list :other="alarmTable.other " :label="alarmTable.label " :list="alarmTable.list "></v-search-list>
                                 <div class=" pagination ">
-                                    <el-pagination :page-size=" pageSize01 " @current-change="changePages01 " layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
+                                    <el-pagination :page-size=" pageSize01 " @current-change="changePages01" :current-page="currentPage01" layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
                                         <span>{{currentPage01}}/{{totalPage01}}</span>
                                     </el-pagination>
                                 </div>
@@ -50,7 +50,7 @@
                             <div v-show="activeIndex">
                                 <v-search-list v-on:receive="warnChartFn" :other="testTable.other " :label="testTable.label " :list="testTable.list "></v-search-list>
                                 <div class=" pagination ">
-                                    <el-pagination :page-size=" pageSize02 " @current-change="changePages02 " layout="prev, slot, next " :total="pageNumber02" prev-text="上一页 " next-text="下一页 ">
+                                    <el-pagination :page-size=" pageSize02 " @current-change="changePages02" :current-page="currentPage02" layout="prev, slot, next " :total="pageNumber02" prev-text="上一页 " next-text="下一页 ">
                                         <span>{{currentPage02}}/{{totalPage02}}</span>
                                     </el-pagination>
                                 </div>

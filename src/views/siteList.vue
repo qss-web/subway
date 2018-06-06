@@ -18,7 +18,7 @@
                 </ul>
                 <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
                 <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                    <el-pagination :page-size=" pageSize " @current-change="changePages " :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
                     </el-pagination>
                 </div>
@@ -75,7 +75,8 @@
                     isCheck: true, //是否显示多选框
                     style: 2,
                     goToNextFn: 'goToNextPage', //跳转方法设置字段
-                    pouuid: true
+                    pouuid: true,
+                    isSetCheckMark: true  //是否要记录已经选中的值
                 },
                 info1: [{
                     'label': '序号',
@@ -131,11 +132,12 @@
                 isReq: {},
                 alarmVal: '',//预警状态
                 ids: '',
-                timeOut: ''
+                timeOut: '',
+                checkNewArr: []
             };
         },
         computed: {
-            ...mapState(['itemObj'])
+            ...mapState(['itemObj', 'checkMark'])
         },
         created() {
             if(this.timeOut) {
@@ -150,7 +152,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_equNameList', '_currentIndex', '_deviceInfo']),
+            ...mapMutations(['_equNameList', '_currentIndex', '_deviceInfo', '_setCheckMark']),
             btnsFn(fn) {
                 this[fn]();
             },
@@ -180,7 +182,11 @@
             },
             //改变当前页数
             changePages(val) {
+                this._setCheckMark('');
                 this.currentPage = val;
+                if(this.timeOut) {
+                    clearTimeout(this.timeOut);
+                }
                 this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
             },
             //子组件按钮
@@ -221,6 +227,14 @@
                     callback: res => {
                         res.rows.forEach(item => {
                             item.isCheck = false;
+                            if(this.checkMark) {
+                                this.checkNewArr = this.checkMark.split(',');
+                                this.checkNewArr.filter(item1 => {
+                                    if(item.pouuid == item1) {
+                                        item.isCheck = true;
+                                    }
+                                });
+                            }
                         });
                         this.equInfoCount = res.counts;
                         this.equTotal = 0;
@@ -232,13 +246,18 @@
                         this.pageNumber = res.records;
                         this.timeOut = setTimeout(() => {
                             this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
-                        }, 2000);
+                        }, 10000);
                     }
                 });
             },
             //获取筛选的值
             filterBtn(req) {
+                this.currentPage = 1;
+                this._setCheckMark('');
                 this.isReq = req;
+                if(this.timeOut) {
+                    clearTimeout(this.timeOut);
+                }
                 this.getPointTimelyStatusFn(req);
             },
             //获取设备名称
@@ -257,7 +276,11 @@
             },
             //二级筛选
             statusFilter(val) {
+                this._setCheckMark('');
                 this.alarmVal = val;
+                if(this.timeOut) {
+                    clearTimeout(this.timeOut);
+                }
                 this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
             }
         }

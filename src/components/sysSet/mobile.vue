@@ -7,7 +7,7 @@
             <v-system-list v-on:ids="getIdsFn" v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
         </div>
         <div class=" pagination ">
-            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size=" pageSize " @current-change="changePages" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage}}/{{totalPage}}</span>
             </el-pagination>
         </div>
@@ -85,7 +85,7 @@
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
-            ...mapMutations(['_itemObj','_currentIndex']),
+            ...mapMutations(['_itemObj', '_currentIndex']),
             //搜索按钮
             btnsFn(fn) {
                 this[fn]();
@@ -100,6 +100,7 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+
                 this._currentIndex(ops);
 
                 if(req) {
@@ -174,6 +175,7 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.currentPage = 1;
                 this.isReq = req;
                 this.getRoleListFn(req);
             }

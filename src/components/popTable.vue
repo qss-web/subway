@@ -2,13 +2,13 @@
     <div>
         <div class="mask"></div>
         <div class="popContent">
-            <v-sub-search style="padding: 0.1rem 0.2rem;" v-bind:searchData="searchData" v-on:filter="fifterBtnFn"></v-sub-search>
+            <v-sub-search style="padding: 0.1rem 0.2rem;" v-bind:searchData="searchData" v-on:filter="fifterBtnFn" v-on:getEquName="getEquNameFn"></v-sub-search>
             <div class="content">
                 <div class="subContent clearfix">
                     <v-search-list v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:ids="getIdsFn"></v-search-list>
                 </div>
                 <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                    <el-pagination :page-size=" pageSize " @current-change="changePages" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
                     </el-pagination>
                 </div>
@@ -21,7 +21,7 @@
     </div>
 </template>
 <script>
-    import { mapActions ,mapMutations} from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -43,7 +43,7 @@
                         'placeholder': '请选择内容',
                         'val': 'deviceTypeCode'
                     }, {
-                        'status': 1,
+                        'status': 6,
                         'title': '设备名称',
                         'placeholder': '请输入内容',
                         'val': 'deviceName'
@@ -80,7 +80,8 @@
                     'value': 'deviceName'
                 }],
                 equList: [],
-                isReq: {}
+                isReq: {},
+                getEquNameArr: []
             };
         },
         props: ['info'],
@@ -88,10 +89,11 @@
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             //获取车站列表
             this.getDevicePopListFn(this.isReq);
+            this.getEquNameFn();
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_currentIndex']),
+            ...mapMutations(['_currentIndex', '_equNameList']),
             onSubmit() {
                 this._getList({
                     ops: {
@@ -117,7 +119,8 @@
                     curPage: this.currentPage,
                     pageSize: this.pageSize
                 };
-                this._currentIndex({curPage: this.currentPage, pageSize: this.pageSize});
+
+                this._currentIndex({ curPage: this.currentPage, pageSize: this.pageSize });
 
                 if(req) {
                     Object.assign(ops, req);
@@ -138,6 +141,7 @@
             },
             //搜索的传值
             fifterBtnFn(req) {
+                this.currentPage = 1;
                 this.isReq = req;
                 this.getDevicePopListFn(req);
             },
@@ -148,6 +152,20 @@
             },
             getIdsFn(id) {
                 this.ids = id.substr(0, id.length - 1);
+            },
+            //获取设备名称
+            getEquNameFn(req) {
+                this._getList({
+                    ops: req,
+                    api: 'selectlist2',
+                    callback: res => {
+                        this.getEquNameArr = [];
+                        res.forEach(item => {
+                            this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                        });
+                        this._equNameList(this.getEquNameArr);
+                    }
+                });
             }
         }
     };

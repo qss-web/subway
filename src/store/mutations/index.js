@@ -1,14 +1,14 @@
-import { setLoc, setSen, clearKey } from '../../utils';
+import { setSen, clearKey } from '../../utils';
 export default {
   //登录
   _userInfo(state, userInfo) {
-    setLoc('userInfo', userInfo);
+    setSen('userInfo', userInfo);
     state.userInfo = userInfo;
   },
   //退出登陆
   _clearLogin(state) {
     state.userInfo = '';
-    clearKey('userInfo', 'l');
+    clearKey('userInfo', 'r');
   },
   //设备详情信息
   _equInfo(state, equInfo) {
@@ -51,7 +51,7 @@ export default {
   },
   //权限显示
   _isPowerShow(state, isPowerShow) {
-    setLoc('isPowerShow', isPowerShow);
+    setSen('isPowerShow', isPowerShow);
     state.isPowerShow = isPowerShow;
   },
   //车站列表
@@ -77,5 +77,9 @@ export default {
   //是否定时器
   _isTimeOut(state, isTimeOut) {
     state.isTimeOut = isTimeOut;
+  },
+  _setCheckMark(state, checkMark) {
+    // setSen('checkMark', checkMark);
+    state.checkMark = checkMark;
   }
 };

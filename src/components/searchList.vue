@@ -101,13 +101,18 @@
         },
         watch: {
             list() {
-                this.isAllCkeck = false;
+                if(this.numLength != this.listShow.length) {
+                    this.isAllCkeck = false;
+                } else {
+                    this.numLength = 0;
+                    this.isAllCkeck = true;
+                }
             }
         },
         created() {
         },
         methods: {
-            ...mapMutations(['_itemObj']),
+            ...mapMutations(['_itemObj', '_test', '_setCheckMark']),
             checkAllFn() {
                 this.listShow.forEach(item => {
                     if(this.isAllCkeck != item.isCheck) {
@@ -138,6 +143,11 @@
                         this.checkedValue += item.id + ',';
                     }
                 });
+                if(this.other.isSetCheckMark) {
+                    this._setCheckMark(this.checkedValue.substr(0, this.checkedValue.length - 1));
+                } else {
+                    this._setCheckMark('');
+                }
                 this.$emit('ids', this.checkedValue);
             },
             singleCheckFn(index) {
@@ -169,6 +179,11 @@
                         this.checkedValue += item.id + ',';
                     }
                 });
+                if(this.other.isSetCheckMark) {
+                    this._setCheckMark(this.checkedValue.substr(0, this.checkedValue.length - 1));
+                } else {
+                    this._setCheckMark('');
+                }
                 this.$emit('ids', this.checkedValue);
             },
             goToNextPage(fn, item) {

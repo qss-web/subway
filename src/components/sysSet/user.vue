@@ -7,7 +7,7 @@
             <v-system-list v-bind:label="info1" v-bind:list="equList" v-bind:other="otherInfo" v-on:receive="btnFn"></v-system-list>
         </div>
         <div class=" pagination ">
-            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size="pageSize" :current-page="currentPage" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage}}/{{totalPage}}</span>
             </el-pagination>
         </div>
@@ -30,16 +30,6 @@
                 popData1: {
                     'titleTotal': '新增用户',
                     'options': [{
-                        'status': 2,
-                        'title': '线路',
-                        'placeholder': '请选择线路',
-                        'val': 'lineId'
-                    }, {
-                        'status': 2,
-                        'title': '车站',
-                        'placeholder': '请选择车站',
-                        'val': 'stationId'
-                    }, {
                         'status': 1,
                         'title': '用户名',
                         'placeholder': '请输入用户名',
@@ -54,6 +44,11 @@
                         'title': '真实姓名',
                         'placeholder': '请输入真实姓名',
                         'val': 'name'
+                    }, {
+                        'status': 1,
+                        'title': '手机号码',
+                        'placeholder': '请输入手机号码',
+                        'val': 'mobile'
                     }, {
                         'status': 2,
                         'title': '所属角色',
@@ -86,10 +81,22 @@
                         'placeholder': '请输入所属维修部',
                         'val': 'maintainDepartmentName'
                     }, {
+                        'status': 2,
+                        'title': '车站',
+                        'placeholder': '请选择车站',
+                        'val': 'stationId'
+                    }, {
                         'status': 7,
                         'title': '显示系统设置',
                         'val': 'messageFlag'
-                    }]
+                    }
+                        //  {
+                        //     'status': 2,
+                        //     'title': '线路',
+                        //     'placeholder': '请选择线路',
+                        //     'val': 'lineId'
+                        // },
+                    ]
                 },
                 searchData: {
                     'btnShow': [
@@ -119,24 +126,28 @@
                     'width': 8,
                     'value': 'name'
                 }, {
+                    'label': '手机号码',
+                    'width': 9,
+                    'value': 'mobile'
+                }, {
                     'label': '所属角色',
                     'width': 8,
                     'value': 'roleName'
                 }, {
                     'label': 'E-mail',
-                    'width': 10,
+                    'width': 9,
                     'value': 'mail'
                 }, {
                     'label': '所属集团',
-                    'width': 10,
+                    'width': 9,
                     'value': 'groupName'
                 }, {
                     'label': '所属公司',
-                    'width': 10,
+                    'width': 9,
                     'value': 'companyName'
                 }, {
                     'label': '所属项目部',
-                    'width': 10,
+                    'width': 9,
                     'value': 'projectDepartmentName'
                 }, {
                     'label': '所属维修部',
@@ -144,7 +155,7 @@
                     'value': 'maintainDepartmentName'
                 }, {
                     'label': '操作',
-                    'width': 15,
+                    'width': 10,
                     'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
                 equList: [],
@@ -167,7 +178,8 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
-                this._currentIndex(ops)
+
+                this._currentIndex(ops);
 
                 if(req) {
                     Object.assign(ops, req);
@@ -222,12 +234,12 @@
             },
             //弹出框保存数据
             saveFn(req) {
+                this.isShowPop = false;
                 this._getList({
                     ops: req,
                     api: 'userAdd',
                     callback: () => {
                         this.$message.success('新增成功！');
-                        this.isShowPop = false;
                         this.getUserList();
                     }
                 });
@@ -238,6 +250,7 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.currentPage = 1;
                 this.isReq = req;
                 this.getUserList(req);
             },

@@ -18,7 +18,7 @@
                 </ul>
                 <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
                 <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                    <el-pagination :page-size=" pageSize " @current-change="changePages" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
                     </el-pagination>
                 </div>
@@ -80,7 +80,8 @@
                     isCheck: true, //是否显示多选框
                     style: 2, //列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
                     goToNextFn: 'goToNextPage', //跳转方法设置字段
-                    exportParam: true //这个字段前端用来判断导出的时候给后台传的字段是哪一个
+                    exportParam: true, //这个字段前端用来判断导出的时候给后台传的字段是哪一个
+                    isSetCheckMark: true  //是否要记录已经选中的值
                 },
                 info1: [{
                     'label': '序号',
@@ -122,11 +123,13 @@
                 isReq: {},
                 alarmVal: '',//预警状态
                 ids: '',
-                timeOut: ''
+                timeOut: '',
+                checkNewArr: []
+                // test: ['7b93ec3c0975ad43bbb431dba268123d', '3a2a3070d48cda6a889efd32b2d75de9']
             };
         },
         computed: {
-            ...mapState(['itemObj'])
+            ...mapState(['itemObj', 'checkMark'])
         },
         created() {
             if(this.timeOut) {
@@ -141,7 +144,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_equNameList', '_deviceInfo', '_currentIndex']),
+            ...mapMutations(['_equNameList', '_deviceInfo', '_currentIndex', '_setCheckMark']),
             btnsFn(fn) {
                 this[fn]();
             },
@@ -168,6 +171,7 @@
             },
             //改变当前页数
             changePages(val) {
+                this._setCheckMark('');
                 this.currentPage = val;
                 this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
             },
@@ -189,12 +193,22 @@
                 if(val) {
                     Object.assign(ops, { 'status': val });
                 }
+
+
                 this._getList({
                     ops: ops,
                     api: 'eqTimelyStatus',
                     callback: res => {
                         res.rows.forEach(item => {
                             item.isCheck = false;
+                            if(this.checkMark) {
+                                this.checkNewArr = this.checkMark.split(',');
+                                this.checkNewArr.filter(item1 => {
+                                    if(item.equuid == item1) {
+                                        item.isCheck = true;
+                                    }
+                                });
+                            }
                         });
                         this.equInfoCount = res.counts;
                         this.equTotal = 0;
@@ -212,6 +226,8 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.currentPage = 1;
+                this._setCheckMark('');
                 this.isReq = req;
                 this.getEqTimelyStatusFn(req);
             },
@@ -233,6 +249,7 @@
             },
             //二级筛选
             statusFilter(val) {
+                this._setCheckMark('');
                 this.alarmVal = val;
                 this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
             },

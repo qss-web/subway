@@ -19,12 +19,12 @@
             <v-search-list v-on:ids="getIdsFn" v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
             <v-search-list v-on:ids="getIdsFn" v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList01" v-on:receive="btnFn" v-bind:curPage="currentPage01"></v-search-list>
             <div class=" pagination " v-if="tabShow">
-                <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                <el-pagination :page-size=" pageSize " @current-change="changePages" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}} / {{totalPage}}</span>
                 </el-pagination>
             </div>
             <div class=" pagination " v-if="!tabShow">
-                <el-pagination :page-size=" pageSize01 " @current-change="changePages01 " layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
+                <el-pagination :page-size=" pageSize01 " @current-change="changePages01" :current-page="currentPage01" layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage01}} / {{totalPage01}}</span>
                 </el-pagination>
             </div>
@@ -276,6 +276,7 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.currentPage = 1;
                 this.isReq = req;
                 if(this.tabShow) {
                     this.getTimelyAlarmListFn(req);

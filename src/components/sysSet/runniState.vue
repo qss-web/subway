@@ -7,11 +7,11 @@
             <v-system-list v-on:ids="getIdsFn" v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
         </div>
         <div class=" pagination ">
-            <el-pagination :page-size=" pageSize " @current-change="changePages " layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+            <el-pagination :page-size=" pageSize " :current-page="currentPage" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage}}/{{totalPage}}</span>
             </el-pagination>
         </div>
-        <v-pop-box v-on:getEquName="getEquNameFn" v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
+        <v-pop-box v-on:getEquName="getEquNameFnPop" v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
     </div>
 </template>
 <script>
@@ -51,7 +51,7 @@
                         'placeholder': '请选择内容',
                         'val': 'equuid'
                     }, {
-                        'status': 5,
+                        'status': 8,
                         'title': '时间',
                         'placeholder': '请选择时间',
                         'val': 'dateTime'
@@ -62,10 +62,10 @@
                         'val': 'status',
                         'list': [{
                             value: '1',
-                            label: '开启'
+                            label: '运行'
                         }, {
                             value: '0',
-                            label: '关闭'
+                            label: '停止'
                         }]
                     }]
                 },
@@ -192,6 +192,7 @@
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
                 };
+
                 this._currentIndex(ops);
 
                 if(req) {
@@ -217,6 +218,7 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.currentPage = 1;
                 this.isReq = req;
                 this.getEquRunTimeListFn(req);
             },
@@ -267,7 +269,7 @@
             //增加用户操作
             addFn() {
                 this._itemObj('');
-                this.getEquNameFn();
+                this.getEquNameFnPop();
                 this.isShowPop = true;
             },
             //删除操作
@@ -283,6 +285,20 @@
             },
             //获取设备名称
             getEquNameFn(req) {
+                this._getList({
+                    ops: req,
+                    api: 'selectlist2',
+                    callback: res => {
+                        this.getEquNameArr = [];
+                        res.forEach(item => {
+                            this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.deviceUuid });
+                        });
+                        this._equNameList(this.getEquNameArr);
+                    }
+                });
+            },
+            //获取设备名称
+            getEquNameFnPop(req) {
                 this._getList({
                     ops: req,
                     api: 'selectlist3',
