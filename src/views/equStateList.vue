@@ -123,7 +123,7 @@
                 isReq: {},
                 alarmVal: '',//预警状态
                 ids: '',
-                timeOut: '',
+                // timeOut: '',
                 checkNewArr: []
                 // test: ['7b93ec3c0975ad43bbb431dba268123d', '3a2a3070d48cda6a889efd32b2d75de9']
             };
@@ -132,15 +132,15 @@
             ...mapState(['itemObj', 'checkMark'])
         },
         created() {
-            if(this.timeOut) {
-                clearTimeout(this.timeOut);
+            if(window.timeOut) {
+                clearTimeout(window.timeOut);
             }
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getEqTimelyStatusFn(this.isReq);
             this.getEquNameFn({ 'line': this.isReq.line });
         },
         destroyed() {
-            clearTimeout(this.timeOut);
+            clearTimeout(window.timeOut);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -176,8 +176,8 @@
                 this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
             },
             getEqTimelyStatusFn(req, val) {
-                if(this.timeOut) {
-                    clearTimeout(this.timeOut);
+                if(window.timeOut) {
+                    clearTimeout(window.timeOut);
                 }
                 const ops = {
                     'curPage': this.currentPage,
@@ -218,7 +218,7 @@
                         this.equList = res.rows;
                         this.totalPage = res.total;
                         this.pageNumber = res.records;
-                        this.timeOut = setTimeout(() => {
+                        window.timeOut = setTimeout(() => {
                             this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
                         }, 2000);
                     }
@@ -249,6 +249,7 @@
             },
             //二级筛选
             statusFilter(val) {
+                this.currentPage = 1;
                 this._setCheckMark('');
                 this.alarmVal = val;
                 this.getEqTimelyStatusFn(this.isReq, this.alarmVal);

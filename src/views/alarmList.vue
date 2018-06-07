@@ -300,6 +300,7 @@
             },
             //二级筛选
             statusFilter(val) {
+                this.currentPage = 1;
                 this.alarmVal = val;
                 if(this.tabShow) {
                     this.getTimelyAlarmListFn(this.isReq, val);

@@ -7,7 +7,7 @@
 
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -124,6 +124,7 @@
                                 cursor: 'pointer',
                                 events: {
                                     click: (event) => {
+                                        this._itemObj('');
                                         if(event.point.index == 0) {
                                             //自动扶梯
                                             this.$router.push({ path: 'alarmListDay', query: { 'equKey': '7' } });
@@ -400,6 +401,7 @@
         },
         methods: {
             ...mapActions(['_getInfo']),
+            ...mapMutations(['_itemObj']),
             getBacklogInfoFn() {
                 this._getInfo({
                     ops: {},

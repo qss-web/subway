@@ -18,7 +18,7 @@
             </div>
         </div>
         <v-goback></v-goback>
-        <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn"></v-maintenance-sheet>
+        <v-maintenance-sheet v-if="isPop" v-bind:isShow="isShowSave" v-on:isPop="isPopFn"></v-maintenance-sheet>
     </div>
 </template>
 
@@ -28,6 +28,7 @@
     export default {
         data() {
             return {
+                isShowSave: true,
                 currentPage: 1, //当前页数
                 pageSize: 11, //每页显示数量
                 totalPage: 0,//总页数
@@ -239,8 +240,7 @@
                 }
                 //编辑
                 if(!this.powerControl[3].flag) {
-                    this.info2.pop();
-                    this.info1.pop();
+                    this.isShowSave = false;
                 }
             }
         },

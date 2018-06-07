@@ -132,7 +132,6 @@
                 isReq: {},
                 alarmVal: '',//预警状态
                 ids: '',
-                timeOut: '',
                 checkNewArr: []
             };
         },
@@ -140,15 +139,15 @@
             ...mapState(['itemObj', 'checkMark'])
         },
         created() {
-            if(this.timeOut) {
-                clearTimeout(this.timeOut);
+            if(window.timeOut) {
+                clearTimeout(window.timeOut);
             }
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getPointTimelyStatusFn(this.isReq);
             this.getEquNameFn({ 'line': this.isReq.line });
         },
         destroyed() {
-            clearTimeout(this.timeOut);
+            clearTimeout(window.timeOut);
         },
         methods: {
             ...mapActions(['_getList']),
@@ -184,9 +183,6 @@
             changePages(val) {
                 this._setCheckMark('');
                 this.currentPage = val;
-                if(this.timeOut) {
-                    clearTimeout(this.timeOut);
-                }
                 this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
             },
             //子组件按钮
@@ -205,8 +201,8 @@
                 }
             },
             getPointTimelyStatusFn(req, val) {
-                if(this.timeOut) {
-                    clearTimeout(this.timeOut);
+                if(window.timeOut) {
+                    clearTimeout(window.timeOut);
                 }
                 const ops = {
                     'curPage': this.currentPage,
@@ -244,9 +240,9 @@
                         this.equList = res.rows;
                         this.totalPage = res.total;
                         this.pageNumber = res.records;
-                        this.timeOut = setTimeout(() => {
+                        window.timeOut = setTimeout(() => {
                             this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
-                        }, 10000);
+                        }, 2000);
                     }
                 });
             },
@@ -255,9 +251,6 @@
                 this.currentPage = 1;
                 this._setCheckMark('');
                 this.isReq = req;
-                if(this.timeOut) {
-                    clearTimeout(this.timeOut);
-                }
                 this.getPointTimelyStatusFn(req);
             },
             //获取设备名称
@@ -276,11 +269,9 @@
             },
             //二级筛选
             statusFilter(val) {
+                this.currentPage = 1;
                 this._setCheckMark('');
                 this.alarmVal = val;
-                if(this.timeOut) {
-                    clearTimeout(this.timeOut);
-                }
                 this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
             }
         }

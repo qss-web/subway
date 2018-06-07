@@ -5,7 +5,7 @@
         </div>
         <div class="tab">
             <ul class="title">
-                <li class="active">预警信息</li>
+                <li class="active">事件信息</li>
                 <dl v-if="itemObj.equuid" class="notice flex">
                     <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
                     <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
@@ -98,7 +98,7 @@
                     'value': 'index'
                 }, {
                     'label': '车站',
-                    'width': 18,
+                    'width': 15,
                     'value': 'station'
                 }, {
                     'label': '设备名称',
@@ -106,10 +106,10 @@
                     'value': 'equName'
                 }, {
                     'label': '时间',
-                    'width': 13,
+                    'width': 15,
                     'value': 'time'
                 }, {
-                    'label': '预警事件',
+                    'label': '事件描述',
                     'width': 25,
                     'value': 'alarmEvent'
                 }, {
@@ -284,6 +284,7 @@
             },
             //二级筛选
             statusFilter(val) {
+                this.currentPage = 1;
                 this.alarmVal = val;
                 if(this.itemObj.equuid) {
                     this.getHaveTimelyAlarmListFn(this.isReq, this.alarmVal);

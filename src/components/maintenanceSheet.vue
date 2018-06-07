@@ -100,7 +100,7 @@
                 </div>
             </div>
             <div class="btnPrint">
-                <button v-on:click="onSubmit">保存</button>
+                <button v-on:click="onSubmit" v-if="isShow">保存</button>
                 <button v-on:click="printFn">打印</button>
             </div>
         </div>
@@ -120,6 +120,7 @@
         created() {
             this.goDetail();
         },
+        props: ['isShow'],
         computed: {
             ...mapState(['itemObj'])
         },

@@ -11,6 +11,9 @@ const router = new VueRouter({
 
 // 路由拦截
 router.beforeEach(function(to, from, next) {
+  debugger;
+  clearTimeout(window.timeOut);
+
   const userInfo = getLoc('userInfo') || getSen('userInfo') || '';
   var control = [];
 

@@ -83,7 +83,7 @@
                 <span>{{currentPage06}}/{{totalPage06}}</span>
             </el-pagination>
         </div>
-        <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn"></v-maintenance-sheet>
+        <v-maintenance-sheet v-if="isPop" v-bind:isShow="false" v-on:isPop="isPopFn"></v-maintenance-sheet>
         <!-- <v-maintenance-sheet v-on:isPop="isPopFn"></v-maintenance-sheet> -->
     </div>
 </template>

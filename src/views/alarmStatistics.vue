@@ -237,6 +237,7 @@
             },
             //二级筛选
             statusFilter(val) {
+                this.currentPage = 1;
                 this.alarmVal = val;
                 this.getTodayAlarmFn(this.isReq, this.alarmVal);
             },

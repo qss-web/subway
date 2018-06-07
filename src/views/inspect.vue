@@ -14,7 +14,7 @@
             </div>
         </div>
         <v-goback></v-goback>
-        <v-maintenance-sheet v-if="isPop" v-on:isPop="isPopFn"></v-maintenance-sheet>
+        <v-maintenance-sheet v-if="isPop" v-bind:isShow="false" v-on:isPop="isPopFn"></v-maintenance-sheet>
         <span class="g-titleName">今日巡检比例</span>
     </div>
 </template>
