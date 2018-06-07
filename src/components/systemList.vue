@@ -39,11 +39,23 @@
                 receiveValue: {}
             };
         },
-        props: ['list', 'label', 'other'],
+        props: ['list', 'label', 'other', 'curPage'],
         computed: {
             ...mapState(['currentIndex']),
             listShow() {
                 return this.list;
+            }
+        },
+        watch: {
+            list() {
+                if(this.numLength == this.listShow.length && this.numLength != 0) {
+                    this.isAllCkeck = true;
+                } else {
+                    this.isAllCkeck = false;
+                }
+            },
+            curPage() {
+                this.numLength = 0;
             }
         },
         created() { },

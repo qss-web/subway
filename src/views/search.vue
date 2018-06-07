@@ -28,9 +28,9 @@
                 <img v-if="indexed==5" src="../assets/search/sort05_orange.png" />
             </dd>
         </dl>
-        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list" v-on:receive="clickFn"></v-search-list>
-        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="list"></v-search-list>
-        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==3" v-on:receive="clickFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list"></v-search-list>
+        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list" v-on:receive="clickFn" v-bind:curPage="currentPage01"></v-search-list>
+        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="list" v-bind:curPage="currentPage02"></v-search-list>
+        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==3" v-on:receive="clickFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list" v-bind:curPage="currentPage03"></v-search-list>
         <div class="showPic" v-if="indexed==4">
             <img class="border-bg" src="../assets/other/footer-border.png" />
             <ul class="flex minHeight">
@@ -38,8 +38,8 @@
                     <img v-bind:src="item.url" />
                     <p>
                         <span style="display: inline-block; width: 0.24rem; height: 0.24rem; cursor: pointer" v-on:click="singleCheckFn(item)">
-                        <img style="width: 0.24rem; height: 0.24rem;" v-if="!item.isCheck" src="../assets/search/check.png" />
-                        <img style="width: 0.24rem; height: 0.24rem;" v-if="item.isCheck" src="../assets/search/checked.png" />
+                            <img style="width: 0.24rem; height: 0.24rem;" v-if="!item.isCheck" src="../assets/search/check.png" />
+                            <img style="width: 0.24rem; height: 0.24rem;" v-if="item.isCheck" src="../assets/search/checked.png" />
                         </span> {{item.name}}
                     </p>
                 </li>
@@ -50,8 +50,8 @@
                 <li v-on:click="otherFn(true)" v-bind:class="{active:subOther==true}">巡视巡检</li>
                 <li v-on:click="otherFn(false)" v-bind:class="{active:subOther==false}">故障库</li>
             </ul>
-            <v-search-list v-on:ids="getIdsFn" v-if="subOther " v-bind:label="equLabe5 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
-            <v-search-list v-on:ids="getIdsFn" v-if="!subOther " v-bind:label="equLabe4 " v-bind:other="otherInfo " v-bind:list="list"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="subOther " v-bind:label="equLabe5" v-bind:other="otherInfo" v-bind:list="list" v-bind:curPage="currentPage05"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="!subOther " v-bind:label="equLabe4" v-bind:other="otherInfo" v-bind:list="list" v-bind:curPage="currentPage06"></v-search-list>
         </div>
         <div v-if="indexed == 1" class="pagination">
             <el-pagination :page-size=" pageSize01" @current-change="changePages01" :current-page="currentPage01" layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
@@ -189,19 +189,19 @@
                     'value': 'station'
                 }, {
                     'label': '设备名称',
-                    'width': 21,
+                    'width': 20,
                     'value': 'equName'
                 }, {
                     'label': '时间',
-                    'width': 15,
+                    'width': 20,
                     'value': 'time'
                 }, {
                     'label': '预警事件',
-                    'width': 15,
+                    'width': 25,
                     'value': 'alarmEvent'
                 }, {
                     'label': '状态',
-                    'width': 10,
+                    'width': 15,
                     'value': 'statusValue'
                 }],
                 equLabe3: [{
@@ -362,7 +362,7 @@
             ...mapMutations(['_equInfo', '_currentIndex']),
             //图片的多选框
             singleCheckFn(item) {
-                item.isCheck = true;
+                item.isCheck = !item.isCheck;
             },
             //获取多选框选中的ids
             getIdsFn(id) {

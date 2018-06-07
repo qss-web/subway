@@ -160,6 +160,7 @@
             },
             //选项卡
             isRoleFn(val) {
+                this.currentPage = 1;
                 this.isRole = val;
                 if(val) {
                     this.getRoleListFn(this.isReq);
@@ -213,11 +214,13 @@
                 });
             },
             roleFn(index, id) {
+                this.currentPage = 1;
                 this.roleTelId = id;
                 this.roleIndex = index;
                 this.getDeviceListFn(this.isReq);
             },
             telFn(index, id) {
+                this.currentPage = 1;
                 this.roleTelId = id;
                 this.telIndex = index;
                 this.getDeviceListFn(this.isReq);

@@ -101,12 +101,14 @@
         },
         watch: {
             list() {
-                if(this.numLength != this.listShow.length) {
-                    this.isAllCkeck = false;
-                } else {
-                    this.numLength = 0;
+                if(this.numLength == this.listShow.length && this.numLength != 0) {
                     this.isAllCkeck = true;
+                } else {
+                    this.isAllCkeck = false;
                 }
+            },
+            curPage() {
+                this.numLength = 0;
             }
         },
         created() {
