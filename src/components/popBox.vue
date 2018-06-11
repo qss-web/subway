@@ -13,13 +13,13 @@
                         <li v-if="item.status == 2">
                             <span>{{item.title}}：</span>
                             <!-- 判断是不是车站的列表，如果是车站列表，数据直接在子组件请求 -->
-                            <el-select class="popBox" v-if="item.val == 'stationId' || item.val == 'deviceInStationId' || item.val == 'stationId'" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                            <el-select class="popBox" v-if="item.val == 'station' || item.val == 'deviceInStationId' || item.val == 'stationId'" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                                 <!-- <el-option key="" label="全部" value=""></el-option> -->
                                 <el-option v-for="itemSel in setStations" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
                             </el-select>
                             <!-- 判断是不是线路列表，如果是线路列表，数据直接在子组件请求 -->
-                            <el-select class="popBox" v-else-if="item.val == 'lineId' || item.val == 'deviceInLineId'" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                            <el-select class="popBox" v-else-if="item.val == 'lineId' || item.val == 'line' || item.val == 'deviceInLineId'" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
                                 <!-- <el-option key="" label="全部" value=""></el-option> -->
                                 <el-option v-for="itemSel in setLines" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>
@@ -54,7 +54,7 @@
                         </li>
                         <li v-if="item.status == 6" class="popBox">
                             <span>{{item.title}}：</span>
-                            <el-select filterable remote :remote-method="remoteMethod" :loading="loading" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini" v-on:change="changeOps">
+                            <el-select filterable remote :remote-method="remoteMethod" :loading="loading" v-model="popReq[item.val]" v-bind:placeholder="item.placeholder" size="mini">
                                 <el-option key="" label="全部" value=""></el-option>
                                 <el-option v-for="itemSel in optionsShow" :key="itemSel.value" :label="itemSel.label" :value="itemSel.value">
                                 </el-option>

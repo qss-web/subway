@@ -15,7 +15,7 @@
     </div>
 </template>
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -34,27 +34,27 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'deviceInLineId'
+                        'val': 'line'
                     }, {
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'deviceInStationId'
+                        'val': 'station'
                     }, {
                         'status': 2,
                         'title': '设备系统',
                         'placeholder': '请选择内容',
-                        'val': 'deviceTypeCode'
+                        'val': 'equSys'
                     }, {
                         'status': 6,
                         'title': '设备名称',
                         'placeholder': '请选择内容',
-                        'val': 'equuid'
+                        'val': 'equUuid'
                     }, {
                         'status': 8,
                         'title': '时间',
                         'placeholder': '请选择时间',
-                        'val': 'dateTime'
+                        'val': 'systemTime'
                     }, {
                         'status': 2,
                         'title': '状态',
@@ -152,6 +152,9 @@
                 ids: ''
             };
         },
+        computed: {
+            ...mapState(['setStations', 'setLines', 'setDeviceType'])
+        },
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getEquRunTimeListFn(this.isReq);
@@ -226,39 +229,68 @@
                 this.isShowPop = false;
             },
             saveFn(req) {
-                // if(!req.deviceInLineId) {
-                //     this.$message.error('请选择线路！');
-                //     return false;
-                // }
-                // if(!req.deviceInStationId) {
-                //     this.$message.error('请选择车站！');
-                //     return false;
-                // }
-                // if(!req.deviceTypeCode) {
-                //     this.$message.error('请选择设备系统！');
-                //     return false;
-                // }
-                // if(!req.equuid) {
-                //     this.$message.error('请选择设备名称！');
-                //     return false;
-                // }
-                // if(!req.dateTime) {
-                //     this.$message.error('请选择时间！');
-                //     return false;
-                // }
-                // if(!req.status) {
-                //     this.$message.error('请选择状态！');
-                //     return false;
-                // }
+                //线路
+                this.setLines.forEach(item => {
+                    if(item.value == req.line) {
+                        req.lineName = item.label;
+                    }
+                });
+
+                //车站
+                this.setStations.forEach(item => {
+                    if(item.value == req.station) {
+                        req.stationName = item.label;
+                    }
+                });
+
+                //设备系统
+                this.setDeviceType.forEach(item => {
+                    if(item.value == req.equSys) {
+                        req.equSysName = item.label;
+                    }
+                });
+
+                //设备名称
+                this.getEquNameArr.forEach(item => {
+                    if(item.value == req.equUuid) {
+                        req.equName = item.label;
+                    }
+                });
+
+                if(!req.line) {
+                    this.$message.error('请选择线路！');
+                    return false;
+                }
+                if(!req.station) {
+                    this.$message.error('请选择车站！');
+                    return false;
+                }
+                if(!req.equSys) {
+                    this.$message.error('请选择设备系统！');
+                    return false;
+                }
+                if(!req.equName) {
+                    this.$message.error('请选择非全部的设备名称！');
+                    return false;
+                }
+                if(!req.systemTime) {
+                    this.$message.error('请选择时间！');
+                    return false;
+                }
+                if(!req.status) {
+                    this.$message.error('请选择状态！');
+                    return false;
+                }
 
                 // req.id = req.equuid.toString();
+
                 this._getInfo({
                     ops: req,
                     api: 'equRunAdd',
                     callback: () => {
                         this.$message.success('新增成功！');
                         this.isShowPop = false;
-                        this.getEquRunTimeListFn();
+                        this.getEquRunTimeListFn(this.isReq);
                     }
                 });
             },

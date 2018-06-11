@@ -144,11 +144,11 @@
                 count: {},
                 equLabel: [{
                     'label': '序号',
-                    'width': 8,
+                    'width': 6,
                     'value': 'index'
                 }, {
                     'label': '线路',
-                    'width': 11,
+                    'width': 8,
                     'value': 'line'
                 }, {
                     'label': '车站',
@@ -172,7 +172,7 @@
                     'value': 'factory'
                 }, {
                     'label': '安装地点',
-                    'width': 11,
+                    'width': 15,
                     'value': 'address'
                 }, {
                     'label': '规格型号',
@@ -185,11 +185,11 @@
                     'value': 'index'
                 }, {
                     'label': '车站',
-                    'width': 15,
+                    'width': 10,
                     'value': 'station'
                 }, {
                     'label': '设备名称',
-                    'width': 20,
+                    'width': 15,
                     'value': 'equName'
                 }, {
                     'label': '时间',
@@ -197,7 +197,7 @@
                     'value': 'time'
                 }, {
                     'label': '预警事件',
-                    'width': 25,
+                    'width': 35,
                     'value': 'alarmEvent'
                 }, {
                     'label': '状态',
@@ -206,7 +206,7 @@
                 }],
                 equLabe3: [{
                     'label': '序号',
-                    'width': 8,
+                    'width': 5,
                     'value': 'index'
                 }, {
                     'label': '故障单号',
@@ -226,19 +226,19 @@
                     'value': 'address'
                 }, {
                     'label': '设备编号',
-                    'width': 9,
+                    'width': 6,
                     'value': 'equNum'
                 }, {
                     'label': '故障系统',
-                    'width': 9,
+                    'width': 6,
                     'value': 'faultSys'
                 }, {
                     'label': '故障现象',
-                    'width': 9,
+                    'width': 15,
                     'value': 'faultAppear'
                 }, {
                     'label': '修复时间',
-                    'width': 9,
+                    'width': 12,
                     'value': 'repairTime'
                 }, {
                     'label': '维修人员',
@@ -256,11 +256,11 @@
                     'value': 'index'
                 }, {
                     'label': '设备类型编码',
-                    'width': 10,
+                    'width': 7,
                     'value': 'deviceTypeCode'
                 }, {
                     'label': '设备类型',
-                    'width': 10,
+                    'width': 7,
                     'value': 'deviceType'
                 }, {
                     'label': '故障部位编码',
@@ -268,7 +268,7 @@
                     'value': 'faultPositionCode'
                 }, {
                     'label': '故障部位',
-                    'width': 10,
+                    'width': 8,
                     'value': 'faultPosition'
                 }, {
                     'label': '故障原因编码',
@@ -276,7 +276,7 @@
                     'value': 'faultReasonCode'
                 }, {
                     'label': '故障原因',
-                    'width': 10,
+                    'width': 12,
                     'value': 'faultReason'
                 }, {
                     'label': '维修策略编码',
@@ -284,36 +284,36 @@
                     'value': 'repairStrategyCode'
                 }, {
                     'label': '维修建议',
-                    'width': 10,
+                    'width': 16,
                     'value': 'repairStrategy'
                 }],
                 equLabe5: [{
                     'label': '序号',
-                    'width': 9,
+                    'width': 5,
                     'value': 'index'
                 }, {
                     'label': '线路',
-                    'width': 13,
+                    'width': 10,
                     'value': 'line'
                 }, {
                     'label': '安装车站',
-                    'width': 13,
+                    'width': 10,
                     'value': 'station'
                 }, {
                     'label': '设备编号',
-                    'width': 13,
+                    'width': 10,
                     'value': 'equNum'
                 }, {
                     'label': '日期',
-                    'width': 13,
+                    'width': 10,
                     'value': 'date'
                 }, {
                     'label': '到达时间',
-                    'width': 13,
+                    'width': 19,
                     'value': 'arrivalTime'
                 }, {
                     'label': '巡视巡检情况记录',
-                    'width': 13,
+                    'width': 23,
                     'value': 'record'
                 }, {
                     'label': '执行人',

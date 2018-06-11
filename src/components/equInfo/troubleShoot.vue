@@ -14,12 +14,13 @@
                 </p>
             </div>
         </div>
-        <v-search-list :other="otherInfo" :label="info1" :list="equList"></v-search-list>
+        <v-search-list :other="otherInfo" :label="info1" :list="equList" v-on:receive="clickFn"></v-search-list>
         <div class="pagination">
             <el-pagination :page-size="pageSize" @current-change="changePages" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                 <span>{{currentPage}} / {{totalPage}}</span>
             </el-pagination>
         </div>
+        <v-maintenance-sheet v-if="isPop" v-bind:isShow="false" v-on:isPop="isPopFn"></v-maintenance-sheet>
     </div>
 </template>
 
@@ -43,31 +44,34 @@
                 }],
                 otherInfo: {
                     isCheck: false, //是否显示多选框
-                    style: 9 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
+                    style: 9,
+                    goToNextFn: 'goToFaultSheet' //跳转方法设置字段
                 },
                 info1: [{
                     'label': '序号',
-                    'width': 6,
+                    'width': 4,
                     'value': 'index'
                 }, {
                     'label': '故障单号',
-                    'width': 10,
+                    'width': 14,
                     'value': 'faultNum'
-                }, {
-                    'label': '线路',
-                    'width': 6,
-                    'value': 'line'
-                }, {
-                    'label': '车站',
-                    'width': 6,
-                    'value': 'station'
-                }, {
-                    'label': '设备安装位置',
-                    'width': 18,
-                    'value': 'installAddress'
-                }, {
+                },
+                //  {
+                //     'label': '线路',
+                //     'width': 6,
+                //     'value': 'line'
+                // }, {
+                //     'label': '车站',
+                //     'width': 6,
+                //     'value': 'station'
+                // }, {
+                //     'label': '设备安装位置',
+                //     'width': 18,
+                //     'value': 'installAddress'
+                // },
+                {
                     'label': '设备编号',
-                    'width': 12,
+                    'width': 10,
                     'value': 'equNum'
                 }, {
                     'label': '设备名称',
@@ -75,27 +79,28 @@
                     'value': 'equName'
                 }, {
                     'label': '故障系统',
-                    'width': 14,
+                    'width': 10,
                     'value': 'faultSys'
                 }, {
                     'label': '故障现象',
-                    'width': 12,
+                    'width': 14,
                     'value': 'faultShow'
                 }, {
                     'label': '修复时间',
-                    'width': 12,
+                    'width': 16,
                     'value': 'repairTime'
                 }, {
                     'label': '维修人员',
-                    'width': 12,
+                    'width': 10,
                     'value': 'repairMember'
                 }, {
                     'label': '修复确认',
-                    'width': 12,
+                    'width': 8,
                     'value': 'repeatCon',
                     'showPic': '签名'
                 }],
-                equList: []
+                equList: [],
+                isPop: false
             };
         },
         created() {
@@ -107,6 +112,9 @@
         methods: {
             ...mapActions(['_getList']),
             ...mapMutations(['_currentIndex']),
+            clickFn(val) {
+                this[val]();
+            },
             getPie1Fn() {
                 this._getList({
                     ops: {
@@ -152,6 +160,22 @@
             changePages(val) {
                 this.currentPage = val;
                 this.infoFaultListFn();
+            },
+            goToFaultSheet() {
+                if(this.isPowerShow && this.isPowerShow.length > 3) {
+                    this.powerControl = eval(this.isPowerShow)[3];
+                    //编辑
+                    if(!this.powerControl[3].flag) {
+                        this.isPop = false;
+                    } else {
+                        this.isPop = true;
+                    }
+                } else {
+                    this.isPop = true;
+                }
+            },
+            isPopFn(value) {
+                this.isPop = value;
             }
         }
 

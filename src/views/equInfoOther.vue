@@ -85,7 +85,7 @@
                 </dl>
                 <div class="leftListShow">
                     <h3>附属设备及主要附件
-                        <button class="add" v-if="!isShow" v-on:click="isShowPop = true">增加</button>
+                        <button class="add" v-if="!isShow" v-on:click="addFn">增加</button>
                     </h3>
                     <dl class="list">
                         <dt class="listTitle flex">
@@ -110,7 +110,10 @@
                             <span>{{item.devicePartFactory}}</span>
                             <!--备注-->
                             <span>{{item.remark}}</span>
-                            <span><a href="javascript:;" v-on:click="deletelFn(index)">删除</a></span>
+                            <span v-if="!isShow">
+                                <a href="javascript:;" v-on:click="editFn(item,index)">编辑</a>
+                                <a href="javascript:;" v-on:click="deletelFn(index)">删除</a>
+                            </span>
                         </dd>
                         <dd v-if="!info.deviceParts" style=" text-align: center; min-height: 0.32rem; line-height: 0.32rem;">暂无数据</dd>
                     </dl>
@@ -232,7 +235,8 @@
                 },
                 resInfo: {
                     deviceParts: []
-                }
+                },
+                indexMark: -1
             };
         },
         computed: {
@@ -245,7 +249,7 @@
         },
         methods: {
             ...mapActions(['_getInfo']),
-            ...mapMutations(['_equInfo']),
+            ...mapMutations(['_equInfo', '_itemObj']),
             //设备档案列表
             getInfoFn() {
                 this.resInfo = JSON.parse(JSON.stringify(this.equInfo));
@@ -269,8 +273,13 @@
             },
             //关闭弹出框并保存数据
             saveFn(req) {
-                this.resInfo.deviceParts.push(req);
-                this.$message.success('新增成功,请保存！');
+                if(this.indexMark != -1) {
+                    this.resInfo.deviceParts.splice(this.indexMark, 1, req);
+                    this.$message.success('编辑成功,请保存！');
+                } else {
+                    this.resInfo.deviceParts.push(req);
+                    this.$message.success('新增成功,请保存！');
+                }
                 this.isShowPop = false;
             },
             //关闭弹出框
@@ -281,6 +290,17 @@
             deletelFn(index) {
                 this.resInfo.deviceParts.splice(index, 1);
                 this.$message.success('删除成功,请保存！');
+            },
+            //新增
+            addFn() {
+                this.indexMark = -1;
+                this._itemObj('');
+                this.isShowPop = true;
+            },
+            editFn(item, index) {
+                this.indexMark = index;
+                this._itemObj(item);
+                this.isShowPop = true;
             }
         }
     };

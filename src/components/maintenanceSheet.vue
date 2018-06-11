@@ -63,7 +63,8 @@
                     <dl class="textareaShow specialPic">
                         <dt>故障处理（维修人员填写，如不能现场修复说明情况）：</dt>
                         <dd>
-                            <textarea v-model="info.reportProcessContent" placeholder="请输入内容"></textarea>
+                            <textarea v-if="isShow" v-model="info.reportProcessContent" placeholder="请输入内容"></textarea>
+                            <textarea v-else disabled="disabled" v-model="info.reportProcessContent" placeholder="请输入内容"></textarea>
                         </dd>
                         <img v-if="info.image2 && info.image2.search('.jpg') != -1" v-bind:src="info.image2" />
                     </dl>
@@ -88,7 +89,8 @@
                     <dl class="textareaShow">
                         <dt>备注：</dt>
                         <dd>
-                            <textarea v-model="info.remark" placeholder="请输入备注内容"></textarea>
+                            <textarea v-if="isShow" v-model="info.remark" placeholder="请输入备注内容"></textarea>
+                            <textarea v-else v-model="info.remark" disabled placeholder="请输入备注内容"></textarea>
                         </dd>
                     </dl>
                     <dl class="textareaShow">
@@ -220,6 +222,7 @@
         .sheetBox {
             border-left: 1px solid #54596e;
             border-bottom: 1px solid #54596e;
+            text-align: left;
             ul {
                 li {
                     border-top: 1px solid #54596e;
