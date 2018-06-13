@@ -262,7 +262,9 @@ const api = {
   //手机维护增加
   mobileAdd: 'webapi/mobile/add',
   //手机维护删除
-  mobileDel: 'webapi/mobile/del'
+  mobileDel: 'webapi/mobile/del',
+  //设备信息 下载模板
+  downloadExcel: 'webapi/getImport/excel'
 };
 
 for (var k in api) {

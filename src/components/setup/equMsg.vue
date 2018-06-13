@@ -1,7 +1,7 @@
 <template>
     <div class="equWrap">
         <div class="searchWrap">
-            <v-sub-search v-on:receiveBtnFn="btnsFn" v-on:getEquName="getEquNameFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData"></v-sub-search>
+            <v-sub-search v-on:receiveBtnFn="btnsFn" v-on:getEquName="getEquNameFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData" v-on:importReceive="getImportFn"></v-sub-search>
         </div>
         <div class="tab">
             <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo1" v-bind:label="info1" v-bind:list="equList" v-on:receive="clickFn" v-bind:curPage="currentPage"></v-search-list>
@@ -221,7 +221,22 @@
             },
             //下載
             downloadFn() {
-                window.location.href = "http://" + window.location.host + "/bjdt/exceltemplate/device.xls";
+                this._getList({
+                    ops: {
+                        type: '1'
+                    },
+                    api: 'downloadExcel',
+                    callback: res => {
+                        window.location.href = "http://" + window.location.host + "/" + res;
+                    }
+                });
+
+                // window.location.href = "http://" + window.location.host + "/bjdt/exceltemplate/device.xls";
+            },
+            //导入
+            getImportFn() {
+                this.infoListFn(this.isReq);
+                this.$message.success('导入成功！');
             },
             //导出
             exportFn() {

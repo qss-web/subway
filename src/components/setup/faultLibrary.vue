@@ -1,7 +1,7 @@
 <template>
     <div class="equWrap">
         <div class="searchWrap ">
-            <v-sub-search v-on:receiveBtnFn="btnsFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData01"></v-sub-search>
+            <v-sub-search v-on:receiveBtnFn="btnsFn" v-on:filter="fifterBtnFn" v-bind:searchData="searchData01" v-on:importReceive="importFn"></v-sub-search>
         </div>
         <div class="tab ">
             <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo " v-bind:label="info2" v-bind:list="equList" v-on:receive="clickFn" v-bind:curPage="currentPage"></v-search-list>
@@ -228,6 +228,11 @@
             //下載
             downloadFn() {
                 window.location.href = "http://" + window.location.host + "/bjdt/exceltemplate/faultDatabase.xls";
+            },
+            //导入
+            importFn() {
+                this.faultListFn(this.isReq);
+                this.$message.success('导入成功！');
             },
             //导出
             exportFn() {

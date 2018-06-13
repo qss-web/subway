@@ -48,7 +48,7 @@
                 </li>
                 <li v-if="item.status == 5">
                     <span>{{item.title}}：</span>
-                    <el-date-picker v-model="req[item.val1]" format="yyyy-MM" type="month" value-format="yyyy-MM" v-bind:placeholder="item.placeholder" size="mini"></el-date-picker>
+                    <el-date-picker v-model="req[item.val1]" format="yyyy-MM" type="month" value-format="yyyy-MM" v-bind:placeholder="item.placeholder" size="mini" :picker-options="pickerOptions"></el-date-picker>
                 </li>
                 <li v-if="item.status == 6">
                     <span>{{item.title}}：</span>
@@ -63,10 +63,10 @@
         </div>
         <a class="exportBtn" v-if="!searchData.noCheck" href="javascript:;" v-on:click="filterBtn">查询</a>
         <div class="exportBtn" v-for="(item,index) in searchData.btnShow">
-            <el-upload v-if="item.fn == 'importFn'" class="upload-demo" :action="importAddress01" :show-file-list="false">
+            <el-upload v-if="item.fn == 'importFn'" class="upload-demo" :action="importAddress01" :on-success="successFn" :show-file-list="false">
                 <a href="javascript:;">{{item.title}}</a>
             </el-upload>
-            <el-upload v-else-if="item.fn == 'importFn2'" class="upload-demo" :action="importAddress02" :show-file-list="false">
+            <el-upload v-else-if="item.fn == 'importFn2'" class="upload-demo" :action="importAddress02" :on-success="successFn" :show-file-list="false">
                 <a href="javascript:;">{{item.title}}</a>
             </el-upload>
             <a v-else href="javascript:;" v-on:click="btnFn(item.fn)">{{item.title}}</a>
@@ -89,7 +89,12 @@
                 optionsShow: [],
                 importValue: '',
                 importAddress01: 'http://' + window.location.host + '/bjdt/webapi/import/excel',
-                importAddress02: 'http://' + window.location.host + '/bjdt/webapi/import/excel2'
+                importAddress02: 'http://' + window.location.host + '/bjdt/webapi/import/excel2',
+                pickerOptions: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    }
+                }
             };
         },
         computed: {
@@ -169,6 +174,9 @@
                 } else {
                     this.optionsShow = [];
                 }
+            },
+            successFn() {
+                this.$emit('importReceive');
             }
         }
     };

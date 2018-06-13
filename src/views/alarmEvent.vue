@@ -143,7 +143,7 @@
                 },
                 isReq: {},
                 getEquNameArr: [],
-                days:[]
+                days: []
             };
         },
         created() {
@@ -159,6 +159,7 @@
                     ops: req,
                     api: 'warningEvents',
                     callback: res => {
+                        this.days = [];
                         res.current.forEach(item => {
                             this.currentMonth.push(item[1]);
                             this.days.push(item[0]);

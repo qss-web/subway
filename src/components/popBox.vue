@@ -115,6 +115,14 @@
                             </el-checkbox-group>
                         </div>
                     </dd>
+                    <dd>
+                        <span>客户端：</span>
+                        <div class="wrap">
+                            <el-checkbox-group v-model="checkedList6">
+                                <el-checkbox v-for="(item,index) in showList[5]" :label="item.name" :key="index" @change="handleCheckedChange(item)">{{item.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </div>
+                    </dd>
                 </dl>
                 <div class="btn">
                     <a href="javascript:;" v-on:click="onSubmit">确定</a>
@@ -136,13 +144,15 @@
                     [{ 'name': '查询', 'flag': false, 'code': '2-0' }, { 'name': '导出', 'flag': false, 'code': '2-1' }, { 'name': '增加', 'flag': false, 'code': '2-2' }, { 'name': '删除', 'flag': false, 'code': '2-3' }, { 'name': '编辑', 'flag': false, 'code': '2-4' }, { 'name': '导入', 'flag': false, 'code': '2-5' }],
                     [{ 'name': '查询', 'flag': false, 'code': '3-0' }, { 'name': '导出', 'flag': false, 'code': '3-1' }, { 'name': '删除', 'flag': false, 'code': '3-2' }],
                     [{ 'name': '查询', 'flag': false, 'code': '4-0' }, { 'name': '导出', 'flag': false, 'code': '4-1' }, { 'name': '删除', 'flag': false, 'code': '4-2' }, { 'name': '编辑', 'flag': false, 'code': '4-3' }],
-                    [{ 'name': '首页', 'flag': false, 'code': '5-0' }, { 'name': '我的', 'flag': false, 'code': '5-1' }, { 'name': '搜索', 'flag': false, 'code': '5-2' }, { 'name': '设置', 'flag': false, 'code': '5-3' }, { 'name': '监测', 'flag': false, 'code': '5-4' }]
+                    [{ 'name': '首页', 'flag': false, 'code': '5-0' }, { 'name': '我的', 'flag': false, 'code': '5-1' }, { 'name': '搜索', 'flag': false, 'code': '5-2' }, { 'name': '设置', 'flag': false, 'code': '5-3' }, { 'name': '监测', 'flag': false, 'code': '5-4' }],
+                    [{ 'name': '客户端', 'flag': false, 'code': '6-0' }]
                 ],
                 checkedList1: [],
                 checkedList2: [],
                 checkedList3: [],
                 checkedList4: [],
                 checkedList5: [],
+                checkedList6: [],
                 middleArr: [],
                 popReq: {},
                 // staionsList: [],
@@ -214,6 +224,11 @@
                             this.checkedList5.push(item.name);
                         }
                     });
+                    this.showList[5].forEach(item => {
+                        if(item.flag) {
+                            this.checkedList6.push(item.name);
+                        }
+                    });
                 } else {
                     this.showList = JSON.parse(JSON.stringify(this.showList));
                 }
@@ -228,6 +243,7 @@
                     this.middleArr.push(this.showList[2]);
                     this.middleArr.push(this.showList[3]);
                     this.middleArr.push(this.showList[4]);
+                    this.middleArr.push(this.showList[5]);
                     this.popReq[this.popData.isSetPower] = this.middleArr;
                 }
                 this.$emit('save', this.popReq);
@@ -293,6 +309,11 @@
                     }
                 });
                 this.showList[4].forEach(item => {
+                    if(items.code == item.code) {
+                        item.flag = !items.flag;
+                    }
+                });
+                this.showList[5].forEach(item => {
                     if(items.code == item.code) {
                         item.flag = !items.flag;
                     }

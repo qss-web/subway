@@ -2,7 +2,7 @@
     <div class="timeManagement">
         <div class="searchWrap">
             <el-upload class="upload-demo" :action="uploadUrl" :show-file-list="false" :on-progress="uploadFn" :on-success="successFn">
-                <button class="upload">上传</button>
+                <button class="upload" v-if="isShowClient">上传</button>
                 <span v-if="isUpload.isShow" class="title">{{isUpload.title}}</span>
                 <span v-if="isUpload.isShow" class="progress">{{isUpload.progress}}</span>
             </el-upload>
@@ -19,7 +19,7 @@
     </div>
 </template>
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     import { formatDate } from '../../utils';
     export default {
         data() {
@@ -58,14 +58,26 @@
                     'width': 20,
                     'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }]
                 }],
-                equList: []
+                equList: [],
+                isShowClient: true
             };
+        },
+        computed: {
+            ...mapState(['isPowerShow'])
         },
         created() {
             this.uploadUrl = 'http://' + window.location.host + '/bjdt/common/uploadWeb';
             // this.uploadUrl = "http://bhxz.net:48092/bjdt/common/uploadWeb";
             // this.uploadUrl = "http://192.168.0.159:8080/bjdt/common/uploadWeb";
             this.getClientListFn();
+
+            if(this.isPowerShow && this.isPowerShow.length > 3) {
+                this.powerControl = eval(this.isPowerShow)[5];
+                //是否有权限上传客户端
+                if(!this.powerControl[0].flag) {
+                    this.isShowClient = false;
+                }
+            }
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),

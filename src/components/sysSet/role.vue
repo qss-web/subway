@@ -134,6 +134,8 @@
                                         item1.push({ 'pingStr': '故障待办：' });
                                     } else if(index1 == 4) {
                                         item1.push({ 'pingStr': '主按钮：' });
+                                    } else if(index1 == 5) {
+                                        item1.push({ 'pingStr': '客户端：' });
                                     }
 
                                     item1.forEach((item2) => {

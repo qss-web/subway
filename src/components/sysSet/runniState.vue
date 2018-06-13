@@ -269,7 +269,7 @@
                     this.$message.error('请选择设备系统！');
                     return false;
                 }
-                if(!req.equName) {
+                if(!req.equUuid) {
                     this.$message.error('请选择非全部的设备名称！');
                     return false;
                 }
@@ -311,7 +311,7 @@
                     api: 'equRunDel',
                     callback: () => {
                         this.$message.success('删除成功！');
-                        this.getEquRunTimeListFn();
+                        this.getEquRunTimeListFn(this.isReq);
                     }
                 });
             },
