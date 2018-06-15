@@ -21,7 +21,7 @@
                         <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <span v-else v-bind:class="item1.status == 'status' ?listStatus[item.status-1]:''" v-on:click="goToNextPage(other.goToNextFn,item)">
-                        <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">{{item[item1.value]}}</a>
+                        <a class="textShow">{{item[item1.value]}}</a>
                         <i class="hoverShow">{{item[item1.value]}}</i>
                     </span>
                 </div>
@@ -47,9 +47,13 @@
                             <i class="hoverShow" v-else>暂无图片</i>
                         </span>
                     </span>
-                    <span v-else>
-                        <span v-if="other.specilShow"  v-bind:class="item.status?listStatus[item.status-1] :''">
-                            <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
+                    <div v-else>
+                        <span v-if="other.specilShow">
+                            <a  v-if="item1.status&&item1.status=='status'" class="textShow">
+                                {{item[item1.value]}}
+                                <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
+                            </a>
+                            <a  v-else class="textShow">
                                 {{item[item1.value]}}
                                 <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
                             </a>
@@ -59,8 +63,12 @@
                                 <li v-for="(itemList,index) in item.gzlist">{{itemList}}</li>
                             </ul>
                         </span>
-                    <span v-else v-on:click="goToNextPage(other.goToNextFn,item)" v-bind:class="item.status?listStatus[item.status-1] :''">
-                            <a class="textShow" style=" cursor: pointer; display: block !important; width: 100% !important;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
+                        <span v-else v-on:click="goToNextPage(other.goToNextFn,item)">
+                            <a v-if="item1.status&&item1.status=='status'" class="textShow" v-bind:class="item.status?listStatus[item.status-1] :''" >
+                                {{item[item1.value]}}
+                                <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
+                            </a>
+                            <a v-else class="textShow">
                                 {{item[item1.value]}}
                                 <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
                             </a>
@@ -73,7 +81,7 @@
                                 </li>
                             </ul>
                         </span>
-                    </span>
+                    </div>
                 </div>
             </dd>
         </dl>
@@ -200,6 +208,14 @@
     };
 </script>
 <style lang="less" scoped>
+    .textShow {
+        cursor: pointer;
+        display: block !important;
+        width: 100% !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
     .specialBox {
         i.row {
             font-style: normal;

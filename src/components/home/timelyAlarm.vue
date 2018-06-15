@@ -52,7 +52,7 @@
                 box-shadow: 1px 1px 1px #b3aeae inset;
                 min-height: 0.56rem;
                 &.status-1 {
-                    color: #cc0000;
+                    color: #fff;
                     .light {
                         width: 0.1rem;
                         height: 0.1rem;
@@ -64,7 +64,7 @@
                     }
                 }
                 &.status-2 {
-                    color: #f9af00;
+                    color: #fff;
                     .light {
                         width: 0.1rem;
                         height: 0.1rem;
@@ -76,7 +76,7 @@
                     }
                 }
                 &.status-3 {
-                    color: #adadad;
+                    color: #fff;
                     .light {
                         width: 0.1rem;
                         height: 0.1rem;
@@ -88,7 +88,7 @@
                     }
                 }
                 &.status-4 {
-                    color: #027b03;
+                    color: #fff;
                     .light {
                         width: 0.1rem;
                         height: 0.1rem;
@@ -100,7 +100,7 @@
                     }
                 }
                 &.status-5 {
-                    color: #6e381f;
+                    color: #fff;
                     .light {
                         width: 0.1rem;
                         height: 0.1rem;

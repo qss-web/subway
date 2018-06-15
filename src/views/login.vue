@@ -6,8 +6,8 @@
             <div class="login">
                 <dl class="loginBox" v-on:keyup.enter="loginFn">
                     <dt>用户登录</dt>
-                    <dd class="account"><input type="text" placeholder="Username" v-model="req.username" /><img src="../assets/login/account_icon.png" /></dd>
-                    <dd class="password"><input type="password" placeholder="Password" v-model="req.password" /><img src="../assets/login/password_icon.png" /></dd>
+                    <dd class="account"><input type="text" placeholder="Username" autofocus="autofocus" v-model="req.username" /><img src="../assets/login/account_icon.png" /></dd>
+                    <dd class="password"><input ref="password" type="password" placeholder="Password" v-model="req.password" /><img src="../assets/login/password_icon.png" /></dd>
                     <dd class="btn">
                         <button type="button" v-on:click="loginFn">登录</button>
                     </dd>
@@ -37,6 +37,7 @@
                     return false;
                 }
                 if(!this.req.password) {
+                    this.$refs['password'].focus();
                     this.$message.error('请输入密码！');
                     return false;
                 }
