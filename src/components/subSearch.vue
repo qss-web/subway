@@ -226,7 +226,8 @@
     .exportBtn {
         float: left;
         margin-left: 0.1rem;
-        width: 0.8rem;
+        min-width: 0.6rem;
+        padding: 0 0.1rem;
         height: 0.42rem;
         line-height: 0.42rem;
         text-align: center;

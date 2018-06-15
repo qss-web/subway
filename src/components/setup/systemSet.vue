@@ -9,12 +9,12 @@
             <v-client v-if="indexed==3"></v-client>
             <v-authorize v-if="indexed==4"></v-authorize>
             <v-role v-if="indexed==5"></v-role>
-            <v-check-equ v-if="indexed==6"></v-check-equ>
+            <!-- <v-check-equ v-if="indexed==6"></v-check-equ>
             <v-runni-state v-if="indexed==7"></v-runni-state>
-            <v-time-management v-if="indexed==8"></v-time-management>
-            <v-mobile v-if="indexed==9"></v-mobile>
-            <v-menu v-if="indexed==10"></v-menu>
-            <v-monitor-log v-if="indexed==11"></v-monitor-log>
+            <v-time-management v-if="indexed==8"></v-time-management> -->
+            <v-mobile v-if="indexed==6"></v-mobile>
+            <v-menu v-if="indexed==7"></v-menu>
+            <v-monitor-log v-if="indexed==8"></v-monitor-log>
         </div>
     </div>
 </template>
@@ -29,9 +29,9 @@
                 { code: 'systemClent', name: '' },
                 { code: 'systemAuth', name: '' },
                 { code: 'systemRole', name: '' },
-                { code: 'systemDeviceSet', name: '' },
-                { code: 'systemRunStatus', name: '' },
-                { code: 'systemRunTime', name: '' },
+                // { code: 'systemDeviceSet', name: '' },
+                // { code: 'systemRunStatus', name: '' },
+                // { code: 'systemRunTime', name: '' },
                 { code: 'systemMobile', name: '' },
                 { code: 'systemMenu', name: '' },
                 { code: 'systemLog', name: '' }]

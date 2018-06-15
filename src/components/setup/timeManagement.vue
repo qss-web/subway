@@ -4,12 +4,12 @@
             <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
-            <v-system-list v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-system-list>
-        </div>
-        <div class=" pagination ">
-            <el-pagination :page-size="pageSize" :current-page="currentPage" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
-                <span>{{currentPage}}/{{totalPage}}</span>
-            </el-pagination>
+            <v-search-list v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
+            <div class=" pagination ">
+                <el-pagination :page-size="pageSize" :current-page="currentPage" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                    <span>{{currentPage}}/{{totalPage}}</span>
+                </el-pagination>
+            </div>
         </div>
         <v-pop-box v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
     </div>
@@ -20,11 +20,12 @@
         data() {
             return {
                 currentPage: 1, //当前页数
-                pageSize: 9, //每页显示数量
+                pageSize: 12, //每页显示数量
                 totalPage: 0,//总页数
                 pageNumber: 0,//总条目数
                 isShowPop: false,
                 otherInfo: {
+                    style: 3,
                     isCheck: false //是否显示多选框
                 },
                 popData1: {
@@ -175,11 +176,11 @@
             },
             //子组件按钮
             btnFn(val) {
-                this[val.fn](val.id, val.item);
+                this[val]();
             },
             //编辑操作
-            editFn(id, item) {
-                this._itemObj(item);
+            editFn() {
+                // this._itemObj(item);
                 this.isShowPop = true;
             },
             //获取设备名称
@@ -201,15 +202,29 @@
 </script>
 <style lang="less" scoped>
     .timeManagement {
+        width: 99.4%;
+        margin: 0rem auto 0.24rem auto;
+        padding: 0.18rem 0 0.15rem;
+        background: #d7dbde;
+        border-radius: 10px;
         .searchWrap {
-            padding-bottom: 0.14rem;
+            width: 98.5%;
+            padding: 0.09rem 0 0.04rem 0.2rem;
+            margin: 0 auto;
+            background: #ebecf0;
+            border-top: 1px solid #768089;
         }
         .middleKey {
-            border: 1px solid #71869b;
+            width: 98.5%;
+            margin: 0px auto;
+            border-top: 1px solid #587386;
+            .pagination {
+                text-align: center;
+                padding: 0.1rem 0;
+                background: #e5e8f7;
+                border: 1px solid #587386;
+                border-top: none;
+            }
         }
-    }
-    .pagination {
-        text-align: center;
-        padding-top: 0.1rem;
     }
 </style>

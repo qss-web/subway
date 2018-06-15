@@ -135,15 +135,18 @@
                                     } else if(index1 == 4) {
                                         item1.push({ 'pingStr': '主按钮：' });
                                     } else if(index1 == 5) {
-                                        item1.push({ 'pingStr': '客户端：' });
-                                    }
-
-                                    item1.forEach((item2) => {
-                                        if(item2.flag) {
-                                            item1[item1.length - 1].pingStr += item2.name + ' ';
+                                        if(item1) {
+                                            item1.push({ 'pingStr': '客户端：' });
                                         }
-                                    });
-                                    item.show += item1[item1.length - 1].pingStr + ' ';
+                                    }
+                                    if(item1) {
+                                        item1.forEach((item2) => {
+                                            if(item2.flag) {
+                                                item1[item1.length - 1].pingStr += item2.name + ' ';
+                                            }
+                                        });
+                                        item.show += item1[item1.length - 1].pingStr + ' ';
+                                    }
                                 });
                             } else {
                                 item.show = item.roleCode;

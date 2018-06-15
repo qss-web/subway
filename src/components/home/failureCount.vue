@@ -29,7 +29,7 @@
                 font-size: 0.44rem;
                 display: inline-block;
                 padding-right: 0.04rem;
-                transform: skewX(8deg);
+                transform: skewX(0deg);
             }
         }
         .title {

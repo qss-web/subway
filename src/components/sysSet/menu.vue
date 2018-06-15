@@ -49,7 +49,7 @@
                 }, {
                     'label': '操作',
                     'width': 30,
-                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
+                    'btn': [{ 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
                 equList: []
             };
@@ -63,10 +63,6 @@
             //子组件按钮
             btnFn(val) {
                 this[val.fn](val.id, val.item);
-            },
-            //删除操作
-            deleteFn() {
-
             },
             //编辑操作
             editFn(id, item) {

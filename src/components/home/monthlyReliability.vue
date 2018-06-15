@@ -1,5 +1,5 @@
 <template>
-    <div class="txt-center">
+    <div class="txt-center" v-on:click="goInfoFn">
         <v-chart v-bind:id="ringInfo.id" :option="option" :styleObject="styleObject"></v-chart>
     </div>
 </template>
@@ -82,7 +82,12 @@
                 }
             };
         },
-        props: ['ringInfo']
+        props: ['ringInfo'],
+        methods: {
+            goInfoFn() {
+                this.$router.push('commonDetail');
+            }
+        }
     };
 </script>
 
@@ -91,6 +96,9 @@
         text-align: center;
         color: #fff;
         font-size: 0.18rem;
+    }
+    .txt-center {
+        cursor: pointer;
     }
 </style>
 

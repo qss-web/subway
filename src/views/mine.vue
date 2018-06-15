@@ -25,7 +25,7 @@
                 </div>
                 <div class="tables">
                     <div v-show="activeIndex == 0">
-                        <el-table :data="equList0" style="width: 100%; background-color: #eff0f2;" stripe height="2.5rem" :row-class-name="rowClassName" header-row-class-name="header-row">
+                        <!-- <el-table :data="equList0" style="width: 100%; background-color: #eff0f2;" stripe height="2.5rem" :row-class-name="rowClassName" header-row-class-name="header-row">
                             <el-table-column type="index" width="50" label="序号" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="station" label="车站" align="center" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="equName" label="设备名称" align="center" show-overflow-tooltip></el-table-column>
@@ -37,39 +37,19 @@
                                     <span style="cursor: pointer" v-on:click="editBtn(scope.row.keyId)">【监测】</span>
                                 </template>
                             </el-table-column>
-                        </el-table>
+                        </el-table> -->
+                        <v-search-list style="border-left: none;border-right: none" v-bind:other="otherInfo" v-bind:label="infoAlarm" v-bind:list="equList0"></v-search-list>
                         <div class="moreShow">
                             <a href="javascript:;" v-on:click="goToMoreFn1">更多</a>
                         </div>
                     </div>
                     <div v-show="activeIndex == 1">
-                        <el-table :data="equList1" width="100" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
-                            <el-table-column type="index" width="50" label="序号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="faultNum" width="160" label="故障单号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="line" width="120" label="线路" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="station" width="140" label="车站" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="equPos" width="160" label="设备安装位置" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="equNum" width="110" label="设备编号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="equName" width="160" label="设备名称" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="faultSys" width="110" label="故障系统" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="faultDis" label="故障现象" align="center" show-overflow-tooltip></el-table-column>
-                        </el-table>
+                        <v-search-list style="border-left: none;border-right: none" v-bind:other="otherInfo" v-bind:label="infoFault" v-bind:list="equList1"></v-search-list>
                         <div class="moreShow">
                             <a href="javascript:;" v-on:click="goToMoreFn2">更多</a>
                         </div>
                     </div>
                     <div v-show="activeIndex == 2">
-                        <!-- <el-table :data="equList2" style="width: 100%; background-color: #eff0f2;" stripe height="2.6rem" :row-class-name="rowClassName" header-row-class-name="header-row">
-                            <el-table-column type="index" width="50" label="序号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="line" label="线路" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="station" label="安装车站" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="equNum" label="设备编号" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="date" label="日期" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="arriveTime" label="到达时间" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="status" label="巡检状态" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="equStatus" label="巡视巡检情况记录" align="center" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="name" label="执行人" align="center" show-overflow-tooltip></el-table-column>
-                        </el-table> -->
                         <v-search-list style="border-left: none;border-right: none" v-bind:other="otherInfo" v-bind:label="info" v-bind:list="equList2"></v-search-list>
                         <div class="moreShow">
                             <a href="javascript:;" v-on:click="goToMoreFn3">更多</a>
@@ -138,6 +118,70 @@
                     'width': 10,
                     'value': 'name'
                 }],
+                infoFault: [{
+                    'label': '序号',
+                    'width': 5,
+                    'value': 'index'
+                }, {
+                    'label': '故障单号',
+                    'width': 12,
+                    'value': 'faultNum'
+                }, {
+                    'label': '车站',
+                    'width': 10,
+                    'value': 'station'
+                }, {
+                    'label': '设备名称',
+                    'width': 10,
+                    'value': 'equName'
+                }, {
+                    'label': '设备安装位置',
+                    'width': 10,
+                    'value': 'equPos'
+                }, {
+                    'label': '设备编号',
+                    'width': 8,
+                    'value': 'equNum'
+                }, {
+                    'label': '故障系统',
+                    'width': 8,
+                    'value': 'faultSys'
+                }, {
+                    'label': '故障现象',
+                    'width': 27,
+                    'value': 'faultDis'
+                }],
+                infoAlarm: [{
+                    'label': '序号',
+                    'width': 5,
+                    'value': 'index'
+                }, {
+                    'label': '车站',
+                    'width': 15,
+                    'value': 'station'
+                }, {
+                    'label': '设备名称',
+                    'width': 15,
+                    'value': 'equName'
+                }, {
+                    'label': '时间',
+                    'width': 15,
+                    'value': 'time'
+                }, {
+                    'label': '事件描述',
+                    'width': 25,
+                    'value': 'alarmEvent'
+                }, {
+                    'label': '状态',
+                    'width': 10,
+                    'value': 'statusValue',
+                    'status': 'status'
+                }, {
+                    'label': '操作',
+                    'width': 10,
+                    'btn': [{ 'monitor': true, 'name': '监测', 'fn': 'monitorFn' }]
+
+                }],
                 isMonitor: true
             };
         },
@@ -156,7 +200,7 @@
         },
         methods: {
             ...mapActions(['_getList']),
-            ...mapMutations(['_itemObj']),
+            ...mapMutations(['_itemObj', '_currentIndex']),
             rowClassName({ rowIndex }) {
                 if(rowIndex % 2 == 1) {
                     return 'even';
@@ -191,6 +235,7 @@
                     'endTime': formatDate('', 2) + ' 23:59:59'
                 };
 
+                this._currentIndex(ops);
                 this._getList({
                     ops: ops,
                     api: 'timelyAlarmList',
@@ -208,6 +253,7 @@
                     'isTodo': '1'
                 };
 
+                this._currentIndex(ops);
                 this._getList({
                     ops: ops,
                     api: 'backlogList',
@@ -224,6 +270,7 @@
                     'endTime': formatDate('', 2) + ' 23:59:59'
                 };
 
+                this._currentIndex(ops);
                 this._getList({
                     ops: ops,
                     api: 'checkRatioList',

@@ -43,9 +43,9 @@ import monitorLog from './sysSet/monitorLog'; //监测日志
 import client from './sysSet/client'; //客户端
 import authorize from './sysSet/authorize'; //设备授权
 import role from './sysSet/role'; //角色
-import checkEqu from './sysSet/checkEqu'; //检测配备设置
-import runniState from './sysSet/runniState'; //当前设备运行状态
-import timeManagement from './sysSet/timeManagement'; //运行时间管理
+import checkEqu from './setup/checkEqu'; //检测配备设置
+import runniState from './setup/runniState'; //当前设备运行状态
+import timeManagement from './setup/timeManagement'; //运行时间管理
 import mobile from './sysSet/mobile'; //手机维护
 import menu from './sysSet/menu'; //菜单管理
 import maintenanceSheet from './maintenanceSheet'; //报修单

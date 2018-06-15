@@ -14,6 +14,9 @@
             <v-system-set></v-system-set>
         </div>
         <v-statisticians v-if="tabShow==4 "></v-statisticians>
+        <v-check-equ v-if="tabShow==5"></v-check-equ>
+        <v-runni-state v-if="tabShow==6"></v-runni-state>
+        <v-time-management v-if="tabShow==7"></v-time-management>
         <v-goback></v-goback>
     </div>
 </template>
@@ -27,7 +30,10 @@
                 tabName: [{ code: 'deviceInfo', name: '', isLimitShow: 1 },
                 { code: 'faultData', name: '', isLimitShow: 1 },
                 { code: 'sysSet', name: '', isLimitShow: 0 },
-                { code: 'userInfo', name: '', isLimitShow: 1 }]
+                { code: 'userInfo', name: '', isLimitShow: 1 },
+                { code: 'systemDeviceSet', name: '', isLimitShow: 1 },
+                { code: 'systemRunStatus', name: '', isLimitShow: 1 },
+                { code: 'systemRunTime', name: '', isLimitShow: 1 }]
             };
         },
         computed: {

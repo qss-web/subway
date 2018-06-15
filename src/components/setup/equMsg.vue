@@ -30,7 +30,7 @@
                     'btnShow': [
                         { 'title': '增加', 'fn': 'addFn' },
                         { 'title': '删除', 'fn': 'deleteFn' },
-                        { 'title': '下载', 'fn': 'downloadFn' },
+                        { 'title': '下载模板', 'fn': 'downloadFn' },
                         { 'title': '导入', 'fn': 'importFn' },
                         { 'title': '同步', 'fn': 'synchronizationFn' },
                         { 'title': '导出', 'fn': 'exportFn' }

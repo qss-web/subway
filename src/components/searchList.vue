@@ -43,7 +43,7 @@
                     <span class="picShow" v-else-if="item1.showPic">
                         <span>
                             {{item1.showPic}}
-                            <img v-if="item[item1.value] && item[item1.value].search('.jpg') != -1" v-bind:src="item[item1.value]"/>
+                            <img v-if="item[item1.value] && (item[item1.value].search('.jpg') != -1||item[item1.value].search('.png') != -1)" v-bind:src="item[item1.value]"/>
                             <i class="hoverShow" v-else>暂无图片</i>
                         </span>
                     </span>
