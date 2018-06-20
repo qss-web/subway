@@ -1,12 +1,12 @@
 <template>
     <div class="timeManagement">
         <div class="searchWrap">
-            <v-sub-search v-bind:searchData="searchData" v-on:getEquName="getEquNameFn" v-on:filter="filterBtn"></v-sub-search>
+            <v-sub-search v-on:receiveBtnFn="btnsFn" v-bind:searchData="searchData" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
-            <v-search-list v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
             <div class=" pagination ">
-                <el-pagination :page-size="pageSize" :current-page="currentPage" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                <el-pagination :page-size=" pageSize " :current-page="currentPage" @current-change="changePages" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}}/{{totalPage}}</span>
                 </el-pagination>
             </div>
@@ -15,7 +15,7 @@
     </div>
 </template>
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     export default {
         data() {
             return {
@@ -29,41 +29,41 @@
                     isCheck: false //是否显示多选框
                 },
                 popData1: {
-                    'titleTotal': '编辑',
+                    'titleTotal': '新增wifi',
                     'options': [{
                         'status': 1,
-                        'title': '运行时间',
-                        'placeholder': '请输入累计运行时间',
-                        'val': 'runhour'
+                        'title': 'wifi名称',
+                        'placeholder': '请输入内容',
+                        'val': 'wifiName'
+                    }, {
+                        'status': 1,
+                        'title': 'wifi密码',
+                        'placeholder': '请输入内容',
+                        'val': 'wifiPwd'
+                    }, {
+                        'status': 2,
+                        'title': '所属车站',
+                        'placeholder': '请选择内容',
+                        'val': 'stationId'
+                    }, {
+                        'status': 2,
+                        'title': '线路',
+                        'placeholder': '请选择内容',
+                        'val': 'lineId'
                     }]
                 },
                 searchData: {
+                    'btnShow': [
+                        { 'title': '增加', 'fn': 'addFn' }
+                    ],
                     'options': [{
-                        'status': 2,
-                        'title': '线路',
-                        'placeholder': '请输入内容',
-                        'val': 'deviceInLineId'
-                    }, {
                         'status': 2,
                         'title': '车站',
                         'placeholder': '请选择内容',
-                        'val': 'deviceInStationId'
-                    }, {
-                        'status': 2,
-                        'title': '设备系统',
-                        'placeholder': '请选择内容',
-                        'val': 'deviceTypeCode'
-                    }, {
-                        'status': 6,
-                        'title': '设备名称',
-                        'placeholder': '请选择内容',
-                        'val': 'deviceName'
+                        'val': 'stationId'
                     }],
                     defaultReq: {
-                        deviceInLineId: '6号线西延线',
-                        deviceInStationId: '',
-                        deviceTypeCode: '',
-                        deviceName: ''
+                        stationId: ''
                     }
                 },
                 info1: [{
@@ -71,60 +71,49 @@
                     'width': 5,
                     'value': 'index'
                 }, {
-                    'label': '运营公司',
-                    'width': 10,
-                    'value': 'deviceCompanyName'
-                }, {
-                    'label': '项目部',
-                    'width': 8,
-                    'value': 'deviceProjectDepartmentName'
-                }, {
                     'label': '线路',
-                    'width': 8,
-                    'value': 'deviceInLineName'
+                    'width': 19,
+                    'value': 'lineName'
                 }, {
-                    'label': '车站',
-                    'width': 8,
-                    'value': 'deviceInStationName'
+                    'label': '所属车站',
+                    'width': 19,
+                    'value': 'stationName'
                 }, {
-                    'label': '设备系统',
-                    'width': 10,
-                    'value': 'deviceSys'
+                    'label': 'wifi名称',
+                    'width': 19,
+                    'value': 'wifiName'
                 }, {
-                    'label': '设备名称',
-                    'width': 10,
-                    'value': 'deviceName'
-                }, {
-                    'label': '安装合同编号',
-                    'width': 10,
-                    'value': 'deviceContractCode'
-                }, {
-                    'label': '位置',
-                    'width': 11,
-                    'value': 'devicePosition'
-                }, {
-                    'label': '每天运行时间（小时）',
-                    'width': 12,
-                    'value': 'runhour'
+                    'label': 'wifi密码',
+                    'width': 19,
+                    'value': 'wifiPwd'
                 }, {
                     'label': '操作',
-                    'width': 8,
-                    // 'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
-                    'btn': [{ 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
+                    'width': 19,
+                    'btn': [{ 'edit': true, 'name': '编辑', 'fn': 'editFn' }, { 'delete': true, 'name': '删除', 'fn': 'deleteFn' }]
                 }],
                 equList: [],
-                getEquNameArr: [],
-                isReq: {}
+                isReq: {},
+                ids: ''
             };
+        },
+        computed: {
+            ...mapState(['setStations', 'setLines', 'setDeviceType', 'itemObj'])
         },
         created() {
             this.isReq = JSON.parse(JSON.stringify(this.searchData.defaultReq));
             this.getEquRunTimeListFn(this.isReq);
-            this.getEquNameFn({ 'deviceInLineId': this.isReq.deviceInLineId });
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
             ...mapMutations(['_itemObj', '_equNameList', '_currentIndex']),
+            //搜索按钮
+            btnsFn(fn) {
+                this[fn]();
+            },
+            //获取多选框选中的ids
+            getIdsFn(id) {
+                this.ids = id.substr(0, id.length - 1);
+            },
             //获取列表
             getEquRunTimeListFn(req) {
                 const ops = {
@@ -139,10 +128,12 @@
                 }
                 this._getList({
                     ops: ops,
-                    api: 'equRunTimeList',
+                    api: 'getWifiList',
                     callback: res => {
+                        res.rows.forEach(item => {
+                            item.isCheck = false;
+                        });
                         this.equList = res.rows;
-                        this.currentPage = res.page;
                         this.totalPage = res.total;
                         this.pageNumber = res.records;
                     }
@@ -156,7 +147,6 @@
             //获取筛选的值
             filterBtn(req) {
                 this.currentPage = 1;
-                req.deviceName = req.deviceName.toString();
                 this.isReq = req;
                 this.getEquRunTimeListFn(req);
             },
@@ -164,13 +154,46 @@
                 this.isShowPop = false;
             },
             saveFn(req) {
+                //线路
+                this.setLines.forEach(item => {
+                    if(item.value == req.lineId) {
+                        req.lineName = item.label;
+                    }
+                });
+
+                //车站
+                this.setStations.forEach(item => {
+                    if(item.value == req.stationId) {
+                        req.stationName = item.label;
+                    }
+                });
+
+                if(!req.wifiName) {
+                    this.$message.error('请输入wifi名称！');
+                    return false;
+                }
+                if(!req.wifiPwd) {
+                    this.$message.error('请输入wifi密码！');
+                    return false;
+                }
+                if(!req.stationId) {
+                    this.$message.error('请选择车站！');
+                    return false;
+                }
+                if(!req.lineId) {
+                    this.$message.error('请选择线路！');
+                    return false;
+                }
+
+                // req.id = req.equuid.toString();
+
                 this._getInfo({
                     ops: req,
-                    api: 'equRunTimeUpdate',
+                    api: 'addWifi',
                     callback: () => {
                         this.$message.success('新增成功！');
                         this.isShowPop = false;
-                        this.getEquRunTimeListFn();
+                        this.getEquRunTimeListFn(this.isReq);
                     }
                 });
             },
@@ -178,24 +201,26 @@
             btnFn(val) {
                 this[val]();
             },
+            //增加用户操作
+            addFn() {
+                this._itemObj('');
+                this.isShowPop = true;
+            },
+            //删除操作
+            deleteFn() {
+                this._getList({
+                    ops: { 'ids': this.itemObj.id.toString() },
+                    api: 'delWifi',
+                    callback: () => {
+                        this.$message.success('删除成功！');
+                        this.getEquRunTimeListFn(this.isReq);
+                    }
+                });
+            },
             //编辑操作
             editFn() {
                 // this._itemObj(item);
                 this.isShowPop = true;
-            },
-            //获取设备名称
-            getEquNameFn(req) {
-                this._getList({
-                    ops: req,
-                    api: 'selectlist',
-                    callback: res => {
-                        this.getEquNameArr = [];
-                        res.forEach(item => {
-                            this.getEquNameArr.push({ 'label': item.deviceName, 'value': item.id });
-                        });
-                        this._equNameList(this.getEquNameArr);
-                    }
-                });
             }
         }
     };

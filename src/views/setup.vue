@@ -17,6 +17,7 @@
         <v-check-equ v-if="tabShow==5"></v-check-equ>
         <v-runni-state v-if="tabShow==6"></v-runni-state>
         <v-time-management v-if="tabShow==7"></v-time-management>
+        <v-wifi-list v-if="tabShow==8"></v-wifi-list>
         <v-goback></v-goback>
     </div>
 </template>
@@ -33,7 +34,8 @@
                 { code: 'userInfo', name: '', isLimitShow: 1 },
                 { code: 'systemDeviceSet', name: '', isLimitShow: 1 },
                 { code: 'systemRunStatus', name: '', isLimitShow: 1 },
-                { code: 'systemRunTime', name: '', isLimitShow: 1 }]
+                { code: 'systemRunTime', name: '', isLimitShow: 1 },
+                { code: 'systemWifi', name: '', isLimitShow: 1 }]
             };
         },
         computed: {

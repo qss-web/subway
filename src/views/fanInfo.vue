@@ -55,8 +55,9 @@
             <v-train></v-train>
         </div>
         <v-goback></v-goback>
-        <el-dialog :visible.sync="isShowPopup" width="90%">
-            <v-alarm-popup></v-alarm-popup>
+        <el-dialog :visible.sync="isShowPopup" width="98%" :fullscreen="isFullscreen">
+            <a href="javascript:;" v-on:click="maximizationFn" v-text="textShow" style="position: absolute; right:4%; top: 20px;"></a>
+            <v-alarm-popup v-bind:testFull="isFullscreen"></v-alarm-popup>
         </el-dialog>
     </div>
 </template>
@@ -66,6 +67,8 @@
     export default {
         data() {
             return {
+                textShow: '最大化',
+                isFullscreen: false,
                 currentPage01: 1, //当前页数
                 pageSize01: 7, //每页显示数量
                 totalPage01: 0,//总页数
@@ -242,6 +245,15 @@
         methods: {
             ...mapActions(['_getInfo', '_getList']),
             ...mapMutations(['_warnChart', '_equInfo', '_currentIndex']),
+            maximizationFn() {
+                if(this.isFullscreen) {
+                    this.isFullscreen = false;
+                    this.textShow = "最大化";
+                } else {
+                    this.isFullscreen = true;
+                    this.textShow = "最小化";
+                }
+            },
             monitorFn() {
                 this.$router.push({ path: 'monitor' });
             },

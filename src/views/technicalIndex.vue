@@ -75,7 +75,7 @@
                     'value': 'lineName'
                 }, {
                     'label': '车站',
-                    'width': 15,
+                    'width': 12,
                     'value': 'stationName'
                 }, {
                     'label': '设备系统',
@@ -87,16 +87,20 @@
                     'value': 'deviceCode'
                 }, {
                     'label': '设备名称',
-                    'width': 15,
+                    'width': 13,
                     'value': 'deviceName'
                 }, {
                     'label': '设备平均无故障运行时间',
-                    'width': 20,
+                    'width': 15,
                     'value': 'pjwgzyxsj'
                 }, {
                     'label': '故障相对比率',
                     'width': 10,
                     'value': 'y'
+                }, {
+                    'label': '关注等级',
+                    'width': 10,
+                    'value': 'rank'
                 }],
                 equList: [],
                 getEquNameArr: []
@@ -151,6 +155,13 @@
                     callback: res => {
                         res.rows.forEach(item => {
                             item.isCheck = false;
+                            if(item.level == "high") {
+                                item.rank = "高";
+                            } else if(item.level == "nor") {
+                                item.rank = "中";
+                            } else {
+                                item.rank = "低";
+                            }
                         });
                         this.equList = res.rows;
                         this.totalPage = res.total;

@@ -46,6 +46,7 @@ import role from './sysSet/role'; //角色
 import checkEqu from './setup/checkEqu'; //检测配备设置
 import runniState from './setup/runniState'; //当前设备运行状态
 import timeManagement from './setup/timeManagement'; //运行时间管理
+import wifiList from './setup/wifiList'; //wifi列表
 import mobile from './sysSet/mobile'; //手机维护
 import menu from './sysSet/menu'; //菜单管理
 import maintenanceSheet from './maintenanceSheet'; //报修单
@@ -115,5 +116,6 @@ export default {
   equMsg,
   faultLibrary,
   statisticians,
-  controlBox
+  controlBox,
+  wifiList
 };

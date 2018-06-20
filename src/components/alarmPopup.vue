@@ -1,6 +1,8 @@
 <template>
     <div class="popup-wrapper">
-        <v-chart v-if="this.test.length != 0" :id="id" :option="option" :styleObject="styleObject"></v-chart>
+        {{testFull}}
+        <v-chart v-if="this.isShow01 && this.testFull ==false && this.test.length != 0" :id="id" :option="option" :styleObject="styleObject01"></v-chart>
+        <v-chart v-if="this.isShow02 &&this.testFull && this.test.length != 0" :id="id" :option="option" :styleObject="styleObject02"></v-chart>
     </div>
 </template>
 <script>
@@ -8,10 +10,16 @@
     export default {
         data() {
             return {
+                isShow01: false,
+                isShow02: false,
                 id: 'todayAlarm',
-                styleObject: {
+                styleObject01: {
                     width: 100 + '%',
                     height: 100 + '%'
+                },
+                styleObject02: {
+                    width: 100 + '%',
+                    height: 600 + 'px'
                 },
                 option: {
                     chart: {
@@ -88,9 +96,23 @@
                 test2: []
             };
         },
+        watch: {
+            testFull() {
+                if(this.testFull) {
+                    debugger;
+                    this.isShow01 = false;
+                    this.isShow02 = true;
+                } else {
+                    debugger;
+                    this.isShow01 = true;
+                    this.isShow02 = false;
+                }
+            }
+        },
         computed: {
             ...mapState(['warnChart', 'itemObj'])
         },
+        props: ['testFull'],
         created() {
             this.option.title.text = this.itemObj.pointName + '历史趋势图';
             this.warnChart.forEach(item => {

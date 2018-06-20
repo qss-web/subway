@@ -12,6 +12,9 @@
             </el-pagination>
         </div>
         <v-pop-box v-on:save="saveFn" v-on:receive="cancleFn" v-if="isShowPop" v-bind:popData="popData1"></v-pop-box>
+        <el-dialog :visible.sync="isShowQrCode" width="240px" v-on:close="closeFn">
+            <div id="qrcode" ref="qrcode"></div>
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -19,6 +22,7 @@
     export default {
         data() {
             return {
+                isShowQrCode: false,
                 currentPage: 1, //当前页数
                 pageSize: 9, //每页显示数量
                 totalPage: 0,//总页数
@@ -68,12 +72,12 @@
                     'value': 'mobileName'
                 }, {
                     'label': 'SN码',
-                    'width': 45,
+                    'width': 35,
                     'value': 'snCode'
                 }, {
                     'label': '操作',
-                    'width': 15,
-                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }]
+                    'width': 25,
+                    'btn': [{ 'delete': true, 'name': '删除', 'fn': 'deleteFn' }, { 'edit': true, 'name': '编辑', 'fn': 'editFn' }, { 'qrCode': true, 'name': '二维码', 'fn': 'getQrcodeFn' }]
                 }],
                 equList: [],
                 isReq: {},
@@ -178,6 +182,21 @@
                 this.currentPage = 1;
                 this.isReq = req;
                 this.getRoleListFn(req);
+            },
+            //查看二维码
+            getQrcodeFn(id, item) {
+                this.isShowQrCode = true;
+                setTimeout(() => {
+                    var qrcode = new QRCode(document.getElementById("qrcode"), {
+                        width: 200,//设置宽高
+                        height: 200
+                    });
+
+                    qrcode.makeCode(JSON.stringify(item));
+                }, 0);
+            },
+            closeFn() {
+                document.getElementById("qrcode").innerHTML = "";
             }
         }
     };

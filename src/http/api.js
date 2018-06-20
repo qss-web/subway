@@ -264,7 +264,13 @@ const api = {
   //手机维护删除
   mobileDel: 'webapi/mobile/del',
   //设备信息 下载模板
-  downloadExcel: 'webapi/getImport/excel'
+  downloadExcel: 'webapi/getImport/excel',
+  //wifi列表
+  getWifiList: 'webapi/wifi/list',
+  //新增wifi
+  addWifi: 'webapi/wifi/add',
+  //删除wifi
+  delWifi: 'webapi/wifi/del'
 };
 
 for (var k in api) {

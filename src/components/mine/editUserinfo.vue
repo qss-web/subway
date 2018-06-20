@@ -98,7 +98,7 @@
                 //     this.$message.error('上传头像图片大小不能超过 2MB!');
                 // }
                 // return isPic && isLt2M;
-                return isPic 
+                return isPic;
             },
             save() {
                 if(!this.repairInfo.email) {
@@ -138,6 +138,7 @@
                     api: 'mineUserInfo',
                     callback: res => {
                         this.userinfo = res;
+                        this.repairInfo = res;
                         this.userinfo.imageUrl = 'http://' + window.location.host + res.imageUrl;
                     }
                 });
