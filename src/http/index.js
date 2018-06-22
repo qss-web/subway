@@ -146,6 +146,10 @@ const xhr = ({ method = 'post', ur, options = {} }) => {
             if (response.data.code && response.data.code == 1) {
               resolve(response.data.body);
             } else {
+              debugger;
+              if (ur == 'login') {
+                reject(response.data.msg);
+              }
               //   reject(response.data.msg);
             }
           },
