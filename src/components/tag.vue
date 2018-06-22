@@ -52,7 +52,7 @@
 <style lang="less" scoped>
     .tag {
         height: 0.26rem;
-        color: #000;
+        color: #fff;
         padding: 0 0.2rem;
         font-size: 0.13rem;
         position: absolute;

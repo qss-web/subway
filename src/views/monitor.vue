@@ -32,14 +32,17 @@
                 curVer: '',
                 getVer: [],
                 controlMsg: {},
-                isControl: false
+                isControl: false,
+                companyId: "",
+                factoryId: "",
+                equipmentId: ""
             };
         },
         mounted() {
             this.getVersionFn();
         },
         computed: {
-
+            ...mapState(['itemObj', 'deviceInfo'])
         },
         created() {
             if(ii || gg) {
@@ -104,6 +107,22 @@
                     api: 'sysList',
                     callback: res => {
                         this.equList = res.rows;
+                        this.getEquMsg();
+                    }
+                });
+            },
+            getEquMsg() {
+                this._getList({
+                    ops: {
+                        equipmentUuid: this.itemObj.rowid || this.deviceInfo.deviceUuid
+                    },
+                    api: 'getEquipment',
+                    callback: res => {
+                        if(res != 'null' && res != null && res.companyId) {
+                            this.companyId = res.companyId;
+                            this.factoryId = res.factoryId;
+                            this.equipmentId = res.equipmentId;
+                        }
                         this.checkData();
                     }
                 });
@@ -197,6 +216,7 @@
 
                 if(this.sinadotIsValidObject(G_oObject)) {
 
+
                     lstrRet = G_oObject.GetParameter("MainWindowCreated");
 
                     if(lstrRet != 1) {
@@ -207,6 +227,7 @@
 
                     G_bMainWindowCreated = 1;
                     G_oObject.ShowSpecPlant(8);//设置显示的设备分类
+                    G_oObject.SwitchPlant3(this.companyId, this.factoryId, this.equipmentId, "机组概貌图", "", "", "", "", "", "", "");
 
                     //显示客户端
                     try {
@@ -232,8 +253,6 @@
 
                         lbLoginRet = G_oObject.SetFocus();
                     }
-
-
                 } else {
                     window.setTimeout(this.checkData(), 200);
                 }

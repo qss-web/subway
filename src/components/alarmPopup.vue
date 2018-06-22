@@ -1,8 +1,7 @@
 <template>
     <div class="popup-wrapper">
-        {{testFull}}
-        <v-chart v-if="this.isShow01 && this.testFull ==false && this.test.length != 0" :id="id" :option="option" :styleObject="styleObject01"></v-chart>
-        <v-chart v-if="this.isShow02 &&this.testFull && this.test.length != 0" :id="id" :option="option" :styleObject="styleObject02"></v-chart>
+        <v-chart v-show="this.isShow01 && this.isFull ==false && this.test.length != 0" :id="id01" :option="option" :styleObject="styleObject01"></v-chart>
+        <v-chart v-show="this.isShow02 &&this.isFull && this.test.length != 0" :id="id02" :option="option" :styleObject="styleObject02"></v-chart>
     </div>
 </template>
 <script>
@@ -10,28 +9,35 @@
     export default {
         data() {
             return {
-                isShow01: false,
+                isShow01: true,
                 isShow02: false,
-                id: 'todayAlarm',
+                id01: 'todayAlarm01',
+                id02: 'todayAlarm02',
                 styleObject01: {
                     width: 100 + '%',
                     height: 100 + '%'
                 },
                 styleObject02: {
                     width: 100 + '%',
-                    height: 600 + 'px'
+                    height: 9.9 + 'rem'
                 },
                 option: {
                     chart: {
                         type: 'spline', //指定图表的类型
-                        backgroundColor: '#e5e8f7', //背景色
-                        margin: [100, 100, 80, 100]
+                        backgroundColor: '#232427', //背景色
+                        margin: [100, 120, 80, 120],
+                        borderColor: '#007878',
+                        borderWidth: '1'
                     },
                     credits: {
                         enabled: false //去掉地址
                     },
                     title: {
-                        text: '工艺数据' //指定图表标题
+                        text: '工艺数据', //指定图表标题
+                        style: {
+                            color: '#fff'
+                        },
+                        y: 30
                     },
                     xAxis: {
                         tickInterval: 66,
@@ -39,26 +45,33 @@
                             x: 50,//调节x偏移
                             formatter: function() {
                                 return this.value.substring(0, 10);
+                            },
+                            style: {
+                                color: '#fff'
                             }
-                        }
+                        },
+                        lineColor: '#007878',
+                        lineWidth: 1,
+                        tickWidth: 1,
+                        tickColor: '#007878'
                     },
                     yAxis: {
                         title: {
                             text: null //指定y轴的标题
                         },
-                        gridLineColor: '#7281a3',
+                        gridLineColor: '#007878',
                         labels: {
                             style: {
-                                color: '#474740',
+                                color: '#fff',
                                 fontSize: '0.2rem'
                             },
                             align: 'center', //标签居中对齐
                             y: 5
                         },
-                        lineColor: '#7281a3',
+                        lineColor: '#007878',
                         lineWidth: 1,
                         tickWidth: 1,
-                        tickColor: '#7281a3'
+                        tickColor: '#007878'
                     },
                     tooltip: {
                         shared: true,
@@ -77,7 +90,7 @@
                         }
                     },
                     series: [{
-                        color: '#d06c6a',
+                        color: '#007878',
                         data: [],
                         name: '测点值'
                     }],
@@ -97,13 +110,11 @@
             };
         },
         watch: {
-            testFull() {
-                if(this.testFull) {
-                    debugger;
+            isFull() {
+                if(this.isFull) {
                     this.isShow01 = false;
                     this.isShow02 = true;
                 } else {
-                    debugger;
                     this.isShow01 = true;
                     this.isShow02 = false;
                 }
@@ -112,7 +123,7 @@
         computed: {
             ...mapState(['warnChart', 'itemObj'])
         },
-        props: ['testFull'],
+        props: ['isFull'],
         created() {
             this.option.title.text = this.itemObj.pointName + '历史趋势图';
             this.warnChart.forEach(item => {

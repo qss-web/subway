@@ -96,18 +96,6 @@
             background: #d7dbde;
             color: #2f4554;
         }
-        .notice {
-            position: absolute;
-            right: 1rem;
-            top: 0;
-            dd {
-                flex: auto;
-                font-size: 0.2rem;
-                margin-left: 0.26rem;
-                height: 0.48rem;
-                line-height: 0.5rem;
-            }
-        }
     }
 
     .add-btn {

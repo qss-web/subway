@@ -123,3 +123,49 @@
   background: url('~assets/siteInfo/bg_door.png') no-repeat;
   background-size: 100% 100%;
 }
+
+//右上角报警提示
+.g-notice {
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  dd {
+    cursor: pointer;
+    flex: auto;
+    font-size: 0.18rem;
+    margin-left: 0.26rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
+    padding: 0 0.1rem;
+    background: #3c3f46;
+    border-radius: 2rem;
+    margin-top: 0.1rem;
+    box-shadow: #3c3f46 0.05em 0em 0.05em;
+  }
+}
+
+//震荡图弹出框
+.g-isClose {
+  position: absolute;
+  right: 2%;
+  top: 20px;
+  color: #fff !important;
+}
+.g-isZoom {
+  position: absolute;
+  right: 4.5%;
+  top: 20px;
+  color: #fff !important;
+  img {
+    width: 0.2rem;
+    height: 0.2rem;
+    vertical-align: middle;
+    margin-top: 0.04rem;
+  }
+}
+.g-box-el {
+  .el-dialog__body,
+  .el-dialog__header {
+    background: #232427 !important;
+  }
+}

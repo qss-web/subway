@@ -62,8 +62,17 @@
             <v-train></v-train>
         </div>
         <v-goback></v-goback>
-        <el-dialog :visible.sync="isShowPopup " width="90% ">
-            <v-alarm-popup></v-alarm-popup>
+        <el-dialog class="g-box-el" :visible.sync="isShowPopup" width="98%" :fullscreen="isFullscreen" :show-close="false">
+            <a class="g-isZoom" href="javascript:;" v-on:click="maximizationFn" v-if="isFullscreen">
+                <i class="el-icon-minus" style="font-size: 0.22rem;"></i>
+            </a>
+            <a class="g-isZoom" href="javascript:;" v-on:click="maximizationFn" v-else>
+                <img src="~assets/siteInfo/max.png" />
+            </a>
+            <a class="g-isClose" href="javascript:;" v-on:click="closeFn">
+                <i class="el-icon-close" style="font-size: 0.26rem;"></i>
+            </a>
+            <v-alarm-popup v-bind:isFull="isFullscreen"></v-alarm-popup>
         </el-dialog>
     </div>
 </template>
@@ -73,6 +82,7 @@
     export default {
         data() {
             return {
+                isFullscreen: false,
                 currentPage01: 1, //当前页数
                 pageSize01: 7, //每页显示数量
                 totalPage01: 0,//总页数
@@ -619,6 +629,13 @@
         methods: {
             ...mapActions(['_getInfo', '_getList']),
             ...mapMutations(['_warnChart', '_equInfo', '_currentIndex']),
+            maximizationFn() {
+                if(this.isFullscreen) {
+                    this.isFullscreen = false;
+                } else {
+                    this.isFullscreen = true;
+                }
+            },
             monitorFn() {
                 this.$router.push({ path: 'monitor' });
             },
@@ -788,11 +805,13 @@
                         this.alarmOtherInfos.deviceStatus = res.deviceStatus;
                     }
                 });
+            },
+            closeFn() {
+                this.isShowPopup = false;
             }
         }
     };
 </script>
-
 <style lang="less" scoped>
     .upDownTab {
         position: absolute;

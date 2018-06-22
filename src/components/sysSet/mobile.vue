@@ -85,7 +85,13 @@
             };
         },
         created() {
+            if(window.timeOut) {
+                clearTimeout(window.timeOut);
+            }
             this.getRoleListFn();
+        },
+        destroyed() {
+            clearTimeout(window.timeOut);
         },
         methods: {
             ...mapActions(['_getList', '_getInfo']),
@@ -100,6 +106,9 @@
             },
             //获取列表
             getRoleListFn(req) {
+                if(window.timeOut) {
+                    clearTimeout(window.timeOut);
+                }
                 const ops = {
                     'curPage': this.currentPage,
                     'pageSize': this.pageSize
@@ -120,6 +129,9 @@
                         this.equList = res.rows;
                         this.totalPage = res.total;
                         this.pageNumber = res.records;
+                        window.timeOut = setTimeout(() => {
+                            this.getRoleListFn(this.isReq);
+                        }, 3000);
                     }
                 });
             },

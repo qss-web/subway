@@ -29,6 +29,7 @@
                 },
                 popData1: {
                     'titleTotal': '新增用户',
+                    'isSpecial': true,
                     'options': [{
                         'status': 1,
                         'title': '用户名',

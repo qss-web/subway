@@ -154,7 +154,9 @@
                 checkedList5: [],
                 checkedList6: [],
                 middleArr: [],
-                popReq: {},
+                popReq: {
+                    messageFlag: ''
+                },
                 // staionsList: [],
                 // lineList: [],
                 // sysList: [{
@@ -191,6 +193,8 @@
                 if(this.popReq.messageFlag || this.popReq.messageFlag == 0) {
                     this.popReq.messageFlag = this.popReq.messageFlag.toString();
                 }
+            } else if(this.popData.isSpecial) {
+                this.popReq.messageFlag = '0';
             }
             //获取车站列表
             // this.getStationsFn();

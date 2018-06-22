@@ -6,7 +6,7 @@
         <div class="tab">
             <ul class="title">
                 <li class="active">事件信息</li>
-                <dl v-if="itemObj.equuid" class="notice flex">
+                <dl v-if="itemObj.equuid" class="g-notice flex">
                     <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
                     <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
                     <dd class="normal" v-on:click="statusFilter('3')">运行：{{equInfoCount[2]}}次</dd>
@@ -14,7 +14,7 @@
                     <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}次</dd>
                     <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                 </dl>
-                <dl v-else class="notice flex">
+                <dl v-else class="g-notice flex">
                     <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
                     <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
                     <!-- <dd class="normal">运行：{{equInfoCount[2]}}次</dd> -->
@@ -344,24 +344,6 @@
             li.active {
                 background: #d7d9db;
                 color: #1f1e1e;
-            }
-            .notice {
-                position: absolute;
-                right: 1rem;
-                top: 0;
-                dd {
-                    cursor: pointer;
-                    flex: auto;
-                    font-size: 0.18rem;
-                    margin-left: 0.26rem;
-                    height: 0.32rem;
-                    line-height: 0.32rem;
-                    padding: 0 0.1rem;
-                    background: rgba(255, 255, 255, 1);
-                    border-radius: 2rem;
-                    margin-top: 0.1rem;
-                    box-shadow: white 0.05em 0em 0.05em;
-                }
             }
         }
         .pagination {

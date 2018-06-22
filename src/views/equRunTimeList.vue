@@ -238,18 +238,6 @@
             height: 0.52rem;
             border: 1px solid #587386;
             border-bottom: none;
-            .notice {
-                position: absolute;
-                right: 1rem;
-                top: 0;
-                dd {
-                    flex: auto;
-                    font-size: 0.2rem;
-                    margin-left: 0.26rem;
-                    height: 0.52rem;
-                    line-height: 0.52rem;
-                }
-            }
         }
         .pagination {
             text-align: center;

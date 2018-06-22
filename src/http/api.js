@@ -270,7 +270,9 @@ const api = {
   //新增wifi
   addWifi: 'webapi/wifi/add',
   //删除wifi
-  delWifi: 'webapi/wifi/del'
+  delWifi: 'webapi/wifi/del',
+  //获取设备信息-监测用
+  getEquipment: 'webapi/find/equipment'
 };
 
 for (var k in api) {

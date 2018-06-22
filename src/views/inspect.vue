@@ -111,7 +111,7 @@
                 }, {
                     'label': '到达时间',
                     'width': 20,
-                    'value': 'arriveTime'
+                    'value': 'changeTime'
                 }, {
                     'label': '巡检状态',
                     'width': 10,
@@ -219,6 +219,9 @@
                     callback: res => {
                         res.rows.forEach(item => {
                             item.isCheck = false;
+                            if(item.arriveTime) {
+                                item.changeTime = item.arriveTime.substring(11, 16);
+                            }
                         });
                         this.equList = res.rows;
                         this.totalPage = res.total;
@@ -303,18 +306,6 @@
             height: 0.52rem;
             border: 1px solid #587386;
             border-bottom: none;
-            .notice {
-                position: absolute;
-                right: 1rem;
-                top: 0;
-                dd {
-                    flex: auto;
-                    font-size: 0.2rem;
-                    margin-left: 0.26rem;
-                    height: 0.52rem;
-                    line-height: 0.52rem;
-                }
-            }
         }
         .pagination {
             text-align: center;

@@ -617,7 +617,7 @@
                 margin-right: 0.2rem;
             }
             &-name {
-                color: #000;
+                color: #fff;
                 font-size: 0.16rem;
                 box-shadow: 0 0 0.1rem 0.01rem #000;
                 width: 0.94rem;
