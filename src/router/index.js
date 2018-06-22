@@ -11,48 +11,48 @@ const router = new VueRouter({
 
 // 路由拦截
 router.beforeEach(function(to, from, next) {
-  //   clearTimeout(window.timeOut);
+  clearTimeout(window.timeOut);
 
-  //   const userInfo = getLoc('userInfo') || getSen('userInfo') || '';
-  //   var control = [];
+  const userInfo = getLoc('userInfo') || getSen('userInfo') || '';
+  var control = [];
 
-  //   if (to.path != '/search' && to.path != '/equInfo') {
-  //     store.commit('_setSearchVal', '');
-  //   }
+  if (to.path != '/search' && to.path != '/equInfo') {
+    store.commit('_setSearchVal', '');
+  }
 
-  //   if (to.path != '/index') {
-  //     store.commit('_isTimeOut', false);
-  //   } else {
-  //     store.commit('_isTimeOut', true);
-  //   }
+  if (to.path != '/index') {
+    store.commit('_isTimeOut', false);
+  } else {
+    store.commit('_isTimeOut', true);
+  }
 
-  //   if (store.state.isPowerShow && store.state.isPowerShow.length > 3) {
-  //     control = eval(store.state.isPowerShow)[4];
-  //   }
+  if (store.state.isPowerShow && store.state.isPowerShow.length > 3) {
+    control = eval(store.state.isPowerShow)[4];
+  }
 
-  //   if (!userInfo.token && to.path != '/login') {
-  //     return next({
-  //       path: '/login'
-  //     });
-  //   } else if (userInfo.token && (to.path == '/' || to.path == '/login')) {
-  //     return next({
-  //       path: 'index'
-  //     });
-  //   } else if (control.length != 0 && control[0].flag && to.path == '/index') {
-  //     return next();
-  //   } else if (control.length != 0 && !control[0].flag && control[1].flag && to.path == '/index') {
-  //     return next({
-  //       path: '/mine'
-  //     });
-  //   } else if (control.length != 0 && !control[0].flag && !control[1].flag && control[2].flag && to.path == '/index') {
-  //     return next({
-  //       path: '/search'
-  //     });
-  //   } else if (control.length != 0 && !control[0].flag && !control[1].flag && !control[2].flag && control[3].flag && to.path == '/index') {
-  //     return next({
-  //       path: '/setup'
-  //     });
-  //   }
+  if (!userInfo.token && to.path != '/login') {
+    return next({
+      path: '/login'
+    });
+  } else if (userInfo.token && (to.path == '/' || to.path == '/login')) {
+    return next({
+      path: 'index'
+    });
+  } else if (control.length != 0 && control[0].flag && to.path == '/index') {
+    return next();
+  } else if (control.length != 0 && !control[0].flag && control[1].flag && to.path == '/index') {
+    return next({
+      path: '/mine'
+    });
+  } else if (control.length != 0 && !control[0].flag && !control[1].flag && control[2].flag && to.path == '/index') {
+    return next({
+      path: '/search'
+    });
+  } else if (control.length != 0 && !control[0].flag && !control[1].flag && !control[2].flag && control[3].flag && to.path == '/index') {
+    return next({
+      path: '/setup'
+    });
+  }
 
   return next();
 });
