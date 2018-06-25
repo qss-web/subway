@@ -98,11 +98,11 @@
                     'width': 15,
                     'value': 'equName'
                 }, {
-                    'label': '运行时间',
+                    'label': '运行时间(小时)',
                     'width': 15,
                     'value': 'runTime'
                 }, {
-                    'label': '故障时间',
+                    'label': '故障时间(分)',
                     'width': 10,
                     'value': 'faultTime'
                 }],

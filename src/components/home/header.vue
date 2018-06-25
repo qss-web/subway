@@ -1,7 +1,7 @@
 <template>
     <div class="header flex">
         <img class="logo" src="~assets/header/logo.png" />
-        <span class="title flex-auto">机电设备运维服务智能监控系统</span>
+        <span class="title flex-auto">机电设备故障监测与智能诊断系统</span>
         <div class="btn-group flex">
             <router-link v-if="home" tag="button" to="index"><img src="~assets/header/icon_home.png" /></router-link>
             <router-link v-if="mine" tag="button" to="mine"><img src="~assets/header/icon_mine.png" /></router-link>

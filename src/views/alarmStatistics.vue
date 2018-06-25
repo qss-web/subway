@@ -8,8 +8,8 @@
                 <ul class="title">
                     <span class="titleName">今日预警统计</span>
                     <dl class="g-notice flex">
-                        <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}次</dd>
-                        <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}次</dd>
+                        <dd class="error" v-on:click="statusFilter('1')">一级预警：{{equInfoCount[0]}}次</dd>
+                        <dd class="warn" v-on:click="statusFilter('2')">二级预警：{{equInfoCount[1]}}次</dd>
                         <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[2]}}次</dd>
                         <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                     </dl>

@@ -1,7 +1,7 @@
 <template>
     <div class="popup-wrapper">
-        <v-chart v-show="this.isShow01 && this.isFull ==false && this.test.length != 0" :id="id01" :option="option" :styleObject="styleObject01"></v-chart>
-        <v-chart v-show="this.isShow02 &&this.isFull && this.test.length != 0" :id="id02" :option="option" :styleObject="styleObject02"></v-chart>
+        <v-chart v-show="this.isFull ==false && this.test.length != 0" :id="id01" :option="option" :styleObject="styleObject01"></v-chart>
+        <v-chart v-show="this.isFull && this.test.length != 0" :id="id02" :option="option" :styleObject="styleObject02"></v-chart>
     </div>
 </template>
 <script>
@@ -9,8 +9,8 @@
     export default {
         data() {
             return {
-                isShow01: true,
-                isShow02: false,
+                // isShow01: true,
+                // isShow02: false,
                 id01: 'todayAlarm01',
                 id02: 'todayAlarm02',
                 styleObject01: {
@@ -57,7 +57,12 @@
                     },
                     yAxis: {
                         title: {
-                            text: null //指定y轴的标题
+                            text: '',
+                            align: 'high',
+                            style: { color: '#fff' },
+                            offset: 0,
+                            rotation: 0,
+                            y: -16
                         },
                         gridLineColor: '#007878',
                         labels: {
@@ -110,23 +115,20 @@
             };
         },
         watch: {
-            isFull() {
-                if(this.isFull) {
-                    this.isShow01 = false;
-                    this.isShow02 = true;
-                } else {
-                    this.isShow01 = true;
-                    this.isShow02 = false;
-                }
-            }
         },
         computed: {
             ...mapState(['warnChart', 'itemObj'])
         },
         props: ['isFull'],
         created() {
+            if(this.warnChart.unit) {
+                this.option.yAxis.title.text = '[' + this.warnChart.unit + ']';
+            } else {
+                this.option.yAxis.title.text = '[ ]';
+            }
+
             this.option.title.text = this.itemObj.pointName + '历史趋势图';
-            this.warnChart.forEach(item => {
+            this.warnChart.reslist.forEach(item => {
                 this.test.push(parseFloat(item.value));
                 this.test2.push(item.date);
             });

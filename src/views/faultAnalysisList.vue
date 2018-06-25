@@ -61,18 +61,18 @@
                     'value': 'device_type_name'
                 }, {
                     'label': '故障原因代码',
-                    'width': 20,
+                    'width': 15,
                     'value': 'code'
                 }, {
                     'label': '故障原因名称',
                     'width': 10,
                     'value': 'fault_reason'
                 }, {
-                    'label': '故障平均发生时间',
-                    'width': 10,
+                    'label': '故障平均发生时间(小时)',
+                    'width': 15,
                     'value': 'pjgzsj'
                 }, {
-                    'label': '故障发生次数',
+                    'label': '故障发生次数(次)',
                     'width': 20,
                     'value': 'gzcs'
                 }],

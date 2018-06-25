@@ -90,8 +90,8 @@
                     'width': 13,
                     'value': 'deviceName'
                 }, {
-                    'label': '设备平均无故障运行时间',
-                    'width': 15,
+                    'label': '设备平均无故障运行时间(小时)',
+                    'width': 17,
                     'value': 'pjwgzyxsj'
                 }, {
                     'label': '故障相对比率',
@@ -99,7 +99,7 @@
                     'value': 'y'
                 }, {
                     'label': '关注等级',
-                    'width': 10,
+                    'width': 8,
                     'value': 'rank'
                 }],
                 equList: [],

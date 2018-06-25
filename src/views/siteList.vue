@@ -8,8 +8,8 @@
                 <ul class="title">
                     <span class="titleName">测点实时状态</span>
                     <dl class="g-notice flex">
-                        <dd class="error" v-on:click="statusFilter('1')">二级预警：{{equInfoCount[0]}}台</dd>
-                        <dd class="warn" v-on:click="statusFilter('2')">一级预警：{{equInfoCount[1]}}台</dd>
+                        <dd class="error" v-on:click="statusFilter('1')">一级预警：{{equInfoCount[0]}}台</dd>
+                        <dd class="warn" v-on:click="statusFilter('2')">二级预警：{{equInfoCount[1]}}台</dd>
                         <dd class="normal" v-on:click="statusFilter('3')">正常：{{equInfoCount[2]}}台</dd>
                         <dd class="offline" v-on:click="statusFilter('5')">断网：{{equInfoCount[3]}}台</dd>
                         <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}台</dd>
@@ -223,6 +223,9 @@
                     callback: res => {
                         res.rows.forEach(item => {
                             item.isCheck = false;
+                            if(item.currentValue) {
+                                item.currentValue = parseFloat(item.currentValue).toFixed(2);
+                            }
                             if(this.checkMark) {
                                 this.checkNewArr = this.checkMark.split(',');
                                 this.checkNewArr.filter(item1 => {

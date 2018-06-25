@@ -13,6 +13,10 @@
                     </dd>
                 </dl>
             </div>
+            <div class="qrCode">
+                <span id="qrCode"></span>
+                <p>下载移动巡检</p>
+            </div>
         </div>
         <v-login-footer></v-login-footer>
     </div>
@@ -28,6 +32,17 @@
                     password: ''
                 }
             };
+        },
+        mounted() {
+            setTimeout(() => {
+                var qrcode = new QRCode(document.getElementById("qrCode"), {
+                    width: 110,//设置宽高
+                    height: 110
+                });
+
+                qrcode.makeCode('http://bhxz.net:48092/app/app-release.apk');
+            }, 0);
+
         },
         methods: {
             ...mapActions(['_login']),
@@ -54,6 +69,20 @@
 </script>
 
 <style scoped="scoped" lang="less">
+    .qrCode {
+        position: absolute;
+        right: 1.06rem;
+        bottom: 1.8rem;
+        z-index: 3;
+        z-index: 4;
+        p {
+            text-align: center;
+            color: #fff;
+            font-size: 0.15rem;
+            padding-top: 0.1rem;
+            text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+        }
+    }
     .wrap {
         width: 100%;
         height: 100%;

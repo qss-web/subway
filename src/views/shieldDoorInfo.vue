@@ -72,7 +72,7 @@
             <a class="g-isClose" href="javascript:;" v-on:click="closeFn">
                 <i class="el-icon-close" style="font-size: 0.26rem;"></i>
             </a>
-            <v-alarm-popup v-bind:isFull="isFullscreen"></v-alarm-popup>
+            <v-alarm-popup v-bind:isFull="isFullscreen" v-if="isShowPopup"></v-alarm-popup>
         </el-dialog>
     </div>
 </template>
@@ -730,6 +730,11 @@
                     api: 'pointStatus',
                     callback: res => {
                         this.testTable.list = res.rows;
+                        res.rows.forEach(item => {
+                            if(item.currentValue) {
+                                item.currentValue = parseFloat(item.currentValue).toFixed(2);
+                            }
+                        });
                         this.totalPage02 = res.total;//总页数
                         this.pageNumber02 = res.records;//总条目数
 
@@ -808,6 +813,7 @@
             },
             closeFn() {
                 this.isShowPopup = false;
+                this.isFullscreen = false;
             }
         }
     };

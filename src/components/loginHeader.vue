@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <img class="logo" src="~assets/header/logo.png" />
-        <span class="title">机电设备运维服务智能监控系统</span>
+        <span class="title">机电设备故障监测与智能诊断系统</span>
     </div>
 </template>
 

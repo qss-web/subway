@@ -73,9 +73,9 @@
                 </dd>
             </div>
         </div>
-        <div class="footer flex" @click.prevent="goBack">
+        <div class="footer flex">
             <img class="bg" src="../assets/other/footer-border.png" />
-            <img class="back" src="~assets/common/icon_goback.png" />
+            <img class="back" @click.prevent="goBack" src="~assets/common/icon_goback.png" />
         </div>
     </div>
 </template>
