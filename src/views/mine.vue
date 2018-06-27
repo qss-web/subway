@@ -157,7 +157,7 @@
                     'value': 'index'
                 }, {
                     'label': '车站',
-                    'width': 15,
+                    'width': 10,
                     'value': 'station'
                 }, {
                     'label': '设备名称',
@@ -169,7 +169,7 @@
                     'value': 'time'
                 }, {
                     'label': '事件描述',
-                    'width': 25,
+                    'width': 30,
                     'value': 'alarmEvent'
                 }, {
                     'label': '状态',

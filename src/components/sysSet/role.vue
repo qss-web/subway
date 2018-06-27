@@ -138,6 +138,10 @@
                                         if(item1) {
                                             item1.push({ 'pingStr': '客户端：' });
                                         }
+                                    } else if(index1 == 6) {
+                                        if(item1) {
+                                            item1.push({ 'pingStr': '系统管理：' });
+                                        }
                                     }
                                     if(item1) {
                                         item1.forEach((item2) => {

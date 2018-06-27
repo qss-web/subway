@@ -123,6 +123,14 @@
                             </el-checkbox-group>
                         </div>
                     </dd>
+                    <dd>
+                        <span>系统管理：</span>
+                        <div class="wrap">
+                            <el-checkbox-group v-model="checkedList7">
+                                <el-checkbox v-for="(item,index) in showList[6]" :label="item.name" :key="index" @change="handleCheckedChange(item)">{{item.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </div>
+                    </dd>
                 </dl>
                 <div class="btn">
                     <a href="javascript:;" v-on:click="onSubmit">确定</a>
@@ -145,7 +153,8 @@
                     [{ 'name': '查询', 'flag': false, 'code': '3-0' }, { 'name': '导出', 'flag': false, 'code': '3-1' }, { 'name': '删除', 'flag': false, 'code': '3-2' }],
                     [{ 'name': '查询', 'flag': false, 'code': '4-0' }, { 'name': '导出', 'flag': false, 'code': '4-1' }, { 'name': '删除', 'flag': false, 'code': '4-2' }, { 'name': '编辑', 'flag': false, 'code': '4-3' }],
                     [{ 'name': '首页', 'flag': false, 'code': '5-0' }, { 'name': '我的', 'flag': false, 'code': '5-1' }, { 'name': '搜索', 'flag': false, 'code': '5-2' }, { 'name': '设置', 'flag': false, 'code': '5-3' }, { 'name': '监测', 'flag': false, 'code': '5-4' }],
-                    [{ 'name': '客户端', 'flag': false, 'code': '6-0' }]
+                    [{ 'name': '客户端', 'flag': false, 'code': '6-0' }],
+                    [{ 'name': '当前设备运行状态', 'flag': false, 'code': '7-0' }, { 'name': '监测设备配置', 'flag': false, 'code': '7-1' }, { 'name': '运行时间管理', 'flag': false, 'code': '7-2' }]
                 ],
                 checkedList1: [],
                 checkedList2: [],
@@ -153,6 +162,7 @@
                 checkedList4: [],
                 checkedList5: [],
                 checkedList6: [],
+                checkedList7: [],
                 middleArr: [],
                 popReq: {
                     messageFlag: ''
@@ -233,6 +243,11 @@
                             this.checkedList6.push(item.name);
                         }
                     });
+                    this.showList[6].forEach(item => {
+                        if(item.flag) {
+                            this.checkedList7.push(item.name);
+                        }
+                    });
                 } else {
                     this.showList = JSON.parse(JSON.stringify(this.showList));
                 }
@@ -248,6 +263,7 @@
                     this.middleArr.push(this.showList[3]);
                     this.middleArr.push(this.showList[4]);
                     this.middleArr.push(this.showList[5]);
+                    this.middleArr.push(this.showList[6]);
                     this.popReq[this.popData.isSetPower] = this.middleArr;
                 }
                 this.$emit('save', this.popReq);
@@ -318,6 +334,11 @@
                     }
                 });
                 this.showList[5].forEach(item => {
+                    if(items.code == item.code) {
+                        item.flag = !items.flag;
+                    }
+                });
+                this.showList[6].forEach(item => {
                     if(items.code == item.code) {
                         item.flag = !items.flag;
                     }

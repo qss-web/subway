@@ -9,15 +9,13 @@
         </ul>
         <v-equ-msg v-if="tabShow==1 "></v-equ-msg>
         <v-fault-library v-if="tabShow==2 "></v-fault-library>
-
-        <div class="equWrap " v-if="tabShow==3 && userInfo.isLimitShow==1 ">
+        <v-runni-state v-if="tabShow==3 "></v-runni-state>
+        <v-check-equ v-if="tabShow==4 "></v-check-equ>
+        <v-time-management v-if="tabShow==5 "></v-time-management>
+        <v-statisticians v-if="tabShow==6 "></v-statisticians>
+        <div class="equWrap " v-if="tabShow==7 && userInfo.isLimitShow==1 ">
             <v-system-set></v-system-set>
         </div>
-        <v-statisticians v-if="tabShow==4 "></v-statisticians>
-        <v-check-equ v-if="tabShow==5"></v-check-equ>
-        <v-runni-state v-if="tabShow==6"></v-runni-state>
-        <v-time-management v-if="tabShow==7"></v-time-management>
-        <v-wifi-list v-if="tabShow==8"></v-wifi-list>
         <v-goback></v-goback>
     </div>
 </template>
@@ -30,16 +28,15 @@
                 tabShow: 1,
                 tabName: [{ code: 'deviceInfo', name: '', isLimitShow: 1 },
                 { code: 'faultData', name: '', isLimitShow: 1 },
-                { code: 'sysSet', name: '', isLimitShow: 0 },
-                { code: 'userInfo', name: '', isLimitShow: 1 },
-                { code: 'systemDeviceSet', name: '', isLimitShow: 1 },
                 { code: 'systemRunStatus', name: '', isLimitShow: 1 },
+                { code: 'systemDeviceSet', name: '', isLimitShow: 1 },
                 { code: 'systemRunTime', name: '', isLimitShow: 1 },
-                { code: 'systemWifi', name: '', isLimitShow: 1 }]
+                { code: 'userInfo', name: '', isLimitShow: 1 },
+                { code: 'sysSet', name: '', isLimitShow: 0 }]
             };
         },
         computed: {
-            ...mapState(['userInfo', 'menuList'])
+            ...mapState(['userInfo', 'menuList', 'isPowerShow'])
         },
         watch: {
             menuList() {
@@ -47,7 +44,22 @@
             }
         },
         created() {
-            this.tabName[2].isLimitShow = this.userInfo.isLimitShow;
+            if(this.isPowerShow && this.isPowerShow.length > 3) {
+                this.powerControl = eval(this.isPowerShow)[6];
+                //当前设备运行状态
+                if(!this.powerControl[0].flag) {
+                    this.tabName[2].isLimitShow = 0;
+                }
+                //监测设备配置
+                if(!this.powerControl[1].flag) {
+                    this.tabName[3].isLimitShow = 0;
+                }
+                //运行时间管理
+                if(!this.powerControl[2].flag) {
+                    this.tabName[4].isLimitShow = 0;
+                }
+            }
+            this.tabName[this.tabName.length - 1].isLimitShow = this.userInfo.isLimitShow;
             this.getAlllistFn();
         },
         methods: {
