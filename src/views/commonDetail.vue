@@ -123,7 +123,7 @@
                         'val2': 'endSelectDate'
                     }],
                     defaultReq: {
-                        lineId: '6号线西延线',
+                        lineId: '6号线西延',
                         stationId: '',
                         equSys: '',
                         selectDate: (formatDate('', 6) - 1) + '-' + ((parseInt(formatDate('', 5)) + 1) > 10 ? (parseInt(formatDate('', 5)) + 1) : ("0" + (parseInt(formatDate('', 5)) + 1))).toString(),

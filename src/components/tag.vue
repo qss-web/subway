@@ -56,6 +56,7 @@
         padding: 0 0.2rem;
         font-size: 0.13rem;
         position: absolute;
+        letter-spacing: 0.01rem;
         &.triangle {
             border: 1px solid #000;
             &:before {

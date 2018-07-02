@@ -48,7 +48,7 @@
                         'val1': 'startDate'
                     }],
                     defaultReq: {
-                        line: '6号线西延线',
+                        line: '6号线西延',
                         station: '',
                         equSys: '',
                         equName: ''

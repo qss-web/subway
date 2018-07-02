@@ -87,7 +87,7 @@
                 pageNumber02: 0,//总条目数
                 //预警信息
                 alarmInfos: [],
-                statusShow: ['二级预警', '一级预警', '运行', '断网', '停机'],
+                statusShow: ['一级预警', '二级预警', '运行', '断网', '停机'],
                 colorStatus: ['bg-error', 'bg-warn', 'bg-normal', 'bg-stop', 'bg-offline'],
                 alarmOtherInfos: {
                     deviceName: '',
@@ -304,7 +304,7 @@
             getEquRuninfoFn() {
                 this._getInfo({
                     ops: {
-                        // "deviceInLineId": "6号线西延线",  //线路
+                        // "deviceInLineId": "6号线西延",  //线路
                         // "deviceInStationId": "苹果园站",  //站点
                         "deviceUuid": this.deviceInfo.deviceUuid  //设备uuid
                     },

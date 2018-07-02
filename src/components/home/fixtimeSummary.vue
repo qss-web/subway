@@ -5,7 +5,7 @@
         <div class="charts flex">
             <v-monthly-reliability v-if="ringInfo.value" v-bind:ringInfo="ringInfo"></v-monthly-reliability>
             <!-- <v-health-indicators v-if="max1" id="dailyFixingTime" title="平均每日修复时间" :percent="current1"></v-health-indicators> -->
-            <v-fixing-time id="dailyFixingTime" v-if="max1" title="平均每日修复时间" :max="max1" :current="current1" bg="#e61e1f"></v-fixing-time>
+            <v-fixing-time id="dailyFixingTime" v-if="max1" title="平均每日修复时间" :max="max1" :current="current1" bg="#eeeeee"></v-fixing-time>
             <v-fixing-time id="fixOuttime" title="报修超时率" v-if="max2" :max="max2" :current="current2" bg="#79c72f"></v-fixing-time>
         </div>
     </div>

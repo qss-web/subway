@@ -6,9 +6,9 @@
                 <div class="infos flex">
                     <label>车站预警</label>
                     <span class="light bg-error"></span>
-                    <span class="name">二级预警 {{total[0]}}座</span>
+                    <span class="name">一级预警 {{total[0]}}座</span>
                     <span class="light bg-warn"></span>
-                    <span class="name">一级预警 {{total[1]}}座</span>
+                    <span class="name">二级预警 {{total[1]}}座</span>
                     <span class="light bg-normal"></span>
                     <span class="name">正常 {{total[2]}}座</span>
                     <span class="light bg-offline"></span>
@@ -20,24 +20,24 @@
             <div class="line2 flex">
                 <div class="infos flex">
                     <img src="~assets/home/icon_escalator.png" />
-                    <span>二级预警 <span class="error">{{escalator[0]}}</span> 部</span>
-                    <span>一级预警 <span class="warn">{{escalator[1]}}</span> 部</span>
+                    <span>一级预警 <span class="error">{{escalator[0]}}</span> 部</span>
+                    <span>二级预警 <span class="warn">{{escalator[1]}}</span> 部</span>
                     <span>正常 <span class="normal">{{escalator[2]}}</span> 部</span>
                     <span>断网 <span class="offline">{{escalator[3]}}</span> 部</span>
                     <span>停机 <span class="stop">{{escalator[4]}}</span> 部</span>
                 </div>
                 <div class="infos flex">
                     <img src="~assets/home/icon_fan.png" />
-                    <span>二级预警 <span class="error">{{fan[0]}}</span> 台</span>
-                    <span>一级预警 <span class="warn">{{fan[1]}}</span> 台</span>
+                    <span>一级预警 <span class="error">{{fan[0]}}</span> 台</span>
+                    <span>二级预警 <span class="warn">{{fan[1]}}</span> 台</span>
                     <span>正常 <span class="normal">{{fan[2]}}</span> 台</span>
                     <span>断网 <span class="offline">{{fan[3]}}</span> 台</span>
                     <span>停机 <span class="stop">{{fan[4]}}</span> 台</span>
                 </div>
                 <div class="infos flex">
                     <img src="~assets/home/icon_door.png" />
-                    <span>二级预警 <span class="error">{{door[0]}}</span> 组</span>
-                    <span>一级预警 <span class="warn">{{door[1]}}</span> 组</span>
+                    <span>一级预警 <span class="error">{{door[0]}}</span> 组</span>
+                    <span>二级预警 <span class="warn">{{door[1]}}</span> 组</span>
                     <span>正常 <span class="normal">{{door[2]}}</span> 组</span>
                     <span>断网 <span class="offline">{{door[3]}}</span> 组</span>
                     <span>停机 <span class="stop">{{door[4]}}</span> 组</span>
@@ -127,9 +127,9 @@
             .line1 {
                 height: 0.7rem;
                 img {
-                    margin: 0 0.4rem;
-                    width: 1.37rem;
-                    height: 0.47rem;
+                    margin: 0 0.1rem;
+                    width: 2rem;
+                    height: 0.51rem;
                 }
                 .light {
                     width: 0.12rem;

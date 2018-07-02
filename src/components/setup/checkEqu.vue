@@ -74,7 +74,7 @@
                         'val': 'deviceName'
                     }],
                     defaultReq: {
-                        deviceInLineId: '6号线西延线',
+                        deviceInLineId: '6号线西延',
                         deviceInStationId: '',
                         deviceTypeCode: '',
                         deviceName: ''

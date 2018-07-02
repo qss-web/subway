@@ -46,11 +46,7 @@
                         'status': 2,
                         'title': '线路',
                         'placeholder': '请选择内容',
-                        'val': 'line',
-                        'list': [{
-                            value: '1',
-                            label: '6号线'
-                        }]
+                        'val': 'line'
                     }, {
                         'status': 2,
                         'title': '车站',
@@ -75,7 +71,7 @@
                         'val2': 'endTime'
                     }],
                     defaultReq: {
-                        line: '6号线西延线',
+                        line: '6号线西延',
                         station: '',
                         equSys: '',
                         equName: '',

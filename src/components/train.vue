@@ -1,7 +1,7 @@
 <template>
     <div class="train-list flex">
         <div class="train-body flex">
-            <span class="train-name">6号线<br />Line6</span>
+            <span class="train-name">6号线西延<br />Line6</span>
             <span v-if="!select" style="cursor: pointer" class="el-dropdown-link" v-on:click="goStationFn">{{currentStation}}</span>
             <el-dropdown v-else class="station-select" placement="top-start" @command="tabCommand">
                 <span class="el-dropdown-link">{{currentStation}}</span>
@@ -78,6 +78,7 @@
             .train-name {
                 color: #fff;
                 font-size: 0.21rem;
+                text-align: center;
             }
         }
         .train-header {
