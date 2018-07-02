@@ -299,7 +299,8 @@
             padding-left: 0.13rem;
             position: relative;
             li {
-                width: 2rem;
+                min-width: 1.6rem;
+                padding: 0 0.2rem;
                 height: 0.39rem;
                 line-height: 0.39rem;
                 font-size: 0.2rem;

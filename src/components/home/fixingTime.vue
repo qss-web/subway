@@ -6,8 +6,10 @@
 
 <script>
     export default {
-        props: ['id', 'title', 'max', 'current', 'bg'],
+        props: ['id', 'title', 'max', 'current', 'bg', 'curBg', 'str'],
         data() {
+            let _this = this;
+
             return {
                 styleObject: {
                     width: 3 + 'rem',
@@ -40,9 +42,14 @@
                         }
                     },
                     tooltip: {
-                        enabled: false
+                        followPointer: true,
+                        borderColor: '#000000',
+                        formatter: function() {
+                            return _this.str;
+                        }
                     },
                     yAxis: {
+                        maxColor: this.curBg,
                         lineWidth: 0,
                         minorTickInterval: null,
                         minorTickWidth: 1,

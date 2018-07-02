@@ -53,7 +53,6 @@ router.beforeEach(function(to, from, next) {
       path: '/setup'
     });
   }
-  debugger;
   return next();
 });
 
