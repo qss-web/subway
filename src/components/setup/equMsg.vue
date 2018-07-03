@@ -227,10 +227,9 @@
                     },
                     api: 'downloadExcel',
                     callback: res => {
-                        window.location.href = "http://" + window.location.host + "/" + res;
+                        window.location.href = res;
                     }
                 });
-
                 // window.location.href = "http://" + window.location.host + "/bjdt/exceltemplate/device.xls";
             },
             //导入
