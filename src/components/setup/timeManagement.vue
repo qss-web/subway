@@ -29,7 +29,7 @@
                     isCheck: false //是否显示多选框
                 },
                 popData1: {
-                    'titleTotal': '编辑',
+                    'titleTotal': '编辑每天运行时间',
                     'options': [{
                         'status': 1,
                         'title': '运行时间',

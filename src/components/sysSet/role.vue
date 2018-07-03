@@ -173,6 +173,7 @@
             },
             //编辑操作
             editFn(id, item) {
+                this.popData1.titleTotal = "编辑角色";
                 this._itemObj(item);
                 this.isShowPop = true;
             },
@@ -205,6 +206,7 @@
             },
             //增加用户操作
             addUserFn() {
+                this.popData1.titleTotal = "新增角色";
                 this._itemObj('');
                 this.isShowPop = true;
             },

@@ -32,7 +32,7 @@
                     isCheck: true //是否显示多选框
                 },
                 popData1: {
-                    'titleTotal': '增加角色',
+                    'titleTotal': '新增手机',
                     'options': [{
                         'status': 1,
                         'title': '手机名称',
@@ -146,6 +146,7 @@
             },
             //编辑操作
             editFn(id, item) {
+                this.popData1.titleTotal = "编辑手机";
                 this._itemObj(item);
                 this.isShowPop = true;
             },
@@ -186,6 +187,7 @@
             },
             //增加用户操作
             addUserFn() {
+                this.popData1.titleTotal = "新增手机";
                 this._itemObj('');
                 this.isShowPop = true;
             },

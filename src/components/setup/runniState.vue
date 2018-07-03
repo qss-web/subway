@@ -30,7 +30,7 @@
                     isCheck: true //是否显示多选框
                 },
                 popData1: {
-                    'titleTotal': '新增设备',
+                    'titleTotal': '新增当前设备运行状态',
                     'options': [{
                         'status': 2,
                         'title': '线路',

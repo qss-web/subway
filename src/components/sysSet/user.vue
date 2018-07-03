@@ -219,6 +219,7 @@
             },
             //编辑操作
             editFn(id) {
+                this.popData1.titleTotal = "编辑用户";
                 this._getList({
                     ops: { 'id': id },
                     api: 'userDetail',
@@ -230,6 +231,7 @@
             },
             //增加用户操作
             addUserFn() {
+                this.popData1.titleTotal = "新增用户";
                 this._itemObj('');
                 this.isShowPop = true;
             },

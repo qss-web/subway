@@ -203,6 +203,7 @@
             },
             //增加用户操作
             addFn() {
+                this.popData1.titleTotal = "新增wifi";
                 this._itemObj('');
                 this.isShowPop = true;
             },
@@ -219,6 +220,7 @@
             },
             //编辑操作
             editFn(id, item) {
+                this.popData1.titleTotal = "编辑wifi";
                 this._itemObj(item);
                 this.isShowPop = true;
             }

@@ -103,7 +103,7 @@
                     'btn': [{ 'monitor': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
                 popData1: {
-                    'titleTotal': '新增',
+                    'titleTotal': '新增故障库',
                     'options': [{
                         'status': 2,
                         'title': '设备类型',
@@ -205,6 +205,7 @@
             },
             //增加
             addFn() {
+                this.popData1.titleTotal = "新增故障库";
                 this._itemObj('');
                 this.isShowPop = true;
             },
@@ -257,6 +258,7 @@
             },
             //编辑操作
             editFn() {
+                this.popData1.titleTotal = "编辑故障库";
                 this.isShowPop = true;
             },
             //改变当前页数

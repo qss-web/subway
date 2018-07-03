@@ -111,7 +111,7 @@
                     'btn': [{ 'monitor': true, 'name': '编辑', 'fn': 'editFn' }]
                 }],
                 popData1: {
-                    'titleTotal': '新增设备',
+                    'titleTotal': '新增设备信息',
                     'options': [{
                         'status': 2,
                         'title': '线路',
