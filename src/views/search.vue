@@ -45,8 +45,8 @@
                 </li>
             </ul>
         </div>
-        <div class="others" v-if="indexed==5" style=" min-height: 4.9rem;">
-            <ul class="title" style=" padding-top: 0.14rem;">
+        <div class="others" v-if="indexed==5" style=" min-height: 4.8rem;">
+            <ul class="title" style=" padding-top: 0.04rem;">
                 <li v-on:click="otherFn(true)" v-bind:class="{active:subOther==true}">巡视巡检</li>
                 <li v-on:click="otherFn(false)" v-bind:class="{active:subOther==false}">故障库</li>
             </ul>
@@ -717,8 +717,8 @@
             padding-left: 1.8rem;
             li {
                 width: 2.22rem;
-                height: 0.49rem;
-                line-height: 0.49rem;
+                height: 0.46rem;
+                line-height: 0.46rem;
                 font-size: 0.2rem;
                 float: left;
                 text-align: center;
