@@ -16,7 +16,7 @@
                         <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}台</dd>
                     </dl>
                 </ul>
-                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
+                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage" v-bind:type="1"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize" @prev-click="prevFn" @next-click="nextFn" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -120,7 +120,8 @@
                 alarmVal: '',//预警状态
                 ids: '',
                 // timeOut: '',
-                checkNewArr: []
+                checkNewArr: [],
+                isSerSub: true
                 // test: ['7b93ec3c0975ad43bbb431dba268123d', '3a2a3070d48cda6a889efd32b2d75de9']
             };
         },
@@ -175,14 +176,22 @@
                 if(this.currentPage - 1 == val) {
                     this._setCheckMark('');
                     this.currentPage = val;
-                    this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
+                    if(this.isSerSub) {
+                        this.getEqTimelyStatusFn(this.isReq);
+                    } else {
+                        this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
+                    }
                 }
             },
             nextFn(val) {
                 if(this.currentPage + 1 == val) {
                     this._setCheckMark('');
                     this.currentPage = val;
-                    this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
+                    if(this.isSerSub) {
+                        this.getEqTimelyStatusFn(this.isReq);
+                    } else {
+                        this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
+                    }
                 }
             },
             getEqTimelyStatusFn(req, val) {
@@ -194,7 +203,7 @@
                     'pageSize': this.pageSize
                 };
 
-                this._currentIndex(ops);
+                this._currentIndex(Object.assign(ops, { type: 1 }));
 
                 if(req) {
                     Object.assign(ops, req);
@@ -231,7 +240,11 @@
                         this.currentPage = res.page;
                         if(this.currentPage == 1) {
                             window.timeOut = setTimeout(() => {
-                                this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
+                                if(this.isSerSub) {
+                                    this.getEqTimelyStatusFn(this.isReq);
+                                } else {
+                                    this.getEqTimelyStatusFn(this.isReq, this.alarmVal);
+                                }
                             }, 4000);
                         } else {
                             clearTimeout(window.timeOut);
@@ -241,6 +254,7 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isSerSub = true;
                 this.currentPage = 1;
                 this._setCheckMark('');
                 this.isReq = req;
@@ -264,6 +278,7 @@
             },
             //二级筛选
             statusFilter(val) {
+                this.isSerSub = false;
                 this.currentPage = 1;
                 this._setCheckMark('');
                 this.alarmVal = val;

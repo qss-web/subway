@@ -348,6 +348,7 @@
                 });
             },
             tabShowFn(b) {
+                this.currentPage = 1;
                 //b==true  未处理
                 //b==false 已处理
                 this.tabShow = b;

@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div v-show="activeIndex">
-                                <v-search-list v-on:receive="warnChartFn" :other="testTable.other " :label="testTable.label " :list="testTable.list "></v-search-list>
+                                <v-search-list v-on:receive="warnChartFn" :other="testTable.other " :label="testTable.label " :list="testTable.list " v-bind:type="6"></v-search-list>
                                 <div class=" pagination ">
                                     <el-pagination :page-size=" pageSize02 " @current-change="changePages02" :current-page="currentPage02" layout="prev, slot, next " :total="pageNumber02" prev-text="上一页 " next-text="下一页 ">
                                         <span>{{currentPage02}}/{{totalPage02}}</span>
@@ -595,7 +595,8 @@
                     }],
                     list: [],
                     other: {
-                        style: 5
+                        style: 5,
+                        goToNextFn: 'goToNextPage' //弹出震荡图
                     }
                 },
                 sectionName: '',//部位名称
@@ -720,7 +721,7 @@
                     'deviceUuid': this.deviceInfo.deviceUuid
                 };
 
-                this._currentIndex(ops);
+                this._currentIndex(Object.assign(ops, { type: 6 }));
                 if(item) {
                     Object.assign(ops, { 'sectionName': item });
                 }

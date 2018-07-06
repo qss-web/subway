@@ -118,7 +118,8 @@
                 isReq: {},
                 getEquNameArr: [],
                 equKey: '',
-                ids: ''
+                ids: '',
+                isSerSub: true //判断是搜索查询翻页还是二级按钮查询翻页
             };
         },
         computed: {
@@ -180,7 +181,11 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getTodayAlarmFn(this.isReq, this.alarmVal);
+                if(this.isSerSub) {
+                    this.getTodayAlarmFn(this.isReq);
+                } else {
+                    this.getTodayAlarmFn(this.isReq, this.alarmVal);
+                }
             },
             //列表子组件按钮
             btnFn(val) {
@@ -227,12 +232,14 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isSerSub = true;
                 this.currentPage = 1;
                 this.isReq = req;
                 this.getTodayAlarmFn(req);
             },
             //二级筛选
             statusFilter(val) {
+                this.isSerSub = false;
                 this.currentPage = 1;
                 this.alarmVal = val;
                 this.getTodayAlarmFn(this.isReq, this.alarmVal);

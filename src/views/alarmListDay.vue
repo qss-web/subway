@@ -126,7 +126,8 @@
                 alarmVal: '',
                 isReq: {},
                 getEquNameArr: [],
-                ids: ''
+                ids: '',
+                isSerSub: true //判断是搜索查询翻页还是二级按钮查询翻页
             };
         },
         computed: {
@@ -192,7 +193,13 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                if(this.itemObj.equuid) {
+                if(this.isSerSub) {
+                    if(this.itemObj.equuid) {
+                        this.getHaveTimelyAlarmListFn(this.isReq);
+                    } else {
+                        this.getTimelyAlarmListFn(this.isReq);
+                    }
+                } else if(this.itemObj.equuid) {
                     this.getHaveTimelyAlarmListFn(this.isReq, this.alarmVal);
                 } else {
                     this.getTimelyAlarmListFn(this.isReq, this.alarmVal);
@@ -266,6 +273,7 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isSerSub = true;
                 this.currentPage = 1;
                 this.isReq = req;
                 if(this.itemObj.equuid) {
@@ -283,6 +291,7 @@
             },
             //二级筛选
             statusFilter(val) {
+                this.isSerSub = false;
                 this.currentPage = 1;
                 this.alarmVal = val;
                 if(this.itemObj.equuid) {

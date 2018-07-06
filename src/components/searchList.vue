@@ -18,7 +18,13 @@
                 </span>
                 <div v-for="(item1, index1) in label" v-bind:style="{width:item1.width+'%'}">
                     <span v-if="item1.value == 'index'" v-bind:style="other.goToNextFn?'cursor: pointer':''" v-on:click="goToNextPageLine(other.goToNextFn,item)">
-                        {{(currentIndex.pageSize*(currentIndex.curPage-1))+(index+1)}}
+                        <i v-if="type==1"> {{(currentIndex01.pageSize*(currentIndex01.curPage-1))+(index+1)}}</i>
+                        <i v-else-if="type==2"> {{(currentIndex02.pageSize*(currentIndex02.curPage-1))+(index+1)}}</i>
+                        <i v-else-if="type==4"> {{(currentIndex04.pageSize*(currentIndex04.curPage-1))+(index+1)}}</i>
+                        <i v-else-if="type==5"> {{(currentIndex05.pageSize*(currentIndex05.curPage-1))+(index+1)}}</i>
+                        <i v-else-if="type==6"> {{(currentIndex06.pageSize*(currentIndex06.curPage-1))+(index+1)}}</i>
+                        <i v-else-if="type==7"> {{(currentIndex07.pageSize*(currentIndex07.curPage-1))+(index+1)}}</i>
+                        <i v-else> {{(currentIndex.pageSize*(currentIndex.curPage-1))+(index+1)}}</i>
                     </span>
                     <!-- btnCss 判断按钮的样式，现在有两种按钮的样式 -->
                     <span v-else-if="item1.btn" v-bind:class="other.btnCss?'btnCss':'btn'">
@@ -67,9 +73,9 @@
                 listStatus: ['error', 'warn', 'normal', 'stop', 'offline']
             };
         },
-        props: ['list', 'label', 'other', 'curPage', 'tabShow'],
+        props: ['list', 'label', 'other', 'curPage', 'tabShow', 'type'],
         computed: {
-            ...mapState(['currentIndex']),
+            ...mapState(['currentIndex', 'currentIndex01', 'currentIndex02', 'currentIndex04', 'currentIndex05', 'currentIndex06', 'currentIndex07']),
             listShow() {
                 return this.list;
             }
@@ -188,6 +194,9 @@
     };
 </script>
 <style lang="less" scoped>
+    i {
+        font-style: normal;
+    }
     .textShow {
         cursor: default;
         display: block !important;

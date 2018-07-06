@@ -452,6 +452,12 @@
                 });
             },
             currentList(index) {
+                this.currentPage01 = 1;
+                this.currentPage02 = 1;
+                this.currentPage03 = 1;
+                this.currentPage04 = 1;
+                this.currentPage05 = 1;
+                this.currentPage06 = 1;
                 this.indexed = index;
                 this.ids = "";
                 if(this.queryInfo) {
@@ -460,6 +466,8 @@
             },
             //子菜单栏的点击
             otherFn(value) {
+                this.currentPage05 = 1;
+                this.currentPage06 = 1;
                 this.subOther = value;
                 if(value && this.queryInfo) {
                     this.queryFn5(this.queryInfo);

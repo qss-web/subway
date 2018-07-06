@@ -38,7 +38,7 @@
                                     <dd class="stop" v-on:click="statusFilter('4')">停机：{{equInfoCount[4]}}台</dd>
                                     <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}台</dd>
                                 </dl>
-                                <v-search-list :other="testTable.other" :label="testTable.label" :list="testTable.list"></v-search-list>
+                                <v-search-list :other="testTable.other" :label="testTable.label" :list="testTable.list" v-bind:type="4"></v-search-list>
                                 <div class=" pagination ">
                                     <el-pagination :page-size=" pageSize02 " @current-change="changePages02 " :current-page="currentPage02" layout="prev, slot, next " :total="pageNumber02" prev-text="上一页 " next-text="下一页 ">
                                         <span>{{currentPage02}}/{{totalPage02}}</span>
@@ -204,7 +204,7 @@
                 stationInfo: [{
                     type: 2,
                     deviceUuid: 'e7dd65ed8903850c7319ae7d0fdd220e',
-                    deviceId: '602',
+                    deviceId: '1187',
                     x: '2.9',
                     y: '4.82',
                     status: "",
@@ -212,7 +212,7 @@
                 }, {
                     type: 2,
                     deviceUuid: 'e7dd65ed8903850c7319ae7d0fdd220e',
-                    deviceId: '602',
+                    deviceId: '1187',
                     x: '5.5',
                     y: '3.2',
                     status: "",
@@ -220,7 +220,7 @@
                 }, {
                     type: 3,
                     deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
-                    deviceId: '1030',
+                    deviceId: '1294',
                     x: '5.8',
                     y: '2.53',
                     status: "",
@@ -228,7 +228,7 @@
                 }, {
                     type: 3,
                     deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
-                    deviceId: '1030',
+                    deviceId: '1294',
                     x: '4.8',
                     y: '2.2',
                     status: "",
@@ -236,7 +236,7 @@
                 }, {
                     type: 3,
                     deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
-                    deviceId: '1030',
+                    deviceId: '1294',
                     x: '4.2',
                     y: '1.8',
                     status: "",
@@ -244,7 +244,7 @@
                 }, {
                     type: 3,
                     deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
-                    deviceId: '1030',
+                    deviceId: '1294',
                     x: '2.2',
                     y: '3',
                     status: "",
@@ -252,7 +252,7 @@
                 }, {
                     type: 3,
                     deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
-                    deviceId: '1030',
+                    deviceId: '1294',
                     x: '7.3',
                     y: '1.5',
                     status: "",
@@ -260,7 +260,7 @@
                 }, {
                     type: 3,
                     deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
-                    deviceId: '1030',
+                    deviceId: '1294',
                     x: '8.2',
                     y: '1.7',
                     status: "",
@@ -268,7 +268,7 @@
                 }, {
                     type: 3,
                     deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
-                    deviceId: '1030',
+                    deviceId: '1294',
                     x: '6.6',
                     y: '1',
                     status: "",
@@ -278,25 +278,25 @@
                 fanInfo: [{
                     type: 1,
                     deviceUuid: 'a842c1ffe959ce6ab2e2780762569741',
-                    deviceId: '603',
+                    deviceId: '1179',
                     status: "",
                     name: 'PGYFJ601'
                 }, {
                     type: 1,
                     deviceUuid: 'a842c1ffe959ce6ab2e2780762569741',
-                    deviceId: '603',
+                    deviceId: '1179',
                     status: "",
                     name: 'PGYFJ601'
                 }, {
                     type: 1,
                     deviceUuid: 'a842c1ffe959ce6ab2e2780762569741',
-                    deviceId: '603',
+                    deviceId: '1179',
                     status: "",
                     name: 'PGYFJ601'
                 }, {
                     type: 1,
                     deviceUuid: 'a842c1ffe959ce6ab2e2780762569741',
-                    deviceId: '603',
+                    deviceId: '1179',
                     status: "",
                     name: 'PGYFJ601'
                 }],
@@ -430,7 +430,7 @@
                     'stationId': this.stationId
                 };
 
-                this._currentIndex(ops);
+                this._currentIndex(Object.assign(ops, { type: 4 }));
                 if(req) {
                     Object.assign(ops, { 'status': req });
                 }

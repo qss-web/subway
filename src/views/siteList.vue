@@ -16,7 +16,7 @@
                         <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}台</dd>
                     </dl>
                 </ul>
-                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
+                <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage" v-bind:type="2"></v-search-list>
                 <div class=" pagination ">
                     <el-pagination :page-size=" pageSize " @prev-click="prevFn" @next-click="nextFn" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
@@ -91,10 +91,6 @@
                     'width': 6,
                     'value': 'equSys'
                 }, {
-                    'label': '位置',
-                    'width': 6,
-                    'value': 'address'
-                }, {
                     'label': '设备名称',
                     'width': 10,
                     'value': 'equName'
@@ -119,6 +115,11 @@
                     'width': 12,
                     'value': 'time'
                 }, {
+                    'label': '状态',
+                    'width': 6,
+                    'value': 'statusValue',
+                    'status': 'status'
+                }, {
                     'label': '预警原因',
                     'width': 9,
                     'value': 'alarmCause'
@@ -133,7 +134,8 @@
                 alarmVal: '',//预警状态
                 ids: '',
                 checkNewArr: [],
-                isClick: true
+                isClick: true,
+                isSerSub: true
             };
         },
         computed: {
@@ -196,7 +198,11 @@
                     this.isClick = false;
                     this._setCheckMark('');
                     this.currentPage = this.currentPage - 1;
-                    this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                    if(this.isSerSub) {
+                        this.getPointTimelyStatusFn(this.isReq);
+                    } else {
+                        this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                    }
                 }
             },
             nextFn() {
@@ -204,7 +210,11 @@
                     this.isClick = false;
                     this._setCheckMark('');
                     this.currentPage = this.currentPage + 1;
-                    this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                    if(this.isSerSub) {
+                        this.getPointTimelyStatusFn(this.isReq);
+                    } else {
+                        this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                    }
                 }
             },
             //子组件按钮
@@ -231,7 +241,7 @@
                     'pageSize': this.pageSize
                 };
 
-                this._currentIndex(ops);
+                this._currentIndex(Object.assign(ops, { type: 2 }));
                 if(req) {
                     Object.assign(ops, req);
                 }
@@ -268,7 +278,11 @@
                         this.currentPage = res.page;
                         if(this.currentPage == 1) {
                             window.timeOut = setTimeout(() => {
-                                this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                                if(this.isSerSub) {
+                                    this.getPointTimelyStatusFn(this.isReq);
+                                } else {
+                                    this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                                }
                             }, 5000);
                         } else if(window.timeOut) {
                             clearTimeout(window.timeOut);
@@ -278,6 +292,7 @@
             },
             //获取筛选的值
             filterBtn(req) {
+                this.isSerSub = true;
                 this.currentPage = 1;
                 this._setCheckMark('');
                 this.isReq = req;
@@ -299,6 +314,7 @@
             },
             //二级筛选
             statusFilter(val) {
+                this.isSerSub = false;
                 this.currentPage = 1;
                 this._setCheckMark('');
                 this.alarmVal = val;

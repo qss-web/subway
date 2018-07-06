@@ -4,7 +4,7 @@
             <v-sub-search v-bind:searchData="searchData" v-on:receiveBtnFn="btnsFn" v-on:filter="filterBtn"></v-sub-search>
         </div>
         <div class="middleKey">
-            <v-system-list v-on:ids="getIdsFn" v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-system-list>
+            <v-system-list v-on:ids="getIdsFn" v-bind:label="info1" v-bind:other="otherInfo" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage" v-bind:type="3"></v-system-list>
         </div>
         <div class=" pagination ">
             <el-pagination :page-size=" pageSize " @current-change="changePages" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
@@ -114,7 +114,7 @@
                     'pageSize': this.pageSize
                 };
 
-                this._currentIndex(ops);
+                this._currentIndex(Object.assign(ops, { type: 3 }));
 
                 if(req) {
                     Object.assign(ops, req);

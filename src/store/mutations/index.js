@@ -41,8 +41,33 @@ export default {
   },
   //存储当前页数，用来计算当前序号
   _currentIndex(state, currentPage) {
-    setSen('currentIndex', currentPage);
-    state.currentIndex = currentPage;
+    //   type==1 设备实时状态  type==2 测点实时状态  type==3手机维修列表
+    //   type==4 车站级测点  type==5 风机测点  type==6 站台门测点 type==7 扶梯测点
+    if (currentPage.type == 1) {
+      setSen('currentIndex01', currentPage);
+      state.currentIndex01 = currentPage;
+    } else if (currentPage.type == 2) {
+      setSen('currentIndex02', currentPage);
+      state.currentIndex02 = currentPage;
+    } else if (currentPage.type == 3) {
+      setSen('currentIndex03', currentPage);
+      state.currentIndex03 = currentPage;
+    } else if (currentPage.type == 4) {
+      setSen('currentIndex04', currentPage);
+      state.currentIndex04 = currentPage;
+    } else if (currentPage.type == 5) {
+      setSen('currentIndex05', currentPage);
+      state.currentIndex05 = currentPage;
+    } else if (currentPage.type == 6) {
+      setSen('currentIndex06', currentPage);
+      state.currentIndex06 = currentPage;
+    } else if (currentPage.type == 7) {
+      setSen('currentIndex07', currentPage);
+      state.currentIndex07 = currentPage;
+    } else {
+      setSen('currentIndex', currentPage);
+      state.currentIndex = currentPage;
+    }
   },
   //菜单信息
   _menuList(state, menuList) {

@@ -14,7 +14,14 @@
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
                 <div v-for="(item1, index1) in label" v-bind:style="{width:item1.width+'%'}">
-                    <span v-if="item1.value == 'index'">{{(currentIndex.pageSize*(currentIndex.curPage-1))+(index+1)}}</span>
+                    <span v-if="item1.value == 'index'">
+                        <i v-if="type==3">
+                            {{(currentIndex03.pageSize*(currentIndex03.curPage-1))+(index+1)}}
+                        </i>
+                        <i v-else>
+                            {{(currentIndex.pageSize*(currentIndex.curPage-1))+(index+1)}}
+                        </i>
+                    </span>
                     <span v-else-if="item1.btn">
                         <a v-for="(subItem,index) in item1.btn" class="btn" v-on:click="goToNextPage(subItem.fn,item.id,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
@@ -39,9 +46,9 @@
                 receiveValue: {}
             };
         },
-        props: ['list', 'label', 'other', 'curPage'],
+        props: ['list', 'label', 'other', 'curPage', 'type'],
         computed: {
-            ...mapState(['currentIndex']),
+            ...mapState(['currentIndex', 'currentIndex03']),
             listShow() {
                 return this.list;
             }
@@ -125,8 +132,11 @@
     };
 </script>
 <style lang="less" scoped>
+    i {
+        font-style: normal;
+    }
     a.textShow {
-        cursor: pointer;
+        // cursor: pointer;
         display: block !important;
         width: 100% !important;
         overflow: hidden;

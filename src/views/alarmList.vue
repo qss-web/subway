@@ -132,7 +132,8 @@
                 equList01: [],
                 alarmVal: '', //预警状态
                 isReq: {},
-                ids: ''
+                ids: '',
+                isSerSub: true
             };
         },
         computed: {
@@ -180,12 +181,20 @@
             //改变当前页数
             changePages(val) {
                 this.currentPage = val;
-                this.getTimelyAlarmListFn(this.isReq, this.alarmVal);
+                if(this.isSerSub) {
+                    this.getTimelyAlarmListFn(this.isReq);
+                } else {
+                    this.getTimelyAlarmListFn(this.isReq, this.alarmVal);
+                }
             },
             //改变当前页数
             changePages01(val) {
                 this.currentPage01 = val;
-                this.getAlarmListHistoryFn(this.isReq, this.alarmVal);
+                if(this.isSerSub) {
+                    this.getAlarmListHistoryFn(this.isReq);
+                } else {
+                    this.getAlarmListHistoryFn(this.isReq, this.alarmVal);
+                }
             },
             monitorFn() {
                 this.$router.push('monitor');
@@ -265,7 +274,10 @@
                 });
             },
             tabShowFn(b) {
+                this.currentPage = 1;
+                this.currentPage01 = 1;
                 this.tabShow = b;
+                this.isSerSub = true;
                 //b==true  实时预警信息
                 //b==false 以往历史事件
                 if(b) {
@@ -277,6 +289,8 @@
             //获取筛选的值
             filterBtn(req) {
                 this.currentPage = 1;
+                this.currentPage01 = 1;
+                this.isSerSub = true;
                 this.isReq = req;
                 if(this.tabShow) {
                     this.getTimelyAlarmListFn(req);
@@ -303,6 +317,7 @@
                 this.currentPage = 1;
                 this.currentPage01 = 1;
                 this.alarmVal = val;
+                this.isSerSub = false;
                 if(this.tabShow) {
                     this.getTimelyAlarmListFn(this.isReq, val);
                 } else {
