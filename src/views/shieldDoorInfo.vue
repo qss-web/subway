@@ -541,20 +541,19 @@
                         'value': 'eventDesc'
                     }, {
                         'label': '当前状态',
-                        'width': 20,
+                        'width': 15,
                         'value': 'statusValue',
                         'status': 'status'
                     }],
                     list: [],
                     other: {
-                        style: 5,
-                        isSubShowColor: true
+                        style: 5
                     }
                 },
                 testTable: {
                     label: [{
                         'label': '序号',
-                        'width': 9,
+                        'width': 6,
                         'value': 'index'
                     }, {
                         'label': '设备名称',
@@ -587,17 +586,16 @@
                         'value': 'time'
                     }, {
                         'label': '预警原因',
-                        'width': 18,
+                        'width': 15,
                         'value': 'alarmCause'
                     }, {
                         'label': '检维修建议',
-                        'width': 18,
+                        'width': 15,
                         'value': 'repairAdvice'
                     }],
                     list: [],
                     other: {
-                        style: 5,
-                        isSubShowColor: true
+                        style: 5
                     }
                 },
                 sectionName: '',//部位名称
@@ -659,6 +657,8 @@
                 if(this.timeOut) {
                     clearTimeout(this.timeOut);
                 }
+                this.currentPage01 = 1;
+                this.currentPage02 = 1;
                 this.activeIndex = value;
                 if(value) {
                     this.sectionName = "";
@@ -738,9 +738,13 @@
                         this.totalPage02 = res.total;//总页数
                         this.pageNumber02 = res.records;//总条目数
 
-                        this.timeOut = setTimeout(() => {
-                            this.getPointStatusFn(this.sectionName);
-                        }, 3000);
+                        if(this.currentPage02 == 1) {
+                            this.timeOut = setTimeout(() => {
+                                this.getPointStatusFn(this.sectionName);
+                            }, 3000);
+                        } else if(this.timeOut) {
+                            clearTimeout(this.timeOut);
+                        }
                     }
                 });
             },
@@ -913,6 +917,7 @@
             left: 0.34rem;
             top: 0.12rem;
             padding-bottom: 0.04rem;
+            cursor: auto;
         }
         &-monitor {
             background: #373f5b;

@@ -5,7 +5,7 @@
         </div>
         <div class="tab">
             <ul class="title">
-                <li class="active">事件信息</li>
+                <li class="active">预警信息</li>
                 <dl v-if="itemObj.equuid" class="g-notice flex">
                     <dd class="error" v-on:click="statusFilter('1')">一级预警：{{equInfoCount[0]}}次</dd>
                     <dd class="warn" v-on:click="statusFilter('2')">二级预警：{{equInfoCount[1]}}次</dd>
@@ -89,8 +89,7 @@
                 },
                 otherInfo: {
                     isCheck: true, //是否显示多选框
-                    style: 2, // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
-                    specilShow: true
+                    style: 2 // 列表共有三种样式，1 搜索模块的样式, 2预警信息列表的样式，3其它,4站点列表,5站台门的列表
                 },
                 info1: [{
                     'label': '序号',

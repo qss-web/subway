@@ -38,5 +38,6 @@ export default {
   searchVal: getSen('searchVal') || '',
   isTimeOut: true,
   //checkMark: getSen('checkMark') || ''
-  checkMark: ''
+  checkMark: '',
+  isTimer: true
 };

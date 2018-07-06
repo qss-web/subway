@@ -1,5 +1,5 @@
 <template>
-    <div class="txt-center" v-on:click="goInfoFn">
+    <div v-bind:class="clickNext?'txt-center':''" v-on:click="goInfoFn">
         <v-chart v-bind:id="ringInfo.id" :option="option" :styleObject="styleObject"></v-chart>
     </div>
 </template>
@@ -7,6 +7,8 @@
 <script>
     export default {
         data() {
+            let _this = this;
+
             return {
                 styleObject: this.ringInfo.size,
                 option: {
@@ -37,7 +39,12 @@
                         }
                     },
                     tooltip: {
-                        enabled: false
+                        enabled: !!this.str,
+                        followPointer: true,
+                        borderColor: '#000000',
+                        formatter: function() {
+                            return _this.str;
+                        }
                     },
                     yAxis: {
                         lineWidth: 0,
@@ -82,10 +89,14 @@
                 }
             };
         },
-        props: ['ringInfo'],
+        props: ['ringInfo', 'clickNext', 'str'],
         methods: {
             goInfoFn() {
-                this.$router.push('commonDetail');
+                if(this.clickNext) {
+                    this.$router.push('commonDetail');
+                } else {
+                    return false;
+                }
             }
         }
     };

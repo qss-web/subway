@@ -28,9 +28,9 @@
                 <img v-if="indexed==5" src="../assets/search/sort05_orange.png" />
             </dd>
         </dl>
-        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list" v-on:receive="clickFn" v-bind:curPage="currentPage01"></v-search-list>
-        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="list" v-bind:curPage="currentPage02"></v-search-list>
-        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==3" v-on:receive="clickFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list" v-bind:curPage="currentPage03"></v-search-list>
+        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==1" v-bind:label="equLabel" v-bind:other="otherInfo1" v-bind:list="list" v-on:receive="clickFn" v-bind:curPage="currentPage01" v-bind:tabShow="indexed"></v-search-list>
+        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==2" v-bind:label="equLabe2" v-bind:other="otherInfo" v-bind:list="list" v-bind:curPage="currentPage02" v-bind:tabShow="indexed"></v-search-list>
+        <v-search-list class="minHeight" v-on:ids="getIdsFn" v-if="indexed==3" v-on:receive="clickFn" v-bind:label="equLabe3" v-bind:other="otherInfo2" v-bind:list="list" v-bind:curPage="currentPage03" v-bind:tabShow="indexed"></v-search-list>
         <div class="showPic" v-if="indexed==4">
             <img class="border-bg" src="../assets/other/footer-border.png" />
             <ul class="flex minHeight">
@@ -45,13 +45,13 @@
                 </li>
             </ul>
         </div>
-        <div class="others" v-if="indexed==5" style=" min-height: 5.3rem;">
-            <ul class="title">
+        <div class="others" v-if="indexed==5" style=" min-height: 4.9rem;">
+            <ul class="title" style=" padding-top: 0.14rem;">
                 <li v-on:click="otherFn(true)" v-bind:class="{active:subOther==true}">巡视巡检</li>
                 <li v-on:click="otherFn(false)" v-bind:class="{active:subOther==false}">故障库</li>
             </ul>
-            <v-search-list v-on:ids="getIdsFn" v-if="subOther " v-bind:label="equLabe5" v-bind:other="otherInfo" v-bind:list="list" v-bind:curPage="currentPage05"></v-search-list>
-            <v-search-list v-on:ids="getIdsFn" v-if="!subOther " v-bind:label="equLabe4" v-bind:other="otherInfo" v-bind:list="list" v-bind:curPage="currentPage06"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="subOther " v-bind:label="equLabe5" v-bind:other="otherInfo" v-bind:list="list" v-bind:curPage="currentPage05" v-bind:tabShow="subOther"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="!subOther " v-bind:label="equLabe4" v-bind:other="otherInfo" v-bind:list="list" v-bind:curPage="currentPage06" v-bind:tabShow="subOther"></v-search-list>
         </div>
         <div v-if="indexed == 1" class="pagination">
             <el-pagination :page-size=" pageSize01" @current-change="changePages01" :current-page="currentPage01" layout="prev, slot, next " :total="pageNumber01" prev-text="上一页 " next-text="下一页 ">
@@ -118,12 +118,12 @@
                 totalPage04: 1, //总页数
 
                 currentPage05: 1, //当前页数
-                pageSize05: 8, //每页显示数量
+                pageSize05: 7, //每页显示数量
                 pageNumber05: 0, //总条数
                 totalPage05: 1, //总页数
 
                 currentPage06: 1, //当前页数
-                pageSize06: 8, //每页显示数量
+                pageSize06: 7, //每页显示数量
                 pageNumber06: 0, //总条数
                 totalPage06: 1, //总页数
                 otherInfo: {
@@ -202,7 +202,8 @@
                 }, {
                     'label': '状态',
                     'width': 15,
-                    'value': 'statusValue'
+                    'value': 'statusValue',
+                    'status': 'status'
                 }],
                 equLabe3: [{
                     'label': '序号',
@@ -708,8 +709,8 @@
             padding-left: 1.8rem;
             li {
                 width: 2.22rem;
-                height: 0.39rem;
-                line-height: 0.39rem;
+                height: 0.49rem;
+                line-height: 0.49rem;
                 font-size: 0.2rem;
                 float: left;
                 text-align: center;

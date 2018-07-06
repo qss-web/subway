@@ -16,8 +16,8 @@
                     <dd class="g-orange" v-on:click="statusFilter('')">全部：{{equTotal}}次</dd>
                 </dl>
             </ul>
-            <v-search-list v-on:ids="getIdsFn" v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
-            <v-search-list v-on:ids="getIdsFn" v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList01" v-on:receive="btnFn" v-bind:curPage="currentPage01"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage" v-bind:tabShow="tabShow"></v-search-list>
+            <v-search-list v-on:ids="getIdsFn" v-if="!tabShow" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList01" v-on:receive="btnFn" v-bind:curPage="currentPage01" v-bind:tabShow="tabShow"></v-search-list>
             <div class=" pagination " v-if="tabShow">
                 <el-pagination :page-size=" pageSize " @current-change="changePages" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                     <span>{{currentPage}} / {{totalPage}}</span>
@@ -301,6 +301,7 @@
             //二级筛选
             statusFilter(val) {
                 this.currentPage = 1;
+                this.currentPage01 = 1;
                 this.alarmVal = val;
                 if(this.tabShow) {
                     this.getTimelyAlarmListFn(this.isReq, val);

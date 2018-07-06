@@ -78,41 +78,40 @@
                 alarmTable: {
                     label: [{
                         'label': '序号',
-                        'width': 10,
+                        'width': 8,
                         'value': 'index'
                     }, {
                         'label': '设备名称',
-                        'width': 20,
+                        'width': 15,
                         'value': 'equName'
                     }, {
                         'label': '时间',
-                        'width': 30,
+                        'width': 20,
                         'value': 'time'
                     }, {
                         'label': '事件描述',
-                        'width': 25,
+                        'width': 30,
                         'value': 'eventDesc'
                     }, {
                         'label': '当前状态',
-                        'width': 15,
+                        'width': 12,
                         'value': 'statusValue',
                         'status': 'status'
                     }, {
                         'label': '操作',
-                        'width': 25,
+                        'width': 15,
                         'btn': [{ 'workOrder': true, 'name': '工单', 'fn': 'goToOrderFn' }, { 'more': true, 'name': '更多事件', 'fn': 'goToMoreFn' }]
                     }],
                     list: [],
                     other: {
                         style: 5,
-                        isSubShowColor: true,
                         btnCss: true
                     }
                 },
                 testTable: {
                     label: [{
                         'label': '序号',
-                        'width': 9,
+                        'width': 6,
                         'value': 'index'
                     }, {
                         'label': '设备名称',
@@ -145,17 +144,16 @@
                         'value': 'time'
                     }, {
                         'label': '预警原因',
-                        'width': 18,
+                        'width': 15,
                         'value': 'alarmCause'
                     }, {
                         'label': '检维修建议',
-                        'width': 18,
+                        'width': 15,
                         'value': 'repairAdvice'
                     }],
                     list: [],
                     other: {
                         style: 5,
-                        isSubShowColor: true,
                         btnCss: true
                     }
                 },
@@ -205,7 +203,7 @@
                 //扶梯和站台门的信息 type==2站台门   type==3 扶梯
                 stationInfo: [{
                     type: 2,
-                    deviceUuid: '7b93ec3c0975ad43bbb431dba268123d',
+                    deviceUuid: 'e7dd65ed8903850c7319ae7d0fdd220e',
                     deviceId: '602',
                     x: '2.9',
                     y: '4.82',
@@ -213,7 +211,7 @@
                     name: 'PGYPBM501'
                 }, {
                     type: 2,
-                    deviceUuid: '7b93ec3c0975ad43bbb431dba268123d',
+                    deviceUuid: 'e7dd65ed8903850c7319ae7d0fdd220e',
                     deviceId: '602',
                     x: '5.5',
                     y: '3.2',
@@ -221,7 +219,7 @@
                     name: 'PGYPBM501'
                 }, {
                     type: 3,
-                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
                     deviceId: '1030',
                     x: '5.8',
                     y: '2.53',
@@ -229,7 +227,7 @@
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
                     deviceId: '1030',
                     x: '4.8',
                     y: '2.2',
@@ -237,7 +235,7 @@
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
                     deviceId: '1030',
                     x: '4.2',
                     y: '1.8',
@@ -245,7 +243,7 @@
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
                     deviceId: '1030',
                     x: '2.2',
                     y: '3',
@@ -253,7 +251,7 @@
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
                     deviceId: '1030',
                     x: '7.3',
                     y: '1.5',
@@ -261,7 +259,7 @@
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
                     deviceId: '1030',
                     x: '8.2',
                     y: '1.7',
@@ -269,7 +267,7 @@
                     name: 'PGY501自动扶梯'
                 }, {
                     type: 3,
-                    deviceUuid: '89bde63589b192509119881cd6e962d5',
+                    deviceUuid: '9d19a99c725cab8f782e9fe3f0e0a7e5',
                     deviceId: '1030',
                     x: '6.6',
                     y: '1',
@@ -279,25 +277,25 @@
                 //风机的信息 type==1风机
                 fanInfo: [{
                     type: 1,
-                    deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
+                    deviceUuid: 'a842c1ffe959ce6ab2e2780762569741',
                     deviceId: '603',
                     status: "",
                     name: 'PGYFJ601'
                 }, {
                     type: 1,
-                    deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
+                    deviceUuid: 'a842c1ffe959ce6ab2e2780762569741',
                     deviceId: '603',
                     status: "",
                     name: 'PGYFJ601'
                 }, {
                     type: 1,
-                    deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
+                    deviceUuid: 'a842c1ffe959ce6ab2e2780762569741',
                     deviceId: '603',
                     status: "",
                     name: 'PGYFJ601'
                 }, {
                     type: 1,
-                    deviceUuid: '34301c3bb7aa27c16ead4841a2f11512',
+                    deviceUuid: 'a842c1ffe959ce6ab2e2780762569741',
                     deviceId: '603',
                     status: "",
                     name: 'PGYFJ601'
@@ -363,6 +361,8 @@
                 if(this.timeOut) {
                     clearTimeout(this.timeOut);
                 }
+                this.currentPage01 = 1;
+                this.currentPage02 = 1;
                 this.activeIndex = value;
                 if(value) {
                     this.getPointStatusFn();
@@ -415,6 +415,7 @@
             },
             //二级筛选
             statusFilter(val) {
+                this.currentPage02 = 1;
                 if(this.timeOut) {
                     clearTimeout(this.timeOut);
                 }
@@ -452,10 +453,13 @@
                         this.totalPage02 = res.total;//总页数
                         this.pageNumber02 = res.records;//总条目数
 
-                        this.timeOut = setTimeout(() => {
-                            this.getPointStatusFn(this.alarmVal);
-                        }, 3000);
-
+                        if(this.currentPage02 == 1) {
+                            this.timeOut = setTimeout(() => {
+                                this.getPointStatusFn(this.alarmVal);
+                            }, 3000);
+                        } else if(this.timeOut) {
+                            clearTimeout(this.timeOut);
+                        }
                     }
                 });
             },
@@ -537,6 +541,7 @@
             left: 0.34rem;
             top: 0.12rem;
             padding-bottom: 0.04rem;
+            cursor: auto;
         }
         &-body {
             width: 8.24rem;

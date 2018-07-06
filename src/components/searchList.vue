@@ -1,44 +1,28 @@
 <template>
     <div v-bind:class="'g-table-' + other.style">
+        <!--title-->
         <ul class="title">
             <li style="width: 4%; cursor: pointer" v-if="other.isCheck" v-on:click="checkAllFn">
                 <img v-if="!isAllCkeck" src="../assets/search/check.png" />
-                <img v-if="isAllCkeck" src="../assets/search/checked.png" />
+                <img v-else src="../assets/search/checked.png" />
             </li>
             <li v-for="(item, index) in label" v-bind:style="{width:item.width+'%'}">{{item.label}}</li>
         </ul>
-        <dl class="content" v-if="other.isSubShowColor">
+        <!--content-->
+
+        <dl class="content">
             <dd v-for="(item, index) in listShow">
                 <span style="width: 4%!important; cursor: pointer" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
                     <img v-if="!item.isCheck" src="../assets/search/check.png"/>
                     <img v-if="item.isCheck" src="../assets/search/checked.png"/>
                 </span>
                 <div v-for="(item1, index1) in label" v-bind:style="{width:item1.width+'%'}">
-                    <span v-if="item1.value == 'index'" v-on:click="goToNextPage(other.goToNextFn,item)">
+                    <span v-if="item1.value == 'index'" v-bind:style="other.goToNextFn?'cursor: pointer':''" v-on:click="goToNextPageLine(other.goToNextFn,item)">
                         {{(currentIndex.pageSize*(currentIndex.curPage-1))+(index+1)}}
                     </span>
+                    <!-- btnCss 判断按钮的样式，现在有两种按钮的样式 -->
                     <span v-else-if="item1.btn" v-bind:class="other.btnCss?'btnCss':'btn'">
-                        <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
-                    </span>
-                    <span v-else v-bind:class="item1.status == 'status' ?listStatus[item.status-1]:''" v-on:click="goToNextPage(other.goToNextFn,item)">
-                        <a class="textShow">{{item[item1.value]}}</a>
-                        <i class="hoverShow">{{item[item1.value]}}</i>
-                    </span>
-                </div>
-            </dd>
-        </dl>
-        <dl class="content" v-else>
-            <dd v-for="(item, index) in listShow" v-bind:class="{activeHand:other.isClick == true}">
-                <span style="width: 4%!important; cursor: pointer" v-if="other.isCheck" v-on:click="singleCheckFn(index)">
-                    <img v-if="!item.isCheck" src="../assets/search/check.png"/>
-                    <img v-if="item.isCheck" src="../assets/search/checked.png"/>
-                </span>
-                <div v-for="(item1, index1) in label" v-bind:style="{width:item1.width+'%'}">
-                    <span v-if="item1.value == 'index'" v-on:click="goToNextPage(other.goToNextFn,item)">
-                        {{(currentIndex.pageSize*(currentIndex.curPage-1))+(index+1)}}
-                    </span>
-                    <span v-else-if="item1.btn" class="btn">
-                        <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPage(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
+                        <a v-for="(subItem,index) in item1.btn" v-on:click="goToNextPageBtn(subItem.fn,item)" href="javascript:;">{{subItem.name}}</a>
                     </span>
                     <span class="picShow" v-else-if="item1.showPic">
                         <span>
@@ -47,41 +31,24 @@
                             <i class="hoverShow" v-else>暂无图片</i>
                         </span>
                     </span>
-                    <div v-else>
-                        <span v-if="other.specilShow">
-                            <a  v-if="item1.status&&item1.status=='status'" class="textShow">
-                                {{item[item1.value]}}
-                                <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
-                            </a>
-                            <a  v-else class="textShow">
-                                {{item[item1.value]}}
-                                <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
-                            </a>
-                            <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
+                    <span v-else v-on:click="goToNextPageLine(other.goToNextFn,item)">
+                        <a v-if="item1.status&&item1.status=='status'" class="textShow" v-bind:style="other.goToNextFn?'cursor: pointer':''"  v-bind:class="item.status?listStatus[item.status-1] :''" >
+                            {{item[item1.value]}}
+                            <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
+                        </a>
+                        <a v-else class="textShow" v-bind:style="other.goToNextFn?'cursor: pointer':''">
+                            {{item[item1.value]}}
+                            <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
+                        </a>
+                        <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
 
-                            <ul class="hoverShow" v-if="item1.isShowRed && item.type==1" style="left: -1.6rem; width: 5.1rem;">
-                                <li v-for="(itemList,index) in item.gzlist">{{itemList}}</li>
-                            </ul>
-                        </span>
-                        <span v-else v-on:click="goToNextPage(other.goToNextFn,item)">
-                            <a v-if="item1.status&&item1.status=='status'" class="textShow" v-bind:class="item.status?listStatus[item.status-1] :''" >
-                                {{item[item1.value]}}
-                                <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
-                            </a>
-                            <a v-else class="textShow">
-                                {{item[item1.value]}}
-                                <i class="redDot" v-if="item1.isShowRed && item.type==1"></i>
-                            </a>
-                            <i class="hoverShow" v-if="!item1.isShowRed">{{item[item1.value]}}</i>
-
-                            <ul class="hoverShow" v-if="item1.isShowRed && item.type==1" style="left: -1.6rem; width: 4.2rem;">
-                                <li class="specialBox" v-for="(itemList,index) in item.gzlist">
-                                    <i class="row" v-if="itemList.type == 'fault'">故障单：{{itemList.name}}， <a href="javascript:;" v-on:click.stop="showSheetFn(itemList)">单号：{{itemList.status}}</a><i class="time">时间:{{itemList.time}}</i></i>
-                                    <i class="row" v-if="itemList.type == 'inspect'">巡视巡检：{{itemList.name}}状态：{{itemList.status}}<i class="time">时间:{{itemList.time}}</i></i>
-                                </li>
-                            </ul>
-                        </span>
-                    </div>
+                        <ul class="hoverShow" v-if="item1.isShowRed && item.type==1" style="left: -1.6rem; width: 4.2rem;">
+                            <li class="specialBox" v-for="(itemList,index) in item.gzlist">
+                                <i class="row" v-if="itemList.type == 'fault'">故障单：{{itemList.name}}， <a href="javascript:;" v-on:click.stop="showSheetFn(itemList)">单号：{{itemList.status}}</a><i class="time">时间:{{itemList.time}}</i></i>
+                                <i class="row" v-if="itemList.type == 'inspect'">巡视巡检：{{itemList.name}}状态：{{itemList.status}}<i class="time">时间:{{itemList.time}}</i></i>
+                            </li>
+                        </ul>
+                    </span>
                 </div>
             </dd>
         </dl>
@@ -100,7 +67,7 @@
                 listStatus: ['error', 'warn', 'normal', 'stop', 'offline']
             };
         },
-        props: ['list', 'label', 'other', 'curPage'],
+        props: ['list', 'label', 'other', 'curPage', 'tabShow'],
         computed: {
             ...mapState(['currentIndex']),
             listShow() {
@@ -117,9 +84,14 @@
             },
             curPage() {
                 this.numLength = 0;
+            },
+            //有选项卡的时候判断，切换选项卡，全选的值不选中
+            tabShow() {
+                this.numLength = 0;
             }
         },
         created() {
+
         },
         methods: {
             ...mapMutations(['_itemObj', '_test', '_setCheckMark']),
@@ -196,9 +168,17 @@
                 }
                 this.$emit('ids', this.checkedValue);
             },
-            goToNextPage(fn, item) {
+            //按钮点击
+            goToNextPageBtn(fn, item) {
                 this._itemObj(item);
                 this.$emit('receive', fn);
+            },
+            //整行点击
+            goToNextPageLine(fn, item) {
+                if(fn) {
+                    this._itemObj(item);
+                    this.$emit('receive', fn);
+                }
             },
             showSheetFn(item) {
                 this._itemObj(item);
@@ -209,7 +189,7 @@
 </script>
 <style lang="less" scoped>
     .textShow {
-        cursor: pointer;
+        cursor: default;
         display: block !important;
         width: 100% !important;
         overflow: hidden;
@@ -260,7 +240,6 @@
         display: block;
         width: 100% !important;
         position: relative;
-        cursor: pointer;
 
         i.hoverShow {
             display: none;
@@ -349,9 +328,6 @@
         a:last-child {
             margin-right: 0;
         }
-    }
-    .activeHand {
-        cursor: pointer;
     }
     .g-table-1 {
         width: 100%;

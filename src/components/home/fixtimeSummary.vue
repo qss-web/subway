@@ -3,7 +3,11 @@
         <img class="light1" src="~assets/home/img_light_color.png" />
         <img class="light2" src="~assets/home/img_light_color2.png" />
         <div class="charts flex">
-            <v-monthly-reliability v-if="ringInfo.value" v-bind:ringInfo="ringInfo"></v-monthly-reliability>
+            <v-monthly-reliability v-if="ringInfo.value" v-bind:ringInfo="ringInfo" v-bind:clickNext="true" :str="str3"></v-monthly-reliability>
+            <ul class="ifValueZ" v-else>
+                <li>0%</li>
+                <li>月可靠度</li>
+            </ul>
             <!-- <v-health-indicators v-if="max1" id="dailyFixingTime" title="平均每日修复时间" :percent="current1"></v-health-indicators> -->
             <v-fixing-time id="dailyFixingTime" v-if="max1" title="平均每日修复时间" :max="max1" :current="current1" :bg="bg1" :curBg="curBg1" :str="str1"></v-fixing-time>
             <v-fixing-time id="fixOuttime" v-if="max2" title="报修超时率" :max="max2" :current="current2" :bg="bg2" :curBg="curBg2" :str="str2"></v-fixing-time>
@@ -25,6 +29,7 @@
                 curBg2: '#32f4fb',
                 str1: '',
                 str2: '',
+                str3: '',
                 totalData: {},
                 ringInfo: {
                     showInfo: {
@@ -62,6 +67,7 @@
                         if(this.totalData.monthlyOnReliability < 99.93) {
                             this.ringInfo.showInfo.color = "#d22323";
                         }
+                        this.str3 = "可靠度<br/>当前值为：<b>" + this.totalData.monthlyOnReliability + "</b><br/>考核目标：<b>99.93%</b>";
                         //平均每日修复时间
                         this.max1 = res.averageDailyRepairTime.max;
                         this.current1 = res.averageDailyRepairTime.current;
@@ -70,9 +76,9 @@
                             this.max1 = res.averageDailyRepairTime.current;
                             this.bg1 = '#d22323';
                             this.curBg1 = "#f45b5b";
-                            this.str1 = '<b>平均每日修复时间</b><br/>临界值为：<b>' + this.current1 + '</b><br/>当前值为：<b>' + this.max1 + '</b> 超过临界值！';
+                            this.str1 = '<b>平均每日修复时间</b><br/>当前值为：<b>' + this.max1 + '</b><br/>考核目标：不超过<b>' + this.current1 + '</b>小时';
                         } else {
-                            this.str1 = '<b>平均每日修复时间</b><br/>临界值为：<b>' + this.max1 + '</b><br/>当前值为:<b>' + this.current1 + '</b>';
+                            this.str1 = '<b>平均每日修复时间</b><br/>当前值为：<b>' + this.current1 + '</b><br/>考核目标：不超过<b>' + this.max1 + '</b>小时';
                         }
                         //报修超时率
                         this.max2 = res.repairTimeoutRate.max;
@@ -82,9 +88,9 @@
                             this.max2 = res.repairTimeoutRate.current;
                             this.bg2 = '#d22323';
                             this.curBg2 = "#f45b5b";
-                            this.str2 = '<b>平均每日修复时间</b><br/>临界值为：<b>' + this.current2 + '</b><br/>当前值为：<b>' + this.max2 + '</b> 超过临界值！';
+                            this.str2 = '<b>报修超时率</b><br/>当前值为：<b>' + this.max2 + '</b><br/>考核目标：不超过<b>' + this.current2 + '</b>次每百次';
                         } else {
-                            this.str2 = '<b>平均每日修复时间</b><br/>临界值为：<b>' + this.max2 + '</b><br/>当前值为:<b>' + this.current2 + '</b>';
+                            this.str2 = '<b>报修超时率</b><br/>当前值为：<b>' + this.current2 + '</b><br/>考核目标：不超过<b>' + this.max2 + '</b>次每百次';
                         }
                     }
                 });
@@ -122,6 +128,16 @@
             justify-content: space-around;
             padding-bottom: 0.3rem;
             padding-right: 0.2rem;
+        }
+    }
+    .ifValueZ {
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        li:first-child {
+            height: 2.8rem;
+            line-height: 2.8rem;
+            font-size: 0.24rem;
         }
     }
 </style>

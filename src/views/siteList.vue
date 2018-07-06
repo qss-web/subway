@@ -18,7 +18,7 @@
                 </ul>
                 <v-search-list v-on:ids="getIdsFn" v-bind:other="otherInfo" v-bind:label="info1" v-bind:list="equList" v-on:receive="btnFn" v-bind:curPage="currentPage"></v-search-list>
                 <div class=" pagination ">
-                    <el-pagination :page-size=" pageSize " @current-change="changePages " :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
+                    <el-pagination :page-size=" pageSize " @prev-click="prevFn" @next-click="nextFn" :current-page="currentPage" layout="prev, slot, next " :total="pageNumber" prev-text="上一页 " next-text="下一页 ">
                         <span>{{currentPage}}/{{totalPage}}</span>
                     </el-pagination>
                 </div>
@@ -132,11 +132,17 @@
                 isReq: {},
                 alarmVal: '',//预警状态
                 ids: '',
-                checkNewArr: []
+                checkNewArr: [],
+                isClick: true
             };
         },
         computed: {
             ...mapState(['itemObj', 'checkMark'])
+        },
+        watch: {
+            equList() {
+                this.isClick = true;
+            }
         },
         created() {
             if(window.timeOut) {
@@ -179,11 +185,27 @@
             currentList(index) {
                 this.indexed = index;
             },
-            //改变当前页数
-            changePages(val) {
-                this._setCheckMark('');
-                this.currentPage = val;
-                this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+            // //改变当前页数
+            // changePages(val) {
+            //     this._setCheckMark('');
+            //     this.currentPage = val;
+            //     this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+            // },
+            prevFn() {
+                if(this.isClick) {
+                    this.isClick = false;
+                    this._setCheckMark('');
+                    this.currentPage = this.currentPage - 1;
+                    this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                }
+            },
+            nextFn() {
+                if(this.isClick) {
+                    this.isClick = false;
+                    this._setCheckMark('');
+                    this.currentPage = this.currentPage + 1;
+                    this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                }
             },
             //子组件按钮
             btnFn(val) {
@@ -243,9 +265,14 @@
                         this.equList = res.rows;
                         this.totalPage = res.total;
                         this.pageNumber = res.records;
-                        window.timeOut = setTimeout(() => {
-                            this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
-                        }, 2000);
+                        this.currentPage = res.page;
+                        if(this.currentPage == 1) {
+                            window.timeOut = setTimeout(() => {
+                                this.getPointTimelyStatusFn(this.isReq, this.alarmVal);
+                            }, 5000);
+                        } else if(window.timeOut) {
+                            clearTimeout(window.timeOut);
+                        }
                     }
                 });
             },
