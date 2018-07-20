@@ -168,9 +168,9 @@
                     ops: req,
                     api: 'equRunTimeUpdate',
                     callback: () => {
-                        this.$message.success('新增成功！');
+                        this.$message.success('修改成功！');
                         this.isShowPop = false;
-                        this.getEquRunTimeListFn();
+                        this.getEquRunTimeListFn(this.isReq);
                     }
                 });
             },
