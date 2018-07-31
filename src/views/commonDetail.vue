@@ -262,7 +262,7 @@
                             align: 'center', //标签居中对齐
                             y: 5,
                             formatter: function() {
-                                return this.value + '%';
+                                return this.value;
                             }
                         },
                         lineColor: '#7281a3',
